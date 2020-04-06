@@ -6,13 +6,12 @@
 	</settings>
 	
 	<typeAliases>
-		<!-- <typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board"/>
-		<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
+		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.Book" alias="Book"/>
+		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook" alias="AudioBook"/>
+		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage" alias="BookImage"/>
 	</typeAliases>
 	
 	<mappers>
-		<!-- <mapper resource="mapper/member-mapper.xml"/>
-		<mapper resource="mapper/board-mapper.xml"/> -->
+		<mapper resource="mapper/audioBook-Mapper.xml"/>
 	</mappers>
 </configuration>

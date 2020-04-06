@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="audioBookMapper">
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from book
+		where bk_status='Y'
+	</select>
+	
+	<select id="selectbList" resultMap="bookResultSet">
+		select *
+		from book
+		where bk_status='Y'
+		order by bk_code desc
+	</select>
+	<resultMap type="Book" id="bookResultSet">
+		<id property="bkCode" column="BK_CODE"/>
+		<result property="bkName" column="BK_NAME"/>
+		<result property="bkWriter" column="BK_WRITER"/>
+		<result property="bkDraw" column="BK_DRAW"/>
+		<result property="bkPublisher" column="BK_PUBLISHER"/>
+		<result property="bkPage" column="BK_PAGE"/>
+		<result property="bkIntro" column="BK_INTRO"/>
+		<result property="bkPubdate" column="BK_PUBDATE"/>
+		<result property="bkPrice" column="BK_PRICE"/>
+		<result property="bkStatus" column="BK_STATUS"/>
+	</resultMap>
+	
+	<select id="selectbiList" resultMap="bookImageResultSet">
+		select *
+		from book_image
+		where bi_status='Y'
+		order by bk_code desc
+	</select>
+	<resultMap type="BookImage" id="bookImageResultSet">
+		<id property="biNo" column="BI_NO"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="biPath" column="BI_PATH"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="biStatus" column="BI_STATUS"/>
+		<result property="bkCode" column="BK_CODE"/>
+	</resultMap>
+</mapper>
