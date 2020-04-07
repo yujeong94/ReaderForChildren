@@ -21,25 +21,30 @@
 <div class="outer">
 	<jsp:include page="common/menubar.jsp"/>
 	<div class="home_contents">
-		<form class="home_login">
-			<table>
-			<tr>
-				<th>ID</th>
-				<td><input type="text" id="inputId"></td>
-			</tr>
-			<tr>
-				<th>Password</th>
-				<td><input type="password" id="inputPwd"></td>
-			</tr>
-			</table>
-			<div class="btnBox">
-				<button type="submit" class="defaultBtn" id="joinBtn">Join</button>
-				<button type="submit" class="defaultBtn" id="loginBtn">Login</button>
-				<br clear="both">
-				<span id="findPwd">Find Password</span>
-				<span id="findId">Find ID</span>
-			</div>
-		</form>
+		<c:if test="${ empty sessionScope.loginUser }">	
+			<form class="home_login">
+				<table>
+				<tr>
+					<th>ID</th>
+					<td><input type="text" id="inputId"></td>
+				</tr>
+				<tr>
+					<th>Password</th>
+					<td><input type="password" id="inputPwd"></td>
+				</tr>
+				</table>
+				<div class="btnBox">
+					<button type="submit" class="defaultBtn" id="joinBtn">Join</button>
+					<button type="submit" class="defaultBtn" id="loginBtn">Login</button>
+					<br clear="both">
+					<span id="findPwd">Find Password</span>
+					<span id="findId">Find ID</span>
+				</div>
+			</form>
+		</c:if>
+		<c:if test="${ !empty sessionScope.loginUser }">
+			<c:out value="${ loginUser.name }님 환영합니다."/>
+		</c:if>
 	</div>
 	<jsp:include page="common/footer.jsp"/>
 </div>
