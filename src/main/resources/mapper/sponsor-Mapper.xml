@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sponsorMapper">
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from sponsor
+		where sp_code=#{spCode}
+	</select>
+	
+	<select id="selectspList" resultMap="sponsorResultSet">
+		select *
+		from sponsor
+		order by sp_code desc
+	</select>
+	<resultMap type="Sponsor" id="sponsorResultSet">
+		<id property="spCode" column="SP_CODE"/>
+		<result property="spName" column="SP_NAME"/>
+		<result property="spIntro" column="SP_INTRO"/>
+		<result property="spAddress" column="SP_ADDRESS"/>
+		<result property="spPhone" column="SP_PHONE"/>
+		
+	</resultMap>
+	
+	
+	
+</mapper>
