@@ -159,35 +159,42 @@ table > tbody > tr > td {
 				<table class="tableBIG">
 					<tr>
 						<td class="firstTD">아이디</td>
-						<td class="secondTD">user01</td>
+						<td class="secondTD">${ member.userId }</td>
 						<td class="firstTD">회원 분류</td>
-						<td class="secondTD">리더</td>
+						<td class="secondTD">
+							<c:if test="${ member.division == 1 }">
+								일반회원
+							</c:if>
+							<c:if test="${ member.division == 2 }">
+								리더
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<td class="firstTD">이름</td>
-						<td class="secondTD">홍길동</td>
+						<td class="secondTD">${ member.userName }</td>
 						<td class="firstTD">성별</td>
-						<td class="secondTD">남자</td>
+						<td class="secondTD">${ member.gender }</td>
 					</tr>
 					<tr>
 						<td class="firstTD">전화번호</td>
-						<td class="secondTD">010-1111-2222</td>
+						<td class="secondTD">${ member.phone }</td>
 						<td class="firstTD">생년월일</td>
-						<td class="secondTD">970828</td>
+						<td class="secondTD">${ member.birth }</td>
 					</tr>
 					<tr>
 						<td class="firstTD">이메일</td>
-						<td class="thirdTD" colspan="3">hong123@naver.com</td>
+						<td class="thirdTD" colspan="3">${ member.email }</td>
 					</tr>
 					<tr>
 						<td class="firstTD">주소</td>
-						<td class="thirdTD" colspan="3">서울특별시 강남구 역삼동 남도빌딩 KH정보교육원 3층 G강의실</td>
+						<td class="thirdTD" colspan="3">(${ member.postalCode }) ${ member.bAddress } ${member.lAddress }</td>
 					</tr>
 					<tr>
 						<td class="firstTD">포인트</td>
 						<td class="secondTD">500 point</td>
 						<td class="firstTD">후원 금액</td>
-						<td class="secondTD">150,000 원</td>
+						<td class="secondTD">${ member.donation } 원</td>
 					</tr>
 				</table>
 				<div class="readerTableDiv">
@@ -195,7 +202,7 @@ table > tbody > tr > td {
 						<thead>
 						<tr id="listTitle">
 							<th class="NOtd fixedHeader">No</th>
-							<th class="IDtd fixedHeader">녹음 책 제목</th>
+							<th class="IDtd fixedHeader">오디오 북 코드</th>
 							<th class="DATEtd fixedHeader">날짜</th>
 							<th class="STATUStd fixedHeader">수익</th>
 						</tr>
@@ -239,16 +246,6 @@ table > tbody > tr > td {
 	</div>
 	
 	<%@ include file="../common/footer.jsp" %>
-	
-	<!-- <script>
-		$(function(){
-			$('.listTable td').mouseover(function(){
-				$(this).parent().css({'cursor':'pointer', 'font-weight':'bold'});
-			}).mouseout(function(){
-				$(this).parent().css({'font-weight':'normal'});
-			});
-		});
-	</script> -->
 	
 </body>
 </html>
