@@ -55,12 +55,12 @@
       </div>
       
       <c:url var="ablist" value="ablist.ab"/>
-      <c:url var="blist" value="blist.hu"/>
+      <c:url var="splist" value="splist.sp"/>
       
       <div id="menuShow" class="menulist">
 			<a href="#" class="closeBtn" onclick="closeMenu();">X</a>
 			<a href="${ ablist }">오디오북 shop</a>
-			<a href="${ blist }">아동 후원</a>
+			<a href="${ splist }">아동 후원</a>
 			<a href="#">봉사 일정</a>
 			<a href="${ contextPath }/views/audition_yj/auditionList.jsp">Reader 오디션 지원</a>
 			<a href="#">녹음부스 예약</a>
