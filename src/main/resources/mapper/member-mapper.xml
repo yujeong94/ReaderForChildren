@@ -5,7 +5,7 @@
 	<select id="selectOne" resultMap="MemberResultSet">
 		select *
 		from member
-		where userId = #{user_id} and status = 'Y'
+		where user_id = #{userId} and user_pwd = #{userPwd} and status = 'Y'
 	</select>
 
 	<resultMap type="Member" id="MemberResultSet">
@@ -24,7 +24,11 @@
       <result property="division" column="division"/>
       <result property="status" column="status"/>
     </resultMap>
-
-
+	
+	<select id="idCheck" resultType="_int">
+		select count(*)
+		from member
+		where user_id = #{userId} and status = 'Y'
+	</select>
 
 </mapper>

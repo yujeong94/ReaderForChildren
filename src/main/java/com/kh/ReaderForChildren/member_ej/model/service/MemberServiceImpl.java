@@ -17,10 +17,14 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSessionTemplate sqlSession;
 	
 	
-	
 	@Override
 	public Member memberLogin(Member m) {
 		return mDAO.selectMember(sqlSession, m);
+	}
+
+	@Override
+	public int checkId(String userId) {
+		return mDAO.idCheck(sqlSession,userId);
 	}
 
 }
