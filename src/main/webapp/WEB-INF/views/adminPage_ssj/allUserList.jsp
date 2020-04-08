@@ -178,13 +178,20 @@ table > tbody > tr > td {
 					</tr>
 					</thead>
 					<tbody>
-					<c:forEach begin="1" end="30" step="1" var="i">
+					<c:if test="${ !empty list }">
+						<c:forEach var="u" items="${ list }" varStatus="s">
+							<tr>
+								<td class="NOtd" id="bNo">${ s.count }</td>
+								<td class="IDtd">${ u.userId }</td>
+								<td class="NAMEtd">${ u.userName }</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${ empty list }">
 						<tr>
-							<td class="NOtd"><c:out value="${ i }"/></td>
-							<td class="IDtd">user<c:out value="${ i }"/></td>
-							<td class="NAMEtd">홍길동</td>
+							<td colspan="3">검색 결과가 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -200,8 +207,20 @@ table > tbody > tr > td {
 				$(this).parent().css({'color':'#0FB07A', 'cursor':'pointer', 'font-weight':'bold'});
 			}).mouseout(function(){
 				$(this).parent().css({'color':'black','font-weight':'normal'});
+			}).click(function(){
+				var userId = $(this).children('td').eq(1).text();
+				
+				location.href="userInfo.ad?userId="+userId;
 			});
 		});
+		
+		$('.searchBtn').click(function(){
+			$(this).css('background','green');
+			var searchUserId = $('.searchInput').val().trim();
+			
+			location.href="userSearch.ad?userId="+searchUserId;
+		});
+		
 	</script>
 	
 </body>

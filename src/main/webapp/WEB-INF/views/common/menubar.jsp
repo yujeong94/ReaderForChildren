@@ -64,7 +64,7 @@
 			<a href="#">봉사 일정</a>
 			<a href="${ contextPath }/views/audition_yj/auditionList.jsp">Reader 오디션 지원</a>
 			<a href="#">녹음부스 예약</a>
-			<a href="#">진행 중인 이벤트</a>
+			<a href="${ contextPath }/eventList.ev">진행 중인 이벤트</a>
 			<a href="#">공지사항</a>
 			<a href="#">Q&A</a>
 		</div>

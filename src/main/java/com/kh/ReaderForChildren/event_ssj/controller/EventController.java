@@ -18,5 +18,10 @@ public class EventController {
 		return "eventInsert";
 	}
 	
+	// list로 이동!
+	@RequestMapping("eventList.ev")
+	public String eventListView() {
+		return "eventList";
+	}
 	
 }
