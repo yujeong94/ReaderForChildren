@@ -42,4 +42,31 @@
 		<result property="biStatus" column="BI_STATUS"/>
 		<result property="bkCode" column="BK_CODE"/>
 	</resultMap>
+	
+	<select id="selectBook" parameterType="_int" resultMap="bookResultSet">
+		select *
+		from book
+		where bk_status='Y' and bk_code=#{bkCode}
+	</select>
+	
+	<select id="selectAudioBook" parameterType="_int" resultMap="audioBookResultSet">
+		select *
+		from audio_book
+		where aud_status='Y' and bk_code=#{bkCode}
+	</select>
+	<resultMap type="AudioBook" id="audioBookResultSet">
+		<id property="audCode" column="AUD_CODE"/>
+		<result property="audDate" column="AUD_DATE"/>
+		<result property="audPrice" column="AUD_PRICE"/>
+		<result property="rdIntro" column="RD_INTRO"/>
+		<result property="audStatus" column="AUD_STATUS"/>
+		<result property="bkCode" column="BK_CODE"/>
+		<result property="rdName" column="RD_NAME"/>
+	</resultMap>
+	
+	<select id="selectBookImage" parameterType="_int" resultMap="bookImageResultSet">
+		select *
+		from book_image
+		where bi_status='Y' and bk_code=#{bkCode}
+	</select>
 </mapper>

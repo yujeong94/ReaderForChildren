@@ -9,17 +9,19 @@
 <script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <title>audioBookList</title>
 <style type="text/css">
-	.btnArea{margin: 0 auto; width: 800px; height: 50px;}
+	.btnArea{margin: 0 auto; width: 870px; height: 50px;}
 	#uploadBtn{float: right; background: rgb(231, 76, 60); color: white;
 			border: none; width: 100px; height: 40px; border-radius: 5px;
-			font-weight: bold; font-size: 17.5px; margin: 0 5px 20px 5px;}
-	.search{text-align: center; margin-bottom: 50px;}
+			font-weight: bold; font-size: 17.5px; margin: 0 5px 20px 5px; cursor: pointer;}
+	.search{text-align: center; margin-bottom: 80px;}
 	.selectbox{width: 80px; height: 32px; border-radius: 5px; margin-right: 10px;}
+	.frame{text-align: center;}
 	.searchline{border: 0; border-bottom: 2px solid darkgray; outline: none; width: 500px; height: 20px;}
-	.product{width: 300px; display: inline-block; margin: 10px; align: center; border: 1px solid gray;}
+	.product{width: 300px; display: inline-block; margin: 10px 10px 40px 10px; align: center; border: 1px solid gray;}
 	.bookImg{margin-bottom: 10px;}
 	.text1{font-weight: bold; font-size: 18px; margin-bottom: 10px;}
 	.text2{color: gray; margin-bottom: 10px;}
+	.frame{margin-bottom: 30px; height: 1080px;}
 </style>
 </head>
 <body>
@@ -30,7 +32,7 @@
 			<div id="title"><h1>오디오북</h1></div>
 			
 			<div class="btnArea">
-				<button id="uploadBtn" onclick="uploadProduct();">상품 등록</button>
+				<button id="uploadBtn" onclick="location.href='abinsertView.ab';">상품 등록</button>
 			</div>
 			
 			<br clear="all">
@@ -45,44 +47,76 @@
 				<img src="${ contextPath }/resources/images/search.PNG" width="30px" height="30px">
 			</div>
 			
-			<c:forEach var="b" items="${ blist }">
-			<div class="product">
-				<div class="bookImg">
-					<input type="hidden" value="${ b.bkCode }">
-					
-					<%-- <c:if test="${ !empty loginUser }"> --%>
+			<div class="frame">
+				<c:forEach var="b" items="${ blist }">
+				<div class="product">
+					<div class="bookImg">
+						<%-- <input type="hidden" value="${ b.bkCode }"> --%>
 						<c:url var="abdetail" value="abdetail.ab">
 							<c:param name="bkCode" value="${ b.bkCode }"/>
 							<c:param name="page" value="${ pi.currentPage }"/>
 						</c:url>
 						
-						<%-- <a href="${ abdetail }">
-							<img src="${ contextPath }/resources/bookUploadImages/${ bi.changeName }" width="300px" height="300px">
-						</a> --%>
-					<%-- </c:if> --%>
-					<%-- <c:if test="${ empty loginUser }">
-						<img src="${ contextPath }/resources/bookUploadImages/${ bi.changeName }" width="300px" height="300px">
-					</c:if> --%>
+						<c:forEach var="bi" items="${ bilist }">	
+							<c:if test="${ b.bkCode eq bi.bkCode }">
+								<a href="${ abdetail }">
+									<img src="${ contextPath }/resources/bookUploadImages/${ bi.changeName }" width="300px" height="300px" class="image">
+								</a>
+							</c:if>
+						</c:forEach>
+					</div>
+					<div style="text-align:center;">
+						<div class="text1">${ b.bkName }</div>
+						<div class="text2">${ b.bkWriter } / ${ b.bkPublisher }</div>
+						<div class="text1">${ b.bkPrice }원</div>
+					</div>
 				</div>
-				<div style="text-align:center;">
-					<div class="text1">${ b.bkName }</div>
-					<div class="text2">${ b.bkWriter } / ${ b.bkPublisher }</div>
-					<div class="text1">${ b.bkPrice }원</div>
-				</div>
+				</c:forEach>
 			</div>
-			</c:forEach>
+			
+			<div class="pagingArea">
+			
+				<!--	<<	-->
+				<c:if test="${ pi.currentPage <= 1 }">
+					<button disabled>&lt;&lt;</button>
+				</c:if>
+				<c:if test="${ pi.currentPage > 1 }">
+					<c:url var="before" value="ablist.ab">
+						<c:param name="page" value="${ pi.currentPage - 1}"/>
+					</c:url>
+					<a href="${ before }"><button>&lt;&lt;</button></a>
+				</c:if>
+				
+				<!-- 	페이지 	-->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq pi.currentPage }">
+						<button disabled>${ p }</button>
+					</c:if>
+					
+					<c:if test="${ p ne pi.currentPage }">
+						<c:url var="pagination" value="ablist.ab">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }"><button>${ p }</button></a>
+					</c:if>
+				</c:forEach>
+				
+				<!--	>>	-->
+				<c:if test="${ pi.currentPage >= pi.maxPage }">
+					<button disabled>&gt;&gt;</button>
+				</c:if>
+				<c:if test="${ pi.currentPage < pi.maxPage }">
+					<c:url var="after" value="ablist.ab">
+						<c:param name="page" value="${ pi.currentPage + 1 }"/>					
+					</c:url>
+					<a href="${ after }"><button>&gt;&gt;</button></a>
+				</c:if>
+			</div>
 			
 		</div>
 		
 	<c:import url="../common/footer.jsp"/>
 	</div>
 	
-	
-	<script>
-	function uploadProduct(){
-		location.href="${contextPath}/views/audioBook/uploadProduct.jsp";
-	}
-	</script>
-
 </body>
 </html>

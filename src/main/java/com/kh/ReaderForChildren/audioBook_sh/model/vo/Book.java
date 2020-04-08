@@ -3,7 +3,7 @@ package com.kh.ReaderForChildren.audioBook_sh.model.vo;
 import java.sql.Date;
 
 public class Book {
-	private String bkCode;
+	private int bkCode;
 	private String bkName;
 	private String bkWriter;
 	private String bkDraw;
@@ -16,7 +16,7 @@ public class Book {
 	
 	public Book() {}
 
-	public Book(String bkCode, String bkName, String bkWriter, String bkDraw, String bkPublisher, int bkPage,
+	public Book(int bkCode, String bkName, String bkWriter, String bkDraw, String bkPublisher, int bkPage,
 			String bkIntro, Date bkPubdate, int bkPrice, String bkStatus) {
 		super();
 		this.bkCode = bkCode;
@@ -31,11 +31,11 @@ public class Book {
 		this.bkStatus = bkStatus;
 	}
 
-	public String getBkCode() {
+	public int getBkCode() {
 		return bkCode;
 	}
 
-	public void setBkCode(String bkCode) {
+	public void setBkCode(int bkCode) {
 		this.bkCode = bkCode;
 	}
 
