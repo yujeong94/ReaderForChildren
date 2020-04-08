@@ -6,4 +6,6 @@ public interface MemberService {
 
 	Member memberLogin(Member m);
 
+	int checkId(String userId);
+
 }

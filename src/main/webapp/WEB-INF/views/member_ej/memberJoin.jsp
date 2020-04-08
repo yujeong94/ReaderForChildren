@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>content</title>
-<link rel="stylesheet" href="../../resources/css/common.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
  b{
  	font-weight : bold;
@@ -190,23 +190,29 @@
 		 		<td colspan = "2"><label id = "info_word"><b>기본정보</b></label></td>
 		 	</tr>
 		 	<tr>
-		 		<td class = "info_title2"><lable class = "title_word">아이디</lable></td>
-		 		<td class = "right"><input type = "text" class = "input_info"><label id = "check">사용 가능</label></td>
+		 		<td class = "info_title2"><label class = "title_word" >아이디</label></td>
+		 		<td class = "right"><input type = "text" class = "input_info" id = "userId" name = "id">
+		 			<label id = "check">
+		 				<span class = "guide ok" id = "pas">사용 가능</span>
+		 				<span class = "guide error" id = "impas">사용 불가</span>
+		 				<input type="hidden" name="idCheck" id="idCheck" value="0">
+		 			</label>
+		 		</td>
 		 	</tr>
 		 	<tr>
-		 		<td class = "info_title2"><lable class = "title_word">비밀번호</lable></td>
+		 		<td class = "info_title2"><label class = "title_word">비밀번호</label></td>
 		 		<td class = "right"><input type = "text" class = "input_info"></td>
 		 	</tr>
 		 	<tr>
-		 		<td class = "info_title2"><lable class = "title_word">비밀번호 확인</lable></td>
+		 		<td class = "info_title2"><label class = "title_word">비밀번호 확인</label></td>
 		 		<td class = "right"><input type = "text" class = "input_info"></td>
 		 	</tr>
 		 	<tr>
-		 		<td class = "info_title2"><lable class = "title_word">이름</lable></td>
+		 		<td class = "info_title2"><label class = "title_word">이름</label></td>
 		 		<td class = "right"><input type = "text" class = "input_info"></td>
 		 	</tr>
 		 	<tr>
-		 		<td class = "info_title2" id = "address"><lable class = "title_word">주소</lable></td>
+		 		<td class = "info_title2" id = "address"><label class = "title_word">주소</lable></td>
 		 		<td class = "right" id = "address2"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" value=""><input type = "button" id = "ad_btn" value = "우편번호"><br>
 		 		<input type = "text" class = "input_info info_address postcodify_address" value=""><br>
 		 		<input type = "text" class = "input_info info_address postcodify_extra_info" value=""></td>
@@ -217,6 +223,36 @@
 		        $(function(){
 		           $("#ad_btn").postcodifyPopUp();
 		        });
+		        
+		        
+		        $('#userId').on('keyup',function(){
+		        	var userId = $(this).val().trim();
+		        	if(userId.length < 4){
+		        		$('.guide').hide();
+		        		$('#idCheck').val(0);
+		        		
+		        		return;
+		        	}
+		        	
+		        	$.ajax({
+		        		url : 'check.me',
+		        		data : {id:userId},
+		        		success : function(data){
+		        			console.log(data);
+		        			if(data == 0){
+		        				$('.guide.ok').show();
+		        				$('.guide.error').hide();
+		        				$('#idCheck').val(1);
+		        			}else{
+		        				$('.guide.ok').hide();
+		        				$('.guide.error').show();
+		        				$('#idCheck').val(0);
+		        			}
+		        		}
+		        	});
+		        });
+		        
+		        
 	        </script>
 		 	
 		 	<tr>
