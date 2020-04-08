@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">>
 <title>audioBookDetail</title>
-<style>
+<style type="text/css">
 	.cTitle{color: grey; font-size: 18px; font-weight: bold; margin-left: 60px; float: left; margin-top: 7px;}
 	.title{display: inline-block; color: black; font-size: 25px; font-weight: bold; padding-left: 20px; margin-bottom: 50px;}
 	.tb{margin: 0 auto; font-size: 16px;}
@@ -48,28 +48,28 @@
 		<div class="contents">
 			<div style="height: 50px;"></div>
 			<div class="cTitle">오디오북 > </div>
-			<div class="title">헨젤과 그레텔</div>
+			<div class="title">${ b.bkName }</div>
 			
 			<br clear="all">
 			
 			<table class="tb">
 				<tr>
-					<td class="td0"><img src="${pageContext.servletContext.contextPath}/images/HG.PNG"></td>
+					<td class="td0"><img src="${ contextPath }/resources/bookUploadImages/${ i.changeName }"></td>
 					<td width="90px"></td>
 					<td>
 						<table>
 							<tr>
 								<td class="td1">
-									<span>글</span> <b>그림형제</b> <span>그림</span> <b>낸시 에콤 버커트</b> <span>출판</span> <b>비룡소</b>
+									<span>글</span> <b>${ b.bkWriter }</b> <span>그림</span> <b>${ b.bkDraw }</b> <span>출판</span> <b>${ b.bkPublisher }</b>
 	                              	<br>
-									<span>페이지</span> <b>28</b> <span>출판일</span> <b>2014.06.30</b>
+									<span>페이지</span> <b>${ b.bkPage }</b> <span>출판일</span> <b>${ b.bkPubdate }</b>
 	                        	</td>
 							</tr>
 							<tr>
 								<td class="td2">
-									<img src="${pageContext.servletContext.contextPath}/images/book.PNG">
-									<img src="${pageContext.servletContext.contextPath}/images/audioM.PNG">
-									<img src="${pageContext.servletContext.contextPath}/images/audioF.PNG">
+									<img src="${ contextPath }/resources/images/book.PNG">
+									<img src="${ contextPath }/resources/images/audioM.PNG">
+									<img src="${ contextPath }/resources/images/audioF.PNG">
 	                         	</td>
 							</tr>
 							<tr>
@@ -80,7 +80,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="td4"><div class="total">Total</div> <span class="price">5,500원</span></td>
+								<td class="td4"><div class="total">Total</div> <span class="price">${ b.bkPrice }원</span></td>
 							</tr>
 							<tr>
 								<td class="td5"><span>※도서만 단독으로 구매는 불가능합니다.</span></td>
@@ -104,13 +104,13 @@
 					<div class="line"></div>
 					
 					<div class="simpleInfo">
-						<span>저자</span> <b>그림형제</b> <span>그림</span> <b>낸시 에콤 버커트</b>
-						<span>출판</span> <b>비룡소</b> <span>도서 발행일</span> <b>2014.06.30</b>
+						<span>저자</span> <b>${ b.bkWriter }</b> <span>그림</span> <b>${ b.bkDraw }</b>
+						<span>출판</span> <b>${ b.bkPublisher }</b> <span>도서 발행일</span> <b>${ b.bkPubdate }</b>
 					</div>
 					<div class="intro">
 						<span>책 소개</span>
 						<div class="intro2">
-							소담스러운 열매를 맺어 우리 인생을 풍부하게 하는 것이다 보라 청춘을 !<br> 그들의 몸이 얼마나 튼튼하며
+						${ b.bkIntro }
 						</div>
 					</div>
 					
@@ -125,12 +125,12 @@
 					<div class="line"></div>
 					
 					<div class="simpleInfo">
-						<span>리더</span> <b>김태리</b> <span>오디오북 발행일</span> <b>2020.03.02</b>
+						<span>리더</span> <b>${ a.rdName }</b> <span>오디오북 발행일</span> <b>${ a.audDate }</b>
 					</div>
 					<div class="intro">
 						<span>리더 소개</span>
 						<div class="intro3">
-							소담스러운 열매를 맺어 우리 인생을 풍부하게 하는 것이다 보라 청춘을 !<br> 그들의 몸이 얼마나 튼튼하며
+						${ a.rdIntro }
 						</div>
 						<span>미리듣기</span>
 						<div class="record">

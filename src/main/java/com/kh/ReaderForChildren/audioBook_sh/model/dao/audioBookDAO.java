@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
@@ -26,6 +27,18 @@ public class audioBookDAO {
 
 	public ArrayList<BookImage> selectbiList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("audioBookMapper.selectbiList");
+	}
+
+	public Book selectBook(SqlSessionTemplate sqlSession, int bkCode) {
+		return sqlSession.selectOne("audioBookMapper.selectBook", bkCode);
+	}
+
+	public AudioBook selectAudioBook(SqlSessionTemplate sqlSession, int bkCode) {
+		return sqlSession.selectOne("audioBookMapper.selectAudioBook", bkCode);
+	}
+
+	public BookImage selectBookImage(SqlSessionTemplate sqlSession, int bkCode) {
+		return sqlSession.selectOne("audioBookMapper.selectBookImage", bkCode);
 	}
 
 }

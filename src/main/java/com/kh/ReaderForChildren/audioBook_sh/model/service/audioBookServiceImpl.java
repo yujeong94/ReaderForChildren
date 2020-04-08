@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.audioBook_sh.model.dao.audioBookDAO;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
@@ -33,6 +34,21 @@ public class audioBookServiceImpl implements audioBookService{
 	@Override
 	public ArrayList<BookImage> selectbiList() {
 		return abDAO.selectbiList(sqlSession);
+	}
+
+	@Override
+	public Book selectBook(int bkCode) {
+		return abDAO.selectBook(sqlSession, bkCode);
+	}
+
+	@Override
+	public AudioBook selectAudioBook(int bkCode) {
+		return abDAO.selectAudioBook(sqlSession, bkCode);
+	}
+
+	@Override
+	public BookImage selectBookImage(int bkCode) {
+		return abDAO.selectBookImage(sqlSession, bkCode);
 	}
 	
 	

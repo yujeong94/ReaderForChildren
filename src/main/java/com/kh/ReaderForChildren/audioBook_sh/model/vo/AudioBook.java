@@ -3,16 +3,18 @@ package com.kh.ReaderForChildren.audioBook_sh.model.vo;
 import java.sql.Date;
 
 public class AudioBook {
-	private String audCode;
+	private int audCode;
 	private Date audDate;
 	private int audPrice;
 	private String rdIntro;
 	private String audStatus;
 	private String bkCode;
+	private String rdName;
 	
 	public AudioBook() {}
 
-	public AudioBook(String audCode, Date audDate, int audPrice, String rdIntro, String audStatus, String bkCode) {
+	public AudioBook(int audCode, Date audDate, int audPrice, String rdIntro, String audStatus, String bkCode,
+			String rdName) {
 		super();
 		this.audCode = audCode;
 		this.audDate = audDate;
@@ -20,13 +22,14 @@ public class AudioBook {
 		this.rdIntro = rdIntro;
 		this.audStatus = audStatus;
 		this.bkCode = bkCode;
+		this.rdName = rdName;
 	}
 
-	public String getAudCode() {
+	public int getAudCode() {
 		return audCode;
 	}
 
-	public void setAudCode(String audCode) {
+	public void setAudCode(int audCode) {
 		this.audCode = audCode;
 	}
 
@@ -70,10 +73,18 @@ public class AudioBook {
 		this.bkCode = bkCode;
 	}
 
+	public String getRdName() {
+		return rdName;
+	}
+
+	public void setRdName(String rdName) {
+		this.rdName = rdName;
+	}
+
 	@Override
 	public String toString() {
 		return "AudioBook [audCode=" + audCode + ", audDate=" + audDate + ", audPrice=" + audPrice + ", rdIntro="
-				+ rdIntro + ", audStatus=" + audStatus + ", bkCode=" + bkCode + "]";
+				+ rdIntro + ", audStatus=" + audStatus + ", bkCode=" + bkCode + ", rdName=" + rdName + "]";
 	}
 	
 }

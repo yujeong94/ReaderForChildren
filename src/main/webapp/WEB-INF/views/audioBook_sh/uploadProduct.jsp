@@ -35,6 +35,9 @@
 	.IT2{display: inline-block;}
 	.intro3{margin: 8px 0 30px 0; width: 700px; height: 100px; font-size: 14px; resize: none; border-radius: 4px;}
 	.record{height: 100px;}
+	.btnBox{margin-bottom: 30px;}
+	.upload{background: rgb(243, 156, 18); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
+		font-weight: bold; font-size: 20px; text-align: center;}
 </style>
 </head>
 <body>
@@ -45,32 +48,35 @@
 			<div id="title"><h1>상품 등록</h1></div>
 			
 			<br clear="all">
-			
+			<form action="abinsert.ab" method="post" enctype="Multipart/form-data">
 				<table class="tb">
 					<tr>
 						<td class="td0">
 							<div id="imgArea">
 								<img id="image" width="280" height="350">
 							</div>
+							<div id="fileArea">
+								<input type="file" id="thumbnailImg" multiple="multiple" name="thumbnailImg" onchange="LoadImg(this)">
+							</div>
 						</td>
-						<td width="60px"></td>
+						<td width="30px"></td>
 						<td>
 							<table>
 								<tr>
 									<td class="td1">
-										<span>글</span> <input type="text" style="width: 100px;">
-										<span>그림</span> <input type="text" style="width: 100px;">
-										<span>출판</span> <input type="text" style="width: 100px;">
-		                              	<br>
-										<span>페이지</span> <input type="text" style="width: 50px;">
-										<span>출판일</span> <input type="text" style="width: 120px;">
+										<span>도서 제목</span> <input type="text" name="bkName" style="width: 130px;">
+										<span>페이지</span> <input type="text" name="bkPage" style="width: 50px;">
+										<span>출판</span> <input type="text" name="bkPublisher" style="width: 80px;"><br>
+										<span>글</span> <input type="text" name="bkWriter" style="width: 100px;">
+										<span>그림</span> <input type="text" name="bkDraw" style="width: 100px;">
+										<span>출판일</span> <input type="date" name="bkPubdate" style="width: 120px;">
 		                        	</td>
 								</tr>
 								<tr>
 									<td class="td2">
-										<img src="${pageContext.servletContext.contextPath}/images/book.PNG">
-										<img src="${pageContext.servletContext.contextPath}/images/audioM.PNG">
-										<img src="${pageContext.servletContext.contextPath}/images/audioF.PNG">
+										<img src="${ contextPath }/resources/images/book.PNG">
+										<img src="${ contextPath }/resources/images/audioM.PNG">
+										<img src="${ contextPath }/resources/images/audioF.PNG">
 		                         	</td>
 								</tr>
 								<tr>
@@ -82,12 +88,12 @@
 								</tr>
 								<tr>
 									<td class="td4">
-										<span>도서 가격</span> <input type="text" style="width: 100px;">원
+										<span>도서 가격</span> <input type="text" name="bkPrice" style="width: 100px;">원
 									</td>
 								</tr>
 								<tr>
 									<td class="td5">
-										<span>오디오북 가격</span> <input type="text" style="width: 100px;">원
+										<span>오디오북 가격</span> <input type="text" name="audPrice" style="width: 100px;">원
 									</td>
 								</tr>
 								<tr>
@@ -112,11 +118,11 @@
 							<span>저자</span> <input type="text" style="width: 100px;">
 							<span>그림</span> <input type="text" style="width: 100px;">
 							<span>출판</span> <input type="text" style="width: 100px;">
-							<span>도서 발행일</span> <input type="text" style="width: 120px;">
+							<span>도서 발행일</span> <input type="date" style="width: 120px;">
 						</div>
 						<div class="intro">
 							<span>책 소개</span><br>
-							<textarea class="intro2"></textarea>
+							<textarea class="intro2" name="bkIntro"></textarea>
 						</div>
 						
 					</div>
@@ -126,15 +132,15 @@
 						<div class="line"></div>
 						
 						<div class="simpleInfo">
-							<span>리더</span> <input type="text" style="width: 80px;">
-							<span>오디오북 발행일</span> <input type="text" style="width: 120px;">
+							<span>리더</span> <input type="text" name="rdNameF" style="width: 80px;">
+							<span>오디오북 발행일</span> <input type="date" name="audDateF" style="width: 120px;">
 						</div>
 						<div class="intro">
 							<span>리더 소개</span><br>
-							<textarea class="intro3"></textarea><br>
+							<textarea class="intro3" name="rdIntroF"></textarea><br>
 							
 							<span>미리듣기</span><br><br>
-							<input type="file">
+							<input type="file" name="fileF">
 						</div>
 					</div>
 					
@@ -145,23 +151,25 @@
 						<div class="line"></div>
 						
 						<div class="simpleInfo">
-							<span>리더</span> <input type="text" style="width: 80px;">
-							<span>오디오북 발행일</span> <input type="text" style="width: 120px;">
+							<span>리더</span> <input type="text" name="rdNameM" style="width: 80px;">
+							<span>오디오북 발행일</span> <input type="date" name="audDateM" style="width: 120px;">
 						</div>
 						<div class="intro">
 							<span>리더 소개</span><br>
-							<textarea class="intro3"></textarea><br>
+							<textarea class="intro3" name="rdIntroM"></textarea><br>
 							
 							<span>미리듣기</span><br><br>
-							<input type="file">
+							<input type="file" name="fileM">
 						</div>
 					</div>
 				</div>
 				
-			<div id="fileArea">
-				<input type="file" id="thumbnailImg" multiple="multiple" name="thumbnailImg" onchange="LoadImg(this)">
-			</div>
-		
+				<div class="btnBox">
+					<input type="submit" class="upload" value="등록">
+				</div>
+				
+			</form>
+			
 		</div>
 		
 	<c:import url="../common/footer.jsp"/>
