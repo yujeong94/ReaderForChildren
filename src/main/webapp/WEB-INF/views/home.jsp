@@ -82,8 +82,6 @@ a:hover { text-decoration: none; cursor : pointer;}
 				</tr>
 			</table>
 
-			<label id = "welcome"><span style="color: green">${ loginUser.userName }</span>님 환영합니다.</label>
-			<input type="button" onclick="location.href='myinfo.me'" class="defaultBtn" value="마이페이지">
 
 		</c:if>
 	</div>
