@@ -80,9 +80,10 @@
 	#check{
 		vertical-align: middle;
 		font-size : 13px;
-		color : green;
 		margin-left : 10px;
 	}
+	
+	.ok{color : green;} .error{color : red;} .pattern{color : red;}
 	
 	.info_address{
 		margin-top : 3px;
@@ -94,6 +95,14 @@
 		height : 24px;
 		width : 50%;
 	}
+	
+	.pwdinform{
+		vertical-align: middle;
+		font-size : 13px;
+		margin-left : 10px;
+	}
+	
+	#same{ color : green;} #diff{color : red;}
 	
 	#ad_btn{
 		width : 10%;
@@ -185,31 +194,44 @@
    <!-- 내용 -->
    <div class="contents">
    		<div id="title"><h1>회원가입</h1></div>
+   		<form>
    		<table class = "info">
 		 	<tr id = "info_title">
 		 		<td colspan = "2"><label id = "info_word"><b>기본정보</b></label></td>
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2"><label class = "title_word" >아이디</label></td>
-		 		<td class = "right"><input type = "text" class = "input_info" id = "userId" name = "id">
+		 		<td class = "right"><input type = "text" class = "input_info" id = "userId" name = "userId" placeholder = "영어/숫자 4글자 이상">
 		 			<label id = "check">
-		 				<span class = "guide ok" id = "pas">사용 가능</span>
-		 				<span class = "guide error" id = "impas">사용 불가</span>
+		 				<span class = "guide ok" id = "pas" style="display:none">사용 가능</span>
+		 				<span class = "guide error" id = "impas" style="display:none">사용 불가</span>
+		 				<span class = "guide pattern" id = "impas2" style="display:none">영문 소문자,숫자만 사용</span>
 		 				<input type="hidden" name="idCheck" id="idCheck" value="0">
 		 			</label>
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2"><label class = "title_word">비밀번호</label></td>
-		 		<td class = "right"><input type = "text" class = "input_info"></td>
+		 		<td class = "right">
+		 			<input type = "password" class = "input_info" id = "userPwd" name = "userPwd" placeholder = "영문자/숫자/특수문자 포함 8~16자리">
+		 			<input type="hidden" name="pwdCheck" id="pwdCheck" value="0">
+		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2"><label class = "title_word">비밀번호 확인</label></td>
-		 		<td class = "right"><input type = "text" class = "input_info"></td>
+		 		<td class = "right">
+		 			<input type = "password" class = "input_info" id = "userPwd2" name = "userPwd2">
+		 			<span class = "pwdinform sm" id = "same" style="display:none">비밀번호 일치</span>
+		 			<span class = "pwdinform df" id = "diff" style="display:none">비밀번호 불일치</span>
+		 			<input type="hidden" name="pwdCheck2" id="pwdCheck2" value="0">
+		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2"><label class = "title_word">이름</label></td>
-		 		<td class = "right"><input type = "text" class = "input_info"></td>
+		 		<td class = "right">
+		 			<input type = "text" class = "input_info" id = "userName" name = "userName">
+		 			<input type="hidden" name="nameCheck" id="nameCheck" value="0">
+		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2" id = "address"><label class = "title_word">주소</lable></td>
@@ -238,14 +260,20 @@
 		        		url : 'check.me',
 		        		data : {id:userId},
 		        		success : function(data){
-		        			console.log(data);
-		        			if(data == 0){
+		        			if(data == '0' && /^[a-z0-9]+$/.test($("#userId").val())){
 		        				$('.guide.ok').show();
 		        				$('.guide.error').hide();
+		        				$('.guide.pattern').hide();
 		        				$('#idCheck').val(1);
-		        			}else{
+		        			}else if(!/^[a-z0-9]+$/.test($("#userId").val())){
+		        				$('.guide.ok').hide();
+		        				$('.guide.error').hide();
+		        				$('.guide.pattern').show();
+		        				$('#idCheck').val(0);
+		        			}else {
 		        				$('.guide.ok').hide();
 		        				$('.guide.error').show();
+		        				$('.guide.pattern').hide();
 		        				$('#idCheck').val(0);
 		        			}
 		        		}
@@ -253,16 +281,62 @@
 		        });
 		        
 		        
+		        $('#userPwd').blur(function(){
+		        	var str = $(this).val();
+		        	var passrule = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+		        	
+		        	if(passrule.test(str)){
+		        		$('#pwdCheck').val(1);
+		        	}else{
+		        		$('#pwdCheck').val(0);
+		        	}
+		        });
+		        
+		        $('#userPwd2').blur(function(){
+		        	if($('#userPwd2').val() == ""){
+		        		$('.pwdinform.sm').hide();
+		        		$('.pwdinform.df').hide();
+		        		$('#pwdCheck2').val(0);
+		        	}else if($('#userPwd2').val() == $('#userPwd').val()){
+		        		$('.pwdinform.sm').show();
+		        		$('.pwdinform.df').hide();
+		        		$('#pwdCheck2').val(1);
+		        	}else{
+		        		$('.pwdinform.sm').hide();
+		        		$('.pwdinform.df').show();
+		        		$('#pwdCheck2').val(0);
+		        	}
+		        });
+		       
+		        
+		        $('#userName').blur(function(){
+			         var str = $(this).val();
+			         var regExp = /[^가-힣]/g;
+			         
+			         if(regExp.test(str)){
+			            $('#nameCheck').val(1);
+			            alert("dd");
+			         } else {
+			        	 $('#nameCheck').val(0);
+			         }
+			     });
+		        
+		        
 	        </script>
 		 	
 		 	<tr>
 		 		<td class = "info_title2"><lable class = "title_word">휴대전화</lable></td>
-		 		<td class = "right"><input type = "text" class = "input_info"></td>
+		 		<td class = "right">
+		 			<input type = "text" class = "input_info" id = "phone" name = "phone" placeholder = " ' - ' 빼고 입력">
+					<input type="hidden" name="phoneCheck" id="phoneCheck" value="0">		 			
+		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2"><lable class = "title_word">이메일</lable></td>
 		 		<td class = "right">
+		 			<input id="realEmail" type="hidden" name="email">
 		 			<input type = "text" class = "input_info infro_email" id = "email01"> @ <input type = "text" class = "input_info infro_email" id = "email02">
+		 			<input type="hidden" name="emailCkeck" id="emailCheck" value="0">
 		 			<select name="selectEmail" id="selectEmail">
 	                  <option value="1">직접입력</option>
 	                  <option value="daum.net">daum.net</option>
@@ -277,7 +351,10 @@
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2"><lable class = "title_word">생년월일</lable></td>
-		 		<td class = "right"><input type = "text" class = "input_info" id= "year" placeholder = "년(4자)">년 <input type = "number" class = "input_info birth">월 <input type = "number" class = "input_info birth">일</td>
+		 		<td class = "right">
+		 			<input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)">년 <input type = "text" class = "input_info birth" id = "month">월 <input type = "text" class = "input_info birth" id = "day">일
+		 			<input type="hidden" name="realBirth" id="realBirth">
+		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2"><lable class = "title_word">성별</lable></td>
@@ -324,8 +401,109 @@
 	 <div class = "terms_box">
 	 	<input type = "button" id = "join" value = "가입하기">
 	 </div>
-   		
+	</form>
+	<script>
+		
+		$('#phone').blur(function(){
+	        var str = $(this).val();
+	        var regExp = /^[0-9]+$/;
+	        
+	        if(regExp.test(str)){
+	         $('#phoneCheck').val(1);
+	        } else {
+	       	 $('#phoneCheck').val(0);
+	        }
+	    });
+		
+		
+		$('#email01').blur(function(){
+	        var str = $(this).val();
+	        var regExp = /^[a-zA-Z0-9]*$/;
+	        
+	        if(regExp.test(str)){
+	         $('#emailCheck').val(1);
+	        } else {
+	       	 $('#emailCheck').val(0);
+	        }
+	    });
+		
+		$('.birth').blur(function(){
+	        var str = $(this).val();
+	        var regExp = /^[0-9]+$/;
+	        
+	        if(regExp.test(str)){
+	         $('#birthCheck').val(1);
+	        } else {
+	       	 $('#birthCheck').val(0);
+	        }
+	    });
+		
+		
+		
+	</script>
+	 
+	<script>
+          var selectEmail = $("#selectEmail");
+          $('#selectEmail').change(function(){
+       	   $("#selectEmail option:selected").each(function () {
+       		   if($('#selectEmail').val()== '1'){
+       			   $("#email02").val('');
+       			   $("#email02").attr("disabled",false);
+       			}else{
+       				$("#email02").val(selectEmail.val());
+       				$("#email02").attr("disabled",true); 
+                   }
+       		   });
+       	$('#realEmail').val($("#email01").val() + "@" + $('#email02').val());
+       	   });
+          
+    </script> 		
    	
+   	<script>
+   	
+   		$('#month').blur(function(){
+   			var month = $('#month').val();
+   	   		
+   			if(month.length == 1){
+   				month = '0' + month;
+   			}
+   			$('#month').val(month);
+   		});
+   		
+   		$('#day').blur(function(){
+   			var day = $('#day').val();
+   	   		
+   			if(day.length == 1){
+   				day = '0' + day;
+   			}
+   			$('#day').val(day);
+   			$('#realBirth').val($('#year').val() + $('#month').val() + $('#day').val());
+   		});
+   		
+   		
+   		$('#join').click(function(){
+   			if($('#idCheck').val() == 0){
+   				alert('사용 가능한 아이디를 입력해주세요.');
+   				$('#userId').focus();
+   	   			return false;
+   			}else if($('#pwdCheck').val() == 0){
+   				alert('비밀번호를 다시 입력해주세요.\n영문자/숫자/특수문자 포함 8~16자리')
+   				$('#userPwd').focus();
+   	   			return false;
+   			}else if($('#pwdCheck2').val() == 0){
+   				alert('비밀번호가 일치하지 않습니다.')
+   				$('#userPwd2').focus();
+   	   			return false;
+   			}else if($('#nameCheck').val() == 0){
+   				alert('이름을 다시 입력해주세요.')
+   				$('#userName').focus();
+   	   			return false;
+   			}
+   		})
+   		
+   		
+
+   	</script>
    </div>
    
    <%@ include file="../common/footer.jsp" %>
