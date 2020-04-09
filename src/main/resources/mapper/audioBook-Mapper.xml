@@ -69,4 +69,35 @@
 		from book_image
 		where bi_status='Y' and bk_code=#{bkCode}
 	</select>
+	
+	<insert id="insertBook" parameterType="Book">
+		insert into book
+		values(seq_book.nextval, #{bkName}, #{bkWriter}, #{bkDraw},
+			#{bkPublisher}, #{bkPage}, #{bkIntro}, #{bkPubdate}, #{bkPrice}, default)
+	</insert>
+	
+	<insert id="insertBookImage" parameterType="BookImage">
+		insert into book_image
+		values(seq_bi.nextval, #{originName}, #{changeName}, #{biPath}, sysdate, default, seq_book.currval)
+	</insert>
+	
+	<insert id="insertAudioBookF" parameterType="AudioBook">
+		insert into audio_book
+		values(seq_aub.nextval, #{audDate}, #{audPrice}, #{rdName}, #{rdIntro}, default, seq_book.currval)
+	</insert>
+	
+	<insert id="insertAudioBookM" parameterType="AudioBook">
+		insert into audio_book
+		values(seq_aub.nextval, #{audDate}, #{audPrice}, #{rdName}, #{rdIntro}, default, seq_book.currval)
+	</insert>
+	
+	<insert id="insertAudioFileF" parameterType="AudioFile">
+		insert into audio_file
+		values(seq_af.naxtval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
+	</insert>
+	
+	<insert id="insertAudioFileM" parameterType="AudioFile">
+		insert into audio_file
+		values(seq_af.naxtval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
+	</insert>
 </mapper>
