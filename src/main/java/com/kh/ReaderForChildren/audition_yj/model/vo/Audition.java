@@ -1,6 +1,6 @@
 package com.kh.ReaderForChildren.audition_yj.model.vo;
 
-public class Audition {
+public class Audition { 
 	private int aNum;
 	private String bkName;
 	private String qGender;

@@ -6,6 +6,6 @@ import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 
 public interface AuditionService {
 
-	ArrayList<Audition> selectList();
+	ArrayList<Audition> selectList(); 
 
 }
