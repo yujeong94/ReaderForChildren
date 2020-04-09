@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.audioBook_sh.model.dao.audioBookDAO;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
@@ -50,6 +51,17 @@ public class audioBookServiceImpl implements audioBookService{
 	public BookImage selectBookImage(int bkCode) {
 		return abDAO.selectBookImage(sqlSession, bkCode);
 	}
-	
+
+	@Override
+	public int insertAudioBook(Book b, BookImage bi, AudioBook abF, AudioBook abM, AudioFile afF, AudioFile afM) {
+		int result1 = abDAO.insertBook(sqlSession, b);
+		int result2 = abDAO.insertBookImage(sqlSession, bi);
+		int result3 = abDAO.insertAudioBookF(sqlSession, abF);
+		int result4 = abDAO.insertAudioBookM(sqlSession, abM);
+		int result5 = abDAO.insertAudioFileF(sqlSession, afF);
+		int result6 = abDAO.insertAudioFileM(sqlSession, afM);
+		
+		return result1 + result2 + result3 + result4 + result5 + result6;
+	}
 	
 }

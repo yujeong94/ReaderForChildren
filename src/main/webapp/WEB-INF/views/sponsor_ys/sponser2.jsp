@@ -203,7 +203,7 @@
     <c:import url="../common/menubar.jsp"/>
     
    <div class = "contents">
- <div id="title"><h1>아동 후원</h1></div>
+ <div id="title"><h1>${b.spName }아동 후원</h1></div>
 		<table id = "content_table" style="margin-left: auto; margin-right: auto;">
 			<tr>
 				<td class = "content_title" id = "title2">후원금액
@@ -236,7 +236,7 @@
 				</td>
 			</tr>
 		</table>
-  	<form action="mupdate.me" method="post"> 
+  	<form action="mupdate.sp" method="post"> 
   
   <table class = "info" id="tabletd" >
       
@@ -321,7 +321,7 @@
     <div id="btn">
    		 <table>
   	 		<tr> 
-				<td><button onclick = "" class="upBtn" id="pay">결제하기</button></td>
+				<td><button onclick ="location.href='sppayment.sp';" class="upBtn" id="pay">결제하기</button></td>
 				<td><button onclick = "location.href = 'sponser1.jsp'" class="upBtn" id="cancel" >취소하기</button></td>
   			 </tr>
     	 </table>
@@ -330,7 +330,37 @@
    </div>
     	<c:import url="../common/footer.jsp"/> 
   
-    
+    <script>
+		var sell = null;
+		var IMP = window.IMP; 
+		IMP.init('imp36870177');
+		
+		IMP.request_pay({
+		    pg : 'kakao', 
+		    pay_method : 'card',
+		    merchant_uid : 'merchant_' + new Date().getTime(),
+		    name : '${b.spName }',
+		    amount : '${ sp.donation }',
+		    buyer_email : '${ loginUser.email }',
+		    buyer_name : '${ loginUser.userName }',
+		    buyer_tel : '${ loginUser.phone }',
+		    buyer_addr : '${ post }',
+		    buyer_postcode : '123-456',
+		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+		}, function(rsp) {
+		    if ( rsp.success ) {
+		        var msg = '${ loginUser.userName }'님;
+		        msg += '결제 금액 ' + rsp.paid_amount + '원이 결제 되었습니다.';
+		       
+		    } else {
+		        var msg = '결제에 실패하였습니다.\n';
+		        msg += '에러내용 : ' + rsp.error_msg;
+		       
+		    }
+		  
+		    alert(msg);
+		});
+	</script>	
    </div>
 </body>
 </html>

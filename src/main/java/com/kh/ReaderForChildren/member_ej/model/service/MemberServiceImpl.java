@@ -27,4 +27,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.idCheck(sqlSession,userId);
 	}
 
+	@Override
+	public int updateMember(Member m) {
+		// TODO Auto-generated method stub
+		return mDAO.updateMember(sqlSession, m);
+	}
+
 }

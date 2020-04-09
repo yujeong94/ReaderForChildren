@@ -59,7 +59,7 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 		return "sponser2";
 	}
 	
-	@RequestMapping("mupdate.me")
+	@RequestMapping("mupdate.sp")
 	public String memberUpdate(@ModelAttribute Member m, @RequestParam("post")int post,
 														 @RequestParam("baddress")String bad,
 														 @RequestParam("laddress")String lad, Model model) {
