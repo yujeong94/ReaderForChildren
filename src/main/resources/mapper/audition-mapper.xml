@@ -6,7 +6,7 @@
 		
 	</select>
 	
-	<resultMap type="Auditon" id="auditionResultSet">
+	<resultMap type="Audition" id="auditionResultSet">
 		
 	</resultMap>
 </mapper>
