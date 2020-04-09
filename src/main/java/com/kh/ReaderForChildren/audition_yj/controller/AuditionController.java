@@ -15,12 +15,12 @@ import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 public class AuditionController {
 
 	@Autowired
-	private AuditionService aService;
+	private AuditionService auService;
 	
 	@RequestMapping("aulist.au")
 	public ModelAndView auditionList(ModelAndView mv) {
 		
-		ArrayList<Audition> aulist = aService.selectList();
+		ArrayList<Audition> aulist = auService.selectList();
 		
 		if(aulist != null) {
 			mv.addObject("aulist",aulist);

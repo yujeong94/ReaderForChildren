@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 import com.kh.ReaderForChildren.audition_yj.model.dao.AuditionDAO;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 
-@Service("aService")
+@Service("auService")
 public class AuditionServiceImpl implements AuditionService {
 	
 	@Autowired
-	private AuditionDAO aDAO;
+	private AuditionDAO auDAO;
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public ArrayList<Audition> selectList() {
-		return aDAO.selectList(sqlSession);
+		return auDAO.selectList(sqlSession);
 	}
 
 }

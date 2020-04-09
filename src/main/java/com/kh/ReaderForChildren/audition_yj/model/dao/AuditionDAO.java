@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 
-@Repository("aDAO")
+@Repository("auDAO")
 public class AuditionDAO {
 
 	public ArrayList<Audition> selectList(SqlSessionTemplate sqlSession) {
