@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
@@ -40,5 +41,30 @@ public class audioBookDAO {
 	public BookImage selectBookImage(SqlSessionTemplate sqlSession, int bkCode) {
 		return sqlSession.selectOne("audioBookMapper.selectBookImage", bkCode);
 	}
+
+	public int insertBook(SqlSessionTemplate sqlSession, Book b) {
+		return sqlSession.insert("audioBookMapper.insertBook", b);
+	}
+
+	public int insertBookImage(SqlSessionTemplate sqlSession, BookImage bi) {
+		return sqlSession.insert("audioBookMapper.insertBookImage", bi);
+	}
+
+	public int insertAudioBookF(SqlSessionTemplate sqlSession, AudioBook abF) {
+		return sqlSession.insert("audioBookMapper.insertAudioBookF", abF);
+	}
+
+	public int insertAudioBookM(SqlSessionTemplate sqlSession, AudioBook abM) {
+		return sqlSession.insert("audioBookMapper.insertAudioBookM", abM);
+	}
+
+	public int insertAudioFileF(SqlSessionTemplate sqlSession, AudioFile afF) {
+		return sqlSession.insert("audioBookMapper.insertAudioFileF", afF);
+	}
+
+	public int insertAudioFileM(SqlSessionTemplate sqlSession, AudioFile afM) {
+		return sqlSession.insert("audioBookMapper.insertAudioFileM", afM);
+	}
+
 
 }

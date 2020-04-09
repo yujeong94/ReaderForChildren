@@ -132,7 +132,8 @@
 						<div class="line"></div>
 						
 						<div class="simpleInfo">
-							<span>리더</span> <input type="text" name="rdNameF" style="width: 80px;">
+							<span>리더 이름</span> <input type="text" name="rdNameF" style="width: 80px;">
+							<span>리더 아이디</span> <input type="text" name="rdIdF" style="width: 80px;">
 							<span>오디오북 발행일</span> <input type="date" name="audDateF" style="width: 120px;">
 						</div>
 						<div class="intro">
@@ -151,7 +152,8 @@
 						<div class="line"></div>
 						
 						<div class="simpleInfo">
-							<span>리더</span> <input type="text" name="rdNameM" style="width: 80px;">
+							<span>리더 이름</span> <input type="text" name="rdNameM" style="width: 80px;">
+							<span>리더 아이디</span> <input type="text" name="rdIdM" style="width: 80px;">
 							<span>오디오북 발행일</span> <input type="date" name="audDateM" style="width: 120px;">
 						</div>
 						<div class="intro">

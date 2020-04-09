@@ -9,12 +9,12 @@ public class BookImage {
 	private String biPath;
 	private Date uploadDate;
 	private String biStatus;
-	private String bkCode;
+	private int bkCode;
 	
 	public BookImage() {}
 
 	public BookImage(int biNo, String originName, String changeName, String biPath, Date uploadDate, String biStatus,
-			String bkCode) {
+			int bkCode) {
 		super();
 		this.biNo = biNo;
 		this.originName = originName;
@@ -73,11 +73,11 @@ public class BookImage {
 		this.biStatus = biStatus;
 	}
 
-	public String getBkCode() {
+	public int getBkCode() {
 		return bkCode;
 	}
 
-	public void setBkCode(String bkCode) {
+	public void setBkCode(int bkCode) {
 		this.bkCode = bkCode;
 	}
 
