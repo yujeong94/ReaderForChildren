@@ -88,6 +88,14 @@ td{
 	overflow: auto;
 }
 
+.readerTableDiv1{
+	height: 300px;
+	width: 760px;
+	margin: auto;
+	margin-top: 20px;
+	overflow: auto;
+}
+
 .listTable{
 	margin: auto;
 	font-size: 13px;
@@ -197,6 +205,7 @@ table > tbody > tr > td {
 						<td class="secondTD">${ member.donation } 원</td>
 					</tr>
 				</table>
+				<c:if test="${ member.division == 2 }">
 				<div class="readerTableDiv">
 					<table class="listTable">
 						<thead>
@@ -241,6 +250,31 @@ table > tbody > tr > td {
 						</tbody>
 					</table>
 				</div>
+				</c:if>
+				<c:if test="${ member.division == 1 }">
+				<div class="readerTableDiv1">
+					<table class="listTable">
+						<thead>
+						<tr id="listTitle">
+							<th class="NOtd fixedHeader">No</th>
+							<th class="IDtd fixedHeader">후원 단체</th>
+							<th class="DATEtd fixedHeader">날짜</th>
+							<th class="STATUStd fixedHeader">기부 금액</th>
+						</tr>
+						</thead>
+						<tbody>
+						<c:forEach begin="1" end="15" step="1" var="i">
+							<tr>
+								<td class="NOtd"><c:out value="${ i }"/></td>
+								<td class="IDtd">유니세프</td>
+								<td class="DATEtd">2020-04-03</td>
+								<td class="STATUStd stuTd">50,000</td>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

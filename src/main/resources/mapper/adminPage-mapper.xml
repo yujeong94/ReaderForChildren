@@ -33,8 +33,11 @@
 		order by user_id asc
 	</select>
 	
-	<select id="selectUserInfo" parameterType="Member" resultMap="MemberResultSet">
-		<!-- 후원, 리더랑 join -->
+	<select id="selectUserInfo" resultMap="MemberResultSet">
+		<!-- 후원, 리더랑 join 수정해야함! -->
+		select *
+		from member
+		where status='Y' and user_id = #{userId}
 	</select>
 	
 </mapper>
