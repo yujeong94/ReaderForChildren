@@ -4,21 +4,21 @@ public class Audition {
 	private int aNum;
 	private String bkName;
 	private String qGender;
-	private String aAge;
-	private String gCareer;
+	private String qAge;
+	private String qCareer;
 	private String request;
 	private String status;
 	
 	public Audition() {}
-	
-	public Audition(int aNum, String bkName, String qGender, String aAge, String gCareer, String request,
+
+	public Audition(int aNum, String bkName, String qGender, String qAge, String qCareer, String request,
 			String status) {
 		super();
 		this.aNum = aNum;
 		this.bkName = bkName;
 		this.qGender = qGender;
-		this.aAge = aAge;
-		this.gCareer = gCareer;
+		this.qAge = qAge;
+		this.qCareer = qCareer;
 		this.request = request;
 		this.status = status;
 	}
@@ -47,20 +47,20 @@ public class Audition {
 		this.qGender = qGender;
 	}
 
-	public String getaAge() {
-		return aAge;
+	public String getqAge() {
+		return qAge;
 	}
 
-	public void setaAge(String aAge) {
-		this.aAge = aAge;
+	public void setqAge(String qAge) {
+		this.qAge = qAge;
 	}
 
-	public String getgCareer() {
-		return gCareer;
+	public String getqCareer() {
+		return qCareer;
 	}
 
-	public void setgCareer(String gCareer) {
-		this.gCareer = gCareer;
+	public void setqCareer(String qCareer) {
+		this.qCareer = qCareer;
 	}
 
 	public String getRequest() {
@@ -81,8 +81,8 @@ public class Audition {
 
 	@Override
 	public String toString() {
-		return "Audition [aNum=" + aNum + ", bkName=" + bkName + ", qGender=" + qGender + ", aAge=" + aAge
-				+ ", gCareer=" + gCareer + ", request=" + request + ", status=" + status + "]";
+		return "Audition [aNum=" + aNum + ", bkName=" + bkName + ", qGender=" + qGender + ", qAge=" + qAge
+				+ ", qCareer=" + qCareer + ", request=" + request + ", status=" + status + "]";
 	}
-
+	
 }
