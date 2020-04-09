@@ -25,6 +25,13 @@
       <result property="status" column="status"/>
     </resultMap>
 	
+	<update id="updateMember" parameterType="Member">
+		update member
+		set user_id=#{userId}, birth=#{birth}, postal_code=#{postalCode}, b_address=#{bAddress},
+		 	l_address=#{lAddress}, email=#{email}, phone=#{phone}, revenue=#{revenue}, update_date=sysdate
+		where user_id=#{userId}
+	</update>
+	
 	<select id="idCheck" resultType="_int">
 		select count(*)
 		from member

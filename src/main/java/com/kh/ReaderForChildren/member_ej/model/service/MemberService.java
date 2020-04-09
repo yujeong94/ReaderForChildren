@@ -8,4 +8,6 @@ public interface MemberService {
 
 	int checkId(String userId);
 
+	int updateMember(Member m);
+
 }
