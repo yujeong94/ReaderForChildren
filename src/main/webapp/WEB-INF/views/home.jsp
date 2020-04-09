@@ -17,9 +17,21 @@
 	
 	#welcome{
 		font-weight : bold;
-		font-size : 30px;
+		font-size : 25px;
 		margin-top : 500px;
 	}
+	
+	.loginMenu{
+		font-size : 15px;
+		text-align : right;
+		font-weight : bold;
+		color : brown;
+	}	
+a:link { color: red; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+a:hover { text-decoration: none; cursor : pointer;}
+
+	
 </style>
 </head>
 <body>
@@ -48,7 +60,26 @@
 			</form>
 		</c:if>
 		<c:if test="${ !empty sessionScope.loginUser }">
-			<label id = "welcome"><span style="color: green">${ loginUser.userName }</span>님 환영합니다.</label>
+			<table id = "123">
+				<tr>
+					<td colspan = '2'><label id = "welcome"><a href = "eventInsert.ev"><span style="color: green">${ loginUser.userName }</span></a>님 환영합니다.</label></td>
+				</tr>
+				<tr>
+					<td class = "loginMenu"><a id = "logoutBtn" >로그아웃</a></td>
+					<script>
+						$(function(){
+							$('#logoutBtn').click(function(){
+								var an = confirm("로그아웃 하시겠습니까?")
+								if(an){
+									location.href='logout.me';
+								}else{
+									return false;
+								}
+							})
+						})
+					</script>
+				</tr>
+			</table>
 		</c:if>
 	</div>
 	<jsp:include page="common/footer.jsp"/>

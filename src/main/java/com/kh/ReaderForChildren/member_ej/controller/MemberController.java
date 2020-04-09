@@ -1,11 +1,16 @@
 package com.kh.ReaderForChildren.member_ej.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.ReaderForChildren.member_ej.model.exception.MemberException;
 import com.kh.ReaderForChildren.member_ej.model.service.MemberService;
@@ -44,15 +49,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("check.me")
-	public int idCheck(@RequestParam("id") String userId) {
+	public void idCheck(HttpServletResponse response, @RequestParam("id") String userId) throws IOException {
 		
-		System.out.println("id : "+ userId);
 		
 		int result = mService.checkId(userId);
 		
-		System.out.println("result : " + result);
+		response.getWriter().print(result);	
+	}
+	
+	@RequestMapping("logout.me")
+	public String logout(SessionStatus status) {
+		status.setComplete();
 		
-		return result;	
+		return "redirect:home.do";
 	}
 	
 	
