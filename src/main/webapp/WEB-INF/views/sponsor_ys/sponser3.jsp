@@ -7,12 +7,12 @@
 <meta charset="UTF-8">
 <script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <title>Insert title here</title>
-<link rel="stylesheet" href="../../resources/css/common.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 
 <style>
    
    .contents{
-      width: 1100px;
+      width: 1000px;
       height: 600px;
       background: white;
       margin: auto;
