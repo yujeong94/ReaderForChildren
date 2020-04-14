@@ -152,7 +152,7 @@
 	<servlet-mapping>
 		<servlet-name>listServlet</servlet-name>
 		<url-pattern>*.li</url-pattern>
-    
+    </servlet-mapping>
 	<!-- 자원봉사 관련 -->
 	<servlet>
 		<servlet-name>volunteerServlet</servlet-name>
