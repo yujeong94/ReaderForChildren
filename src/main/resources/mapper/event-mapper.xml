@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="eventMapper">
+
+	<resultMap type="Event" id="eventResultSet">
+		<id property="eNum" column="e_num"/>
+		<result property="eTitle" column="e_title"/>
+		<result property="eStart" column="e_start"/>
+		<result property="eEnd" column="e_end"/>
+		<result property="eAnno" column="e_anno"/>
+		<result property="eTarget" column="e_target"/>
+		<result property="eContent" column="e_content"/>
+		<result property="eWay" column="e_way"/>
+		<result property="eStand" column="e_stand"/>
+		<result property="eDate" column="e_date"/>
+		<result property="eCount" column="e_count"/>
+		<result property="eStatus" column="e_status"/>
+		<result property="eDivision" column="e_division"/>
+		<result property="eEventNum" column="e_eventnum"/>
+		<result property="originName" column="origin_name"/>
+		<result property="changeName" column="change_name"/>
+		<result property="imPath" column="im_path"/>
+	</resultMap>
+	
+
+	<insert id="insertEvent" parameterType="Event">
+		insert into event
+		values(seq_ev.nextval, #{eTitle}, #{eStart}, #{eEnd}, #{eAnno}, #{eTarget},
+				#{eContent}, #{eWay}, #{eStand}, sysdate, default, default, default, 
+				#{eEventNum}, #{originName}, #{changeName}, #{imPath})
+	</insert>
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from event
+		where e_status = 'Y' and e_division = 1
+	</select>
+
+	<select id="selectList" resultMap="eventResultSet">
+		select *
+		from event
+		where e_status = 'Y' and e_division = 1
+		order by e_end
+	</select>
+	
+	<select id="selectEndList" resultMap="eventResultSet">
+		select *
+		from event
+		where e_status = 'Y' and e_division = 2
+		order by e_anno
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

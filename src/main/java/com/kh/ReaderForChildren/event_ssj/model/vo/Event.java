@@ -18,11 +18,14 @@ public class Event {
 	private String eStatus;
 	private int eDivision;
 	private int eEventNum;
+	private String originName;
+	private String changeName;
+	private String imPath;
 	
 	public Event() {}
 
 	public Event(String eTitle, Date eStart, Date eEnd, Date eAnno, String eTarget, String eContent, String eWay,
-			String eStand, Date eDate, int eEventNum) {
+			String eStand, int eEventNum, String originName, String changeName, String imPath) {
 		super();
 		this.eTitle = eTitle;
 		this.eStart = eStart;
@@ -32,12 +35,15 @@ public class Event {
 		this.eContent = eContent;
 		this.eWay = eWay;
 		this.eStand = eStand;
-		this.eDate = eDate;
 		this.eEventNum = eEventNum;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.imPath = imPath;
 	}
 
 	public Event(int eNum, String eTitle, Date eStart, Date eEnd, Date eAnno, String eTarget, String eContent,
-			String eWay, String eStand, Date eDate, int eCount, String eStatus, int eDivision, int eEventNum) {
+			String eWay, String eStand, Date eDate, int eCount, String eStatus, int eDivision, int eEventNum,
+			String originName, String changeName, String imPath) {
 		super();
 		this.eNum = eNum;
 		this.eTitle = eTitle;
@@ -53,6 +59,9 @@ public class Event {
 		this.eStatus = eStatus;
 		this.eDivision = eDivision;
 		this.eEventNum = eEventNum;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.imPath = imPath;
 	}
 
 	public int geteNum() {
@@ -167,13 +176,38 @@ public class Event {
 		this.eEventNum = eEventNum;
 	}
 
+	public String getOriginName() {
+		return originName;
+	}
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
+	}
+
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getImPath() {
+		return imPath;
+	}
+
+	public void setImPath(String imPath) {
+		this.imPath = imPath;
+	}
+
 	@Override
 	public String toString() {
 		return "Event [eNum=" + eNum + ", eTitle=" + eTitle + ", eStart=" + eStart + ", eEnd=" + eEnd + ", eAnno="
 				+ eAnno + ", eTarget=" + eTarget + ", eContent=" + eContent + ", eWay=" + eWay + ", eStand=" + eStand
 				+ ", eDate=" + eDate + ", eCount=" + eCount + ", eStatus=" + eStatus + ", eDivision=" + eDivision
-				+ ", eEventNum=" + eEventNum + "]";
+				+ ", eEventNum=" + eEventNum + ", originName=" + originName + ", changeName=" + changeName + ", imPath="
+				+ imPath + "]";
 	}
-	
+
 	
 }
