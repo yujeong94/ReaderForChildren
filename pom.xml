@@ -210,6 +210,16 @@
 			<artifactId>log4jdbc-remix</artifactId>
 			<version>0.2.7</version>
 		</dependency>
+		
+		<!-- 이메일 라이브러리 -->
+		<dependency>
+	         <groupId>javax.mail</groupId>
+	         <artifactId>mail</artifactId>
+	         <version>1.4.7</version>
+	    </dependency>
+		
+		
+		
 	</dependencies>
     <build>
         <plugins>

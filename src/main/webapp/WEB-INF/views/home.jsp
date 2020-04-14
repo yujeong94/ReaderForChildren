@@ -54,8 +54,8 @@ a:hover { text-decoration: none; cursor : pointer;}
 					<button type="button" class="defaultBtn" id="joinBtn" onclick="location.href='join.me'">Join</button>
 					<button class="defaultBtn" id="loginBtn">Login</button>
 					<br clear="all">
-					<span id="findPwd">Find Password</span>
-					<span id="findId">Find ID</span>
+					<span id="findPwd" onclick="location.href='pwdView.me'">Find Password</span>
+					<span type="button" id="findId" onclick="location.href='idView.me'">Find ID</span>
 				</div>
 			</form>
 		</c:if>
@@ -63,7 +63,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 
 			<table id = "123">
 				<tr>
-					<td colspan = '2'><label id = "welcome"><a href = "eventInsert.ev"><span style="color: green">${ loginUser.userName }</span></a>님 환영합니다.</label></td>
+					<td colspan = '2'><label id = "welcome"><a href = "eventInsert.ev"><span style="color: green">${ sessionScope.loginUser.userName }</span></a>님 환영합니다.</label></td>
 				</tr>
 				<tr>
 					<td class = "loginMenu"><a id = "logoutBtn" >로그아웃</a></td>
@@ -76,8 +76,8 @@ a:hover { text-decoration: none; cursor : pointer;}
 								}else{
 									return false;
 								}
-							})
-						})
+							});
+						});
 					</script>
 				</tr>
 			</table>
