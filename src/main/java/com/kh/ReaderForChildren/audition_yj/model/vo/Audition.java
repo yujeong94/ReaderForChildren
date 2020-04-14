@@ -1,5 +1,7 @@
 package com.kh.ReaderForChildren.audition_yj.model.vo;
 
+import java.sql.Date;
+
 public class Audition { 
 	private int aNum;
 	private String bkName;
@@ -8,11 +10,17 @@ public class Audition {
 	private String qCareer;
 	private String request;
 	private String status;
+	private String teName;
+	private String tePath;
+	private int downCount;
+	private Date uploadDate;
+	private String biName;
+	private String biPath;
 	
 	public Audition() {}
 
-	public Audition(int aNum, String bkName, String qGender, String qAge, String qCareer, String request,
-			String status) {
+	public Audition(int aNum, String bkName, String qGender, String qAge, String qCareer, String request, String status,
+			String teName, String tePath, int downCount, Date uploadDate, String biName, String biPath) {
 		super();
 		this.aNum = aNum;
 		this.bkName = bkName;
@@ -21,6 +29,12 @@ public class Audition {
 		this.qCareer = qCareer;
 		this.request = request;
 		this.status = status;
+		this.teName = teName;
+		this.tePath = tePath;
+		this.downCount = downCount;
+		this.uploadDate = uploadDate;
+		this.biName = biName;
+		this.biPath = biPath;
 	}
 
 	public int getaNum() {
@@ -79,10 +93,60 @@ public class Audition {
 		this.status = status;
 	}
 
+	public String getTeName() {
+		return teName;
+	}
+
+	public void setTeName(String teName) {
+		this.teName = teName;
+	}
+
+	public String getTePath() {
+		return tePath;
+	}
+
+	public void setTePath(String tePath) {
+		this.tePath = tePath;
+	}
+
+	public int getDownCount() {
+		return downCount;
+	}
+
+	public void setDownCount(int downCount) {
+		this.downCount = downCount;
+	}
+
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+	public String getBiName() {
+		return biName;
+	}
+
+	public void setBiName(String biName) {
+		this.biName = biName;
+	}
+
+	public String getBiPath() {
+		return biPath;
+	}
+
+	public void setBiPath(String biPath) {
+		this.biPath = biPath;
+	}
+
 	@Override
 	public String toString() {
 		return "Audition [aNum=" + aNum + ", bkName=" + bkName + ", qGender=" + qGender + ", qAge=" + qAge
-				+ ", qCareer=" + qCareer + ", request=" + request + ", status=" + status + "]";
+				+ ", qCareer=" + qCareer + ", request=" + request + ", status=" + status + ", teName=" + teName
+				+ ", tePath=" + tePath + ", downCount=" + downCount + ", uploadDate=" + uploadDate + ", biName="
+				+ biName + ", biPath=" + biPath + "]";
 	}
 	
 }

@@ -23,8 +23,8 @@
 		float: left;
 		margin-top: 80px;
 		margin-bottom: 70px;
-		margin-left: 25px;
-		width: 170px;
+		margin-left: 15px;
+		width: 185px;
 		height: 600px;
 		text-align: center;
 	}
@@ -44,7 +44,7 @@
 		padding-bottom: 10px;
 	}
  	.applyBtn {
-		background: #1F1F84;
+		background: #EF8F0E;
 	} 
 	#imgTr {
 		border: 1px solid black;
@@ -52,10 +52,9 @@
 	}
 	.aCon {
 		font-size: 1.1rem;
-		text-align: left;
 	}
 	
-	#downBtn {
+	.downBtn {
 		background: #F8B448;
 		color: white;
 		border: none;
@@ -71,41 +70,43 @@
 		<h2>이 달의 판매 예정 오디오북</h2>
 		<h3>※ 오디션 지원에 관한 자세한 사항은 공지사항을 참고하세요 <a href="#" style="color:navy; text-decoration: none;"> >> 바로가기</a></h3>
 		
-		<c:forEach begin="1" end="5" var="i">
+		<c:forEach var="a" items="${ aulist }">
 			<table class="aListTable">
 				<tr id="imgTr">
-					<td>사진 <c:out value="${ i }"/></td>
+					<td><img src="${ contextPath }/resources/uploadFiles/${ a.biName }"></td>
 				</tr>
-				<tr style="display: none;"><td class="aId"><c:out value="${ i }"></c:out></td></tr>
+				<tr style="display: none;"><td class="aId"><c:out value="${ a.aNum }"/></td></tr>
+				<tr class="conBg"><td style="font-size: 1.2rem;">"${ a.bkName }"</td></tr>  
+				<tr class="conTitle conBg"><td>테스트 구절</td></tr>
+				<tr class="conBg"><td><a href="${ contextPath }/resources/uploadFiles/${ a.teName }" download="${ a.teName }"><button class="downBtn">다운로드</button></a></td></tr>
+				<tr class="conTitle conBg"><td>모집조건</td></tr>
+				<tr class="aCon conBg"><td>성별 - ${ a.qGender }</td></tr>
+				<tr class="aCon conBg"><td>나이 - ${ a.qAge }</td></tr>
+				<tr class="aCon conBg"><td>경력 - ${ a.qCareer }</td></tr>
+				<tr class="conTitle conBg"><td>요청사항</td></tr>
+				<tr class="aCon conBg"><td height="10%">${ a.request }</td></tr>
 				<tr class="conBg">
-					<td style="padding: 30px;">
-						<p>책 이름 </p>  
-						<p class="conTitle">테스트 구절</p>
-						<p><button id="downBtn">다운로드</button></p><br>
-						<p class="conTitle">모집조건</p>
-						<p class="aCon">성별 - 무관</p>
-						<p class="aCon">나이 - 20~30세</p>
-						<p class="aCon">경력 - 유</p><br>
-						<p class="aCon">요청사항</p>
-						<p class="aCon"> ⦁  밝은 목소리</p>
-					</td>
-				</tr>
-				<tr class="conBg">
-					<td class="btnTd"><button class="defaultBtn applyBtn" onclick="location.href='apinsertView.au';">Apply</button></td>
+					<c:url var="apply" value="applyInsert.au">
+						<c:param name="bkName" value="${ a.bkName }"/>
+					</c:url>
+				    <c:if test="${ loginUser.userId != 'admin' }">
+					<td class="btnTd"><button class="defaultBtn applyBtn" onclick="location.href='${ apply }'">Apply</button></td>
+					</c:if>
+					<c:url var="upView" value="auListUpView.au">
+						<c:param name="aNum" value="${ a.aNum }"/>
+					</c:url>
 					<c:if test="${ loginUser.userId == 'admin' }">
-						<td class="btnTd"><button class="defaultBtn upBtn">Edit</button></td>
-						<td class="btnTd"><button type="button" class="defaultBtn delBtn">Delete</button></td>
+						<td class="btnTd">
+							<button class="defaultBtn upBtn" onclick="location.href='${ upView }'">Edit</button>
+							<button class="defaultBtn delBtn" onclick="location.href='auListDelete.au'">Delete</button> 
+						</td>
 					</c:if>
 				</tr>
 			</table>
 		</c:forEach>
+		<button onclick="location.href='auListInsertView.au'">여기눌러!</button>
 	</div>
 	<c:import url="../common/footer.jsp"/>
 </div>
-<script>
-	$(".upBtn").click(function(){
-		location.href="${ contextPath }/views/audition_yj/auditionListUpdate.jsp";
-	});
-</script>
 </body>
 </html>

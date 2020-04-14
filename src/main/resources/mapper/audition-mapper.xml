@@ -3,10 +3,35 @@
 <mapper namespace="auditionMapper">
 
 	<select id="selectList" resultMap="auditionResultSet">
-		
+		select *
+		from audition
+		where status='Y'
 	</select>
 	
 	<resultMap type="Audition" id="auditionResultSet">
-		
+		<id property="aNum" column="ANUM"/>
+		<result property="bkName" column="BK_NAME"/>
+		<result property="qGender" column="Q_GENDER"/>
+		<result property="qAge" column="Q_AGE"/>
+		<result property="qCareer" column="Q_CAREER"/>
+		<result property="request" column="REQUEST"/>
+		<result property="status" column="STATUS"/>
+		<result property="teName" column="TE_NAME"/>
+		<result property="tePath" column="TE_PATH"/>
+		<result property="downCount" column="DOWN_COUNT"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="biName" column="BI_NAME"/>
+		<result property="biPath" column="BI_PATH"/>
 	</resultMap>
+	
+	<insert id="insertAudition" parameterType="Audition">
+		insert into audition 
+		values(#{aNum},#{bkName},#{qGender},#{qAge},#{qCareer},#{request},default,
+			   #{teName},#{tePath},default,sysdate,#{biName},#{biPath})
+	</insert>
+	
+	<select id="selectAudition" parameterType="_int" resultMap="auditionResultSet">
+		select * from audition where anum = #{aNum} and status='Y'
+	</select>
 </mapper>
+
