@@ -43,6 +43,39 @@
 		<result property="bkCode" column="BK_CODE"/>
 	</resultMap>
 	
+	<select id="getSearchListCount" resultType="_int">
+		select count(*)
+		from book
+		where bk_status='Y'
+		<if test="title != null">
+			and bk_name like '%' || #{title} || '%'
+		</if>
+		<if test="writer != null">
+			and bk_writer = #{writer}
+		</if>
+		<if test="publisher != null">
+			and bk_publisher like '%' || #{publisher} || '%'
+		</if>
+	</select>
+	
+	<select id="selectSearchbList" resultMap="bookResultSet">
+		select *
+		from book
+		where bk_status='Y'
+		<choose>
+			<when test="title != null">
+				and bk_name like '%' || #{title} || '%'
+			</when>
+			<when test="writer != null">
+				and bk_writer = #{writer}
+			</when>
+			<otherwise>
+				and bk_publisher like '%' || #{publisher} || '%'
+			</otherwise>
+		</choose>
+		order by bk_code desc
+	</select>
+	
 	<select id="selectBook" parameterType="_int" resultMap="bookResultSet">
 		select *
 		from book
@@ -53,6 +86,7 @@
 		select *
 		from audio_book
 		where aud_status='Y' and bk_code=#{bkCode}
+		order by aud_code
 	</select>
 	<resultMap type="AudioBook" id="audioBookResultSet">
 		<id property="audCode" column="AUD_CODE"/>
@@ -70,6 +104,24 @@
 		where bi_status='Y' and bk_code=#{bkCode}
 	</select>
 	
+	<select id="selectAudioFile" parameterType="_int" resultMap="audioFileResultSet">
+		select af_code, origin_name, change_name, file_path, upload_date, status, user_id, aud_code
+		from audio_file
+    		join audio_book using(aud_code)
+		where status='Y' and bk_code=#{bkCode}
+		order by af_code
+	</select>
+	<resultMap type="AudioFile" id="audioFileResultSet">
+		<id property="afCode" column="AF_CODE"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="audCode" column="AUD_CODE"/>
+	</resultMap>
+	
 	<insert id="insertBook" parameterType="Book">
 		insert into book
 		values(seq_book.nextval, #{bkName}, #{bkWriter}, #{bkDraw},
@@ -86,18 +138,19 @@
 		values(seq_aub.nextval, #{audDate}, #{audPrice}, #{rdName}, #{rdIntro}, default, seq_book.currval)
 	</insert>
 	
+	<insert id="insertAudioFileF" parameterType="AudioFile">
+		insert into audio_file
+		values(seq_af.nextval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
+	</insert>
+	
 	<insert id="insertAudioBookM" parameterType="AudioBook">
 		insert into audio_book
 		values(seq_aub.nextval, #{audDate}, #{audPrice}, #{rdName}, #{rdIntro}, default, seq_book.currval)
 	</insert>
 	
-	<insert id="insertAudioFileF" parameterType="AudioFile">
-		insert into audio_file
-		values(seq_af.naxtval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
-	</insert>
-	
 	<insert id="insertAudioFileM" parameterType="AudioFile">
 		insert into audio_file
-		values(seq_af.naxtval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
+		values(seq_af.nextval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
 	</insert>
+	
 </mapper>

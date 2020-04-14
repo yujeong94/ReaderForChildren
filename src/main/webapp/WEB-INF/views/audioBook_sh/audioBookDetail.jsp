@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${contextPath}/resources/css/common.css">>
+<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>audioBookDetail</title>
 <style type="text/css">
 	.cTitle{color: grey; font-size: 18px; font-weight: bold; margin-left: 60px; float: left; margin-top: 7px;}
@@ -18,8 +19,8 @@
 	.td3{text-align: center; height: 30px; padding: 0 0 20px 27px;}
 	.chkbox{width: 19px; height: 19px; margin: 0 62px 0 62px;}
 	.td4{margin-right: 20px; float: right;}
-	.total{display: inline-block; font-weight: bold; font-size: 20px; margin: 7px 30px 0 0;}
-	.price{color: rgb(231, 76, 60); font-weight: bold; font-size: 25px;}
+	.total{display: inline-block; font-weight: bold; font-size: 20px; margin: 0 30px 5px 0;}
+	.price{color: rgb(231, 76, 60); font-weight: bold; font-size: 25px; border: none; width: 100px; outline: none; text-align: right;}
 	.td5{float: right; font-size: 12px; margin: 0 20px 35px 0;}
 	.td6{text-align: center;}
 	.Btn{color: white; border: none; width: 120px; height: 45px; border-radius: 5px;
@@ -36,9 +37,10 @@
 	.intro2{margin: 8px 0 100px 0; height: 30px; font-size: 14px;}
 	.IT2{display: inline-block;}
 	.tab{display: inline-block; padding: 28px 0 0 465px;}
-	.Ftab{height: 30px; border: none;} .Mtab{height: 30px; border: none;}
+	.Ftab{height: 30px; border: none; background: rgb(243, 156, 18); color: white; font-weight: bold; outline: none;}
+	.Mtab{height: 30px; border: none; background: darkgrey; color: white; font-weight: bold; outline: none;}
 	.intro3{margin: 8px 0 70px 0; height: 30px; font-size: 14px;}
-	.record{height: 100px;}
+	.record{height: 100px; margin-top: 20px;}
 </style>
 </head>
 <body>
@@ -46,56 +48,61 @@
 	<c:import url="../common/menubar.jsp"/>
 		
 		<div class="contents">
+			<form name="frm" action="purchase.ab" method="post" onsubmit="return check();">
 			<div style="height: 50px;"></div>
 			<div class="cTitle">오디오북 > </div>
 			<div class="title">${ b.bkName }</div>
 			
 			<br clear="all">
-			
-			<table class="tb">
-				<tr>
-					<td class="td0"><img src="${ contextPath }/resources/bookUploadImages/${ i.changeName }"></td>
-					<td width="90px"></td>
-					<td>
-						<table>
-							<tr>
-								<td class="td1">
-									<span>글</span> <b>${ b.bkWriter }</b> <span>그림</span> <b>${ b.bkDraw }</b> <span>출판</span> <b>${ b.bkPublisher }</b>
-	                              	<br>
-									<span>페이지</span> <b>${ b.bkPage }</b> <span>출판일</span> <b>${ b.bkPubdate }</b>
-	                        	</td>
-							</tr>
-							<tr>
-								<td class="td2">
-									<img src="${ contextPath }/resources/images/book.PNG">
-									<img src="${ contextPath }/resources/images/audioM.PNG">
-									<img src="${ contextPath }/resources/images/audioF.PNG">
-	                         	</td>
-							</tr>
-							<tr>
-								<td class="td3">
-									<input type="checkbox" class="chkbox">
-									<input type="checkbox" class="chkbox">
-									<input type="checkbox" class="chkbox">
-								</td>
-							</tr>
-							<tr>
-								<td class="td4"><div class="total">Total</div> <span class="price">${ b.bkPrice }원</span></td>
-							</tr>
-							<tr>
-								<td class="td5"><span>※도서만 단독으로 구매는 불가능합니다.</span></td>
-							</tr>
-							<tr>
-								<td class="td6">
-									<input type="button" class="Btn purchaseBtn" value="바로구매" onclick="purchase()">
-									<button class="Btn cartBtn">장바구니</button>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-			
+				<table class="tb">
+					<tr>
+						<td class="td0"><img src="${ contextPath }/resources/bookUploadImages/${ i.changeName }"></td>
+						<td width="90px"></td>
+						<td>
+							<table>
+								<tr>
+									<td class="td1">
+										<span>글</span> <b>${ b.bkWriter }</b> <span>그림</span> <b>${ b.bkDraw }</b> <span>출판</span> <b>${ b.bkPublisher }</b>
+		                              	<br>
+										<span>페이지</span> <b>${ b.bkPage }</b> <span>출판일</span> <b>${ b.bkPubdate }</b>
+										<input type="hidden" name="bkName" value="${ b.bkName }">
+		                        	</td>
+								</tr>
+								<tr>
+									<td class="td2">
+										<img src="${ contextPath }/resources/images/book.PNG">
+										<img src="${ contextPath }/resources/images/audioM.PNG">
+										<img src="${ contextPath }/resources/images/audioF.PNG">
+		                         	</td>
+								</tr>
+								<tr>
+									<td class="td3">
+										<input type="checkbox" name="chkbox" class="chkbox" id="checkB" value="${ b.bkPrice }" onclick="itemSum();">
+										<input type="checkbox" name="chkbox" class="chkbox" id="checkAM" value="${ abF.audPrice }" onclick="itemSum();">
+										<input type="checkbox" name="chkbox" class="chkbox" id="checkAF" value="${ abM.audPrice }" onclick="itemSum();">
+										<input type="hidden" name="hidden1" id="hidden1">
+										<input type="hidden" name="hidden2" id="hidden2">
+									</td>
+								</tr>
+								<tr>
+									<td class="td4">
+										<div class="total">Total</div>
+										<input type="text" name="sum" class="price" value="0" readonly>&nbsp;원
+									</td>
+								</tr>
+								<tr>
+									<td class="td5"><span>※도서만 단독으로 구매는 불가능합니다.</span></td>
+								</tr>
+								<tr>
+									<td class="td6">
+										<input type="submit" class="Btn purchaseBtn" value="바로구매">
+										<input type="button" class="Btn cartBtn" value="장바구니">
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
 			<br clear="all"><div style="height: 70px;"></div>
 			
 			<div class="info">
@@ -119,36 +126,126 @@
 				<div class="audioBookInfo">
 					<div class="IT IT2">오디오북 정보</div>
 						<div class="tab">
-							<button class="Ftab">여자 음성</button>
-							<button class="Mtab">남자 음성</button>
+							<input type="button" class="Ftab" id="Ftab" value="여자 음성" onclick="clickFtab();">
+							<input type="button" class="Mtab" id="Mtab" value="남자 음성" onclick="clickMtab();">
 						</div>
 					<div class="line"></div>
 					
-					<div class="simpleInfo">
-						<span>리더</span> <b>${ a.rdName }</b> <span>오디오북 발행일</span> <b>${ a.audDate }</b>
-					</div>
-					<div class="intro">
-						<span>리더 소개</span>
-						<div class="intro3">
-						${ a.rdIntro }
+					<div id="FemaleReader" style="display: inline-block;">
+						<div class="simpleInfo">
+							<span>리더</span> <b>${ abF.rdName }(${ afF.userId })</b> <span>오디오북 발행일</span> <b>${ abF.audDate }</b>
 						</div>
-						<span>미리듣기</span>
-						<div class="record">
-							오디오 파일 재생
+						<div class="intro">
+							<span>리더 소개</span>
+							<div class="intro3">
+							${ abF.rdIntro }
+							</div>
+							<span>미리듣기</span>
+							<div class="record">
+								<audio src="${ contextPath }/resources/audioFileUpload/${ afF.changeName }" controls="controls"></audio>
+							</div>
 						</div>
 					</div>
 					
+					<div id="MaleReader" style="display: none;">
+						<div class="simpleInfo">
+							<span>리더</span> <b>${ abM.rdName }(${ afM.userId })</b> <span>오디오북 발행일</span> <b>${ abM.audDate }</b>
+						</div>
+						<div class="intro">
+							<span>리더 소개</span>
+							<div class="intro3">
+							${ abM.rdIntro }
+							</div>
+							<span>미리듣기</span>
+							<div class="record">
+								<audio src="${ contextPath }/resources/audioFileUpload/${ afM.changeName }" controls="controls"></audio>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
+			</form>
 		</div>
 		
 	<c:import url="../common/footer.jsp"/>
 	</div>
 	
 	<script>
-	function purchase(){
-		location.href="${ contextPath }/views/audioBook/audioBookPurchase.jsp";
+	
+	function check(){
+		var checkedB = $("input:checkbox[id='checkB']").is(":checked");
+		var checkedAM = $("input:checkbox[id='checkAM']").is(":checked");
+		var checkedAF = $("input:checkbox[id='checkAF']").is(":checked");
+		
+		if('${loginUser}' != ''){
+			
+			if(checkedB==true && checkedAM==false && checkedAF==false){
+				alert("도서만 단독으로 구매는 불가능합니다.");
+				return false;
+			} else if(checkedB==false && checkedAM==false && checkedAF==false){
+				alert("구매하실 상품을 선택해주세요.");
+				return false;
+			} else if(checkedB==true && checkedAM==true && checkedAF==true){
+				$('#hidden1').val('[도서+오디오북]');
+				$('#hidden2').val('(남자음성+여자음성)');
+				return true;
+			} else if(checkedB==true && checkedAM==true && checkedAF==false){
+				$('#hidden1').val('[도서+오디오북]');
+				$('#hidden2').val('(남자음성)');
+				return true;
+			} else if(checkedB==true && checkedAM==false && checkedAF==true){
+				$('#hidden1').val('[도서+오디오북]');
+				$('#hidden2').val('(여자음성)');
+				return true;
+			} else if(checkedB==false && checkedAM==true && checkedAF==true){
+				$('#hidden1').val('[오디오북]');
+				$('#hidden2').val('(남자음성+여자음성)');
+				return true;
+			} else if(checkedB==false && checkedAM==true && checkedAF==false){
+				$('#hidden1').val('[오디오북]');
+				$('#hidden2').val('(남자음성)');
+				return true;
+			} else if(checkedB==false && checkedAM==false && checkedAF==true){
+				$('#hidden1').val('[오디오북]');
+				$('#hidden2').val('(여자음성)');
+				return true;
+			} else{
+				return true;
+			}
+			
+		} else{
+			alert("로그인 후 이용해주세요.");
+			return false;
+		}
 	}
+	
+	
+	function itemSum(){
+		var total = 0;
+		for(i=0; i<frm.chkbox.length; i++){
+			if(frm.chkbox[i].checked==true){
+				total = total + parseInt(frm.chkbox[i].value);
+			}
+		}
+		frm.sum.value=total;
+	}
+	
+	
+	
+	function clickFtab(){
+		$('#FemaleReader').attr('style', 'display:inline-block');
+		$('#MaleReader').attr('style', 'display:none');
+		$('#Ftab').css('background','rgb(243, 156, 18)');
+		$('#Mtab').css('background','darkgrey');
+	}
+	
+	function clickMtab(){
+		$('#FemaleReader').attr('style', 'display:none');
+		$('#MaleReader').attr('style', 'display:inline-block');
+		$('#Ftab').css('background','darkgrey');
+		$('#Mtab').css('background','rgb(243, 156, 18)');
+	}
+	
 	</script>	
 	
 </body>

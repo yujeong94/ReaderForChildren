@@ -14,7 +14,7 @@
 	.title2{font-weight: bold; font-size: 19px; margin: 10px 0 10px 0;}
 	.smallFrame1{border: 1px solid lightgrey; margin: 0 auto; width: 840px; height: 100%; background: rgb(255, 253, 231);
 				border-radius: 5px;}
-	.yellowbox{font-size: 15px; margin: 30px auto;}
+	.yellowbox{font-size: 15px; margin: 30px auto;} .yellowbox b{font-weight: bold;}
 	.frame2{margin: 0 auto; width: 840px; height: 100%;}
 	.info{font-weight: bold; margin-right: 20px; display: inline-block;}
 	.frame3{background: rgb(255, 253, 231); border: 1px solid lightgrey; border-radius: 5px; margin: 0 auto 60px;
@@ -41,7 +41,7 @@
 	#finalPrice{color: rgb(231, 76, 60); font-size: 22px;}
 	.frame5{margin: 20px auto 60px; width: 840px; height: 100%; font-size: 14px; padding-bottom: 20px;}
 	.frame5 div{display: inline-block;}
-	.agreeMent{margin-right: 50px;}
+	.agreeMent{margin-right: 50px; text-decoration: underline;} .agreeMent:hover {cursor: pointer;}
 	.frame6{margin: 20px auto 50px; width: 840px; height: 100%; text-align: center;}
 	.payBtn{background: rgb(231, 76, 60); color: white; border: none; width: 200px; height: 60px; border-radius: 5px;
 		font-weight: bold; font-size: 20px;}
@@ -57,7 +57,7 @@
 			<div class="frame1">
 				<div class="title2">주문 상품</div>
 				<div class="smallFrame1">
-					<div class="yellowbox">&nbsp;&nbsp;[오디오북+도서] 백설공주와 일곱난쟁이 (남자 음성)</div>
+					<div class="yellowbox">&nbsp;&nbsp;<b>${ hidden1 }</b> &nbsp;${ bkName }&nbsp;${ hidden2 }</div>
 				</div>
 			</div>
 			
@@ -66,7 +66,7 @@
 				<div class="smallFrame1" style="margin-bottom: 10px;">
 					<div class="yellowbox">
 						<div class="info">&nbsp;&nbsp;주문자 정보</div>
-						<span>박소현     ㅣ     sohyun0818@naver.com     ㅣ     010-2433-7854</span>
+						<span>${ lu.userName }     ㅣ    ${ lu.email }     ㅣ     ${ newPhone }</span>
 					</div>
 				</div>
 			</div>
@@ -79,20 +79,20 @@
 						<td rowspan="2" class="td3"></td>
 					</tr>
 					<tr>
-						<td><input type="text" class="nameInput"></td>
+						<td><input type="text" class="nameInput" value="${ lu.userName }"></td>
 					</tr>
 					<tr>
 						<td class="td4" colspan="2">
-							<div style="margin-bottom: 8px;">02454</div><br>
-							<div>서울특별시 강남구 테헤란로 543-23</div>
+							<div style="margin-bottom: 8px;">${ lu.postalCode }</div><br>
+							<div>${ lu.bAddress }</div>
 							<button class="changeBtn" onclick="changeShipAdd();">배송지 변경</button><br>
-							<div>헤븐빌딩 204호</div>
+							<div>${ lu.lAddress }</div>
 							
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="text" class="phoneInput">
+							<input type="text" class="phoneInput" value="${ newPhone }">
 						</td>
 					</tr>
 					<tr>
@@ -122,10 +122,10 @@
 					<div class="yellowbox">
 						<div class="smallBox">
 							<div class="price orderPrice">&nbsp;&nbsp;주문 금액</div>
-							<span>13,500원</span>
+							<span>${ sum }원</span>
 						</div>
 						<div class="price finalPrice">&nbsp;&nbsp;결제 금액</div>
-						<span id="finalPrice">13,500원</span>
+						<span id="finalPrice">${ sum }원</span>
 					</div>
 				</div>
 			</div>
@@ -162,12 +162,22 @@
 		var popLeft = Math.ceil(( window.screen.width - 650 )/2);
 		var popTop = Math.ceil(( window.screen.height - 430 )/2);
 		
-		window.open("${contextPath}/views/audioBook/shippingAddressList.jsp", "changeShipAdd", "width=650, height=430, "+ ", left=" + popLeft + ", top="+ popTop);
+		window.open("shipAddList.ab", "shippingAddressList", "width=650, height=430, "+ ", left=" + popLeft + ", top="+ popTop);
 	}
 	
 	function pay(){
 		location.href="${contextPath}/views/audioBook/successPayment.jsp";
 	}
+	
+	
+	$(function(){
+		$('.agreeMent').click(function(){
+			var popLeft = Math.ceil(( window.screen.width - 400 )/2);
+			var popTop = Math.ceil(( window.screen.height - 530 )/2);
+			
+			window.open("agreeInform.ab", "agreeForInformProvision", "width=400, height=530, "+ ", left=" + popLeft + ", top="+ popTop);
+		});
+	});
 	
 	</script>
 

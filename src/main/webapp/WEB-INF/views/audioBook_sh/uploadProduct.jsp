@@ -66,10 +66,10 @@
 									<td class="td1">
 										<span>도서 제목</span> <input type="text" name="bkName" style="width: 130px;">
 										<span>페이지</span> <input type="text" name="bkPage" style="width: 50px;">
-										<span>출판</span> <input type="text" name="bkPublisher" style="width: 80px;"><br>
-										<span>글</span> <input type="text" name="bkWriter" style="width: 100px;">
-										<span>그림</span> <input type="text" name="bkDraw" style="width: 100px;">
-										<span>출판일</span> <input type="date" name="bkPubdate" style="width: 120px;">
+										<span>출판</span> <input type="text" name="bkPublisher" id="bkPublisher" style="width: 80px;"><br>
+										<span>글</span> <input type="text" name="bkWriter" id="bkWriter" style="width: 100px;">
+										<span>그림</span> <input type="text" name="bkDraw" id="bkDraw" style="width: 100px;">
+										<span>출판일</span> <input type="date" name="bkPubdate" id="bkPubdate" style="width: 120px;">
 		                        	</td>
 								</tr>
 								<tr>
@@ -115,10 +115,10 @@
 						<div class="line"></div>
 						
 						<div class="simpleInfo">
-							<span>저자</span> <input type="text" style="width: 100px;">
-							<span>그림</span> <input type="text" style="width: 100px;">
-							<span>출판</span> <input type="text" style="width: 100px;">
-							<span>도서 발행일</span> <input type="date" style="width: 120px;">
+							<span>저자</span> <input type="text" id="bkWriter2" style="width: 100px;">
+							<span>그림</span> <input type="text" id="bkDraw2" style="width: 100px;">
+							<span>출판</span> <input type="text" id="bkPublisher2" style="width: 100px;">
+							<span>도서 발행일</span> <input type="date" id="bkPubdate2" style="width: 120px;">
 						</div>
 						<div class="intro">
 							<span>책 소개</span><br>
@@ -203,6 +203,23 @@
 		reader.readAsDataURL(value.files[0]);
 		}
 	}
+	
+	
+	// 자동 입력
+	$('#bkPublisher').keyup(function(){
+		var bkPub = $(this).val();
+		$('#bkPublisher2').val(bkPub);
+	});
+	
+	$('#bkWriter').keyup(function(){
+		var bkW = $(this).val();
+		$('#bkWriter2').val(bkW);
+	});
+	
+	$('#bkDraw').keyup(function(){
+		var bkD = $(this).val();
+		$('#bkDraw2').val(bkD);
+	});
 	</script>	
 	
 </body>
