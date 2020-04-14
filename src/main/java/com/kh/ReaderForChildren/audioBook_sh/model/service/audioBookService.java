@@ -7,6 +7,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
 
 public interface audioBookService {
 
@@ -15,13 +16,19 @@ public interface audioBookService {
 	ArrayList<Book> selectbList(PageInfo pi);
 
 	ArrayList<BookImage> selectbiList();
+	
+	int getSearchListCount(SearchCondition sc);
 
+	ArrayList<Book> selectSearchbList(PageInfo pi, SearchCondition sc);
+	
 	Book selectBook(int bkCode);
 
-	AudioBook selectAudioBook(int bkCode);
+	ArrayList<AudioBook> selectAudioBook(int bkCode);
 
 	BookImage selectBookImage(int bkCode);
 
+	ArrayList<AudioFile> selectAudioFile(int bkCode);
+	
 	int insertAudioBook(Book b, BookImage bi, AudioBook abF, AudioBook abM, AudioFile afF, AudioFile afM);
 
 }

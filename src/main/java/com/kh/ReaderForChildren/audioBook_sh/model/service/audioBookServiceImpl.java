@@ -12,6 +12,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
 
 @Service("abService")
 public class audioBookServiceImpl implements audioBookService{
@@ -36,14 +37,24 @@ public class audioBookServiceImpl implements audioBookService{
 	public ArrayList<BookImage> selectbiList() {
 		return abDAO.selectbiList(sqlSession);
 	}
+	
+	@Override
+	public int getSearchListCount(SearchCondition sc) {
+		return abDAO.getSearchListCount(sqlSession, sc);
+	}
 
+	@Override
+	public ArrayList<Book> selectSearchbList(PageInfo pi, SearchCondition sc) {
+		return abDAO.selectSearchbList(sqlSession, pi, sc);
+	}
+	
 	@Override
 	public Book selectBook(int bkCode) {
 		return abDAO.selectBook(sqlSession, bkCode);
 	}
 
 	@Override
-	public AudioBook selectAudioBook(int bkCode) {
+	public ArrayList<AudioBook> selectAudioBook(int bkCode) {
 		return abDAO.selectAudioBook(sqlSession, bkCode);
 	}
 
@@ -51,17 +62,23 @@ public class audioBookServiceImpl implements audioBookService{
 	public BookImage selectBookImage(int bkCode) {
 		return abDAO.selectBookImage(sqlSession, bkCode);
 	}
+	
+	@Override
+	public ArrayList<AudioFile> selectAudioFile(int bkCode) {
+		return abDAO.selectAudioFile(sqlSession, bkCode);
+	}
 
 	@Override
 	public int insertAudioBook(Book b, BookImage bi, AudioBook abF, AudioBook abM, AudioFile afF, AudioFile afM) {
 		int result1 = abDAO.insertBook(sqlSession, b);
 		int result2 = abDAO.insertBookImage(sqlSession, bi);
 		int result3 = abDAO.insertAudioBookF(sqlSession, abF);
-		int result4 = abDAO.insertAudioBookM(sqlSession, abM);
-		int result5 = abDAO.insertAudioFileF(sqlSession, afF);
+		int result4 = abDAO.insertAudioFileF(sqlSession, afF);
+		int result5 = abDAO.insertAudioBookM(sqlSession, abM);
 		int result6 = abDAO.insertAudioFileM(sqlSession, afM);
 		
 		return result1 + result2 + result3 + result4 + result5 + result6;
 	}
+
 	
 }
