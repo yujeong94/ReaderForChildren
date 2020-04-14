@@ -194,7 +194,7 @@
    <!-- 내용 -->
    <div class="contents">
    		<div id="title"><h1>회원가입</h1></div>
-   		<form>
+   		<form action="insert.me" method="post" id="joinForm">
    		<table class = "info">
 		 	<tr id = "info_title">
 		 		<td colspan = "2"><label id = "info_word"><b>기본정보</b></label></td>
@@ -235,9 +235,9 @@
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2" id = "address"><label class = "title_word">주소</lable></td>
-		 		<td class = "right" id = "address2"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" value=""><input type = "button" id = "ad_btn" value = "우편번호"><br>
-		 		<input type = "text" class = "input_info info_address postcodify_address" value=""><br>
-		 		<input type = "text" class = "input_info info_address postcodify_extra_info" value=""></td>
+		 		<td class = "right" id = "address2"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" value="" name = "postalCode"><input type = "button" id = "ad_btn" value = "우편번호"><br>
+		 		<input type = "text" class = "input_info info_address postcodify_address" id = "b_ad" value="" name = "bAddress"><br>
+		 		<input type = "text" class = "input_info info_address postcodify_extra_info" id = "l_ad" value="" name = "lAddress"></td>
 		 	</tr>
 		 		
 		 	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
@@ -311,11 +311,10 @@
 		        
 		        $('#userName').blur(function(){
 			         var str = $(this).val();
-			         var regExp = /[^가-힣]/g;
+			         var regExp = /^[가-힣]+$/;
 			         
 			         if(regExp.test(str)){
 			            $('#nameCheck').val(1);
-			            alert("dd");
 			         } else {
 			        	 $('#nameCheck').val(0);
 			         }
@@ -325,18 +324,18 @@
 	        </script>
 		 	
 		 	<tr>
-		 		<td class = "info_title2"><lable class = "title_word">휴대전화</lable></td>
+		 		<td class = "info_title2"><label class = "title_word">휴대전화</label></td>
 		 		<td class = "right">
 		 			<input type = "text" class = "input_info" id = "phone" name = "phone" placeholder = " ' - ' 빼고 입력">
 					<input type="hidden" name="phoneCheck" id="phoneCheck" value="0">		 			
 		 		</td>
 		 	</tr>
 		 	<tr>
-		 		<td class = "info_title2"><lable class = "title_word">이메일</lable></td>
+		 		<td class = "info_title2"><label class = "title_word">이메일</label></td>
 		 		<td class = "right">
 		 			<input id="realEmail" type="hidden" name="email">
 		 			<input type = "text" class = "input_info infro_email" id = "email01"> @ <input type = "text" class = "input_info infro_email" id = "email02">
-		 			<input type="hidden" name="emailCkeck" id="emailCheck" value="0">
+		 			<input type="hidden" name="emailCheck" id="emailCheck" value="0">
 		 			<select name="selectEmail" id="selectEmail">
 	                  <option value="1">직접입력</option>
 	                  <option value="daum.net">daum.net</option>
@@ -350,16 +349,16 @@
 		 		</td>
 		 	</tr>
 		 	<tr>
-		 		<td class = "info_title2"><lable class = "title_word">생년월일</lable></td>
+		 		<td class = "info_title2"><label class = "title_word">생년월일</label></td>
 		 		<td class = "right">
 		 			<input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)">년 <input type = "text" class = "input_info birth" id = "month">월 <input type = "text" class = "input_info birth" id = "day">일
-		 			<input type="hidden" name="realBirth" id="realBirth">
+		 			<input type="hidden" name="birth" id="realBirth">
 		 		</td>
 		 	</tr>
 		 	<tr>
-		 		<td class = "info_title2"><lable class = "title_word">성별</lable></td>
+		 		<td class = "info_title2"><label class = "title_word">성별</label></td>
 		 		<td class = "right">
-			 		<input type = "radio" name = "gender" value = "남" class = "gender"><label class = "input_gender">남</label>
+			 		<input type = "radio" name = "gender" value = "남" class = "gender" id="male"><label class = "input_gender">남</label>
 			 		<input type = "radio" name = "gender" value = "여" class = "gender fm"><label class = "input_gender">여</label>
 		 		</td>
 		 	</tr>
@@ -395,11 +394,11 @@
 	 </div>
 	 
 	 <div id = "agree_box">
-	 	<label><b>이용약관에 동의하십니까?</b></label><input type = "radio" id = "agree"><label><b>동의함</b></label>
+	 	<label><b>이용약관에 동의하십니까?</b></label><input type = "radio" id = "agree" name="agree"><label><b>동의함</b></label>
 	 </div>
 	 
 	 <div class = "terms_box">
-	 	<input type = "button" id = "join" value = "가입하기">
+	 	<input type="button" id = "join" value = "가입하기">
 	 </div>
 	</form>
 	<script>
@@ -479,7 +478,7 @@
    			$('#day').val(day);
    			$('#realBirth').val($('#year').val() + $('#month').val() + $('#day').val());
    		});
-   		
+
    		
    		$('#join').click(function(){
    			if($('#idCheck').val() == 0){
@@ -498,8 +497,34 @@
    				alert('이름을 다시 입력해주세요.')
    				$('#userName').focus();
    	   			return false;
-   			}
-   		})
+   			}else if($("#ad_num").val() == "" || $("b_ad").val() == "" || $("l_ad").val() == ""){
+   				alert('주소를 입력해주세요.')
+   	   			return false;
+   			}else if($('#phoneCheck').val() == 0){
+   				alert('전화번호를 다시 입력해주세요.\n(- 제외)');
+   				$('#phone').focus();
+   	   			return false;
+   			}else if($('#emailCheck').val() == 0){
+   				alert('이메일을 다시 입력해주세요.');
+   				$('#email01').focus();
+   	   			return false;
+   			}else if($('#realBirth').val == ""){
+   				alert('생년월일을 다시 입력해주세요');
+   				$('#yead').focus();
+   				return false;
+   			}else if($(':radio[name="gender"]:checked').length < 1){
+   				alert('성별을 선택해주세요.');
+   				$('#male').focus();
+   				return false;
+   			}else if($(':radio[name="agree"]:checked').length < 1){
+   				alert('약관에 동의해주세요.');
+   				$('#agree').focus();
+   				return false;
+   			}else{
+   	   			$('#joinForm').submit();
+   	   		}
+   			
+   		});
    		
    		
 
