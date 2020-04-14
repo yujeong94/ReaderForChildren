@@ -27,10 +27,17 @@
 	
 	<update id="updateMember" parameterType="Member">
 		update member
-		set user_id=#{userId}, birth=#{birth}, postal_code=#{postalCode}, b_address=#{bAddress},
-		 	l_address=#{lAddress}, email=#{email}, phone=#{phone}, revenue=#{revenue}, update_date=sysdate
+		set user_Name=#{userName}, birth=#{birth}, postal_code=#{postalCode}, b_address=#{bAddress},
+		 	l_address=#{lAddress}, email=#{email}, phone=#{phone}
 		where user_id=#{userId}
 	</update>
+	
+	<update id="pwdUpdate" parameterType="map">
+		update member
+		set user_Pwd=#{newPwd1}
+		where user_Id=#{userId} and status='Y'
+	
+	</update>	
 	
 	<select id="idCheck" resultType="_int">
 		select count(*)

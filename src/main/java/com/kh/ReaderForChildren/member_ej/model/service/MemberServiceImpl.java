@@ -1,5 +1,7 @@
 package com.kh.ReaderForChildren.member_ej.model.service;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMember(Member m) {
-		// TODO Auto-generated method stub
 		return mDAO.updateMember(sqlSession, m);
+	}
+
+	@Override
+	public int memberPwdUpdate(HashMap<String, String> map) {
+		return mDAO.pwdUpdate(sqlSession, map);
 	}
 
 }

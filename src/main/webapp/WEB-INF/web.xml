@@ -140,4 +140,19 @@
 		<url-pattern>*.me</url-pattern>
 	</servlet-mapping>
 	
+	
+	<!-- 마이페이지 리스트 관련 -->
+	<servlet>
+		<servlet-name>listServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/list-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>listServlet</servlet-name>
+		<url-pattern>*.li</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

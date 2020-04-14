@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<%
+String name = request.getParameter("userName");
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -75,14 +78,14 @@
 	<table id = "content_table" style="margin-left: auto; margin-right: auto;">
 						
 						<tr>
-							<td id="noList">김누구님의 후원이 완료되었습니다.<br>
+							<td id="noList">'${ loginUser.userName }'님의 후원이 완료되었습니다.<br>
 											후원해주셔서 감사합니다.
 							</td>
 						</tr>
 					
 					</table>
-    <button onclick = "location.href = '../board/sponserlist.jsp'" id = "golist" class="defaultBtn">후원내역</button>
-     <button onclick = "location.href = '../../index.jsp'" id = "gomain" class="defaultBtn">메인으로</button>
+    <button onclick = "location.href = 'sllist.sp'" id = "golist" class="defaultBtn">후원내역</button>
+     <button onclick = "location.href = 'index.jsp'" id = "gomain" class="defaultBtn">메인으로</button>
    </div>
    
    	<c:import url="../common/footer.jsp"/> 

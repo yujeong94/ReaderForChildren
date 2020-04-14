@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="supportMapper">
+
+	
+	
+	<select id="getSponserListCount" resultType="_int">
+		select count(*)
+		from support
+		where snum=#{snum}
+	</select>
+	
+	<select id="selectslList" resultMap="supportResultSet">
+		select *
+		from support
+		order by snum desc
+	</select>
+	
+	<resultMap type="Support" id="supportResultSet">
+		<id property="snum" column="SNUM"/>
+		<result property="donation" column="DONATION"/>
+		<result property="supdate" column="SUP_DATE"/>
+		<!-- <result property="userNAME" column="USER_NAME"/> -->
+		 <result property="userId" column="USER_ID"/> 
+		<!-- <result property="spName" column="SP_NAME"/> -->
+	 <result property="spCode" column="SP_CODE"/> 
+		
+	</resultMap>
+	
+	
+	<!-- <update id="suupdateMember" parameterType="Support">
+		update support
+		set snum=#{snum}, donation=#{donation},sup_date=sysdate, user_id=#{userid},
+		 	sp_name=#{spName}
+		where snum=#{snum}
+	</update> -->
+	
+	<insert id="insertSupport" parameterType="Support">
+		insert into support values(
+			seq_snum.nextval, #{donation}, sysdate, #{userId}, #{spCode} 
+			
+		)
+	</insert>
+	
+</mapper>

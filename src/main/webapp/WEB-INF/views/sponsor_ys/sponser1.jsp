@@ -104,7 +104,7 @@
 				
 				<div class="address"> 주소 : ${ b.spAddress }</div><!-- 번호 -->
 				
-				<button class="btnBox" id="updateBtn" onclick ="location.href='spupdateView.sp';">후원하기</button>
+				<button class="btnBox" id="updateBtn" onclick ="location.href='suinsertView.sp';">후원하기</button>
 			</div>
 		</div>
 	</c:forEach>

@@ -1,5 +1,7 @@
 package com.kh.ReaderForChildren.member_ej.model.service;
 
+import java.util.HashMap;
+
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 public interface MemberService {
@@ -9,5 +11,7 @@ public interface MemberService {
 	int checkId(String userId);
 
 	int updateMember(Member m);
+
+	int memberPwdUpdate(HashMap<String, String> map);
 
 }

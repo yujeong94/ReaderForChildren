@@ -1,5 +1,7 @@
 package com.kh.ReaderForChildren.member_ej.model.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,10 @@ public class MemberDAO {
 
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateMember", m);
+	}
+
+	public int pwdUpdate(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("memberMapper.pwdUpdate", map);
 	}
 
 }

@@ -2,6 +2,8 @@ package com.kh.ReaderForChildren.sponsor_ys.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.ReaderForChildren.sponsor_ys.model.vo.PageInfo;
-import com.kh.ReaderForChildren.sponsor_ys.model.vo.Pagination;
 import com.kh.ReaderForChildren.member_ej.model.exception.MemberException;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 import com.kh.ReaderForChildren.sponsor_ys.model.exception.sponsorException;
 import com.kh.ReaderForChildren.sponsor_ys.model.service.sponsorService;
+import com.kh.ReaderForChildren.sponsor_ys.model.vo.PageInfo;
+import com.kh.ReaderForChildren.sponsor_ys.model.vo.Pagination;
 import com.kh.ReaderForChildren.sponsor_ys.model.vo.Sponsor;
+import com.kh.ReaderForChildren.sponsor_ys.model.vo.Support;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -35,7 +38,7 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 			currentPage = page;
 		}
 		
-		// Book 전체 개수
+		
 		int listCount = spService.getListCount();
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
@@ -54,12 +57,18 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 		return mv;
 	}
 	
-	@RequestMapping("spupdateView.sp")
-	public String spupdateFormView() {
+	@RequestMapping("suinsertView.sp")
+	public String suinsertFormView() {
 		return "sponser2";
 	}
 	
-	@RequestMapping("mupdate.sp")
+	@RequestMapping("suupdateView.sp")
+	public String suupdateFormView() {
+		return "sponser3";
+	}
+	
+	//후원 업데이트?
+	/*@RequestMapping("mupdate.sp")
 	public String memberUpdate(@ModelAttribute Member m, @RequestParam("post")int post,
 														 @RequestParam("baddress")String bad,
 														 @RequestParam("laddress")String lad, Model model) {
@@ -76,7 +85,72 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 		}else {
 			throw new MemberException("회원정보 수정에 실패했습니다.");
 		}
+	}*/
+	
+	@RequestMapping("sllist.sp")
+	public ModelAndView supportList(@RequestParam(value="page", required=false) Integer page,ModelAndView mv) {
+			
+			int currentPage = 1;
+			if(page != null) {
+				currentPage = page;
+			}
+			
+			// Book 전체 개수
+			int listCount = spService.getSponserListCount();
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Support> list = spService.selectslList(pi);
+			
+			if(list != null) {
+				mv.addObject("pi", pi);
+				mv.addObject("list", list);
+				mv.setViewName("sponserlist");
+				/*mv.setViewName("sponser2");*/
+			} else {
+				throw new sponsorException("게시글 전체 조회에 실패하였습니다.");
+			}
+			
+			return mv;
+		}
+	
+	@RequestMapping("suinsert.sp")												
+	public ModelAndView boardInsert(HttpServletRequest request,Support s, ModelAndView mv ,@RequestParam("donation") int donation  /*@RequestParam("donation") int donation, 
+																							@RequestParam("spCode") int spCode*/) {
+		System.out.println(donation);
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		
+		/*s.setDonation(donation);
+		s.setSpCode(spCode);
+		*/
+		
+		int result = spService.insertSupport(s);
+		
+		if(result > 0) {
+			mv.setViewName("sponser3");
+			System.out.println("result??" + result);
+		}else {
+			throw new sponsorException("실패");
+		}
+		return mv;
 	}
+	
+	
+	/*@RequestMapping("suupdate.sp")
+	public String memberUpdate(@ModelAttribute Support s,  Member m, Model model)  {
+		
+		
+		int result = spService.suupdateMember(s);
+	
+		if(result > 0) {
+			model.addAttribute("loginUser", m);
+			return "sponser3";
+		}else {
+			throw new MemberException("결제값 불러오기 실패.");
+		}
+	}
+	
+	*/
+	
 }
 	
 	
