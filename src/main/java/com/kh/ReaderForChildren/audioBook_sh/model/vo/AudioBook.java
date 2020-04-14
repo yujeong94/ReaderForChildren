@@ -6,23 +6,23 @@ public class AudioBook {
 	private int audCode;
 	private Date audDate;
 	private int audPrice;
+	private String rdName;
 	private String rdIntro;
 	private String audStatus;
 	private String bkCode;
-	private String rdName;
 	
 	public AudioBook() {}
 
-	public AudioBook(int audCode, Date audDate, int audPrice, String rdIntro, String audStatus, String bkCode,
-			String rdName) {
+	public AudioBook(int audCode, Date audDate, int audPrice, String rdName, String rdIntro, String audStatus,
+			String bkCode) {
 		super();
 		this.audCode = audCode;
 		this.audDate = audDate;
 		this.audPrice = audPrice;
+		this.rdName = rdName;
 		this.rdIntro = rdIntro;
 		this.audStatus = audStatus;
 		this.bkCode = bkCode;
-		this.rdName = rdName;
 	}
 
 	public int getAudCode() {
@@ -49,6 +49,14 @@ public class AudioBook {
 		this.audPrice = audPrice;
 	}
 
+	public String getRdName() {
+		return rdName;
+	}
+
+	public void setRdName(String rdName) {
+		this.rdName = rdName;
+	}
+
 	public String getRdIntro() {
 		return rdIntro;
 	}
@@ -73,18 +81,10 @@ public class AudioBook {
 		this.bkCode = bkCode;
 	}
 
-	public String getRdName() {
-		return rdName;
-	}
-
-	public void setRdName(String rdName) {
-		this.rdName = rdName;
-	}
-
 	@Override
 	public String toString() {
-		return "AudioBook [audCode=" + audCode + ", audDate=" + audDate + ", audPrice=" + audPrice + ", rdIntro="
-				+ rdIntro + ", audStatus=" + audStatus + ", bkCode=" + bkCode + ", rdName=" + rdName + "]";
+		return "AudioBook [audCode=" + audCode + ", audDate=" + audDate + ", audPrice=" + audPrice + ", rdName="
+				+ rdName + ", rdIntro=" + rdIntro + ", audStatus=" + audStatus + ", bkCode=" + bkCode + "]";
 	}
-	
+
 }

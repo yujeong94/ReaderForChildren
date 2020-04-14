@@ -16,7 +16,8 @@
 	.search{text-align: center; margin-bottom: 80px;}
 	.selectbox{width: 80px; height: 32px; border-radius: 5px; margin-right: 10px;}
 	.frame{text-align: center;}
-	.searchline{border: 0; border-bottom: 2px solid darkgray; outline: none; width: 500px; height: 20px;}
+	.searchline{border: 0; border-bottom: 2px solid darkgray; outline: none; width: 500px; height: 40px;}
+	.sBtn{border: none; background:none;}
 	.product{width: 300px; display: inline-block; margin: 10px 10px 40px 10px; align: center; border: 1px solid gray;}
 	.bookImg{margin-bottom: 10px;}
 	.text1{font-weight: bold; font-size: 18px; margin-bottom: 10px;}
@@ -38,13 +39,14 @@
 			<br clear="all">
 
 			<div class="search">
-				<select class="selectbox">
-					<option>제목</option>
-					<option>저자</option>
-					<option>출판사</option>
+				<select class="selectbox" id="searchCondition" name="searchCondition">
+					<option selected disabled>-------</option>
+					<option value="title" id="title">제목</option>
+					<option value="writer" id="writer">저자</option>
+					<option value="publisher" id="publisher">출판사</option>
 				</select>
-				<input type="text" class="searchline">
-				<img src="${ contextPath }/resources/images/search.PNG" width="30px" height="30px">
+				<input type="search" id="searchValue" class="searchline">
+				<button class="sBtn" onclick="searchBoard();"><img src="${ contextPath }/resources/images/search.PNG" width="30px" height="30px"></button>
 			</div>
 			
 			<div class="frame">
@@ -75,13 +77,27 @@
 			</div>
 			
 			<div class="pagingArea">
+				
+				<!-- 검색 결과에 따라 루트 지정 -->
+				<c:if test="${ searchValue eq null }">
+					<c:set var="loc" value="ablist.ab" scope="page"/>
+				</c:if>
+				<c:if test="${ searchValue ne null }">
+					<c:set var="loc" value="search.ab" scope="page"/>
+				</c:if>
+			
 			
 				<!--	<<	-->
 				<c:if test="${ pi.currentPage <= 1 }">
 					<button disabled>&lt;&lt;</button>
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="ablist.ab">
+					<c:url var="before" value="${ loc }">
+						<c:if test="${ searchValue ne null }">
+							<c:param name="searchCondition" value="${ searchCondition }"/>
+							<c:param name="searchValue" value="${ searchValue }"/>
+						</c:if>
+						
 						<c:param name="page" value="${ pi.currentPage - 1}"/>
 					</c:url>
 					<a href="${ before }"><button>&lt;&lt;</button></a>
@@ -94,7 +110,12 @@
 					</c:if>
 					
 					<c:if test="${ p ne pi.currentPage }">
-						<c:url var="pagination" value="ablist.ab">
+						<c:url var="pagination" value="${ loc }">
+							<c:if test="${ searchValue ne null }">
+								<c:param name="searchCondition" value="${ searchCondition }"/>
+								<c:param name="searchValue" value="${ searchValue }"/>
+							</c:if>
+							
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }"><button>${ p }</button></a>
@@ -106,7 +127,12 @@
 					<button disabled>&gt;&gt;</button>
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="ablist.ab">
+					<c:url var="after" value="${ loc }">
+						<c:if test="${ searchValue ne null }">
+							<c:param name="searchCondition" value="${ searchCondition }"/>
+							<c:param name="searchValue" value="${ searchValue }"/>
+						</c:if>
+						
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>					
 					</c:url>
 					<a href="${ after }"><button>&gt;&gt;</button></a>
@@ -117,6 +143,21 @@
 		
 	<c:import url="../common/footer.jsp"/>
 	</div>
+	
+	
+	<script>
+	function searchBoard(){
+		var searchCondition = $("#searchCondition").val();
+		var searchValue = $("#searchValue").val();
+		
+		location.href="search.ab?searchCondition="+searchCondition+"&searchValue="+searchValue;
+	}
+	
+	</script>
+	
+	
+	
+	
 	
 </body>
 </html>

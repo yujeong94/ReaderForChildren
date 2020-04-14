@@ -44,5 +44,28 @@
 		from member
 		where user_id = #{userId} and status = 'Y'
 	</select>
+	
+	<insert id = "insertMember">
+		insert into member
+		values(#{userId},#{userPwd},#{userName},#{birth},#{postalCode},#{bAddress},#{lAddress},#{email},#{phone},#{gender},default,default,default,default)
+	</insert>
 
+	<select id="findId" resultType="String">
+		select user_id
+		from member
+		where user_name = #{userName} and email = #{email}
+	</select>
+	
+	<select id="findPwd" resultType = "_int">
+		select count(*)
+		from member
+		where user_id = #{userId} and user_name = #{userName} and email = #{email}
+	</select>
+	
+	<update id="updateTemPwd">
+		update member
+		set user_pwd = #{lastPw}
+		where user_id = #{userId}
+	</update>
+	
 </mapper>

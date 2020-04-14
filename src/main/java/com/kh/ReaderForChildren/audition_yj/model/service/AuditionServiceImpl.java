@@ -23,4 +23,13 @@ public class AuditionServiceImpl implements AuditionService {
 		return auDAO.selectList(sqlSession);
 	}
 
+	@Override
+	public int insertAudition(Audition a) {
+		return auDAO.insertAudition(sqlSession, a);
+	}
+
+	@Override
+	public Audition selectAudition(int aNum) {
+		return auDAO.selectAudition(sqlSession, aNum);
+	}
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +61,7 @@
 			<a href="#" class="closeBtn" onclick="closeMenu();">X</a>
 			<a href="${ ablist }">오디오북 shop</a>
 			<a href="${ splist }">아동 후원</a>
-			<a href="#">봉사 일정</a>
+			<a href="${ contextPath }/volView.vo">봉사 일정</a>
 			<a href="${ aulist }">Reader 오디션 지원</a>
 			<a href="#">녹음부스 예약</a>
 			<a href="${ contextPath }/eventList.ev">진행 중인 이벤트</a>

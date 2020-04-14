@@ -55,7 +55,7 @@
 				<table id="profileCon">
 					<tr>
 						<th width="120px">오디오북 명</th>
-						<td>어쩌고저쩌고</td>
+						<td>${ bkName }</td>
 						<th width="80px">이름</th>
 						<td><input type="text" name="userName" value="박유정" class="inputSize"></td>
 						<th width="80px">성별</th>

@@ -23,9 +23,15 @@
 	text-align: center;
 }
 
-.boxDiv {
+.boxDiv1 {
 	text-align: center;
 }
+
+.boxDiv2 {
+	width: 874px;
+	position: relative;
+	left : 115px;
+}	
 
 .selectBox {
 	display: inline-block;
@@ -75,81 +81,26 @@
 	<!-- 내용 -->
 	<div class="contents">
 		<div id="title"><h1>EVENT</h1></div>
-		<div class="boxDiv">
+		<div class="boxDiv1">
 			<div class="selectBox" id="sbox1">진행중인 이벤트</div>
 			<div class="selectBox" id="sbox2">이벤트 당첨자 발표</div>
 		</div>
 		<form action="#">
-		<div class="boxDiv">
-			<div class="eventBox" id="ebox1">
-				<div class="eventImg">
-					<img alt="#" src="${ contextPath }/resources/images/poster.jpg" width="90%">
-				</div>
-				<div class="eventContent">
-					[당첨발표] 후원시 랜덤으로 스타벅스 기프티콘 증정
-				</div>
-				<div class="eventCount">
-					조회수 : <input type="text" class="inputText" value="19220" readonly>
-				</div>
-			</div>
-			<div class="eventBox" id="ebox2">
-				<div class="eventImg">
-						<img alt="#" src="${ contextPath }/resources/images/poster.jpg" width="90%">
+			<div class="boxDiv2">
+			<c:forEach var="e" items="${ event }">
+				<div class="eventBox" id="ebox1">
+					<div class="eventImg">
+						<img alt="#" src="${ contextPath }/resources/uploadFiles/${ e.changeName }" width="240px" height="240px;">
 					</div>
 					<div class="eventContent">
-						[당첨발표] 후원시 랜덤으로 스타벅스 기프티콘 증정
+						[당첨 발표] ${ e.eTitle }
 					</div>
 					<div class="eventCount">
-						조회수 : <input type="text" class="inputText" value="19220" readonly>
+						조회수 : <input type="text" class="inputText" value="${ e.eCount }" readonly>
 					</div>
 				</div>
-			<div class="eventBox" id="ebox3">
-				<div class="eventImg">
-					<img alt="#" src="${ contextPath }/resources/images/poster.jpg" width="90%">
-				</div>
-				<div class="eventContent">
-					[당첨발표] 후원시 랜덤으로 스타벅스 기프티콘 증정
-				</div>
-				<div class="eventCount">
-					조회수 : <input type="text" class="inputText" value="19220" readonly>
-				</div>
+			</c:forEach>
 			</div>
-		</div>
-		<div class="boxDiv">
-			<div class="eventBox" id="ebox1">
-				<div class="eventImg">
-					<img alt="#" src="${ contextPath }/resources/images/poster.jpg" width="90%">
-				</div>
-				<div class="eventContent">
-					[당첨발표] 후원시 랜덤으로 스타벅스 기프티콘 증정
-				</div>
-				<div class="eventCount">
-					조회수 : <input type="text" class="inputText" value="19220" readonly>
-				</div>
-			</div>
-			<div class="eventBox" id="ebox2">
-				<div class="eventImg">
-						<img alt="#" src="${ contextPath }/resources/images/poster.jpg" width="90%">
-					</div>
-					<div class="eventContent">
-						[당첨발표] 후원시 랜덤으로 스타벅스 기프티콘 증정
-					</div>
-					<div class="eventCount">
-						조회수 : <input type="text" class="inputText" value="19220" readonly>
-					</div>
-				</div>
-			<div class="eventBox" id="ebox3">
-				<div class="eventImg">
-					<img alt="#" src="${ contextPath }/resources/images/poster.jpg" width="90%">
-				</div>
-				<div class="eventContent">
-					[당첨발표] 후원시 랜덤으로 스타벅스 기프티콘 증정
-				</div>
-				<div class="eventCount">
-					조회수 : <input type="text" class="inputText" value="19220" readonly>
-				</div>
-			</div>
-		</div>
 		</form>
 	</div>
 
@@ -163,6 +114,14 @@
 				$(this).css('background', 'none');
 			});
 			
+		});
+		
+		$('#sbox2').click(function(){
+			location.href="eventEndList.ev";
+		});
+		
+		$('#sbox1').click(function(){
+			location.href="eventList.ev";
 		});
 	</script>
 	

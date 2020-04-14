@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Pagination;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
+import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Controller
 public class audioBookController {
@@ -61,18 +64,70 @@ public class audioBookController {
 	}
 	
 	
+	// 오디오북 검색결과 리스트
+	@RequestMapping("search.ab")
+	public ModelAndView searchAudioBookList(@RequestParam("searchCondition") String condition,
+										@RequestParam("searchValue") String value,
+										@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+		SearchCondition sc = new SearchCondition();
+		if(condition.equals("title")) {
+			sc.setTitle(value);
+		} else if(condition.equals("writer")) {
+			sc.setWriter(value);
+		} else if(condition.equals("publisher")) {
+			sc.setPublisher(value);
+		}
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = abService.getSearchListCount(sc);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Book> blist = abService.selectSearchbList(pi, sc);
+		ArrayList<BookImage> bilist = abService.selectbiList();
+		
+		if(bilist != null) {
+			mv.addObject("blist", blist);
+			mv.addObject("pi", pi);
+			mv.addObject("bilist", bilist);
+			mv.addObject("searchCondition", condition);
+			mv.addObject("searchValue", value);
+			mv.setViewName("audioBookList");
+		} else {
+			throw new audioBookException("검색 결과 조회에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	
 	// 오디오북 상세조회
 	@RequestMapping("abdetail.ab")
 	public ModelAndView audioBookDetail(@RequestParam("bkCode") int bkCode, ModelAndView mv) {
 		
 		Book b = abService.selectBook(bkCode);
-		AudioBook a = abService.selectAudioBook(bkCode);
+		ArrayList<AudioBook> ab = abService.selectAudioBook(bkCode);
 		BookImage i = abService.selectBookImage(bkCode);
+		ArrayList<AudioFile> af = abService.selectAudioFile(bkCode);
+		
+		AudioBook abF = ab.get(0);
+		AudioBook abM = ab.get(1);
+		
+		AudioFile afF = af.get(0);
+		AudioFile afM = af.get(1);
 		
 		if(b != null) {
-			mv.addObject("b", b)
-				.addObject("a", a)
-				.addObject("i", i);
+			mv.addObject("b", b);
+			mv.addObject("i", i);
+			mv.addObject("abF", abF);
+			mv.addObject("abM", abM);
+			mv.addObject("afF", afF);
+			mv.addObject("afM", afM);
 			mv.setViewName("audioBookDetail");
 		} else {
 			throw new audioBookException("게시글 상세 조회에 실패하였습니다.");
@@ -167,6 +222,7 @@ public class audioBookController {
 			}
 		}
 		
+		
 		// 남자 오디오파일 저장
 		AudioFile afM = new AudioFile();
 		if(fileM != null && !fileM.isEmpty()) {
@@ -178,17 +234,17 @@ public class audioBookController {
 				afM.setOriginName(fileM.getOriginalFilename());
 				afM.setChangeName(changeName);
 				afM.setFilePath(filePath);
-				afF.setUserId(rdIdM);
+				afM.setUserId(rdIdM);
 			}
 		}
 		
 		int result = abService.insertAudioBook(b, bi, abF, abM, afF, afM);
 		
 		if(result >= 6) {
-			
+			return "redirect:ablist.ab";
+		} else {
+			throw new audioBookException("상품 등록에 실패하였습니다.");
 		}
-		
-		return null;
 	}
 	
 	public String[] saveImage(MultipartFile file, HttpServletRequest request) {
@@ -253,5 +309,47 @@ public class audioBookController {
 		return arr;
 	}
 	
+	
+	// 구매 페이지
+	@RequestMapping("purchase.ab")
+	public ModelAndView audioBookPurchase(String bkName, int sum, String hidden1, String hidden2,
+										HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		String phone = loginUser.getPhone();
+		String num1 = phone.substring(0, 3);
+		String num2 = phone.substring(3, 7);
+		String num3 = phone.substring(7, 11);
+		String newPhone = num1+"-"+num2+"-"+num3;
+		
+		mv.addObject("lu", loginUser);
+		mv.addObject("newPhone", newPhone);
+		mv.addObject("bkName", bkName);
+		mv.addObject("sum", sum);
+		mv.addObject("hidden1", hidden1);
+		mv.addObject("hidden2", hidden2);
+		mv.setViewName("audioBookPurchase");
+		
+		return mv;
+	}
+	
+	
+	// 개인정보 제공 동의 페이지 이동
+	@RequestMapping("agreeInform.ab")
+	public String agreeForInformProvision() {
+		return "agreeForInformProvision";
+	}
+	
+	
+	// 배송지 목록
+	@RequestMapping("shipAddList.ab")
+	public String shippingAddressList() {
+		
+//		ArrayList<E> list = abService.shipAddList();
+		
+		
+		return null;
+	}
 	
 }

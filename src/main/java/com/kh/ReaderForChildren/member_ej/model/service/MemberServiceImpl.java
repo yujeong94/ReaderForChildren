@@ -37,6 +37,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberPwdUpdate(HashMap<String, String> map) {
 		return mDAO.pwdUpdate(sqlSession, map);
+  }
+	public int insertMember(Member m) {
+		return mDAO.insertMember(sqlSession, m);
+	}
+
+	@Override
+	public String findMemberId(Member m) {
+		return mDAO.findMemberId(sqlSession, m);
+	}
+
+	@Override
+	public int finMemberPwd(Member m) {
+		return mDAO.findMemberPwd(sqlSession, m);
+	}
+
+	@Override
+	public int updateTemPwd(HashMap<String, String> map) {
+		return mDAO.updateTemPwd(sqlSession, map);
 	}
 
 }
