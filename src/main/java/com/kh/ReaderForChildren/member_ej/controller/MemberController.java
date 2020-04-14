@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 
+
 import javax.mail.PasswordAuthentication;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,8 +13,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -67,7 +70,7 @@ public class MemberController {
 		
 		return "redirect:home.do";
 	}
-	
+	//여기부터 마이페이지 ys
 	@RequestMapping("myinfo.me")
 	public String myInfoView() {
 		return "mypage";
@@ -78,18 +81,46 @@ public class MemberController {
 		return "memberUpdateForm";
 	}
 	
+	@RequestMapping("mpwdUpdateView.me")
+	public String pwdUpdateFormView() {
+		return "memberPwdUpdateForm";
+	}
+	
+	@RequestMapping("mPwdUpdate.me")
+	public String memberPwdUpdate(@RequestParam("newPwd1")String newPwd1, HttpSession session, Model model) {
+		Member member = (Member)session.getAttribute("loginUser");
+		String userId = member.getUserId();
+		
+		//암호화
+		/*String encPwd = bcryptPasswordEncoder.encode(newPwd1);*/
+		
+		HashMap<String, String> map = new HashMap<String, String>(); 
+		map.put("userId", userId);
+		/*map.put("encPwd", encPwd);*/
+		
+		int result = mService.memberPwdUpdate(map);
+		
+		if(result > 0) {
+			/*member.setUserPwd(encPwd);*/
+			member.setUserPwd(newPwd1);
+			model.addAttribute("loginUser", member);
+			return "mypage";
+		}else {
+			throw new MemberException("비밀번호 변경에 실패했습니다.");
+		}
+		
+	}
+	
 	@RequestMapping("mupdate.me")
-	public String memberUpdate(@ModelAttribute Member m, @RequestParam("post")int post,
-														 @RequestParam("baddress")String bad,
-														 @RequestParam("laddress")String lad, Model model) {
-		m.setPostalCode(post);
-		m.setbAddress(bad);
-		m.setlAddress(lad);
+	public String memberUpdate(@ModelAttribute Member m, Model model) {
+	
 		
 		int result = mService.updateMember(m);
 	
 		if(result > 0) {
-			model.addAttribute("loginUser", model);
+			
+			model.addAttribute("loginUser", m);
+		
 			return "mypage";
 		}else {
 			throw new MemberException("회원정보 수정에 실패했습니다.");

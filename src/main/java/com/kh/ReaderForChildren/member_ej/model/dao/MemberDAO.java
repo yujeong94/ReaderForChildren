@@ -22,7 +22,11 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateMember", m);
 	}
 
-	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+	public int pwdUpdate(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("memberMapper.pwdUpdate", map);
+ }
+  
+  public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 

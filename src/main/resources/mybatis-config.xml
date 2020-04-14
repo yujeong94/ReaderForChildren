@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile" alias="AudioFile"/>
 		<typeAlias type="com.kh.ReaderForChildren.member_ej.model.vo.Member" alias="Member"/> 
 		<typeAlias type="com.kh.ReaderForChildren.sponsor_ys.model.vo.Sponsor" alias="Sponsor"/>
+		<typeAlias type="com.kh.ReaderForChildren.sponsor_ys.model.vo.Support" alias="Support"/>
 		<typeAlias type="com.kh.ReaderForChildren.audition_yj.model.vo.Audition" alias="Audition"/>
 		<typeAlias type="com.kh.ReaderForChildren.event_ssj.model.vo.Event" alias="Event"/>
 		<typeAlias type="com.kh.ReaderForChildren.event_ssj.model.vo.Reply" alias="Reply"/>
@@ -22,7 +23,9 @@
 		<mapper resource="mapper/audioBook-Mapper.xml"/>
 		 <mapper resource="mapper/member-mapper.xml"/>
 		<mapper resource="mapper/adminPage-mapper.xml"/>
-		<mapper resource="mapper/sponsor-Mapper.xml"/>   
+		<mapper resource="mapper/sponsor-Mapper.xml"/>  
+		<mapper resource="mapper/support-Mapper.xml"/> 
+		<mapper resource="mapper/mypage-Mapper.xml"/> 
 		<mapper resource="mapper/audition-mapper.xml"/>
 		<mapper resource="mapper/event-mapper.xml"/>
 	</mappers>

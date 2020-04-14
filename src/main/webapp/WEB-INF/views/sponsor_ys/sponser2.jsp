@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
+ <script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>Insert title here</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
@@ -47,13 +49,13 @@
 			font-weight : bold;
 		}
 	#price{margin-left:60px; color: gray;  margin-bottom:-30px; font-size: 18px; }
-	.button{ width: 130px; height: 50px;  background-color: rgb(253, 236, 236); color: white;  font-weight: bold; cursor:pointer; font-size: 23px;
+	#button{ width: 130px; height: 50px;  background-color: rgb(253, 236, 236); color: white;  font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 250px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;}
-		.button2{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
+		#button2{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;} 
-		.button3{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
+		#button3{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;} 
-		.button4{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
+		#button4{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 50px; line-height: 40px;  text-align: center; border:black;  border-radius: 5px;}  
 	  #won{margin-left:50px;width : 80%; margin-top:-100px;
 		height : 70px;}   
@@ -203,7 +205,8 @@
     <c:import url="../common/menubar.jsp"/>
     
    <div class = "contents">
- <div id="title"><h1>${b.spName }아동 후원</h1></div>
+   
+ <div id="title"><h1>${sp.spCode}아동 후원</h1></div>
 		<table id = "content_table" style="margin-left: auto; margin-right: auto;">
 			<tr>
 				<td class = "content_title" id = "title2">후원금액
@@ -218,10 +221,11 @@
 	 
 		<table id = "won" > <!--  style="margin-left: auto; margin-right: auto;" -->
 		
-			<button type="button" class="button">10000</button>
-			<button type="button"  class="button2">30000</button>
-			<button type="button" class="button3">50000</button>
-			<button type="button"  class="button4">70000</button> 
+			<button id="button" class="button" value="10000" name="donation">10000</button>
+			<button id="button2"  class="button" value="30000" name="donation">30000</button>
+			<button id="button3" class="button" value="50000" name="donation">50000</button>
+			<button id="button4"  class="button" value="70000" name="donation">70000</button>
+			<input type="hidden" id = "donation_value" name = "donation123">
 			<!-- <tr>
 				<td class="button" >10000</td>
 				<td class="button2">20000</td>
@@ -229,20 +233,25 @@
 				<td class="button4">40000</td>
 			</tr> -->
 		</table>
-
+		<c:url var="sllist" value="sllist.sp">
+						<c:param name="snum" value="${  sp.snum  }"/>
+						<c:param name="page" value="${ pi.currentPage }"/>
+					</c:url>
+	  <form action="suinsert.sp" method="post" enctype="Multipart/form-data" onsubmit="payment()">
 		<table id = "content_table" style="margin-left: auto; margin-right: auto; margin-top:50px">
+		
 			<tr>
-				<td class = "content_title" id = "title2">'${ loginUser.userName }'후원자 정보
+				<td class = "content_title" id = "title2" > ${loginUser.userName }님 정보
 				</td>
 			</tr>
 		</table>
-  	<form action="mupdate.sp" method="post"> 
-  
+ 	<!-- <form action="myinfo.me" method="post">  -->
+
   <table class = "info" id="tabletd" >
       
        <tr>
           <td class = "info_title2">이름</td>
-          <td class = "right"><input type = "text" class = "input_info" name="userName" value="${ loginUser.userName }" ></td>
+          <td class = "right"><input type = "text" class = "input_info" id="userName" name="userName" value="${ loginUser.userName }" ></td>
        </tr>
        
        <%-- <c:forTokens var="addr" items="${ loginUser.address }" delims="/" varStatus="status">
@@ -261,13 +270,18 @@
 				</c:forTokens> --%>
        <tr>
           <td class = "info_title2" id = "address">주소</td>
-          <td class = "right"><input type = "text" name="post" class = "input_info" id = "ad_num" value="${ post }"><input type = "button" id = "ad_btn" value = "우편번호"><br>
-          <input type = "text" name="baddress"  class = "input_info info_address" value="${ baddress }"><br>
-          <input type = "text" name="laddress" class = "input_info info_address" value="${ laddress }" ></td>
+          <td class = "right">
+          	  <input type = "text" name="post" class = "input_info" id = "ad_num" value="${ post }" disabled>
+	          <input type = "button" id = "ad_btn" value = "우편번호" ><br>
+	          <input type = "text" name="baddress" id="baddress" class = "input_info info_address" value="${ baddress }" disabled><br>
+	          <input type = "text" name="laddress" class = "input_info info_address" value="${ laddress }" >
+	      </td>
        </tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right"><input type = "text" class = "input_info" name="phone" value=${ loginUser.phone }></td>
+          <td class = "right"><input type = "text" class = "input_info" name="phone" value=${ loginUser.phone }>
+          <input type = "text" class = "input_info" name="donation">
+          <input type = "text" class = "input_info" name="userId"></td>
        </tr>
        <tr>
           <td class = "info_title2">이메일</td>
@@ -289,7 +303,11 @@
           <td class = "info_title2">생년월일</td>
           <td class = "right"><input type = "text" class = "input_info" id= "year" placeholder = "년(4자)" value="${ loginUser.birth }">년 <input type = "number" class = "input_info birth">월 <input type = "number" class = "input_info birth">일</td>
        </tr>
+      <%--  <tr>
+         <input type = "text" class = "input_info"   value="${ sp.donation }">${ sp.donation }</td>
+       </tr> --%>
     </table>
+ 
     <div class = "terms_box">
        <textarea id="terms_content">
 1. 개인정보 수집목적 및 이용목적
@@ -315,52 +333,129 @@
     </div>
     
     <div id = "agree_box">
-       <label><b>이용약관에 동의하십니까?</b></label><input type = "radio" id = "agree"><label><b>동의함</b></label>
+       <label><b>이용약관에 동의하십니까?</b></label><input type = "radio" id = "agree" value="0"><label><b>동의함</b></label>
     </div>
     
-    <div id="btn">
-   		 <table>
-  	 		<tr> 
-				<td><button onclick ="location.href='sppayment.sp';" class="upBtn" id="pay">결제하기</button></td>
-				<td><button onclick = "location.href = 'sponser1.jsp'" class="upBtn" id="cancel" >취소하기</button></td>
-  			 </tr>
-    	 </table>
-  </div>
-   </form> 
-   </div>
-    	<c:import url="../common/footer.jsp"/> 
-  
-    <script>
-		var sell = null;
+    
+    
+     <script>
+   var donation = ""; 
+   
+   
+   $( document ).ready( function() {
+       
+
+		 
+       $(".button").click(function(){
+			console.log(va);
+             va = ($(this).attr(''));
+       });
+ 
+   }); 
+   
+   
+   
+   
+ function payValidation(){
+	 
+ 	if(va == ""){
+ 		alert("후원금액을 선택해주세요!");
+ 		return false;
+ 	}
+ 	if($('#userName').val() == ""){
+ 		alert("후원자 이름을 입력해주세요!");
+ 		$('#userName').focus();
+ 		return false;
+ 	}
+ 	/* if($('#baddress').val() == ""){
+ 		alert("주소를 입력해주세요!");
+ 		$('#baddress').focus();
+ 		return false;
+ 	} */
+ 	if($('#email01').val() == ""){
+ 		alert("이메일을 입력해주세요!");
+ 		$('#email01').focus();
+ 		return false;
+ 	}
+ 	if($('#email02').val() == ""){
+ 		alert("이메일을 입력해주세요!");
+ 		$('#email02').focus();
+ 		return false;
+ 	}
+ 	if(agree.checked == false){
+ 		alert("이용약관에 동의해주세요!");
+ 		return false;
+ 	}
+ 	
+ 	return true;
+ };
+ 
+ function payment(){
+	 
+	  if(payValidation() == false){
+		 return false;
+	 } 
+	    var email = $('#email01').val()+"@"+$('#email02').val();
+		
 		var IMP = window.IMP; 
 		IMP.init('imp36870177');
 		
 		IMP.request_pay({
-		    pg : 'kakao', 
-		    pay_method : 'card',
-		    merchant_uid : 'merchant_' + new Date().getTime(),
-		    name : '${b.spName }',
-		    amount : '${ sp.donation }',
-		    buyer_email : '${ loginUser.email }',
-		    buyer_name : '${ loginUser.userName }',
-		    buyer_tel : '${ loginUser.phone }',
-		    buyer_addr : '${ post }',
-		    buyer_postcode : '123-456',
-		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+   	    pg : 'inicis',
+   	    pay_method : 'card',
+   	    merchant_uid : 'merchant_' + new Date().getTime(),
+   	    name : '아동후원',
+   	    amount : va,
+   	    buyer_email :email,
+   	    buyer_name : '${loginUser.userId }',
+   	    buyer_tel : '${ loginUser.phone }',
+   	    buyer_addr : 'sss',
+   	    buyer_postcode : '${post}',
+   	    m_redirect_url : 'https://www.yourdomain.com/payments/complete' 
+
 		}, function(rsp) {
 		    if ( rsp.success ) {
-		        var msg = '${ loginUser.userName }'님;
+		        var msg = '후원';
 		        msg += '결제 금액 ' + rsp.paid_amount + '원이 결제 되었습니다.';
-		       
+		   
 		    } else {
 		        var msg = '결제에 실패하였습니다.\n';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		       
+		      
 		    }
-		  
-		    alert(msg);
+	       location.href='sllist.sp'; 
+		    alert("msg : " +msg);
 		});
-	</script>	
+ 	};
+	
+ 
+	</script> 
+   
+    <div id="btn">
+   		 <table>
+  	 		<tr> 
+				<td><button type="submit" value="submit" onclick="payment()" class="upBtn" id="pay">결제하기</button></td>
+				<td><button onclick = "location.href = 'sponser1.jsp'" class="upBtn" id="cancel" >취소하기</button></td>
+  			 </tr>
+    	 </table>
+  
+  </div>
+   </form>
+    
+
+  
    </div>
+  
+    	<c:import url="../common/footer.jsp"/> 
+  
+ <!--  <form action="suupdate.sp" method="post" id="form1">  -->
+ 
+	
+	<!-- </form> -->
+  
+   </div>
+
+
 </body>
 </html>

@@ -31,11 +31,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMember(Member m) {
-		// TODO Auto-generated method stub
 		return mDAO.updateMember(sqlSession, m);
 	}
 
 	@Override
+	public int memberPwdUpdate(HashMap<String, String> map) {
+		return mDAO.pwdUpdate(sqlSession, map);
+  }
 	public int insertMember(Member m) {
 		return mDAO.insertMember(sqlSession, m);
 	}
@@ -49,7 +51,6 @@ public class MemberServiceImpl implements MemberService {
 	public int finMemberPwd(Member m) {
 		return mDAO.findMemberPwd(sqlSession, m);
 	}
-
 
 	@Override
 	public int updateTemPwd(HashMap<String, String> map) {

@@ -12,6 +12,8 @@ public interface MemberService {
 
 	int updateMember(Member m);
 
+	int memberPwdUpdate(HashMap<String, String> map);
+  
 	int insertMember(Member m);
 
 	String findMemberId(Member m);
@@ -19,5 +21,4 @@ public interface MemberService {
 	int finMemberPwd(Member m);
 
 	int updateTemPwd(HashMap<String, String> map);
-
 }
