@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오디션 오디오북 리스트 수정 | ReaderForChildren</title>
+<title>오디션 오디오북 리스트 등록 | ReaderForChildren</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
 	h1 {
@@ -84,17 +83,17 @@
 	<c:import url="../common/menubar.jsp"/>
 	<div class="contents clear-fix">
 		<h1>Reader 오디션 </h1>
-		<h2>- 오디오북 리스트 수정 -</h2>
+		<h2>- 오디오북 리스트 등록 -</h2>
 		<form id="auListInsertForm" action="auListInsert.au" method="post" enctype="Multipart/form-data">
 			<div id="imgDiv">
-				<img id="bookImg" src="${ contextPath }/resources/uploadFiles/${ audition.biName }">
+				<img id="bookImg">
 			</div>
 			<div id="imgUpBtn">
 				<button type="button" id="imgCon" class="defaultBtn">사진 업로드</button>
 			</div>
 			<table class="aListTable">
-				<tr><td class="aId">게시글번호 <input type="number" min="1" max="5" name="aNum" value="${ audition.aNum }"></td></tr>
-				<tr class="conBg"><td style="padding-top:10px;"><label id="bookName">책 이름</label><input type="text" name="bkName" value="${ audition.bkName }"></td></tr>
+				<tr><td class="aId">게시글번호 <input type="number" min="1" max="5" name="aNum"></td></tr>
+				<tr class="conBg"><td style="padding-top:10px;"><label id="bookName">책 이름</label><input type="text" name="bkName"></td></tr>
 				<tr class="conBg"><td class="conTitle">테스트 구절</td></tr>
 				<tr class="conBg"><td>
 				<!-- <button type="button" id="testBtn">업로드</button> -->
@@ -104,23 +103,18 @@
 				<tr class="aCon conBg">
 				<td>
 					<label>성별</label><select style="width: 80px;" name="qGender">
-										<option value="무관" 
-											<c:if test="${ audition.qGender == '무관' }">selected</c:if>>무관</option>
-										<option value="남자" 
-											<c:if test="${ audition.qGender == '남자' }">selected</c:if>>남자</option>
-										<option value="여자"
-											<c:if test="${ audition.qGender == '여자' }">selected</c:if>>여자</option>
+											<option value="무관">무관</option>
+											<option value="남자">남자</option>
+											<option value="여자">여자</option>
 									  </select>
 				</td>
 				<tr class="aCon conBg"><td>
 					<label>나이</label><select multiple="multiple" style="width: 80px;" name="qAge">
-									  <c:forTokens items="${ audition.qAge }" delims="," var="a">
-									  </c:forTokens>
-										<option value="무관">무관</option>
-										<option value="20대">20대</option>
-										<option value="30대">30대</option>
-										<option value="40대">40대</option>
-										<option value="50대">50대</option>
+											<option value="무관">무관</option>
+											<option value="20대">20대</option>
+											<option value="30대">30대</option>
+											<option value="40대">40대</option>
+											<option value="50대">50대</option>
 									  </select>
 				</td></tr>
 				<tr class="aCon conBg"><td><label>경력</label><input type="radio" value="유" name="qCareer" checked><span>유</span>

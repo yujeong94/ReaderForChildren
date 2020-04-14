@@ -14,4 +14,12 @@ public class AuditionDAO {
 		return (ArrayList)sqlSession.selectList("auditionMapper.selectList");
 	}
 
+	public int insertAudition(SqlSessionTemplate sqlSession, Audition a) {
+		return sqlSession.insert("auditionMapper.insertAudition", a);
+	}
+
+	public Audition selectAudition(SqlSessionTemplate sqlSession, int aNum) {
+		return sqlSession.selectOne("auditionMapper.selectAudition", aNum);
+	}
+
 }
