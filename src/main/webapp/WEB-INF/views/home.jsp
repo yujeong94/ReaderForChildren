@@ -63,7 +63,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 
 			<table id = "123">
 				<tr>
-					<td colspan = '2'><label id = "welcome"><a href = "eventInsert.ev"><span style="color: green">${ sessionScope.loginUser.userName }</span></a>님 환영합니다.</label></td>
+					<td colspan = '2'><label id = "welcome"><a href = "myinfo.me"><span style="color: green">${ sessionScope.loginUser.userName }</span></a>님 환영합니다.</label></td>
 				</tr>
 				<tr>
 					<td class = "loginMenu"><a id = "logoutBtn" >로그아웃</a></td>
