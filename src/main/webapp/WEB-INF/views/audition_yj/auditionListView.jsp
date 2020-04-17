@@ -46,7 +46,7 @@
  	.applyBtn {
 		background: #EF8F0E;
 	} 
-	#imgTr {
+	.imgTr {
 		border: 1px solid black;
 		height: 200px;
 	}
@@ -72,8 +72,8 @@
 		
 		<c:forEach var="a" items="${ aulist }">
 			<table class="aListTable">
-				<tr id="imgTr">
-					<td><img src="${ contextPath }/resources/uploadFiles/${ a.biName }"></td>
+				<tr>
+					<td class="imgTr"><img src="${ contextPath }/resources/uploadFiles/${ a.biName }"></td>
 				</tr>
 				<tr style="display: none;"><td class="aId"><c:out value="${ a.aNum }"/></td></tr>
 				<tr class="conBg"><td style="font-size: 1.2rem;">"${ a.bkName }"</td></tr>  
@@ -85,20 +85,28 @@
 				<tr class="aCon conBg"><td>경력 - ${ a.qCareer }</td></tr>
 				<tr class="conTitle conBg"><td>요청사항</td></tr>
 				<tr class="aCon conBg"><td height="10%">${ a.request }</td></tr>
-				<tr class="conBg">
+				<tr class="conTitle conBg"><td>마감날짜 </td></tr>
+				<tr class="aCon conBg"><td>${ a.endDate }</td></tr>
+					
 					<c:url var="apply" value="applyInsert.au">
+						<c:param name="aNum" value="${ a.aNum }"/>
 						<c:param name="bkName" value="${ a.bkName }"/>
 					</c:url>
-				    <c:if test="${ loginUser.userId != 'admin' }">
-					<td class="btnTd"><button class="defaultBtn applyBtn" onclick="location.href='${ apply }'">Apply</button></td>
-					</c:if>
 					<c:url var="upView" value="auListUpView.au">
 						<c:param name="aNum" value="${ a.aNum }"/>
 					</c:url>
+					<c:url var="delete" value="auListDelete.au">
+						<c:param name="aNum" value="${ a.aNum }"/>
+					</c:url>
+					
+				<tr class="conBg">
+				    <c:if test="${ loginUser.userId != 'admin' && loginUser != null }">
+						<td class="btnTd"><button class="defaultBtn applyBtn" onclick="location.href='${ apply }'">Apply</button></td>
+					</c:if>
 					<c:if test="${ loginUser.userId == 'admin' }">
 						<td class="btnTd">
 							<button class="defaultBtn upBtn" onclick="location.href='${ upView }'">Edit</button>
-							<button class="defaultBtn delBtn" onclick="location.href='auListDelete.au'">Delete</button> 
+							<button class="defaultBtn delBtn" onclick="delCheck();">Delete</button> 
 						</td>
 					</c:if>
 				</tr>
@@ -108,5 +116,12 @@
 	</div>
 	<c:import url="../common/footer.jsp"/>
 </div>
+<script>
+	function delCheck(){
+		if(confirm("정말 삭제하시겠습니까?")){
+			location.href="${ delete }";
+		}
+	}
+</script>
 </body>
 </html>

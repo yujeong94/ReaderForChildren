@@ -123,14 +123,17 @@
 				<tr class="aCon conBg"><td>
 					<label>요청사항</label><textarea rows="10" name="request"></textarea>
 				</td></tr>
+				<tr class="aCon conBg">
+					<td><label>마감날짜 </label><input type="date" name="endDate"></td>
+				</tr>
 				<tr class="conBg">
 					<td class="btnTd"><button class="defaultBtn upBtn">등록</button></td>
 				</tr>
 			</table>
-		<div id="fileArea">
-			<input type="file" accept="image/*" id="bookBtn" name="bookFile" onchange="Load(this,1)">
-			<!-- <input type="file" accept="text/plain" id="testImg" name="testBtn" onchange="Load(this,2)"> -->
-		</div>
+			<div id="fileArea">
+				<input type="file" accept="image/*" id="bookBtn" name="bookFile" onchange="Load(this,1)">
+				<!-- <input type="file" accept="text/plain" id="testImg" name="testBtn" onchange="Load(this,2)"> -->
+			</div>
 		</form>
 		
 				
@@ -163,6 +166,8 @@
 	<c:import url="../common/footer.jsp"/>
 </div>
 <script>
+	// ajax로 게시글 번호 중복되는지 안되는지 확인 
+	
 </script>
 </body>
 </html>

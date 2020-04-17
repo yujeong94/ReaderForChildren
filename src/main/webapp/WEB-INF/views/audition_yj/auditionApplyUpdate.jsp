@@ -55,21 +55,26 @@
 				<table id="profileCon">
 					<tr>
 						<th width="120px">오디오북 명</th>
-						<td>어쩌고저쩌고</td>
+						<td>${ bkName }
+							<input type="hidden" value="${ aNum }" name="aNum">
+						</td>
 						<th width="80px">이름</th>
-						<td><input type="text" name="userName" value="박유정" class="inputSize"></td>
+						<%-- <td><input type="text" name="userName" value="${ loginUser.userName }" class="inputSize" required></td> --%>
+						<td>${ loginUser.userName }</td>
 						<th width="80px">성별</th>
-						<td>여자</td>
+						<td>${ loginUser.gender }</td>
 					</tr>
 					<tr>
 						<th>생년월일</th>
-						<td><input type="text" name="age" value="19940313"  class="inputSize"></td>
+						<%-- <td><input type="text" name="age" value="${ loginUser.birth }" class="inputSize" required></td> --%>
+						<td>${ loginUser.birth }</td>
 						<th>연락처</th>
-						<td><input type="text" name="phone" value="01020324186"  class="inputSize"></td>
+						<%-- <td><input type="text" name="phone" value="${ loginUser.phone }"  class="inputSize" required></td> --%>
+						<td>${ loginUser.phone }</td>
 						<th>이메일</th>
-						<td><input type="email" name="email" value="94yuuu@naver.com"  class="emailSize"></td>
+						<%-- <td><input type="email" name="email" value="${ loginUser.email }"  class="emailSize" required></td> --%>
+						<td>${ loginUser.email }</td>
 					</tr>
-					
 				</table>
 			</div>
 			
@@ -84,18 +89,11 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td width=180px class="careerBorder"><input type="text" class="careerInput"></td>
-						<td width=300px class="careerBorder"><input type="text" class="careerInput"></td>
-						<td width=180px class="careerBorder"><input type="text" class="careerInput"></td>
+						<td width=180px class="careerBorder"><input type="text" class="careerInput" name="cDate"></td>
+						<td width=300px class="careerBorder"><input type="text" class="careerInput" name="cContent"></td>
+						<td width=180px class="careerBorder"><input type="text" class="careerInput" name="cCompany"></td>
 						<td><img src='${ contextPath }/resources/images/minus0.png' class='minusBtn' style="padding-left: 5px;"></td>
 					</tr>
-					<%-- <tr>
-						<td><input type="text" class="careerInput"></td>
-						<td><input type="text" class="careerIn"></td>
-						<td><input type="text" class="careerInput"></td>
-						<td class="forth"><img src="${ contextPath }/resources/images/minus.png" id="minusBtn"></td>
-					</tr> --%>
-					<tr>
 				</table>
 				<div align="center">
 					<img src="${ contextPath }/resources/images/plus.png" id="plusBtn">
@@ -105,7 +103,7 @@
 			<h2><label class="star">* </label>Introduce</h2>
 			
 			<div id="introArea" align="center">
-				<textarea rows="40px" cols="100px"></textarea>
+				<textarea rows="40px" cols="100px" name="introduce"></textarea>
 			</div>
 			
 			<div id="recordArea">
@@ -113,7 +111,7 @@
 			</div>
 			
 			<div class="btnBox">
-				<button type="submit" class="defaultBtn upBtn">Apply</button>				
+				<button type="submit" class="defaultBtn upBtn">수정</button>				
 			</div>
 		</form>
 		
@@ -126,9 +124,9 @@
 				var $td3 = $("<td class='careerBorder'>");
 				var $td4 = $("<td style='padding-left:5px;'>");
 				var $img = $("<img src='${ contextPath }/resources/images/minus0.png' class='minusBtn'>")
-				var $input1 = $("<input type='text' class='careerInput'>");
-				var $input2 = $("<input type='text' class='careerInput'>");
-				var $input3 = $("<input type='text' class='careerInput'>");
+				var $input1 = $("<input type='text' class='careerInput' name='cDate'>");
+				var $input2 = $("<input type='text' class='careerInput' name='cContent'>");
+				var $input3 = $("<input type='text' class='careerInput' name='cCompany'>");
 				
 				$td4.append($img);
 				$td1.append($input1);

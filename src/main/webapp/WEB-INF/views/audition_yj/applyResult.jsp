@@ -24,7 +24,7 @@
 		<h1>박유정님 지원이 완료되었습니다.<br>
 			지원해주셔서 감사합니다.</h1>
 		<div class="btnBox">
-		<button type="button" class="defaultBtn upBtn">지원서 확인</button>
+		<button class="defaultBtn upBtn" onclick="location.href='apDetail.au'">지원서 확인</button>
 		</div>
 	</div>
 	<c:import url="../common/footer.jsp"/>

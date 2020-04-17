@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.audition_yj.model.dao.AuditionDAO;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
+import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
+import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
 
 @Service("auService")
 public class AuditionServiceImpl implements AuditionService {
@@ -31,5 +33,28 @@ public class AuditionServiceImpl implements AuditionService {
 	@Override
 	public Audition selectAudition(int aNum) {
 		return auDAO.selectAudition(sqlSession, aNum);
+	}
+
+	@Override
+	public int updateAudition(Audition a) {
+		return auDAO.updateAudition(sqlSession, a);
+	}
+
+	@Override
+	public int deleteAudition(int aNum) {
+		return auDAO.deleteAudition(sqlSession, aNum);
+	}
+
+	@Override
+	public int insertApply(Reader r, ArrayList<Career> cArr) {
+	
+		int result = 0;
+		int cResult = auDAO.insertCareer(sqlSession, cArr);
+		
+		if(cResult > 0) {
+			result = auDAO.insertApply(sqlSession, r);	
+		} 
+		
+		return result;
 	}
 }

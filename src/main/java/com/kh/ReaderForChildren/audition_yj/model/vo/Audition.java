@@ -16,11 +16,12 @@ public class Audition {
 	private Date uploadDate;
 	private String biName;
 	private String biPath;
+	private Date endDate;
 	
 	public Audition() {}
 
 	public Audition(int aNum, String bkName, String qGender, String qAge, String qCareer, String request, String status,
-			String teName, String tePath, int downCount, Date uploadDate, String biName, String biPath) {
+			String teName, String tePath, int downCount, Date uploadDate, String biName, String biPath, Date endDate) {
 		super();
 		this.aNum = aNum;
 		this.bkName = bkName;
@@ -35,6 +36,7 @@ public class Audition {
 		this.uploadDate = uploadDate;
 		this.biName = biName;
 		this.biPath = biPath;
+		this.endDate = endDate;
 	}
 
 	public int getaNum() {
@@ -140,13 +142,21 @@ public class Audition {
 	public void setBiPath(String biPath) {
 		this.biPath = biPath;
 	}
+	
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 
 	@Override
 	public String toString() {
 		return "Audition [aNum=" + aNum + ", bkName=" + bkName + ", qGender=" + qGender + ", qAge=" + qAge
 				+ ", qCareer=" + qCareer + ", request=" + request + ", status=" + status + ", teName=" + teName
 				+ ", tePath=" + tePath + ", downCount=" + downCount + ", uploadDate=" + uploadDate + ", biName="
-				+ biName + ", biPath=" + biPath + "]";
+				+ biName + ", biPath=" + biPath + ", endDate=" + endDate + "]";
 	}
-	
+
 }
