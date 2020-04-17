@@ -10,6 +10,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook" alias="AudioBook"/>
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage" alias="BookImage"/>
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile" alias="AudioFile"/>
+		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping" alias="Shipping"/>
 		<typeAlias type="com.kh.ReaderForChildren.member_ej.model.vo.Member" alias="Member"/> 
 		<typeAlias type="com.kh.ReaderForChildren.sponsor_ys.model.vo.Sponsor" alias="Sponsor"/>
 		<typeAlias type="com.kh.ReaderForChildren.sponsor_ys.model.vo.Support" alias="Support"/>

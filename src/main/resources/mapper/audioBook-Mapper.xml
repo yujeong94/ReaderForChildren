@@ -92,10 +92,10 @@
 		<id property="audCode" column="AUD_CODE"/>
 		<result property="audDate" column="AUD_DATE"/>
 		<result property="audPrice" column="AUD_PRICE"/>
+		<result property="rdName" column="RD_NAME"/>
 		<result property="rdIntro" column="RD_INTRO"/>
 		<result property="audStatus" column="AUD_STATUS"/>
 		<result property="bkCode" column="BK_CODE"/>
-		<result property="rdName" column="RD_NAME"/>
 	</resultMap>
 	
 	<select id="selectBookImage" parameterType="_int" resultMap="bookImageResultSet">
@@ -151,6 +151,43 @@
 	<insert id="insertAudioFileM" parameterType="AudioFile">
 		insert into audio_file
 		values(seq_af.nextval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
+	</insert>
+	
+	<select id="selectDefaultSA" parameterType="string" resultType="_int">
+		select s_no
+		from shipping
+		where s_status='Y' and user_id=#{userId} and r_level=0
+	</select>
+	
+	<select id="selectShipAddList" parameterType="string" resultMap="shippingResultSet">
+		select *
+		from shipping
+		where s_status='Y' and user_id=#{userId}
+		order by r_level asc, s_no desc
+	</select>
+	<resultMap type="Shipping" id="shippingResultSet">
+		<id property="sNo" column="S_NO"/>
+		<result property="sName" column="S_NAME"/>
+		<result property="rName" column="R_NAME"/>
+		<result property="rPhone" column="R_PHONE"/>
+		<result property="rZipcode" column="R_ZIPCODE"/>
+		<result property="rBasicadd" column="R_BASICADD"/>
+		<result property="rDetailadd" column="R_DETAILADD"/>
+		<result property="sStatus" column="S_STATUS"/>
+		<result property="rLevel" column="R_LEVEL"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
+	
+	<insert id="addShipAddress" parameterType="Shipping">
+		insert into shipping
+		values(seq_ship.nextval, #{sName}, #{rName}, #{rPhone},
+				#{rZipcode}, #{rBasicadd}, #{rDetailadd}, default, default, #{userId})
+	</insert>
+	
+	<insert id="orderInsert">
+		insert into order_detail
+		values(seq_or.nextval, #{bkCode}, #{audCodeF}, #{audCodeM}, #{orPrice}, default,
+				#{delRequest}, default, default, #{containBk}, #{sNo}, #{userId})
 	</insert>
 	
 </mapper>

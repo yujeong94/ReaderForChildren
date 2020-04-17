@@ -5,16 +5,17 @@ public class Shipping {
 	private String sName;
 	private String rName;
 	private String rPhone;
-	private int rZipcode;
+	private String rZipcode;
 	private String rBasicadd;
 	private String rDetailadd;
 	private String sStatus;
+	private int rLevel;
 	private String userId;
 	
 	public Shipping() {}
 
-	public Shipping(int sNo, String sName, String rName, String rPhone, int rZipcode, String rBasicadd,
-			String rDetailadd, String sStatus, String userId) {
+	public Shipping(int sNo, String sName, String rName, String rPhone, String rZipcode, String rBasicadd,
+			String rDetailadd, String sStatus, int rLevel, String userId) {
 		super();
 		this.sNo = sNo;
 		this.sName = sName;
@@ -24,6 +25,7 @@ public class Shipping {
 		this.rBasicadd = rBasicadd;
 		this.rDetailadd = rDetailadd;
 		this.sStatus = sStatus;
+		this.rLevel = rLevel;
 		this.userId = userId;
 	}
 
@@ -59,11 +61,11 @@ public class Shipping {
 		this.rPhone = rPhone;
 	}
 
-	public int getrZipcode() {
+	public String getrZipcode() {
 		return rZipcode;
 	}
 
-	public void setrZipcode(int rZipcode) {
+	public void setrZipcode(String rZipcode) {
 		this.rZipcode = rZipcode;
 	}
 
@@ -91,6 +93,14 @@ public class Shipping {
 		this.sStatus = sStatus;
 	}
 
+	public int getrLevel() {
+		return rLevel;
+	}
+
+	public void setrLevel(int rLevel) {
+		this.rLevel = rLevel;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -103,7 +113,7 @@ public class Shipping {
 	public String toString() {
 		return "Shipping [sNo=" + sNo + ", sName=" + sName + ", rName=" + rName + ", rPhone=" + rPhone + ", rZipcode="
 				+ rZipcode + ", rBasicadd=" + rBasicadd + ", rDetailadd=" + rDetailadd + ", sStatus=" + sStatus
-				+ ", userId=" + userId + "]";
+				+ ", rLevel=" + rLevel + ", userId=" + userId + "]";
 	}
-	
+
 }
