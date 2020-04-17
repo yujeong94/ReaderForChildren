@@ -70,7 +70,7 @@
 	
 	<insert id="insertShipping">
 		insert into shipping
-		values(seq_ship.nextval, #{userName},#{userName},#{phone},#{postalCode},#{bAddress},#{lAddress},default,#{userId},0)
+		values(seq_ship.nextval, #{userName},#{userName},#{phone},#{postalCode},#{bAddress},#{lAddress},default,0,#{userId})
 	</insert>
 	
 </mapper>
