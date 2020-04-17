@@ -50,9 +50,22 @@
 		order by e_anno
 	</select>
 	
+	<select id="selectEvent" resultMap="eventResultSet">
+		select *
+		from event
+		where e_status = 'Y' and e_num = #{eNum}
+	</select>
 	
+	<update id="eventAddCount" parameterType="_int">
+		update event
+		set e_count = e_count + 1
+		where e_num = #{eNum}
+	</update>
 	
-	
+	<insert id="insertReply" parameterType="Reply">
+		insert into reply
+		values(seq_re.nextval, #{rContent}, sysdate, default, #{eNum}, #{userId})
+	</insert>
 	
 	
 	

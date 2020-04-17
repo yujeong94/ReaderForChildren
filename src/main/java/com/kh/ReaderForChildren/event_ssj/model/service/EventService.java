@@ -3,6 +3,7 @@ package com.kh.ReaderForChildren.event_ssj.model.service;
 import java.util.ArrayList;
 
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
+import com.kh.ReaderForChildren.event_ssj.model.vo.Reply;
 
 public interface EventService {
 
@@ -13,6 +14,10 @@ public interface EventService {
 	ArrayList<Event> selectList();
 
 	ArrayList<Event> selectEndList();
+
+	Event selectEvent(int eNum);
+
+	int insertReply(Reply r);
 
 
 }
