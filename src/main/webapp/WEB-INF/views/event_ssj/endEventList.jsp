@@ -48,7 +48,7 @@
 .eventBox {
 	display: inline-block;
 	width: 270px;
-	height: 300px;
+	height: 340px;
 	margin: 9px;
 	text-align: center;
 }
@@ -90,13 +90,13 @@
 			<c:forEach var="e" items="${ event }">
 				<div class="eventBox" id="ebox1">
 					<div class="eventImg">
-						<img alt="#" src="${ contextPath }/resources/uploadFiles/${ e.changeName }" width="240px" height="240px;">
+						<img alt="#" src="${ contextPath }/resources/uploadFiles/${ e.changeName }" width="240px" height="240px">
 					</div>
 					<div class="eventContent">
 						[당첨 발표] ${ e.eTitle }
 					</div>
 					<div class="eventCount">
-						조회수 : <input type="text" class="inputText" value="${ e.eCount }" readonly>
+						조회수 : ${ e.eCount }
 					</div>
 				</div>
 			</c:forEach>
@@ -114,15 +114,25 @@
 				$(this).css('background', 'none');
 			});
 			
+			$('#sbox2').click(function(){
+				location.href="eventEndList.ev";
+			});
+			
+			$('#sbox1').click(function(){
+				location.href="eventList.ev";
+			});
+			
+			$('.eventBox').mouseover(function(){
+				$(this).css('background','#F7F7D0');
+			}).mouseout(function(){
+				$(this).css('background','none');
+			}).click(function(){
+				var eventNum = $(this).children('input').val();
+				location.href="eventDetail.ev?eNum="+eventNum;
+			});
+			
 		});
 		
-		$('#sbox2').click(function(){
-			location.href="eventEndList.ev";
-		});
-		
-		$('#sbox1').click(function(){
-			location.href="eventList.ev";
-		});
 	</script>
 	
 </body>
