@@ -18,7 +18,7 @@
 		
 		<span><label class="star" style="margin-left: 50px;">* </label>필수입력항목</span>
 		
-		<form id="applyForm" class="divblank" action="insert.ap" method="post" enctype="Multipart/form-data">
+		<form id="applyForm" class="divblank" action="insertApply.au" method="post" enctype="Multipart/form-data">
 			
 			<h2><label class="star">* </label>Profile</h2>
 			
@@ -28,7 +28,7 @@
 					<img id="proImg">
 				</div>
 				<div id="fileArea">
-					<input type="file" id="ImgBtn" name="profileImg" onchange="Load(this)">
+					<input type="file" id="ImgBtn" name="profileImg" onchange="Load(this)" required>
 				</div>
 				
 				<script>
@@ -55,21 +55,26 @@
 				<table id="profileCon">
 					<tr>
 						<th width="120px">오디오북 명</th>
-						<td>${ bkName }</td>
+						<td>${ bkName }
+							<input type="hidden" value="${ aNum }" name="aNum">
+						</td>
 						<th width="80px">이름</th>
-						<td><input type="text" name="userName" value="박유정" class="inputSize"></td>
+						<%-- <td><input type="text" name="userName" value="${ loginUser.userName }" class="inputSize" required></td> --%>
+						<td>${ loginUser.userName }</td>
 						<th width="80px">성별</th>
-						<td>여자</td>
+						<td>${ loginUser.gender }</td>
 					</tr>
 					<tr>
 						<th>생년월일</th>
-						<td><input type="text" name="age" value="19940313"  class="inputSize"></td>
+						<%-- <td><input type="text" name="age" value="${ loginUser.birth }" class="inputSize" required></td> --%>
+						<td>${ loginUser.birth }</td>
 						<th>연락처</th>
-						<td><input type="text" name="phone" value="01020324186"  class="inputSize"></td>
+						<%-- <td><input type="text" name="phone" value="${ loginUser.phone }"  class="inputSize" required></td> --%>
+						<td>${ loginUser.phone }</td>
 						<th>이메일</th>
-						<td><input type="email" name="email" value="94yuuu@naver.com"  class="emailSize"></td>
+						<%-- <td><input type="email" name="email" value="${ loginUser.email }"  class="emailSize" required></td> --%>
+						<td>${ loginUser.email }</td>
 					</tr>
-					
 				</table>
 			</div>
 			
@@ -83,19 +88,13 @@
 						<th width=180px class="careerBorder">근무기관</th>
 						<td></td>
 					</tr>
-					<tr>
-						<td width=180px class="careerBorder"><input type="text" class="careerInput"></td>
-						<td width=300px class="careerBorder"><input type="text" class="careerInput"></td>
-						<td width=180px class="careerBorder"><input type="text" class="careerInput"></td>
+					<tr class="careerTr">
+						<td width=180px class="careerBorder"><input type="text" class="careerInput" name="cDate"></td>
+						<td width=300px class="careerBorder"><input type="text" class="careerInput" name="cContent"></td>
+						<td width=180px class="careerBorder"><input type="text" class="careerInput" name="cCompany"></td>
 						<td><img src='${ contextPath }/resources/images/minus0.png' class='minusBtn' style="padding-left: 5px;"></td>
 					</tr>
-					<%-- <tr>
-						<td><input type="text" class="careerInput"></td>
-						<td><input type="text" class="careerIn"></td>
-						<td><input type="text" class="careerInput"></td>
-						<td class="forth"><img src="${ contextPath }/resources/images/minus.png" id="minusBtn"></td>
-					</tr> --%>
-					<tr>
+					
 				</table>
 				<div align="center">
 					<img src="${ contextPath }/resources/images/plus.png" id="plusBtn">
@@ -105,30 +104,31 @@
 			<h2><label class="star">* </label>Introduce</h2>
 			
 			<div id="introArea" align="center">
-				<textarea rows="40px" cols="100px"></textarea>
+				<textarea rows="40px" cols="100px" name="introduce" required></textarea>
 			</div>
 			
 			<div id="recordArea">
-				<label class="star">* </label><span id="recordSpan"> 녹음 파일 첨부 </span><input type="file" accept="audio/*">
+				<label class="star">* </label><span id="recordSpan"> 녹음 파일 첨부 </span><input type="file" accept="audio/*" name="recordFile" required>
 			</div>
 			
 			<div class="btnBox">
-				<button type="submit" class="defaultBtn upBtn">Apply</button>				
+				<button class="defaultBtn upBtn">Apply</button>	
+				<button type=button id="testBtn">확인</button>			
 			</div>
 		</form>
 		
 		<script>
 			$('#plusBtn').click(function(){
 				var $table = $("#careerCon");
-				var $tr = $("<tr>");
+				var $tr = $("<tr class='careerTr'>");
 				var $td1 = $("<td class='careerBorder'>");
 				var $td2 = $("<td class='careerBorder'>");
 				var $td3 = $("<td class='careerBorder'>");
 				var $td4 = $("<td style='padding-left:5px;'>");
 				var $img = $("<img src='${ contextPath }/resources/images/minus0.png' class='minusBtn'>")
-				var $input1 = $("<input type='text' class='careerInput'>");
-				var $input2 = $("<input type='text' class='careerInput'>");
-				var $input3 = $("<input type='text' class='careerInput'>");
+				var $input1 = $("<input type='text' class='careerInput' name='cDate'>");
+				var $input2 = $("<input type='text' class='careerInput' name='cContent'>");
+				var $input3 = $("<input type='text' class='careerInput' name='cCompany'>");
 				
 				$td4.append($img);
 				$td1.append($input1);
@@ -145,14 +145,29 @@
 					var $tr = $(this).parent().parent();
 					$tr.remove();
 				});
+				
+				// career값 배열로 담기 
+				 /* $("#testBtn").click(function(){
+					var career = new Object();
+					var careerArr = new Array();
+					for(var i = 0; i < $('.careerTr').length; i++) {
+						//career[i].cName = $('input[name=cDate]').val();
+						console.log($('input[name=cDate]').val());
+						console.log($('input[name=cContent]').val());
+						console.log($('input[name=cCompany]').val()); 
+						console.log($('.careerTr td').children('input[name=cDate]').val());
+					}
+				});  */
 			});
 			
-			$('.minusBtn').click(function(){
-				var $tr = $(this).parent().parent();
-				$tr.remove();
-			});
 			
-		
+			/* $('#plusBtn').click(function(){
+				for(var i = 0; i < $('.careerInput').length; i++) {
+					console.log($('input[name=cDate]').val());
+					console.log($('input[name=cContent]').val());
+				}
+			});  */
+
 		</script>
 	</div>
 	<c:import url="../common/footer.jsp"/>

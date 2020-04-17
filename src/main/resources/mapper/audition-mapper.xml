@@ -6,6 +6,7 @@
 		select *
 		from audition
 		where status='Y'
+		order by aNum
 	</select>
 	
 	<resultMap type="Audition" id="auditionResultSet">
@@ -22,16 +23,50 @@
 		<result property="uploadDate" column="UPLOAD_DATE"/>
 		<result property="biName" column="BI_NAME"/>
 		<result property="biPath" column="BI_PATH"/>
+		<result property="endDate" column="END_DATE"/>
 	</resultMap>
 	
 	<insert id="insertAudition" parameterType="Audition">
 		insert into audition 
 		values(#{aNum},#{bkName},#{qGender},#{qAge},#{qCareer},#{request},default,
-			   #{teName},#{tePath},default,sysdate,#{biName},#{biPath})
+			   #{teName},#{tePath},default,sysdate,#{biName},#{biPath},#{endDate})
 	</insert>
 	
 	<select id="selectAudition" parameterType="_int" resultMap="auditionResultSet">
 		select * from audition where anum = #{aNum} and status='Y'
 	</select>
+	
+	<update id="updateAudition" parameterType="Audition">
+		update audition 
+		<set>
+			anum=#{aNum}, bk_name=#{bkName}, q_gender=#{qGender}, q_age=#{qAge}, q_career=#{qCareer}, request=#{request}, end_date=#{endDate}
+			<if test="tePath != null">
+				te_name=#{teName}, te_path=#{tePath},
+			</if>
+			<if test="biPath != null">
+				bi_name=#{biName}, bi_path=#{biPath}			
+			</if>
+		</set>
+		where anum=#{aNum}
+	</update>
+	
+	<update id="deleteAudition" parameterType="_int">
+		update audition
+		set status='N', anum=#{aNum}+10
+		where anum=#{aNum}
+	</update>
+	
+	<insert id="insertCareer" parameterType="ArrayList">
+		<foreach collection="cArr" item="c">
+			insert into career values(seq_cnum.nextval, #{c.userId} #{c.cDate}, #{c.cContent}, #{c.cCompany}) 
+		</foreach>
+	</insert>
+	
+	<insert id="insertApply" parameterType="Reader">
+		insert into reader 
+		values(#{userId},#{cDate},#{career},#{company},#{introduce},default,
+				#{aNum},#{originName},#{changeName},#{imPath},default,#{recName},#{recPath})
+	</insert>
+	
 </mapper>
 

@@ -20,7 +20,7 @@
 	<div class="contents">
 		<h1>내 지원서</h1>
 		
-		<form id="applyForm" class="divblank" action="update.ap" method="post" enctype="Multipart/form-data">
+		<form id="applyForm" class="divblank" action="apUpdate.au" method="post" enctype="Multipart/form-data">
 			
 			<h2>Profile</h2>
 			
@@ -34,17 +34,17 @@
 						<th width="120px">오디오북 명</th>
 						<td width="120px">어쩌고저쩌고</td>
 						<th width="80px">이름</th>
-						<td>박유정<input type="hidden" name="userName" value="박유정" class="inputSize"></td>
+						<td>${ loginUser.userName }<input type="hidden" name="userName" class="inputSize"></td>
 						<th width="80px">성별</th>
-						<td>여자</td>
+						<td>${ loginUser.gender }</td>
 					</tr>
 					<tr>
 						<th>생년월일</th>
-						<td>19940313<input type="hidden" name="age" value="19940313"  class="inputSize"></td>
+						<td>${ loginUser.birth }<input type="hidden" name="age" class="inputSize"></td>
 						<th>연락처</th>
-						<td>01020324186<input type="hidden" name="phone" value="01020324186"  class="inputSize"></td>
+						<td>${ loginUser.phone }<input type="hidden" name="phone" class="inputSize"></td>
 						<th>이메일</th>
-						<td>94yuuu@naver.com<input type="hidden" name="email" value="94yuuu@naver.com"  class="emailSize"></td>
+						<td>${ loginUser.email }<input type="hidden" name="email" class="emailSize"></td>
 					</tr>
 					
 				</table>
@@ -83,11 +83,17 @@
 			<div class="btnBox">
 				<button type="submit" class="defaultBtn upBtn">수정</button>
 				<button type="button" class="defaultBtn delBtn">삭제</button>
-								
 			</div>
 		</form>
 	</div>
 	<c:import url="../common/footer.jsp"/>
 </div>
+<script>
+	$('.delBtn').click(function(){
+		if(confirm("정말 삭제하시겠습니까?")){
+			location.href="apDelete.au";
+		}
+	});
+</script>
 </body>
 </html>
