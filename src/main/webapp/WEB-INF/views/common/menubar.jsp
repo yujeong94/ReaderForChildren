@@ -66,7 +66,7 @@
 			<a href="#">녹음부스 예약</a>
 			<a href="${ contextPath }/eventList.ev">진행 중인 이벤트</a>
 			<a href="#">공지사항</a>
-			<a href="#">Q&A</a>
+			<a href="${ contextPath }/chatView.ch">Q&A</a>
 		</div>
    </header>
    <script>

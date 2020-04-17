@@ -27,10 +27,25 @@
 		font-weight : bold;
 		color : brown;
 	}	
-a:link { color: red; text-decoration: none;}
+a:link { color: yellowgreen; text-decoration: none;}
 a:visited { color: black; text-decoration: none;}
 a:hover { text-decoration: none; cursor : pointer;}
-
+#namehover:hover{color:yellowgreen;}
+	
+	#logoutBtn{
+      text-decoration: none;
+      color : black;
+      padding:5px 10px 5px 10px;
+      font-size : 10px;
+      margin-top : 10px;
+      display:inline-block;
+      border-radius: 5px;
+      background-color: white;
+    }
+	
+	
+	
+	
 	
 </style>
 </head>
@@ -63,11 +78,17 @@ a:hover { text-decoration: none; cursor : pointer;}
 
 			<table id = "123">
 				<tr>
-					<td colspan = '2'><label id = "welcome"><a href = "myinfo.me"><span style="color: green">${ sessionScope.loginUser.userName }</span></a>님 환영합니다.</label></td>
+					<td colspan = '2'><label id = "welcome"><a href = "myinfo.me" id = "logincu"><span id = "namehover">${ sessionScope.loginUser.userName }</span></a>님 환영합니다.</label></td>
 				</tr>
 				<tr>
 					<td class = "loginMenu"><a id = "logoutBtn" >로그아웃</a></td>
 					<script>
+					$(function(){
+						if("${ loginUser.userId }" == "admin"){
+							$('#logincu').prop('href', "userList.ad");
+						}
+					});
+					
 						$(function(){
 							$('#logoutBtn').click(function(){
 								var an = confirm("로그아웃 하시겠습니까?")

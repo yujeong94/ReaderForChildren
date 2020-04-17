@@ -23,9 +23,11 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Pagination;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Controller
@@ -312,10 +314,11 @@ public class audioBookController {
 	
 	// 구매 페이지
 	@RequestMapping("purchase.ab")
-	public ModelAndView audioBookPurchase(String bkName, int sum, String hidden1, String hidden2,
+	public ModelAndView audioBookPurchase(String bkName, int bkCode, int sum, String hidden1, String hidden2, String hidden3,
 										HttpSession session, ModelAndView mv) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
 		String phone = loginUser.getPhone();
 		String num1 = phone.substring(0, 3);
@@ -323,12 +326,17 @@ public class audioBookController {
 		String num3 = phone.substring(7, 11);
 		String newPhone = num1+"-"+num2+"-"+num3;
 		
+		int sNo = abService.selectDefaultSA(userId);
+		
 		mv.addObject("lu", loginUser);
 		mv.addObject("newPhone", newPhone);
 		mv.addObject("bkName", bkName);
+		mv.addObject("bkCode", bkCode);
 		mv.addObject("sum", sum);
 		mv.addObject("hidden1", hidden1);
 		mv.addObject("hidden2", hidden2);
+		mv.addObject("hidden3", hidden3);
+		mv.addObject("sNo", sNo);
 		mv.setViewName("audioBookPurchase");
 		
 		return mv;
@@ -344,12 +352,97 @@ public class audioBookController {
 	
 	// 배송지 목록
 	@RequestMapping("shipAddList.ab")
-	public String shippingAddressList() {
+	public ModelAndView shippingAddressList(ModelAndView mv, HttpSession session) {
 		
-//		ArrayList<E> list = abService.shipAddList();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
+		ArrayList<Shipping> list = abService.shipAddList(userId);
 		
-		return null;
+		String newPhone = "";
+		if(list != null) {
+			for(int i = 0; i < list.size(); i++) {
+				String phone = list.get(i).getrPhone();
+				String num1 = phone.substring(0, 3);
+				String num2 = phone.substring(3, 7);
+				String num3 = phone.substring(7, 11);
+				newPhone = num1+"-"+num2+"-"+num3;
+				list.get(i).setrPhone(newPhone);
+			}
+			mv.addObject("list", list);
+			mv.setViewName("shippingAddressList");
+		} else {
+			throw new audioBookException("배송지 목록 조회에 실패하였습니다.");
+		}
+		
+		return mv;
 	}
+	
+	// 배송지 추가 페이지로 이동
+	@RequestMapping("addShipAddView.ab")
+	public String addShipAddView() {
+		return "addShippingAddress";
+	}
+	
+	// 배송지 추가
+	@RequestMapping("addShipAdd.ab")
+	public String addShippingAddress(@ModelAttribute Shipping s, HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
+		s.setUserId(userId);
+		
+		int result = abService.addShipAddress(s);
+		
+		if(result > 0) {
+			return "redirect:shipAddList.ab";
+		} else {
+			throw new audioBookException("배송지 추가에 실패하였습니다.");
+		}
+	}
+	
+	
+	// 결제 후 주문정보 insert
+	@RequestMapping("orderInsert.ab")
+	public String orderInsert(String hidden3, int bkCode, int sum, String delRequest, String selboxDirect, int sNo,
+							String containBk, HttpSession session) {
+		
+		if(delRequest.equals("direct")) {
+			delRequest = selboxDirect;
+		}
+		
+		int audCodeF = 0;
+		int audCodeM = 0;
+		if(hidden3.contains(",")) {
+			String[] hiddenArr = hidden3.split(",");
+			audCodeF = Integer.parseInt(hiddenArr[0]);
+			audCodeM = Integer.parseInt(hiddenArr[1]);
+		} else if((Integer.parseInt(hidden3)) % 2 == 1){
+			audCodeF = Integer.parseInt(hidden3);
+		} else {
+			audCodeM = Integer.parseInt(hidden3);
+		}
+		
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		OrderDetail order = new OrderDetail();
+		order.setBkCode(bkCode);
+		order.setAudCodeF(audCodeF);
+		order.setAudCodeM(audCodeM);
+		order.setOrPrice(sum);
+		order.setDelRequest(delRequest);
+		order.setContainBk(containBk);
+		order.setsNo(sNo);
+		order.setUserId(userId);
+		
+		int result = abService.orderInsert(order);
+		
+		if(result > 0) {
+			return "successPayment";
+		} else {
+			throw new audioBookException("상품 주문에 실패하였습니다.");
+		}
+		
+	}
+	
 	
 }

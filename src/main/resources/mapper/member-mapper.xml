@@ -68,4 +68,9 @@
 		where user_id = #{userId}
 	</update>
 	
+	<insert id="insertShipping">
+		insert into shipping
+		values(seq_ship.nextval, #{userName},#{userName},#{phone},#{postalCode},#{bAddress},#{lAddress},default,#{userId},0)
+	</insert>
+	
 </mapper>

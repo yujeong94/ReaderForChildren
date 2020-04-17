@@ -37,6 +37,8 @@
 	.record{height: 100px;}
 	.btnBox{margin-bottom: 30px;}
 	.upload{background: rgb(243, 156, 18); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
+		font-weight: bold; font-size: 20px; text-align: center; margin-right: 8px;}
+	.delBtn{color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
 		font-weight: bold; font-size: 20px; text-align: center;}
 </style>
 </head>
@@ -48,7 +50,7 @@
 			<div id="title"><h1>상품 등록</h1></div>
 			
 			<br clear="all">
-			<form action="abinsert.ab" method="post" enctype="Multipart/form-data">
+			<form action="abinsert.ab" method="post" enctype="Multipart/form-data" onsubmit="return imageCheck();">
 				<table class="tb">
 					<tr>
 						<td class="td0">
@@ -64,12 +66,12 @@
 							<table>
 								<tr>
 									<td class="td1">
-										<span>도서 제목</span> <input type="text" name="bkName" style="width: 130px;">
-										<span>페이지</span> <input type="text" name="bkPage" style="width: 50px;">
-										<span>출판</span> <input type="text" name="bkPublisher" id="bkPublisher" style="width: 80px;"><br>
-										<span>글</span> <input type="text" name="bkWriter" id="bkWriter" style="width: 100px;">
-										<span>그림</span> <input type="text" name="bkDraw" id="bkDraw" style="width: 100px;">
-										<span>출판일</span> <input type="date" name="bkPubdate" id="bkPubdate" style="width: 120px;">
+										<span>도서 제목</span> <input type="text" name="bkName" style="width: 130px;" required>
+										<span>페이지</span> <input type="text" name="bkPage" style="width: 50px;" required>
+										<span>출판</span> <input type="text" name="bkPublisher" id="bkPublisher" style="width: 80px;" required><br>
+										<span>글</span> <input type="text" name="bkWriter" id="bkWriter" style="width: 100px;" required>
+										<span>그림</span> <input type="text" name="bkDraw" id="bkDraw" style="width: 100px;" required>
+										<span>출판일</span> <input type="date" name="bkPubdate" id="bkPubdate" style="width: 120px;" required>
 		                        	</td>
 								</tr>
 								<tr>
@@ -88,12 +90,12 @@
 								</tr>
 								<tr>
 									<td class="td4">
-										<span>도서 가격</span> <input type="text" name="bkPrice" style="width: 100px;">원
+										<span>도서 가격</span> <input type="text" name="bkPrice" style="width: 100px;" required>원
 									</td>
 								</tr>
 								<tr>
 									<td class="td5">
-										<span>오디오북 가격</span> <input type="text" name="audPrice" style="width: 100px;">원
+										<span>오디오북 가격</span> <input type="text" name="audPrice" style="width: 100px;" required>원
 									</td>
 								</tr>
 								<tr>
@@ -118,11 +120,11 @@
 							<span>저자</span> <input type="text" id="bkWriter2" style="width: 100px;">
 							<span>그림</span> <input type="text" id="bkDraw2" style="width: 100px;">
 							<span>출판</span> <input type="text" id="bkPublisher2" style="width: 100px;">
-							<span>도서 발행일</span> <input type="date" id="bkPubdate2" style="width: 120px;">
+							<span>도서 발행일</span> <input type="date" id="bkPubdate2" style="width: 120px;" required>
 						</div>
 						<div class="intro">
 							<span>책 소개</span><br>
-							<textarea class="intro2" name="bkIntro"></textarea>
+							<textarea class="intro2" name="bkIntro" required></textarea>
 						</div>
 						
 					</div>
@@ -132,16 +134,16 @@
 						<div class="line"></div>
 						
 						<div class="simpleInfo">
-							<span>리더 이름</span> <input type="text" name="rdNameF" style="width: 80px;">
-							<span>리더 아이디</span> <input type="text" name="rdIdF" style="width: 80px;">
-							<span>오디오북 발행일</span> <input type="date" name="audDateF" style="width: 120px;">
+							<span>리더 이름</span> <input type="text" name="rdNameF" style="width: 80px;" required>
+							<span>리더 아이디</span> <input type="text" name="rdIdF" style="width: 80px;" required>
+							<span>오디오북 발행일</span> <input type="date" name="audDateF" style="width: 120px;" required>
 						</div>
 						<div class="intro">
 							<span>리더 소개</span><br>
-							<textarea class="intro3" name="rdIntroF"></textarea><br>
+							<textarea class="intro3" name="rdIntroF" required></textarea><br>
 							
 							<span>미리듣기</span><br><br>
-							<input type="file" name="fileF">
+							<input type="file" name="fileF" required>
 						</div>
 					</div>
 					
@@ -152,22 +154,23 @@
 						<div class="line"></div>
 						
 						<div class="simpleInfo">
-							<span>리더 이름</span> <input type="text" name="rdNameM" style="width: 80px;">
-							<span>리더 아이디</span> <input type="text" name="rdIdM" style="width: 80px;">
-							<span>오디오북 발행일</span> <input type="date" name="audDateM" style="width: 120px;">
+							<span>리더 이름</span> <input type="text" name="rdNameM" style="width: 80px;" required>
+							<span>리더 아이디</span> <input type="text" name="rdIdM" style="width: 80px;" required>
+							<span>오디오북 발행일</span> <input type="date" name="audDateM" style="width: 120px;" required>
 						</div>
 						<div class="intro">
 							<span>리더 소개</span><br>
-							<textarea class="intro3" name="rdIntroM"></textarea><br>
+							<textarea class="intro3" name="rdIntroM" required></textarea><br>
 							
 							<span>미리듣기</span><br><br>
-							<input type="file" name="fileM">
+							<input type="file" name="fileM" required>
 						</div>
 					</div>
 				</div>
 				
 				<div class="btnBox">
 					<input type="submit" class="upload" value="등록">
+					<button type="reset" class="delBtn">취소</button>
 				</div>
 				
 			</form>
@@ -178,8 +181,16 @@
 	</div>
 	
 	<script>
-	function purchase(){
-		location.href="${ contextPath }/views/audioBook/audioBookPurchase.jsp";
+	$('.delBtn').click(function(){
+		location.href="ablist.ab";
+	});
+	
+	function imageCheck(){
+		var image = $('#thumbnailImg').val();
+		if(!image){
+			alert('도서 사진을 첨부해주세요.');
+			return false;
+		}
 	}
 	
 	

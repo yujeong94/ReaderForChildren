@@ -10,6 +10,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook" alias="AudioBook"/>
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage" alias="BookImage"/>
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile" alias="AudioFile"/>
+		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping" alias="Shipping"/>
 		<typeAlias type="com.kh.ReaderForChildren.member_ej.model.vo.Member" alias="Member"/> 
 		<typeAlias type="com.kh.ReaderForChildren.sponsor_ys.model.vo.Sponsor" alias="Sponsor"/>
 		<typeAlias type="com.kh.ReaderForChildren.sponsor_ys.model.vo.Support" alias="Support"/>
@@ -19,6 +20,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.event_ssj.model.vo.Winner" alias="Winner"/>
 		<typeAlias type="com.kh.ReaderForChildren.audition_yj.model.vo.Reader" alias="Reader"/>
 		<typeAlias type="com.kh.ReaderForChildren.audition_yj.model.vo.Career" alias="Career"/>
+		<typeAlias type="com.kh.ReaderForChildren.volunteer_ej.model.vo.VolunteerSchedule" alias="VolunteerSchedule"/>
 	</typeAliases>
 	
 	<mappers>
@@ -30,5 +32,6 @@
 		<mapper resource="mapper/mypage-Mapper.xml"/> 
 		<mapper resource="mapper/audition-mapper.xml"/>
 		<mapper resource="mapper/event-mapper.xml"/>
+		<mapper resource="mapper/volunteer-mapper.xml"/>
 	</mappers>
 </configuration>

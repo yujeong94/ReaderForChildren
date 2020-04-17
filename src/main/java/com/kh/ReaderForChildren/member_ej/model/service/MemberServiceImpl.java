@@ -57,4 +57,9 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.updateTemPwd(sqlSession, map);
 	}
 
+	@Override
+	public int shippingInsert(Member m) {
+		return mDAO.insertShipping(sqlSession, m);
+	}
+
 }

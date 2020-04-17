@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
-<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>audioBookList</title>
 <style type="text/css">
 	.btnArea{margin: 0 auto; width: 870px; height: 50px;}

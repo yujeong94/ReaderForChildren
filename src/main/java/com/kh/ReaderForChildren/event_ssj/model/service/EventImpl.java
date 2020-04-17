@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.event_ssj.model.dao.EventDAO;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
+import com.kh.ReaderForChildren.event_ssj.model.vo.Reply;
 
 @Service("evService")
 public class EventImpl implements EventService {
@@ -36,6 +37,24 @@ public class EventImpl implements EventService {
 	@Override
 	public ArrayList<Event> selectEndList() {
 		return evDAO.selectEndList(sqlSession);
+	}
+
+	@Override
+	public Event selectEvent(int eNum) {
+		Event e = null;
+				
+		int result = evDAO.eventAddCount(sqlSession, eNum);
+		
+		if(result > 0) {
+			e = evDAO.selectEvent(sqlSession, eNum);
+		}
+		
+		return e;
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return evDAO.insertReply(sqlSession, r);
 	}
 	
 }

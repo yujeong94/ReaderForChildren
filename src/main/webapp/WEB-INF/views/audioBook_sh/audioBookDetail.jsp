@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,23 +66,25 @@
 										<span>글</span> <b>${ b.bkWriter }</b> <span>그림</span> <b>${ b.bkDraw }</b> <span>출판</span> <b>${ b.bkPublisher }</b>
 		                              	<br>
 										<span>페이지</span> <b>${ b.bkPage }</b> <span>출판일</span> <b>${ b.bkPubdate }</b>
+										<input type="hidden" name="bkCode" value="${ b.bkCode }">
 										<input type="hidden" name="bkName" value="${ b.bkName }">
 		                        	</td>
 								</tr>
 								<tr>
 									<td class="td2">
 										<img src="${ contextPath }/resources/images/book.PNG">
-										<img src="${ contextPath }/resources/images/audioM.PNG">
 										<img src="${ contextPath }/resources/images/audioF.PNG">
+										<img src="${ contextPath }/resources/images/audioM.PNG">
 		                         	</td>
 								</tr>
 								<tr>
 									<td class="td3">
 										<input type="checkbox" name="chkbox" class="chkbox" id="checkB" value="${ b.bkPrice }" onclick="itemSum();">
-										<input type="checkbox" name="chkbox" class="chkbox" id="checkAM" value="${ abF.audPrice }" onclick="itemSum();">
-										<input type="checkbox" name="chkbox" class="chkbox" id="checkAF" value="${ abM.audPrice }" onclick="itemSum();">
+										<input type="checkbox" name="chkbox" class="chkbox" id="checkAF" value="${ abF.audPrice }" onclick="itemSum();">
+										<input type="checkbox" name="chkbox" class="chkbox" id="checkAM" value="${ abM.audPrice }" onclick="itemSum();">
 										<input type="hidden" name="hidden1" id="hidden1">
 										<input type="hidden" name="hidden2" id="hidden2">
+										<input type="hidden" name="hidden3" id="hidden3">
 									</td>
 								</tr>
 								<tr>
@@ -133,6 +136,7 @@
 					
 					<div id="FemaleReader" style="display: inline-block;">
 						<div class="simpleInfo">
+							<input type="hidden" name="audCodeF" value="${ abF.audCode }">
 							<span>리더</span> <b>${ abF.rdName }(${ afF.userId })</b> <span>오디오북 발행일</span> <b>${ abF.audDate }</b>
 						</div>
 						<div class="intro">
@@ -149,6 +153,7 @@
 					
 					<div id="MaleReader" style="display: none;">
 						<div class="simpleInfo">
+							<input type="hidden" name="audCodeM" value="${ abM.audCode }">
 							<span>리더</span> <b>${ abM.rdName }(${ afM.userId })</b> <span>오디오북 발행일</span> <b>${ abM.audDate }</b>
 						</div>
 						<div class="intro">
@@ -177,7 +182,7 @@
 		var checkedAM = $("input:checkbox[id='checkAM']").is(":checked");
 		var checkedAF = $("input:checkbox[id='checkAF']").is(":checked");
 		
-		if('${loginUser}' != ''){
+		if('${loginUser}' != ''){		// EL은 null 못씀
 			
 			if(checkedB==true && checkedAM==false && checkedAF==false){
 				alert("도서만 단독으로 구매는 불가능합니다.");
@@ -187,27 +192,33 @@
 				return false;
 			} else if(checkedB==true && checkedAM==true && checkedAF==true){
 				$('#hidden1').val('[도서+오디오북]');
-				$('#hidden2').val('(남자음성+여자음성)');
+				$('#hidden2').val('(여자음성+남자음성)');
+				$('#hidden3').val('${abF.audCode},${abM.audCode}');
 				return true;
 			} else if(checkedB==true && checkedAM==true && checkedAF==false){
 				$('#hidden1').val('[도서+오디오북]');
 				$('#hidden2').val('(남자음성)');
+				$('#hidden3').val('${abM.audCode}');
 				return true;
 			} else if(checkedB==true && checkedAM==false && checkedAF==true){
 				$('#hidden1').val('[도서+오디오북]');
 				$('#hidden2').val('(여자음성)');
+				$('#hidden3').val('${abF.audCode}');
 				return true;
 			} else if(checkedB==false && checkedAM==true && checkedAF==true){
 				$('#hidden1').val('[오디오북]');
-				$('#hidden2').val('(남자음성+여자음성)');
+				$('#hidden2').val('(여자음성+남자음성)');
+				$('#hidden3').val('${abF.audCode},${abM.audCode}');
 				return true;
 			} else if(checkedB==false && checkedAM==true && checkedAF==false){
 				$('#hidden1').val('[오디오북]');
 				$('#hidden2').val('(남자음성)');
+				$('#hidden3').val('${abM.audCode}');
 				return true;
 			} else if(checkedB==false && checkedAM==false && checkedAF==true){
 				$('#hidden1').val('[오디오북]');
 				$('#hidden2').val('(여자음성)');
+				$('#hidden3').val('${abF.audCode}');
 				return true;
 			} else{
 				return true;

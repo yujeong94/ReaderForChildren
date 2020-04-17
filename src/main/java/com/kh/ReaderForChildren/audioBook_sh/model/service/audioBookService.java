@@ -6,8 +6,10 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
 
 public interface audioBookService {
 
@@ -30,5 +32,13 @@ public interface audioBookService {
 	ArrayList<AudioFile> selectAudioFile(int bkCode);
 	
 	int insertAudioBook(Book b, BookImage bi, AudioBook abF, AudioBook abM, AudioFile afF, AudioFile afM);
+
+	ArrayList<Shipping> shipAddList(String userId);
+
+	int addShipAddress(Shipping s);
+
+	int selectDefaultSA(String userId);
+
+	int orderInsert(OrderDetail order);
 
 }

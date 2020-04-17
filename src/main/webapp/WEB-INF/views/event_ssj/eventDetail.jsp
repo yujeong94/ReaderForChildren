@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,16 +48,12 @@
 
 #imgTd{padding-top: 20px;}
 
-.textareaStyle{
+.divStyle{
 	width: 650px;
-	overflow-y: hidden;
-	text-align: center;
+	font-size: 1.7em;
 	margin: 30px;
 	margin-bottom: 60px;
-	font-size: 1.7em;
-	font-weight: bold;
-	resize: none;
-	border: none;
+	display: inline-block;
 }
 
 .event_text{
@@ -101,6 +99,7 @@
 
 .borderStyle{
 	border-bottom: 3px double lightgray;
+	padding-bottom: 10px;
 }
 
 .inputStyle{border-radius: 4px; box-shadow: none; padding: 0.5rem 0.6rem; font-size: 0.8rem;
@@ -149,117 +148,172 @@
 	padding: 4px 10px;
 	font-weight: normal;
 }
+
+
 </style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
+	<% pageContext.setAttribute("newLineChar", "\r\n"); %>
 	
 	<!-- 내용 -->
 	<div class="contents">
 		<div id="title"><h1>EVENT</h1></div>
-		<form action="#">
-			<table class="tableStyle">
-				<tr>
-					<td class="label tdStyle">제목</td>
-					<td colspan="3" class="data tdStyle">[EVENT] 2월 best 오디오 북 증정</td>
-				</tr>
-				<tr>
-					<td class="label tdStyle">작성일</td>
-					<td class="data data2 tdStyle" id="enrollDate">2020-03-29</td>
-					<td class="label tdStyle">조회수</td>
-					<td class="data data2 tdStyle" id="count">9278</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="tdStyle" id="imgTd"><img alt="#" src="${ contextPath }/resources/images/poster.jpg" width="70%"></td>
-				</tr>
-				<tr>
-					<td colspan="4" class="event_content" id="event_intro">
-						<textarea class="textareaStyle" readonly>2월 best 오디오북 '###' 을 증정합니다.
-이벤트 소개!!
-						</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="event_circle">
-						<div class="circleStyle">이벤트 기간</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="event_content" id="event_intro">
-						<textarea class="textareaStyle event_text" readonly>2020년 3월 19일(목) ~ 2020년 3월 21일(토) 자정까지
-당첨 발표 - 3월 22일(일)
-						</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="event_circle">
-						<div class="circleStyle">이벤트 참여 방법</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="event_content" id="event_intro">
-						<textarea class="textareaStyle event_text" readonly>홈페이지에 로그인 한 뒤, 해당 게시글 댓글을 적어주세요.
-						</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="event_circle">
-						<div class="circleStyle">이벤트 당첨 기준</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="event_content" id="event_intro">
-						<textarea class="textareaStyle event_text" readonly>운영자 기준, 5명 추천되며 당첨자 분들께는
-개별 연락이 갈 예정입니다.
-						</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4">
-						<div class="noticeStyle">
-							<img src="${ contextPath }/resources/images/exclamation-mark.png" id="markImg">
-							<label id="labelStyle">공지사항</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="borderStyle">
-						<p id="pStyle">
-						- 본 이벤트는 회원가입 하신 분들만 참여 하실 수 있습니다.<br>
-						- 불공정한 방법으로 참여한 이벤트는 당첨이 취소 됩니다.<br>
-						- 통신 예절에 어긋나는 글이나 상업적인 글, 타 사이트 관련된 글 또는 도용한 글은<br>
-						 &nbsp;&nbsp;관리자에 의해 사전통보 없이 삭제될 수 있으며, 이벤트 참여에 제한을 받을 수 <br>
-						 &nbsp;&nbsp;있습니다.<br>
-						- 댓글을 중복으로 작성하실 시 이벤트 참여 대상에 제외됩니다.<br>
-						- 이벤트 상품은 교환/반품이 불가한 점 참고 바랍니다.<br>
-						- 정확한 배송을 위하여, 마이페이지에서 배송받을 주소와 개인 정보를 꼭 확인바랍니다.<br>
-						</p>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="replyStyle" id="replyInsert">
-						<input type="text" class="inputStyle" name="reply" id="reply" placeholder="댓글을 작성해주세요.">
-						<input type="submit" class="defaultBtn upBtn btn1" value="등록">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="replyTD">
-						<div class="replyName">신수정</div>
-						<div class="replyDate">2020-03-31</div>
-						<div class="replyUpdate">
-							<button class="defaultBtn upBtn btn2">수정</button>
-							<button class="defaultBtn delBtn btn2">삭제</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="replyStyle" id="reply_content">이벤트 참여합니다.</td>
-				</tr>
-			</table>
-		</form>
+		<table class="tableStyle">
+			<tr>
+				<td class="label tdStyle">제목</td>
+				<td colspan="3" class="data tdStyle">[EVENT] ${ event.eTitle }</td>
+			</tr>
+			<tr>
+				<td class="label tdStyle">작성일</td>
+				<td class="data data2 tdStyle" id="enrollDate">${ event.eDate }</td>
+				<td class="label tdStyle">조회수</td>
+				<td class="data data2 tdStyle" id="count">${ event.eCount }</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="tdStyle" id="imgTd"><img alt="#" src="${ contextPath }/resources/uploadFiles/${ event.changeName }" width="630px"></td>
+			</tr>
+			<tr>
+				<td colspan="4" class="event_content" id="event_intro">
+					<div class="divStyle event_text">
+						${ fn:replace(event.eContent, newLineChar, "<br>") }
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="event_circle">
+					<div class="circleStyle">이벤트 기간</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="event_content" id="event_intro cssTD">
+					<div class="divStyle event_text">
+						<fmt:formatDate pattern="yyyy'년' MM'월' dd'일'(E)" value="${ event.eStart }"/>
+						~ <fmt:formatDate pattern="yyyy'년' MM'월' dd'일'(E)" value="${ event.eEnd }"/><br>
+						당첨 발표 - <fmt:formatDate pattern="yyyy'년' MM'월' dd'일'(E)" value="${ event.eAnno }"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="event_circle">
+					<div class="circleStyle">이벤트 참여 방법</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="event_content" id="event_intro">
+					<div class="divStyle event_text">
+						${ fn:replace(event.eWay, newLineChar, "<br>") }
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="event_circle">
+					<div class="circleStyle">이벤트 당첨 기준</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="event_content" id="event_intro">
+					<div class="divStyle event_text">
+						${ fn:replace(event.eStand, newLineChar, "<br>") }
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<div class="noticeStyle">
+						<img src="${ contextPath }/resources/images/exclamation-mark.png" id="markImg">
+						<label id="labelStyle">공지사항</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<p id="pStyle">
+					- 본 이벤트는 회원가입 하신 분들만 참여 하실 수 있습니다.<br>
+					- 불공정한 방법으로 참여한 이벤트는 당첨이 취소 됩니다.<br>
+					- 통신 예절에 어긋나는 글이나 상업적인 글, 타 사이트 관련된 글 또는 도용한 글은<br>
+					 &nbsp;&nbsp;관리자에 의해 사전통보 없이 삭제될 수 있으며, 이벤트 참여에 제한을 받을 수 <br>
+					 &nbsp;&nbsp;있습니다.<br>
+					- 댓글을 중복으로 작성하실 시 이벤트 참여 대상에 제외됩니다.<br>
+					- 이벤트 상품은 교환/반품이 불가한 점 참고 바랍니다.<br>
+					- 정확한 배송을 위하여, 마이페이지에서 배송받을 주소와 개인 정보를 꼭 확인바랍니다.<br>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="borderStyle">
+					<button type="button" class="defaultBtn delBtn btn1" onclick="location.href='eventList.ev'">목록으로</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="replyStyle" id="replyInsert">
+					<input type="text" class="inputStyle" name="reply" id="reply" placeholder="댓글을 작성해주세요.">
+					<input type="button" class="defaultBtn upBtn btn1" id="rSubmit" value="등록">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="replyTD">
+					<div class="replyName">신수정</div>
+					<div class="replyDate">2020-03-31</div>
+					<div class="replyUpdate">
+						<button class="defaultBtn upBtn btn2">수정</button>
+						<button class="defaultBtn delBtn btn2">삭제</button>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" class="replyStyle" id="reply_content">이벤트 참여합니다.</td>
+			</tr>
+		</table>
+		
 	</div>
 	
 	<%@ include file="../common/footer.jsp" %>
+	
+	<script>
+		// 주기적인 실행
+		/* $(function(){
+			getReplyList();
+			setInterval(function(){
+				getReplyList();
+			}, 1000);
+		}); */
+		
+		var replyCheck = false;
+		
+		// 댓글 등록
+		$('#rSubmit').on('click', function(){
+			var eNum = ${ event.eNum }
+			var rContent = $('#reply').val();
+			
+			if(replyCheck == false){
+				$.ajax({
+					url: "addReply.ev",
+					data: {eNum:eNum, rContent:rContent},
+					type: "post",
+					success: function(data){
+						if(data != null){
+							/* getReplyList(); */
+							$('#reply').val("");
+							replyCheck = true;
+						}
+					}
+				});
+			} else {
+				alert('댓글은 한 번만 등록하실 수 있습니다.');
+			}
+			
+		});
+		
+		// 댓글 삭세
+		// replyCheck = false로 바꿔야함!
+		
+		
+		// 댓글 리스트 불러오기
+		
+		
+		
+	</script>
 	
 </body>
 </html>
