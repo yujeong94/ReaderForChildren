@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
-<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>successPayment</title>
 <style>
 	#title{padding-bottom: 80px;}
@@ -19,21 +19,22 @@
 </style>
 </head>
 <body>
-<div class="outer">
-	<c:import url="../common/menubar.jsp"/>
-	
-		<div class="contents">
-			<div id="title"><h1>주문/결제</h1></div>
-			
-			<div class="ment">주문이 완료되었습니다.</div>		
-			
-			<div class="btns">
-				<button type="submit" class="goOrderList">주문내역 보기</button>
-				<button type="reset" class="goMain">메인 화면으로</button>
-			</div>	
-		</div>
+	<div class="outer">
+		<c:import url="../common/menubar.jsp"/>
 		
-	<c:import url="../common/footer.jsp"/>
-</div>
+			<div class="contents">
+				<div id="title"><h1>주문/결제</h1></div>
+				
+				<div class="ment">주문이 완료되었습니다.</div>		
+				
+				<div class="btns">
+					<button type="submit" class="goOrderList">주문내역 보기</button>
+					<button type="reset" class="goCart">장바구니로</button>
+				</div>	
+			</div>
+			
+		<c:import url="../common/footer.jsp"/>
+	</div>
+
 </body>
 </html>

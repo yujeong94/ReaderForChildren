@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>shippingAddressList</title>
 <style>
 	html, body{margin: 0; padding: 0;}
@@ -33,28 +33,69 @@
 	<br><br>
 	
 	<div class="tbOuter">
-		<table id="tb">
-			<thead>
-				<tr style="height: 40px;">
-					<th>배송지</th>
-					<th>주소</th>
-					<th>연락처</th>
-					<th>선택</th>
-				</tr>
-			</thead>
-			
-			<tbody id="tb">
-				<tr>
-					<td>
-						집<br><b>박소현</b>
-						<br><button disabled class="defaultSA">기본배송지</button>
-					</td>
-					<td rowspan="2">서울시 강서구 월정로 23길 4, 행복오피스텔 203호</td>
-					<td rowspan="2">010-2344-8456</td>
-					<td rowspan="2"><button class="chooseBtn">선택</button></td>
-				</tr>
-			</tbody>
-		</table>
+		<form>
+			<table id="tb">
+				<thead>
+					<tr style="height: 40px;">
+						<th>배송지</th>
+						<th>주소</th>
+						<th>연락처</th>
+						<th>선택</th>
+					</tr>
+				</thead>
+				<tbody id="tb">
+					<c:forEach var="l" items="${ list }" varStatus="vs">
+						<c:if test="${ l.rLevel == 0 }">
+							<tr class="addrTr">
+								<td>
+									<input type="hidden" id="sNo${ vs.index }" value="${ l.sNo }">
+									${ l.sName }<br><b>${ l.rName }</b>
+									<input type="hidden" id="sName${ vs.index }" value="${ l.sName }">
+									<input type="hidden" id="rName${ vs.index }" value="${ l.rName }">
+									<br><button disabled class="defaultSA">기본배송지</button>
+								</td>
+								<td>
+									<input type="hidden" value="${ l.rZipcode }">
+									<input type="hidden" value="${ l.rBasicadd }">
+									<input type="hidden" value="${ l.rDetailadd }">
+									(${ l.rZipcode })<br>${ l.rBasicadd }<br>${ l.rDetailadd }
+								</td>
+								<td>
+									${ l.rPhone }
+									<input type="hidden" value="${ l.rPhone }">
+								</td>
+								<td>
+									<button type="button" class="chooseBtn">선택</button>
+								</td>
+							</tr>
+						</c:if>
+						<c:if test="${ l.rLevel == 1 }">
+							<tr class="addrTr">
+								<td>
+									<input type="hidden" id="sNo${ vs.index }" value="${ l.sNo }">
+									${ l.sName }<br><b>${ l.rName }</b>
+									<input type="hidden" id="sName${ vs.index }" value="${ l.sName }">
+									<input type="hidden" id="rName${ vs.index }" value="${ l.rName }">
+								</td>
+								<td>
+									<input type="hidden" value="${ l.rZipcode }">
+									<input type="hidden" value="${ l.rBasicadd }">
+									<input type="hidden" value="${ l.rDetailadd }">
+									(${ l.rZipcode })<br>${ l.rBasicadd }<br>${ l.rDetailadd }
+								</td>
+								<td>
+									${ l.rPhone }
+									<input type="hidden" value="${ l.rPhone }">
+								</td>
+								<td>
+									<button type="button" class="chooseBtn">선택</button>
+								</td>
+							</tr>
+						</c:if>
+					</c:forEach>	
+				</tbody>
+			</table>
+		</form>
 	</div>
 	
 	<br><br>
@@ -67,8 +108,32 @@
 	
 	<script>
 	function addShippingAdd(){
-		location.href="${contextPath}/views/audioBook/addShippingAddress.jsp";
+		location.href="addShipAddView.ab";
 	}
+	
+	$('.cancelBtn').click(function(){
+		self.close();
+	});
+	
+	$('.chooseBtn').click(function(){
+		var sNo = $(this).parent().parent().children('td').eq(0).children('input').eq(0).val();
+		var sName = $(this).parent().parent().children('td').eq(0).children('input').eq(1).val();
+		var rName = $(this).parent().parent().children('td').eq(0).children('input').eq(2).val();
+		var rZipcode = $(this).parent().parent().children('td').eq(1).children('input').eq(0).val();
+		var rBasicadd = $(this).parent().parent().children('td').eq(1).children('input').eq(1).val();
+		var rDetailadd = $(this).parent().parent().children('td').eq(1).children('input').eq(2).val();
+		var rPhone = $(this).parent().parent().children('td').eq(2).children('input').eq(0).val();
+		
+		opener.document.getElementById("sNoInput").value = sNo;
+		opener.document.getElementById("nameInput").value = rName;
+		opener.document.getElementById("pcInput").value = rZipcode;
+		opener.document.getElementById("bAInput").value = rBasicadd;
+		opener.document.getElementById("lAInput").value = rDetailadd;
+		opener.document.getElementById("phoneInput").value = rPhone;
+		
+		self.close();
+	});
+	
 	</script>
 </body>
 </html>
