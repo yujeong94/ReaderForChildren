@@ -11,8 +11,10 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
 
 @Service("abService")
 public class audioBookServiceImpl implements audioBookService{
@@ -79,6 +81,25 @@ public class audioBookServiceImpl implements audioBookService{
 		
 		return result1 + result2 + result3 + result4 + result5 + result6;
 	}
-
 	
+	@Override
+	public int selectDefaultSA(String userId) {
+		return abDAO.selectDefaultSA(sqlSession, userId);
+	}
+
+	@Override
+	public ArrayList<Shipping> shipAddList(String userId) {
+		return abDAO.shipAddList(sqlSession, userId);
+	}
+
+	@Override
+	public int addShipAddress(Shipping s) {
+		return abDAO.addShipAddress(sqlSession, s);
+	}
+
+	@Override
+	public int orderInsert(OrderDetail order) {
+		return abDAO.orderInsert(sqlSession, order);
+	}
+
 }

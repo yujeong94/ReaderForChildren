@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>agreeForInformationProvision</title>
 <style>
 	html, body{margin: 0; padding: 0;}

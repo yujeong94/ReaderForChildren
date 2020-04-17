@@ -10,8 +10,10 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
 
 @Repository("abDAO")
 public class audioBookDAO {
@@ -82,5 +84,20 @@ public class audioBookDAO {
 		return sqlSession.insert("audioBookMapper.insertAudioFileM", afM);
 	}
 
+	public int selectDefaultSA(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("audioBookMapper.selectDefaultSA", userId);
+	}
+	
+	public ArrayList<Shipping> shipAddList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("audioBookMapper.selectShipAddList", userId);
+	}
+
+	public int addShipAddress(SqlSessionTemplate sqlSession, Shipping s) {
+		return sqlSession.insert("audioBookMapper.addShipAddress", s);
+	}
+
+	public int orderInsert(SqlSessionTemplate sqlSession, OrderDetail order) {
+		return sqlSession.insert("audioBookMapper.orderInsert", order);
+	}
 
 }
