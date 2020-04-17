@@ -21,4 +21,6 @@ public interface MemberService {
 	int finMemberPwd(Member m);
 
 	int updateTemPwd(HashMap<String, String> map);
+
+	int shippingInsert(Member m);
 }

@@ -133,6 +133,7 @@ public class MemberController {
 		int result = mService.insertMember(m);
 		
 		if(result > 0) {
+			mService.shippingInsert(m);
 			return "redirect:home.do";
 		}else {
 			throw new MemberException("회원가입에 실패하였습니다.");
@@ -267,5 +268,11 @@ public class MemberController {
 			throw new MemberException("정보와 일치하는 계정이 없습니다.");
 		}
 		return mv;
+	}
+	
+	
+	@RequestMapping("addSchForm.vo")
+	public String addScheduleForm() {
+		return "addScheduleForm";
 	}
 }
