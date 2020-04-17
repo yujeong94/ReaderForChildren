@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="volunteerMapper">
+
+	<insert id="insertSchedule">
+		insert into volunteer_add
+		values(SEQ_VOL_SCH.NEXTVAL, #{volContent},#{volStart},#{volEnd},#{volMax},default)
+	</insert>
+	
+	<resultMap type="VolunteerSchedule" id="ScheduleResultSet">
+		<id property="volAddNum" column ="vol_add_num" />
+		<result property="volContent" column="vol_content" />
+		<result property="volStart" column="vol_start" />
+		<result property="volEnd" column="vol_end" />
+		<result property="volMax" column="vol_max" />
+		<result property="volStatus" column="vol_status" />
+	</resultMap>
+	
+	<select id="getSchedule" resultMap = "ScheduleResultSet">
+		select vol_content, vol_start, vol_end
+		from volunteer_add
+	</select>
+	
+</mapper>

@@ -42,4 +42,8 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateTemPwd", map);
 	}
 
+	public int insertShipping(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertShipping", m);
+	}
+
 }

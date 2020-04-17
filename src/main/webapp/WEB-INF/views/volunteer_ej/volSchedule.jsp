@@ -109,6 +109,9 @@ label{
 
 </style>
 </head>
+
+
+
 <body>
    <%@ include file="../common/menubar.jsp" %>
    <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
@@ -127,11 +130,11 @@ label{
 		
  		<script>
 			function addSchedule(){
-				window.open("../WEB-INF/views/volunteer_ej/addScheduleForm.jsp","스케줄 등록","width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes")
+				/* window.open("${ contextPath }/volunteer_ej/addScheduleForm.jsp","스케줄 등록","width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes") */
+				window.open("addSchForm.vo","스케줄등록","width=800, height=700");
 			}
 		</script>
 		
-
 		
 		
 		<div>
@@ -159,19 +162,65 @@ label{
    
 </body>
 
-
 <script>
+ 	$(document).ready(function() {	
+		get_events();
+	});
+	
+ 	var schedule = [];
+	
+	function get_events(){
+		$.ajax({
+			url: "get.vo",
+			dataType: 'json',
+			success: function(data){
+				console.log(data);
+				schedule = data;
+				console.log(schedule)
+				for(i in data){
+					
+					console.log(schedule[i])
+					
+				}
+			},
+			error: function(data){
+				console.log('error');
+				console.log(data);
+			}
+		})
+		
+	} 
+
+	console.log("asdf32121");
+	console.log(schedule);
+	
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
     
+      var size = schedule.length;
+      
+  
+      for(var i = 0, result = [] ; i < size ; i++){
+            result.push({"start" : "", "end" : ""});
+      }
+      
+      
       var calendar = new FullCalendar.Calendar(calendarEl, {
         plugins: [ 'interaction','dayGrid' ],
         defaultView: 'dayGridMonth',
-        selectable: true
+        selectable: true,
+        events: [
+        	<c:forEach var="vsS" items="${schedule}">
+	            {
+	              title  : '${ vsS.volContent }',
+	              start  : '${ vsS.volStart }',
+	              end    : '${ vsS.volEnd }'
+	            }
+	        </c:forEach>   
+	   ]
       });
     
       
-      calendar.addEvent( {'title':'어린이집 일일교사', 'start':'2020-04-10', 'end':'2020-04-10'});
       
       calendar.render();
     });

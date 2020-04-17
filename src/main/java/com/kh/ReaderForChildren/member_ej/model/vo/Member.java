@@ -7,7 +7,7 @@ public class Member {
    private String userPwd;
    private String userName;
    private String birth;
-   private int postalCode;
+   private String postalCode;
    private String bAddress;
    private String lAddress;
    private String email;
@@ -20,7 +20,7 @@ public class Member {
    
    public Member() {}
    
-   public Member(String userId, String userPwd, String userName, String birth, int postalCode, String bAddress,
+   public Member(String userId, String userPwd, String userName, String birth, String postalCode, String bAddress,
          String lAddress, String email, String phone, String gender, int donation, int revenue, int division,
          String status) {
       super();
@@ -72,11 +72,11 @@ public class Member {
       this.birth = birth;
    }
 
-   public int getPostalCode() {
+   public String getPostalCode() {
       return postalCode;
    }
 
-   public void setPostalCode(int postalCode) {
+   public void setPostalCode(String postalCode) {
       this.postalCode = postalCode;
    }
 

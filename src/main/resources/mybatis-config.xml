@@ -18,6 +18,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.event_ssj.model.vo.Event" alias="Event"/>
 		<typeAlias type="com.kh.ReaderForChildren.event_ssj.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.ReaderForChildren.event_ssj.model.vo.Winner" alias="Winner"/>
+		<typeAlias type="com.kh.ReaderForChildren.volunteer_ej.model.vo.VolunteerSchedule" alias="VolunteerSchedule"/>
 	</typeAliases>
 	
 	<mappers>
@@ -29,5 +30,6 @@
 		<mapper resource="mapper/mypage-Mapper.xml"/> 
 		<mapper resource="mapper/audition-mapper.xml"/>
 		<mapper resource="mapper/event-mapper.xml"/>
+		<mapper resource="mapper/volunteer-mapper.xml"/>
 	</mappers>
 </configuration>
