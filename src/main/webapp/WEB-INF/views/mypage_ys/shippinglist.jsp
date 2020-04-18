@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>content</title>
-<link rel="stylesheet" href="../../resources/css/common.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
 .contents {
-   width: 1100px;
+   width: 1000px;
    height: 600px;
    background: white;
    margin: auto;
@@ -78,7 +78,7 @@
 			font-size : 15px; 
 		}
 		#insert{margin-right:47px; margin-top:15px;}
-		
+		#buttonTab{margin-left:450px; margin-top:25px;}
 		 /* .btn{margin-bottom:15px;}  */
 </style>
 </head>
@@ -112,23 +112,66 @@
    <div id = "tablearea2">
 		<table id = "list_table">
 			<!-- 게시글 불러오는곳 -->
+			<c:forEach var="sh" items="${ list }">
 		<!-- <tr>
 			<td id="noList">존재하는 게시글이 없습니다.</td>
 		</tr> -->
 				<tr id="contentTr">
-			<td class = "list_line2" id="td1"  ><input type="checkbox" id="chk_all" name="chk_all" /></td>
-				<td class = "list_line2" id="td2" >11</td>
-				<td class="list_line2" id="td3">김누구님 배송지</td>
-				<td class="list_line2" id="td4">김누구</td>
-				<td class="list_line2" id="td5">서울시 강남구 </td>
-				<td class="list_line2" id="td6" >010-1111-2222</td><td><div align="right"><button type="button" class="btn" id="update" onclick="updateShipping();">수정</button><button type="button" class="btn" id="delete">삭제</button></div></td>
+			<td class = "list_line2" id="td1"  > ${ sh.rLevel }<input type="checkbox" id="chk_all" name="chk_all" /></td>
+				<td class = "list_line2" id="td2" >${ sh.rLevel }</td>
+				<td class="list_line2" id="td3">${ sh.sName }님 배송지</td>
+				<td class="list_line2" id="td4">${sh.rName }</td>
+				<td class="list_line2" id="td5">${sh.rZipcode }${sh.rBasicadd }${sh.rDetailadd }</td>
+				<td class="list_line2" id="td6" >${sh.rPhone }</td><td><div align="right"><button type="button" class="btn" id="update" onclick="updateShipping();">수정</button><button type="button" class="btn" id="delete">삭제</button></div></td>
 			</tr>
+			</c:forEach>
+		</table>
+		<table id="buttonTab">
+						<tr align="center" height="20" id="buttonTab">
+			<td colspan="6">
 			
+				<!-- [이전] -->
+				<c:if test="${ pi.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ pi.currentPage > 1 }">
+					<c:url var="before" value="shlist.li">
+						<c:param name="page" value="${ pi.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq pi.currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne pi.currentPage }">
+						<c:url var="pagination" value="shlist.li">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pi.currentPage >= pi.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pi.currentPage < pi.maxPage }">
+					<c:url var="after" value="shlist.li">
+						<c:param name="page" value="${ pi.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
 		</table>
 	</div>
    
    <div align="right" id="insert">
-   	<button type="button" class="btn" id="insert" onclick="insertShipping();">등록하기</button>
+   	<button type="button" class="btn" id="insert" onclick="location.href='shinsertView.li';">등록하기</button>
    </div>
    
    

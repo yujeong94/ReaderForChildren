@@ -152,7 +152,7 @@
 		 
 		<br><br>
     <div  id = "title3" >
-  		  후원금 납입 합계 :  ${ sp.donation }
+  		<%--   후원금 납입 합계 :  ${ sp.donation } --%>
     </div>
     
     
@@ -190,9 +190,9 @@
 					</tr> -->
 							<tr id="contentTr">
 						<td class = "list_line2" id="td1"  >${ sp.snum }</td>
-						<td class = "list_line2" id="td2" > ${ sp.spCode} </td> 
+						<td class = "list_line2" id="td2" name="spCode" > ${ sp.spCode} </td> 
 							<td class="list_line2" id="td3">${ sp.supdate }</td>
-							<td class="list_line2" id="td4" >${ sp.donation }</td>
+							<td class="list_line2" id="td4" name="donation" >${ sp.donation }</td>
 						</tr>
 						
 					</table>
