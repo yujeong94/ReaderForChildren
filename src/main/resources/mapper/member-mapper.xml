@@ -34,10 +34,10 @@
 	
 	<update id="pwdUpdate" parameterType="map">
 		update member
-		set user_Pwd=#{newPwd1}
-		where user_Id=#{userId} and status='Y'
+		set user_pwd=#{userPwd}
+		where user_id=#{userId} <!-- and status='Y' -->
 	
-	</update>	
+	</update>		
 	
 	<select id="idCheck" resultType="_int">
 		select count(*)

@@ -114,20 +114,20 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 		}
 	
 	@RequestMapping("suinsert.sp")												
-	public ModelAndView boardInsert(HttpServletRequest request,Support s, ModelAndView mv ,@RequestParam("donation") int donation  /*@RequestParam("donation") int donation, 
-																							@RequestParam("spCode") int spCode*/) {
+	public ModelAndView boardInsert(HttpServletRequest request,Support s, ModelAndView mv ,@RequestParam("donation") int donation  , 
+																							@RequestParam("spCode") int spCode) {
 		System.out.println(donation);
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		/*s.setDonation(donation);
+		s.setDonation(donation);
 		s.setSpCode(spCode);
-		*/
+		
 		
 		int result = spService.insertSupport(s);
 		
 		if(result > 0) {
 			mv.setViewName("sponser3");
-			System.out.println("result??" + result);
+			/*System.out.println("result??" + result);*/
 		}else {
 			throw new sponsorException("실패");
 		}

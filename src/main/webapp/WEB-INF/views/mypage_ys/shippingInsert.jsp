@@ -98,31 +98,31 @@
 		</tr>
 		
 	</table> 
-   
+   <form action="shinsert.li" method="post" enctype="Multipart/form-data">
    <table class = "info" id="tabletd" >
        
        <tr>
           <td class = "info_title2" >배송지 명</td>
-          <td class = "right"><input type = "text" class = "input_info" ></td>
+          <td class = "right"><input type = "text" class = "input_info" name="sName" ></td>
        </tr>
        <tr>
           <td class = "info_title2">수령인</td>
-          <td class = "right"><input type = "text" class = "input_info"></td>
+          <td class = "right"><input type = "text" class = "input_info" name="rName"></td>
           
        </tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right"><input type = "text" class = "input_info"></td>
+          <td class = "right"><input type = "text" class = "input_info" name="rPhone"></td>
        </tr>
         <tr>
           <td class = "info_title2" id = "address">주소</td>
-          <td class = "right"><input type = "text" class = "input_info" id = "ad_num"><input type = "button" id = "ad_btn" value = "우편번호"><br>
-          <input type = "text" id="address2" class = "input_info info_address"><br>
-          <input type = "text" id="address2" class = "input_info info_address"></td>
+          <td class = "right"><input type = "text" class = "input_info" id = "ad_num" name="rZipcode"><input type = "button" id = "ad_btn" value = "우편번호"><br>
+          <input type = "text" id="address2" class = "input_info info_address" name="rBasicadd"><br>
+          <input type = "text" id="address2" class = "input_info info_address" name="rDetailadd"></td>
        </tr>
        
    </table>
-   
+   </form>
    <table>
    
    <tr> 

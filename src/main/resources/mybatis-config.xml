@@ -21,6 +21,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.audition_yj.model.vo.Reader" alias="Reader"/>
 		<typeAlias type="com.kh.ReaderForChildren.audition_yj.model.vo.Career" alias="Career"/>
 		<typeAlias type="com.kh.ReaderForChildren.volunteer_ej.model.vo.VolunteerSchedule" alias="VolunteerSchedule"/>
+		<typeAlias type="com.kh.ReaderForChildren.list_ys.model.vo.Rec" alias="Rec"/>
 	</typeAliases>
 	
 	<mappers>

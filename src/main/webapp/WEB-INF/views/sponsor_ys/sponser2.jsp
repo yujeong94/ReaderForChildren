@@ -237,7 +237,7 @@
 						<c:param name="snum" value="${  sp.snum  }"/>
 						<c:param name="page" value="${ pi.currentPage }"/>
 					</c:url>
-	  <form action="suinsert.sp" method="post" enctype="Multipart/form-data" onsubmit="payment()">
+	  <form action="suinsert.sp" method="post" enctype="Multipart/form-data" ><!-- onsubmit="payment()" -->
 		<table id = "content_table" style="margin-left: auto; margin-right: auto; margin-top:50px">
 		
 			<tr>
@@ -269,25 +269,24 @@
 					</c:if>
 				</c:forTokens> --%>
        <tr>
-          <td class = "info_title2" id = "address">주소</td>
-          <td class = "right">
-          	  <input type = "text" name="post" class = "input_info" id = "ad_num" value="${ post }" disabled>
-	          <input type = "button" id = "ad_btn" value = "우편번호" ><br>
-	          <input type = "text" name="baddress" id="baddress" class = "input_info info_address" value="${ baddress }" disabled><br>
-	          <input type = "text" name="laddress" class = "input_info info_address" value="${ laddress }" >
-	      </td>
+          <td class = "info_title2" id = "address"><label class = "title_word">주소</lable></td>
+		 		<td class = "right" id = "address2"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" name = "postalCode" value="${ loginUser.postalCode }"><input type = "button" id = "ad_btn" value = "우편번호"><br>
+		 		<input type = "text" class = "input_info info_address postcodify_address" value="${ loginUser.bAddress }" name = "bAddress"><br>
+		 		<input type = "text" class = "input_info info_address postcodify_extra_info" value="${ loginUser.lAddress }" name = "lAddress"></td>
        </tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right"><input type = "text" class = "input_info" name="phone" value=${ loginUser.phone }>
-          <input type = "text" class = "input_info" name="donation">
-          <input type = "text" class = "input_info" name="userId"></td>
+          <td class = "right"><input type = "text" class = "input_info" name="phone" value="${ loginUser.phone }">
+          <input type = "text" class = "input_info" name="donation" value="${ sp.donation }">
+          <input type = "text" class = "input_info" name="userId" value="${loginUser.userId }">
+           <input type = "text" class = "input_info" name="spCode" value="${sp.spCode }"></td>
        </tr>
        <tr>
           <td class = "info_title2">이메일</td>
           <td class = "right">
-             <input type = "text" class = "input_info infro_email" id = "email01" value="${ loginUser.email }"> @ <input type = "text" class = "input_info infro_email" id = "email02" value="${ loginUser.email }">
-             <select name="selectEmail" id="selectEmail">
+             <input type = "text" class = "input_info infro_email" id = "email01" name="email1" value="${email1 }" name="email1" > @ <input type = "text"  value="${selectEmail }" name="selectEmail"  class = "input_info infro_email" id = "email02">
+            <input type="hidden" name="emailCkeck" id="emailCheck" value="${loginUser.email }">
+             <select name="selectEmail" id="selectEmail" value="${selectEmail }">
                   <option value="1">직접입력</option>
                   <option value="daum.net">daum.net</option>
                   <option value="empal.com" >empal.com</option>
@@ -299,15 +298,83 @@
                </select>
           </td>
        </tr>
+       
+      
        <tr>
           <td class = "info_title2">생년월일</td>
-          <td class = "right"><input type = "text" class = "input_info" id= "year" placeholder = "년(4자)" value="${ loginUser.birth }">년 <input type = "number" class = "input_info birth">월 <input type = "number" class = "input_info birth">일</td>
+           <td class = "right" >
+         <input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)" value="${year }" name="year" >년 <input type = "text" value="${month }" name="month" class = "input_info birth" id = "month">월 <input type = "text" value="${day }" name="day"  class = "input_info birth" id = "day">일
+       		<input type="hidden" name="birth" id="realBirth" value="${loginUser.birth }"></td>
        </tr>
       <%--  <tr>
          <input type = "text" class = "input_info"   value="${ sp.donation }">${ sp.donation }</td>
        </tr> --%>
     </table>
+    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	        <script>
+		        $(function(){
+		           $("#ad_btn").postcodifyPopUp();
+		        });
+		        </script>
+		        
+ <script>
+ $('#email01').blur(function(){
+     var str = $(this).val();
+     var regExp = /^[a-zA-Z0-9]*$/;
+     
+     if(regExp.test(str)){
+      $('#emailCheck').val(1);
+     } else {
+    	 $('#emailCheck').val(0);
+     }
+ });
  
+ var selectEmail = $("#selectEmail");
+ $('#selectEmail').change(function(){
+	   $("#selectEmail option:selected").each(function () {
+		   if($('#selectEmail').val()== '1'){
+			   $("#email02").val('');
+			   $("#email02").attr("disabled",false);
+			}else{
+				$("#email02").val(selectEmail.val());
+				$("#email02").attr("disabled",true); 
+          }
+		   });
+	$('#realEmail').val($("#email01").val() + "@" + $('#email02').val());
+	   });
+ 
+ $('.birth').blur(function(){
+     var str = $(this).val();
+     var regExp = /^[0-9]+$/;
+     
+     if(regExp.test(str)){
+      $('#birthCheck').val(1);
+     } else {
+    	 $('#birthCheck').val(0);
+     }
+ });
+ 
+ $('#month').blur(function(){
+		var month = $('#month').val();
+   		
+		if(month.length == 1){
+			month = '0' + month;
+		}
+		$('#month').val(month);
+	});
+	
+	$('#day').blur(function(){
+		var day = $('#day').val();
+   		
+		if(day.length == 1){
+			day = '0' + day;
+		}
+		$('#day').val(day);
+		$('#realBirth').val($('#year').val() + $('#month').val() + $('#day').val());
+	});
+ </script>
+ 
+
     <div class = "terms_box">
        <textarea id="terms_content">
 1. 개인정보 수집목적 및 이용목적
@@ -431,7 +498,7 @@
 	
  
 	</script> 
-   
+      
     <div id="btn">
    		 <table>
   	 		<tr> 
@@ -441,8 +508,7 @@
     	 </table>
   
   </div>
-   </form>
-    
+    </form>
 
   
    </div>

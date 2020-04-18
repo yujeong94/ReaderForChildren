@@ -139,27 +139,29 @@
    .gender{
       margin-left : 5%;
    }
-#quicklink {
-		position: fixed;
-		top: 400px;
+.quick_menu {
+	 position:absolute; 
+	 margin-top: 100px; 
+		
 	}
-	#quicklink table {
+	.quick_menu table {
 		display: inline-table;
 		text-align: center;
 		border-top: 2px solid gray;
 		border-bottom: 2px solid gray;
 		margin-bottom: 20px;
 	}
-	#quicklink td {
+	.quick_menu td {
 		cursor: pointer; 
 		vertical-align: middle;  
 		background-color: rgb(253, 249, 249);
 	}
+	.quick_menu td:hover{color:rgb(225, 120, 110);}
 .boardTr{width:80px; height:40px; background-color: white;}
 	.td {
 		border-bottom: 1px solid gray;
 	}
-	#tabletd td{ vertical-align: middle;}
+	.tabletd td{ vertical-align: middle;}
 #btn{margin-left:370px; margin-top:30px;}
 .upBtn{width:80px;height:35px;  color: white;  box-shadow: none; 
     border: none; border-radius: 5px; font-size:13pt; font-weight: bold; }
@@ -192,11 +194,13 @@
 				</tr>
 				</table> -->
 				
-				<div id="quicklink" >
-				<table id="quicklink">
+		 
+      
+				<div class="quick_menu">
+				<table>
 					
 					<tr class="boardTr">
-						<td class="td" onclick="location.href = 'buylist.jsp'" id="infoTd">주문 내역 조회
+						<td class="td" onclick="location.href = 'shlist.li'" id="infoTd">주문 내역 조회
 						</td>
 					</tr>
 					<tr class="boardTr">
@@ -208,11 +212,12 @@
 						</td>
 					</tr>
 					<tr class="boardTr">
-						<td class="td" onclick="location.href = 'booklist.jsp'" id="infoTd">예약부스 내역 조회
+						<td class="td" onclick="location.href = 'relist.li'" id="infoTd">예약부스 내역 조회
 						</td>
 					</tr>
 					</table>
 			</div>
+			
     <table class = "info" id="tabletd" >
        <tr id = "info_title">
           <td colspan = "2"><label id = "info_word"><b>${ loginUser.userName }님의 정보</b></label></td>
@@ -244,7 +249,7 @@
        </tr>
        <tr>
           <td class = "info_title2">생년월일</td>
-          <td class = "right" >${ loginUser.birth }년 월일</td>
+          <td class = "right" >${ loginUser.birth }</td>
        </tr>
        <tr>
           <td class = "info_title2">수익현황</td>
@@ -252,7 +257,7 @@
        </tr>
         <tr>
           <td class = "info_title2">후원금액</td>
-          <td class = "right">${ loginUser.donation }</td>
+          <td class = "right" name="donation">${ loginUser.donation }</td>
        </tr> 
     </table>
     <div id="btn">
@@ -272,7 +277,10 @@
     </div>
     
    </div>
+   
   	<c:import url="../common/footer.jsp"/> 
+  	
    </div>
+   
 </body>
 </html>

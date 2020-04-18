@@ -2,7 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mypageMapper">
 
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from rec_booth
+		where re_status='Y'
+	</select>  
+	
+	<select id="selectList" resultMap="recResultSet">
+		select *
+		from rec_booth
+		where re_status='Y'
+		order by rid desc
+	</select>
+	
+	<resultMap type="Rec" id="recResultSet">
+      <id property="rid" column="RID"/>
+      <result property="lat" column="LAT"/>
+      <result property="lon" column="LON"/>
+      <result property="city" column="CITY"/>
+      <result property="address" column="ADDRESS"/>
+      <result property="rdate" column="RDATE"/>
+      <result property="rtime" column="RTIME"/>
+      <result property="userId" column="USER_ID"/>
+      <result property="restatus" column="RE_STATUS"/>
+   </resultMap>
 	
 	
+	<select id="getshListCount" resultType="_int">
+		select count(*)
+		from shipping
+		where s_status='Y'
+	</select> 
 	
+	<select id="selectshList" resultMap="ShippingResultSet">
+		select *
+		from shipping
+		where s_status='Y'
+		order by s_no desc
+	</select>
+	
+	<resultMap type="Shipping" id="ShippingResultSet">
+      <id property="sNo" column="S_NO"/>
+      <result property="sName" column="S_NAME"/>
+      <result property="rName" column="R_NAME"/>
+      <result property="rPhone" column="R_PHONE"/>
+      <result property="rZipcode" column="R_ZIPCODE"/>
+      <result property="rBasicadd" column="R_BASICADD"/>
+      <result property="rDetailadd" column="R_DETAILADD"/>
+      <result property="sStatus" column="S_STATUS"/>
+      <result property="userId" column="USER_ID"/>
+       <result property="rLevel" column="R_LEVEL"/>
+   </resultMap>
+   
+   <insert id="insertBoard" parameterType="Shipping">
+		insert into shipping values(
+			seq_ship.nextval, #{sName}, #{rName}, #{rPhone}, #{rZipcode}, #{rBasicadd},
+			#{rDetailadd}, default, #{userId}, default
+		)
+	</insert>
 </mapper>
