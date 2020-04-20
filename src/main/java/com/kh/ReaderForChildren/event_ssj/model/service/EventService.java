@@ -19,5 +19,11 @@ public interface EventService {
 
 	int insertReply(Reply r);
 
+	ArrayList<Reply> selectReplyList(int eNum);
+
+	int deleteReply(Reply r);
+
+	int replyCheck(Reply r);
+
 
 }

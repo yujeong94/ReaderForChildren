@@ -56,5 +56,20 @@ public class EventImpl implements EventService {
 	public int insertReply(Reply r) {
 		return evDAO.insertReply(sqlSession, r);
 	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList(int eNum) {
+		return evDAO.selectReplyList(sqlSession, eNum);
+	}
+
+	@Override
+	public int deleteReply(Reply r) {
+		return evDAO.deleteReply(sqlSession, r);
+	}
+
+	@Override
+	public int replyCheck(Reply r) {
+		return evDAO.replyCheck(sqlSession, r);
+	}
 	
 }
