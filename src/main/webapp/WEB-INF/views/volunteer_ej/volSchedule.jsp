@@ -136,88 +136,104 @@ label{
 		</script>
 		
 		
-		
+	<form action = "submitInform.vo"  method="post" id = "submitInform" >
 		<div>
+			 			<input type = "hidden" id = "schedule" name = "schedule" >
 		<table id = "info">
+			
+			<c:set var="schedule" value="${ schedule.value }" />
+			
+			 <c:if test="${ not empty schedule }">
+				<tr>
+			 		<td class = "info_title">
+			 			<label class = "title_word">활동</label>
+			 			<input type = "hidden" id = "vlNum2" name = "vlNum2" value="${ volAddNum }" >
+			 		</td>
+			 		<td class = "right"><label>asdfsdf</label></td>
+
+			 	</tr>
+			 </c:if>	
+				<tr>
+			 		<td class = "info_title"><label class = "title_word">이름</label></td>
+			 		<td class = "right">
+			 			<label>${ loginUser.userName }</label>
+			 			<input type = "hidden" id = "userID" name = "userID" value="${ loginUser.userName }">
+			 		</td>
+			 	</tr>
 		
-			<tr>
-		 		<td class = "info_title"><label class = "title_word">이름</label></td>
-		 		<td class = "right"><label>${ loginUser.userName }</label></td>
-		 	</tr>
-	
-		 	<tr>
-		 		<td class = "info_title"><label class = "title_word">전화번호</label></td>
-		 		<td class = "right right2"><input type = "text" class = "input_info" value = "${ loginUser.phone }"></td>
-		 	</tr>
-		
+			 	<tr>
+			 		<td class = "info_title"><label class = "title_word">전화번호</label></td>
+			 		<td class = "right right2"><input type = "text" class = "input_info" name = "vlPhone" value = "${ loginUser.phone }"></td>
+			 	</tr>
 		</table>
    		</div>
-   		
+	
    		<div id ="btn_div">
 	   		<input type = "button" id = "submit_btn" value = "봉사활동 신청">
    		</div>
+   	</form>
    </div>
    
    <%@ include file="../common/footer.jsp" %>
    
 </body>
 
-<script>
- 	$(document).ready(function() {	
-		get_events();
-	});
-	
- 	var schedule = [];
-	
-	function get_events(){
-		$.ajax({
-			url: "get.vo",
-			dataType: 'json',
-			success: function(data){
-				console.log(data);
-				schedule = data;
-				console.log(schedule)
-				for(i in data){
-					
-					console.log(schedule[i])
-					
-				}
-			},
-			error: function(data){
-				console.log('error');
-				console.log(data);
-			}
-		})
-		
-	} 
 
-	console.log("asdf32121");
-	console.log(schedule);
+<script>
+	$('#submit_btn').click(function(){
+		if($('#schedule').val() == ""){
+			alert("지원하실 봉사할동을 클릭해주세요");
+			return false;
+		}else{
+			alert($('#schedule').val()+"\n선택하신 봉사활동에 정말 신청하시겠습니까?");
+			$('#submitInform').submit();
+		}
+	});
+</script>
+
+
+
+
+<script>
 	
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
     
-      var size = schedule.length;
-      
-  
-      for(var i = 0, result = [] ; i < size ; i++){
-            result.push({"start" : "", "end" : ""});
-      }
-      
-      
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: [ 'interaction','dayGrid' ],
+        plugins: [ 'interaction','dayGrid'],
         defaultView: 'dayGridMonth',
         selectable: true,
         events: [
-        	<c:forEach var="vsS" items="${schedule}">
-	            {
-	              title  : '${ vsS.volContent }',
-	              start  : '${ vsS.volStart }',
-	              end    : '${ vsS.volEnd }'
-	            }
+        	<c:forEach var="vsS" items="${vs}" varStatus="vss">
+        		<c:if test="${vss.last}">
+	        		{
+	  	              title  : '${ vsS.volContent }',
+	  	              start  : '${ vsS.volStart }',
+	  	              end    : '${ vsS.volEnd }',
+	  	            }
+	        		</c:if>
+	        		<c:if test="${!vss.last}">
+	        			{
+	  	              		title  : '${ vsS.volContent }',
+	  	              		start  : '${ vsS.volStart }',
+	  	              		end    : '${ vsS.volEnd }'
+  	           		},
+    			</c:if>
 	        </c:forEach>   
-	   ]
+	   ],
+	   eventClick :  
+	   
+			   function(info){
+					
+		  	   $(this).css("color","red");
+			   $("#schedule").val(info.event.title);
+			   console.log(schedule.value);
+			   
+		   },
+		   
+		 eventRender: function (event, element) {
+			 event.backgroundColor = 'green';
+		 }
       });
     
       

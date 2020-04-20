@@ -17,8 +17,13 @@
 	</resultMap>
 	
 	<select id="getSchedule" resultMap = "ScheduleResultSet">
-		select vol_content, vol_start, vol_end
+		select vol_add_num, vol_content, vol_start, vol_end, vol_max, vol_status
 		from volunteer_add
 	</select>
+	
+	<insert id="insertEntry">
+		insert into volunteer
+		values(SEQ_ENTRY.NEXTVAL,)
+	</insert>
 	
 </mapper>
