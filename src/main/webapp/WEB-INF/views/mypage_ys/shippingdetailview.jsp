@@ -88,7 +88,7 @@
    
    <!-- 내용 -->
    <div class="contents">
-      <div id="title"><h1>배송지 등록</h1></div>
+      <div id="title"><h1>배송지 </h1></div>
    
   <table id = "content_table" style="margin-left: auto; margin-right: auto;">
 		<tr>
@@ -98,48 +98,65 @@
 		</tr>
 		
 	</table> 
-   <form action="shinsert.li" method="post" enctype="Multipart/form-data">
    <table class = "info" id="tabletd" >
        
        <tr>
           <td class = "info_title2" >배송지 명</td>
-          <td class = "right"><input type = "text" class = "input_info" name="sName" ></td>
+          <td class = "right"><input type = "hidden" class = "input_info"  >${shipping.sName }</td>
        </tr>
        <tr>
           <td class = "info_title2">수령인</td>
-          <td class = "right"><input type = "text" class = "input_info" name="rName"></td>
+          <td class = "right"><input type = "hidden" class = "input_info" >${shipping.rName }</td>
           
        </tr>
-       <tr>
-         
-         <td> <input type = "hidden" class = "input_info" name="userId"></td>
-          
-       </tr>
+       
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right"><input type = "text" class = "input_info" name="rPhone"></td>
+          <td class = "right"><input type = "hidden" class = "input_info" >${shipping.rPhone }</td>
        </tr>
         <tr>
           <td class = "info_title2" id = "address">주소</td>
-          <td class = "right"><input type = "text" class = "input_info" id = "ad_num" name="rZipcode"><input type = "button" id = "ad_btn" value = "우편번호"><br>
-          <input type = "text" id="address2" class = "input_info info_address" name="rBasicadd"><br>
-          <input type = "text" id="address2" class = "input_info info_address" name="rDetailadd"></td>
+          <td class = "right"><input type = "hidden" class = "input_info" id = "ad_num">${shipping.rZipcode }<br>
+          <input type = "hidden" id="address2" class = "input_info info_address" >${shipping.rBasicadd }<br>
+          <input type = "hidden" id="address2" class = "input_info info_address" >${shipping.rDetailadd }</td>
        </tr>
        
    </table>
+	
+	
+	<c:url var="shupView" value="shupView.li">
+			<c:param name="sNo" value="${ shipping.sNo }"/>
+			<c:param name="page" value="${ page }"/>
+		</c:url> 
+		<c:url var="shdelete" value="shdelete.li">
+			<c:param name="sNo" value="${ shipping.sNo }"/>
+		</c:url>
+		 <c:url var="shlist" value="shlist.li">
+			<c:param name="page" value="${ page }"/>
+		</c:url> 
+
+
 
    <table>
-   
+ <%--   <c:if test="${ loginUser.userId eq Shipping.userId }"> --%>
    <tr> 
-   				<td><input id="updateBtn" type="submit" value="등록" class="upBtn"></td> 
-				<td><button type="button" id="cancle" class="upBtn" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
+   				<td><button onclick="location.href='${ shupView }'" id="updateBtn" class="upBtn">수정</button></td> 
+				<td><button type="button" id="cancle" class="upBtn" onclick="deleteShipping()">삭제</button></td>
    </tr>
+   <%-- </c:if> --%>
      </table>
-      </form>
    
    
    
-   
+   <script>
+		function deleteShipping(){
+			var bool = confirm("삭제하시겠습니까?");
+			
+			if( bool ){
+				location.href='${shdelete}';
+			}
+		}
+	</script>
    
    
    

@@ -57,7 +57,26 @@
    <insert id="insertBoard" parameterType="Shipping">
 		insert into shipping values(
 			seq_ship.nextval, #{sName}, #{rName}, #{rPhone}, #{rZipcode}, #{rBasicadd},
-			#{rDetailadd}, default, #{userId}, default
+			#{rDetailadd}, default,#{userId}, default
 		)
 	</insert>
+	
+	<update id="deleteShipping" parameterType="_int">
+		update shipping
+		set s_status='N'
+		where s_no=#{sNo}
+	</update>
+	
+	<update id="updateShipping" parameterType="Shipping">
+		update shipping
+		set s_name=#{sName}, r_name=#{rName}, r_phone=#{rPhone},
+			r_zipcode=#{rZipcode}, r_basicadd=#{rBasicadd}, r_detailadd=#{rDetailadd}
+		where s_no=#{sNo}
+	</update>
+	
+	<select id="selectShipping" parameterType="_int" resultMap="ShippingResultSet">
+		select *
+		from shipping
+		where s_no=#{sNo} and s_status='Y'
+	</select>
 </mapper>

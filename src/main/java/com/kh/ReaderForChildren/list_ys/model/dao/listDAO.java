@@ -40,4 +40,16 @@ public class listDAO {
 		return sqlSession.insert("mypageMapper.insertBoard", s);
 	}
 
+	public int deleteShipping(SqlSessionTemplate sqlSession, int sNo) {
+		return sqlSession.update("mypageMapper.deleteShipping",sNo);
+	}
+
+	public int updateShipping(SqlSessionTemplate sqlSession, Shipping s) {
+		return sqlSession.update("mypageMapper.updateShipping", s);
+	}
+
+	public Shipping selectShipping(SqlSessionTemplate sqlSession, int sNo) {
+		return sqlSession.selectOne("mypageMapper.selectShipping", sNo);
+	}
+
 }

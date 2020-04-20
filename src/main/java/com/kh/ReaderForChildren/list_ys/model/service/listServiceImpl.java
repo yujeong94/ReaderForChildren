@@ -45,4 +45,21 @@ public class listServiceImpl implements listService {
 		return liDAO.insertBoard(sqlSession, s);
 	}
 
+	@Override
+	public int deleteShipping(int sNo) {
+		return liDAO.deleteShipping(sqlSession, sNo);
+	}
+
+	@Override
+	public int updateShipping(Shipping s) {
+		return liDAO.updateShipping(sqlSession, s);
+	}
+
+	@Override
+	public Shipping selectShipping(int sNo) {
+		
+		
+		return liDAO.selectShipping(sqlSession, sNo);
+	}
+
 }

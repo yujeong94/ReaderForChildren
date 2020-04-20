@@ -18,4 +18,10 @@ public interface listService {
 
 	int insertBoard(Shipping s);
 
+	int deleteShipping(int sNo);
+
+	int updateShipping(Shipping s);
+
+	Shipping selectShipping(int sNo);
+
 }
