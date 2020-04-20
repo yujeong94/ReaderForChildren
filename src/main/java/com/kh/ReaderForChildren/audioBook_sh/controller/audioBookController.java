@@ -445,4 +445,21 @@ public class audioBookController {
 	}
 	
 	
+	// 장바구니 insert
+	@RequestMapping("cartInsert.ab")
+	public String cartInsert() {
+		
+		
+		return null;
+	}
+	
+	
+	// 상품 삭제
+	@RequestMapping("deleteProduct.ab")
+	public String deleteProduct(int bkCode) {
+		
+		System.out.println(bkCode);
+		return null;
+	}
+	
 }

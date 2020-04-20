@@ -50,7 +50,7 @@
 								<td>
 									<input type="hidden" id="sNo${ vs.index }" value="${ l.sNo }">
 									${ l.sName }<br><b>${ l.rName }</b>
-									<input type="hidden" id="sName${ vs.index }" value="${ l.sName }">
+									<input type="hidden" id="rLevel${ vs.index }" value="${ l.rLevel }">
 									<input type="hidden" id="rName${ vs.index }" value="${ l.rName }">
 									<br><button disabled class="defaultSA">기본배송지</button>
 								</td>
@@ -74,7 +74,7 @@
 								<td>
 									<input type="hidden" id="sNo${ vs.index }" value="${ l.sNo }">
 									${ l.sName }<br><b>${ l.rName }</b>
-									<input type="hidden" id="sName${ vs.index }" value="${ l.sName }">
+									<input type="hidden" id="rLevel${ vs.index }" value="${ l.rLevel }">
 									<input type="hidden" id="rName${ vs.index }" value="${ l.rName }">
 								</td>
 								<td>
@@ -117,7 +117,7 @@
 	
 	$('.chooseBtn').click(function(){
 		var sNo = $(this).parent().parent().children('td').eq(0).children('input').eq(0).val();
-		var sName = $(this).parent().parent().children('td').eq(0).children('input').eq(1).val();
+		var rLevel = $(this).parent().parent().children('td').eq(0).children('input').eq(1).val();
 		var rName = $(this).parent().parent().children('td').eq(0).children('input').eq(2).val();
 		var rZipcode = $(this).parent().parent().children('td').eq(1).children('input').eq(0).val();
 		var rBasicadd = $(this).parent().parent().children('td').eq(1).children('input').eq(1).val();
@@ -125,6 +125,7 @@
 		var rPhone = $(this).parent().parent().children('td').eq(2).children('input').eq(0).val();
 		
 		opener.document.getElementById("sNoInput").value = sNo;
+		opener.document.getElementById("levelInput").value = rLevel;
 		opener.document.getElementById("nameInput").value = rName;
 		opener.document.getElementById("pcInput").value = rZipcode;
 		opener.document.getElementById("bAInput").value = rBasicadd;
