@@ -29,7 +29,7 @@
 	.purchaseBtn{background: rgb(231, 76, 60);}
 	.cartBtn{background: rgb(190, 190, 190)}
 	
-	.info{margin: 0 auto 80px; width: 840px; height: 100%;}
+	.info{margin: 0 auto 50px; width: 840px; height: 100%;}
 	.IT{font-weight: bold; font-size: 19px; margin: 10px 0 20px 0;}
 	.line{width: 730px; border-bottom: 2px solid rgb(136, 136, 136); margin-bottom: 20px;}
 	.simpleInfo span{color: grey; margin-right: 7px;} .simpleInfo b{font-weight: bold; margin-right: 20px;}
@@ -42,6 +42,8 @@
 	.Mtab{height: 30px; border: none; background: darkgrey; color: white; font-weight: bold; outline: none;}
 	.intro3{margin: 8px 0 70px 0; height: 30px; font-size: 14px;}
 	.record{height: 100px; margin-top: 20px;}
+	.deleteBtn{background: rgb(231, 76, 60); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
+				font-weight: bold; font-size: 20px; text-align: center; margin-top: 20px;}
 </style>
 </head>
 <body>
@@ -49,7 +51,7 @@
 	<c:import url="../common/menubar.jsp"/>
 		
 		<div class="contents">
-			<form name="frm" action="purchase.ab" method="post" onsubmit="return check();">
+			<form name="frm" method="post" onsubmit="return check();">
 			<div style="height: 50px;"></div>
 			<div class="cTitle">오디오북 > </div>
 			<div class="title">${ b.bkName }</div>
@@ -66,7 +68,7 @@
 										<span>글</span> <b>${ b.bkWriter }</b> <span>그림</span> <b>${ b.bkDraw }</b> <span>출판</span> <b>${ b.bkPublisher }</b>
 		                              	<br>
 										<span>페이지</span> <b>${ b.bkPage }</b> <span>출판일</span> <b>${ b.bkPubdate }</b>
-										<input type="hidden" name="bkCode" value="${ b.bkCode }">
+										<input type="hidden" name="bkCode" id="bkCode" value="${ b.bkCode }">
 										<input type="hidden" name="bkName" value="${ b.bkName }">
 		                        	</td>
 								</tr>
@@ -98,8 +100,8 @@
 								</tr>
 								<tr>
 									<td class="td6">
-										<input type="submit" class="Btn purchaseBtn" value="바로구매">
-										<input type="button" class="Btn cartBtn" value="장바구니">
+										<input type="button" class="Btn purchaseBtn" value="바로구매" onclick="goPurchase();">
+										<input type="button" class="Btn cartBtn" value="장바구니" onclick="goCart();">
 									</td>
 								</tr>
 							</table>
@@ -167,6 +169,10 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				
+				<div class="btnBox">
+					<input type="button" class="deleteBtn" value="상품삭제" onclick="deleteProduct();">
 				</div>
 			</div>
 			</form>
@@ -255,6 +261,36 @@
 		$('#MaleReader').attr('style', 'display:inline-block');
 		$('#Ftab').css('background','darkgrey');
 		$('#Mtab').css('background','rgb(243, 156, 18)');
+	}
+	
+	
+	function goPurchase(){
+		
+		var ch = check();
+		
+		if(ch){
+			var f = document.frm;
+			f.action = "purchase.ab";
+			f.submit();
+		}
+	}
+	
+	
+	function goCart(){
+		var ch = check();
+		
+		if(ch){
+			var f = document.frm;
+			f.action = "cartInsert.ab";
+			f.submit();
+		}
+	}
+	
+	
+	function deleteProduct(){
+		var bkCode = $('#bkCode').val();
+		
+		location.href="deleteProduct.ab?bkCode="+bkCode;
 	}
 	
 	</script>	

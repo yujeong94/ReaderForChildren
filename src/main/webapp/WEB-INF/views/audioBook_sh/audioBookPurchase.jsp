@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
-<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>audioBookPurchase</title>
@@ -21,6 +20,7 @@
 	.info{font-weight: bold; margin-right: 20px; display: inline-block;}
 	.frame3{background: rgb(255, 253, 231); border: 1px solid lightgrey; border-radius: 5px; margin: 0 auto 60px;
 			width: 840px; height: 100%; padding-bottom: 30px;}
+	#defSALabel{display: inline-block;}		
 	.info2{padding-bottom: 100px;}
 	.tb{font-size: 15px;}
 	.td1{font-weight: bold; padding: 20px 20px 0 0;}
@@ -88,7 +88,10 @@
 					<table class="tb">
 						<tr>
 							<td rowspan="5" class="td1">&nbsp;&nbsp;배송지 정보</td>
-							<td style="font-size: 12px;" class="td2">[기본배송지]</td>
+							<td style="font-size: 12px;" class="td2">
+								<input type="hidden" id="levelInput" name="rLevel" value="0">
+								<div id="defSALabel">[기본배송지]</div>
+							</td>
 							<td rowspan="2" class="td3"></td>
 						</tr>
 						<tr>
@@ -234,7 +237,23 @@
 	
 	});
 	
+	
+	/* $('#levelInput').on('propertychange change keyup paste input', function(){
+		var level = $('#levelInput').val();
+		if(level == 1){
+			$('#defSALabel').css('display','none');
+		}
+	}); */
+	
+	/* $(function(){
+		var level = $('#levelInput').val();
+		if(level == 1){
+			$('#defSALabel').css('display','none');
+		}
+	}); */
+	
 	</script>
+	
 	
 </body>
 </html>

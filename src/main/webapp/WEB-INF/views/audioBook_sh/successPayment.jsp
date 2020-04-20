@@ -15,7 +15,7 @@
 	.btns button{width: 160px; height: 50px; border-radius: 3px; border: none; color: white; font-weight: bold;
 				font-size: 20px;}
 	.goOrderList{background: rgb(243, 156, 18); margin-right: 8px;}
-	.goMain{background: grey;}
+	.goCart{background: rgb(190, 190, 190);}
 </style>
 </head>
 <body>

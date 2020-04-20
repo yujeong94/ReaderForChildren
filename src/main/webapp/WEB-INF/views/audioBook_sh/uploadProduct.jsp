@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>uploadProduct</title>
 <style>
 	#title{padding: 25px 0 30px 0;}
@@ -36,7 +37,7 @@
 	.intro3{margin: 8px 0 30px 0; width: 700px; height: 100px; font-size: 14px; resize: none; border-radius: 4px;}
 	.record{height: 100px;}
 	.btnBox{margin-bottom: 30px;}
-	.upload{background: rgb(243, 156, 18); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
+	.upload{background: rgb(231, 76, 60); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
 		font-weight: bold; font-size: 20px; text-align: center; margin-right: 8px;}
 	.delBtn{color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
 		font-weight: bold; font-size: 20px; text-align: center;}
