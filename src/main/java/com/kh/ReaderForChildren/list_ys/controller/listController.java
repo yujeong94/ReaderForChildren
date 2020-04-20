@@ -2,6 +2,7 @@ package com.kh.ReaderForChildren.list_ys.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +100,66 @@ public class listController {
 		}
 		
 	}
+	
+	@RequestMapping("shdelete.li")
+	public String boardDelete(@RequestParam("sNo") int sNo) {
+		
+		int result = liService.deleteShipping(sNo);
+		
+		if(result > 0) {
+			return "redirect:shlist.li";
+		}else {
+			throw new listException("게시글 삭제 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("shupView.li")
+	public ModelAndView ShippingUpdateView(@RequestParam("sNo")int sNo, @RequestParam("page") int page, ModelAndView mv) {
+		
+		Shipping shipping = liService.selectShipping(sNo);
+		
+		mv.addObject("shipping", shipping)
+		  .addObject("page", page)
+		  .setViewName("shippingUpdate");
+
+		return mv;
+	}
+	
+	@RequestMapping("shupdate.li")
+	public ModelAndView ShippingUpdate(@ModelAttribute Shipping s, 
+								@RequestParam("page") int page, HttpServletRequest request, ModelAndView mv) {
+		
+		
+		
+		int result = liService.updateShipping(s);
+		
+		if(result > 0 ) {
+			mv.addObject("page", page)
+			  .setViewName("redirect:shdetail.li?sNo=" + s.getsNo());
+			
+		}else {
+			throw new listException("게시글 등록을 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("shdetail.li")
+	public ModelAndView shippingDetail(@RequestParam("sNo")int sNo, @RequestParam("page")int page, ModelAndView mv) {
+		Shipping shipping = liService.selectShipping(sNo);
+		
+		if(shipping != null) {
+			mv.addObject("shipping", shipping)
+			  .addObject("page", page)
+			  .setViewName("shippingdetailview");
+			
+		}else {
+			throw new listException("조회에 실패했습니다.");
+		}
+		return mv;
+	}
+	
+	
+	
 	
 }

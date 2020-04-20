@@ -10,7 +10,7 @@
 <style>
 .contents {
    width: 1000px;
-   height: 600px;
+ /*   height: 600px; */
    background: white;
    margin: auto;
    margin-bottom: 100px;
@@ -52,7 +52,7 @@
 		#th3{ width:190px; }
 		#th4{ width:140px;}
 		#th5{ width:210px; }
-		#th6{ width:210px; text-align:left; border-radius : 0px 10px 10px 0px;}
+		#th6{ width:140px; text-align:left; border-radius : 0px 10px 10px 0px;}
 .list_title{
 			background-color:rgb(234, 234, 234); vertical-align: middle;
 			
@@ -80,6 +80,8 @@
 		#insert{margin-right:47px; margin-top:15px;}
 		#buttonTab{margin-left:450px; margin-top:25px;}
 		 /* .btn{margin-bottom:15px;}  */
+		 .upBtn{width:100px;height:35px;  color: white;  box-shadow: none; 
+    border: none; border-radius: 5px; margin-top:30px; }
 </style>
 </head>
 <body>
@@ -116,13 +118,31 @@
 		<!-- <tr>
 			<td id="noList">존재하는 게시글이 없습니다.</td>
 		</tr> -->
-				<tr id="contentTr">
-			<td class = "list_line2" id="td1"  > ${ sh.rLevel }<input type="checkbox" id="chk_all" name="chk_all" /></td>
-				<td class = "list_line2" id="td2" >${ sh.rLevel }</td>
+				<tr class="contentTr">
+				
+				<td align="center">${ sh.sNo }</td>
+			
+			<td align="left">
+				<c:if test="${ !empty loginUser }">
+					<c:url var="shdetail" value="shdetail.li">
+						<c:param name="sNo" value="${ sh.sNo }"/>
+						<c:param name="page" value="${ pi.currentPage }"/>
+					</c:url>
+					<%-- <a href="${ shdetail }">${ sh.rName }</a> --%>
+				</c:if>
+				<c:if test="${ empty loginUser }">
+					<%-- ${sh.rName }		 --%>
+				</c:if>
+			</td>
+				
+				
+				
+			<td class = "list_line2" id="td1" value=" ${ sh.rLevel }" ><input type="checkbox" id="chk_all" name="chk_all" /></td>
+				<td class = "list_line2" id="td2" >${ sh.sNo }</td>
 				<td class="list_line2" id="td3">${ sh.sName }님 배송지</td>
 				<td class="list_line2" id="td4">${sh.rName }</td>
 				<td class="list_line2" id="td5">${sh.rZipcode }${sh.rBasicadd }${sh.rDetailadd }</td>
-				<td class="list_line2" id="td6" >${sh.rPhone }</td><td><div align="right"><button type="button" class="btn" id="update" onclick="updateShipping();">수정</button><button type="button" class="btn" id="delete">삭제</button></div></td>
+				<td class="list_line2" id="td6" >${sh.rPhone }</td><td>
 			</tr>
 			</c:forEach>
 		</table>
@@ -168,19 +188,47 @@
 			</td>
 		</tr>
 		</table>
+		
+		
 	</div>
    
+   
+   
    <div align="right" id="insert">
-   	<button type="button" class="btn" id="insert" onclick="location.href='shinsertView.li';">등록하기</button>
+   	<button type="button" class="upBtn" id="insert" onclick="location.href='shinsertView.li';">배송지 등록</button>
    </div>
    
    
    
+   <script>
+		function deleteShipping(){
+			var bool = confirm("삭제하시겠습니까?");
+			
+			if( bool ){
+				location.href='${shdelete}';
+				
+				location.href="shdelete.li?sNo="+5+"&page="+${pi.currentPage};
+				//sNo를 지정해주면 삭제가 되지만 지정을 안해주고 sNo라고 적으면 삭제가 안됨 400에러뜸 ㅠㅠ
+				
+			}
+		}
+	</script>
    
    
-   
-   
-   
+    <script >
+		$(function(){
+			$('.contentTr').mouseenter(function(){
+				$(this).css({'color':'yellowgreen', 'font-weight':'bole', 'cursor':'pointer'});
+			}).mouseout(function(){
+				$(this).css({'color':'black', 'font-weight':'normal'});
+			}).click(function(){
+				var sNo = $(this).children('td').eq(0).text();
+				
+				location.href="shdetail.li?sNo="+sNo+"&page="+${pi.currentPage};
+			});						
+		});
+	</script>
+    
    
    
    

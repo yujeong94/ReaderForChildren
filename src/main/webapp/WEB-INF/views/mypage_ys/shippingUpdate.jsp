@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>content</title>
-<link rel="stylesheet" href="../../resources/css/common.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
 .contents {
    width: 500px;
@@ -98,27 +98,30 @@
 		</tr>
 		
 	</table> 
-   
+   <form action="shupdate.li" method="post" enctype="Multipart/form-data">
+		<input type="hidden" name="page" value="${ page }">
+		<input type="hidden" name="sNo" value="${ shipping.sNo }">
+
    <table class = "info" id="tabletd" >
        
        <tr>
           <td class = "info_title2" >배송지 명</td>
-          <td class = "right"><input type = "text" class = "input_info" value="김누구" ></td>
+          <td class = "right"><input type = "text" class = "input_info" name="sName" value="${shipping.sName }" ></td>
        </tr>
        <tr>
           <td class = "info_title2">수령인</td>
-          <td class = "right"><input type = "text" class = "input_info"></td>
+          <td class = "right"><input type = "text" class = "input_info" name="rName" value="${shipping.rName }"></td>
           
        </tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right"><input type = "text" class = "input_info"></td>
+          <td class = "right"><input type = "text" class = "input_info" name="rPhone" value="${ shipping.rPhone }"></td>
        </tr>
         <tr>
           <td class = "info_title2" id = "address">주소</td>
-          <td class = "right"><input type = "text" class = "input_info" id = "ad_num"><input type = "button" id = "ad_btn" value = "우편번호"><br>
-          <input type = "text" id="address2" class = "input_info info_address"><br>
-          <input type = "text" id="address2" class = "input_info info_address"></td>
+          <td class = "right"><input type = "text" class = "input_info" id = "ad_num" name="rZipcode" value="${shipping.rZipcode }"><input type = "button" id = "ad_btn" value = "우편번호"><br>
+          <input type = "text" id="address2" class = "input_info info_address" name="rBasicadd" value="${shipping.rBasicadd }"><br>
+          <input type = "text" id="address2" class = "input_info info_address" name="rDetailadd" value="${shipping.rDetailadd }"></td>
        </tr>
        
    </table>
@@ -126,7 +129,11 @@
    <table>
    
    <tr> 
-   				<td><input id="updateBtn" type="submit" value="적용" class="upBtn"></td> 
+   				<td><input id="updateBtn" type="submit" value="적용" class="upBtn">
+   					<c:url var="shlist" value="shlist.li">
+						<c:param name="page" value="${ page }"/>
+					</c:url>
+				</td> 
 				<td><button type="button" id="cancle" class="upBtn" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
    </tr>
      </table>
@@ -136,7 +143,7 @@
    
    
    
-   
+   </form>
    
    
    
