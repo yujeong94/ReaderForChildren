@@ -39,4 +39,16 @@ public class EventDAO {
 		return sqlSession.insert("eventMapper.insertReply", r);
 	}
 
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int eNum) {
+		return (ArrayList)sqlSession.selectList("eventMapper.selectReplyList", eNum);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("eventMapper.deleteReply", r);
+	}
+
+	public int replyCheck(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.selectOne("eventMapper.replyCheck", r);
+	}
+
 }

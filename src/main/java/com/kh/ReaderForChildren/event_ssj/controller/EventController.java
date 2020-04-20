@@ -1,11 +1,14 @@
 package com.kh.ReaderForChildren.event_ssj.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.ReaderForChildren.event_ssj.model.exception.EventException;
 import com.kh.ReaderForChildren.event_ssj.model.service.EventService;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
@@ -155,10 +161,42 @@ public class EventController {
 		
 	}
 	
+	//댓글 리스트
+	@RequestMapping("replyList.ev")
+	public void replyList(HttpServletResponse response, @RequestParam("eNum") int eNum) throws JsonIOException, IOException {
+		
+		ArrayList<Reply> rList = evService.selectReplyList(eNum);
+		
+		for(Reply r:rList) {
+			r.setrContent(URLEncoder.encode(r.getrContent(), "UTF-8"));
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		gson.toJson(rList, response.getWriter());
+		
+	}
 	
+	// 댓글 삭제
+	@RequestMapping("deleteReply.ev")
+	public String deleteReply(Reply r) {
+		
+		int result = evService.deleteReply(r);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new EventException("댓글 삭제를 실패하셨습니다.");
+		}
+	}
 	
-	
-	
+	// 댓글 여부
+	@RequestMapping("replyCheck.ev")
+	public void replyCheck(Reply r, HttpServletResponse response) throws IOException {
+		
+		boolean result = evService.replyCheck(r) == 0 ? false : true;
+		response.getWriter().print(result);
+		
+	}
 	
 	
 	

@@ -22,6 +22,15 @@
 		<result property="imPath" column="im_path"/>
 	</resultMap>
 	
+	<resultMap type="Reply" id="ReplyResultSet">
+		<id property="rNum" column="r_num"/>
+		<result property="rContent" column="r_content"/>
+		<result property="rDate" column="r_date"/>
+		<result property="rStatus" column="r_status"/>
+		<result property="eNum" column="e_num"/>
+		<result property="userId" column="user_id"/>
+	</resultMap>
+	
 
 	<insert id="insertEvent" parameterType="Event">
 		insert into event
@@ -67,9 +76,24 @@
 		values(seq_re.nextval, #{rContent}, sysdate, default, #{eNum}, #{userId})
 	</insert>
 	
+	<select id="selectReplyList" resultMap="ReplyResultSet">
+		select *
+		from reply
+		where r_status = 'Y' and e_num = #{eNum}
+		order by r_num desc
+	</select>
 	
+	<update id="deleteReply" parameterType="Reply">
+		update reply
+		set r_status = 'N'
+		where e_num = #{eNum} and user_id = #{userId}
+	</update>
 	
-	
+	<select id="replyCheck" resultType="_int">
+		select count(*)
+		from reply
+		where e_num = #{eNum} and user_id = #{userId} and r_status = 'Y'
+	</select>
 	
 	
 	
