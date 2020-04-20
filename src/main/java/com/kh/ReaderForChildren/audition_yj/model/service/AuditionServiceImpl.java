@@ -49,10 +49,10 @@ public class AuditionServiceImpl implements AuditionService {
 	public int insertApply(Reader r, ArrayList<Career> cArr) {
 	
 		int result = 0;
-		int cResult = auDAO.insertCareer(sqlSession, cArr);
+		int rResult = auDAO.insertApply(sqlSession, r);	
 		
-		if(cResult > 0) {
-			result = auDAO.insertApply(sqlSession, r);	
+		if(rResult > 0) {
+			result = auDAO.insertCareer(sqlSession, cArr);
 		} 
 		
 		return result;
