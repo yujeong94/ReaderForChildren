@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.volunteer_ej.model.dao.VolunteerDAO;
+import com.kh.ReaderForChildren.volunteer_ej.model.vo.Volunteer;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.VolunteerSchedule;
 
 @Service("vService")
@@ -27,5 +28,10 @@ public class VolunteerServiceImpl implements VolunteerService{
 	public ArrayList<VolunteerSchedule> getSchedule() {
 		return vDAO.getSchedule(sqlSession);
 		
+	}
+
+	@Override
+	public int serviceAsk(Volunteer v) {
+		return vDAO.serviceAsk(sqlSession, v);
 	}
 }

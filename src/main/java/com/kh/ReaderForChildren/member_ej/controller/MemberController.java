@@ -1,13 +1,13 @@
 package com.kh.ReaderForChildren.member_ej.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Properties;
 
-
-import javax.mail.PasswordAuthentication;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,16 +37,28 @@ public class MemberController {
 	private MemberService mService;
 	
 	@RequestMapping("login.me")
-	public String memberLogin(Member m, Model model) {
+	public String memberLogin(Member m, Model model, HttpServletResponse response) {
 		
 		Member loginUser = mService.memberLogin(m);
+		response.setContentType("text/html; charset=utf-8");
 		
 		if(loginUser != null) {
 			model.addAttribute("loginUser", loginUser);
 			return "redirect:home.do";
 		}else {
-			throw new MemberException("로그인에 실패하였습니다.");
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.println("<script language='javascript'>");
+				out.println("alert('로그인에 실패하였습니다.'); location.href='/ReaderForChildren/home.do';");
+				out.println("</script>");
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
+		return null;
 	}
 	
 	@RequestMapping("join.me")

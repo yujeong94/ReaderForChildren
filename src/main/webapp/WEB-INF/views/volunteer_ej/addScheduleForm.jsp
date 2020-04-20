@@ -47,9 +47,15 @@
 	</form>
 	
 	<script>
-		function saveSchedule(){
-			window.close();
-		}
+	
+		$(function(){
+			if('${result}' != ''){
+				alert('등록이 완료되었습니다.');
+				opener.document.location.reload();
+				self.close();
+			}
+		});
+		
 	</script>
 	
 	
