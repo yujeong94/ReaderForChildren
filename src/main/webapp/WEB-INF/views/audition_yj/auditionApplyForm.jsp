@@ -113,7 +113,7 @@
 			
 			<div class="btnBox">
 				<button class="defaultBtn upBtn">Apply</button>	
-				<button type=button id="testBtn">확인</button>			
+				<button type=button id="testBtn">${ loginUser.birth }</button>
 			</div>
 		</form>
 		

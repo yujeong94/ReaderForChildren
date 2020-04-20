@@ -56,17 +56,18 @@
 		where anum=#{aNum}
 	</update>
 	
-	<insert id="insertCareer" parameterType="ArrayList">
-		<foreach collection="cArr" item="c">
-			insert into career values(seq_cnum.nextval, #{c.userId} #{c.cDate}, #{c.cContent}, #{c.cCompany}) 
-		</foreach>
-	</insert>
-	
 	<insert id="insertApply" parameterType="Reader">
 		insert into reader 
 		values(#{userId},#{cDate},#{career},#{company},#{introduce},default,
 				#{aNum},#{originName},#{changeName},#{imPath},default,#{recName},#{recPath})
 	</insert>
+	
+	<update id="insertCareer" parameterType="arraylist">
+		<foreach collection="list" item="c" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO CAREER VALUES(seq_cnum.nextval,#{c.userId},#{c.cDate},#{c.cContent},#{c.cCompany})
+		</foreach>
+	</update>
+	
 	
 </mapper>
 
