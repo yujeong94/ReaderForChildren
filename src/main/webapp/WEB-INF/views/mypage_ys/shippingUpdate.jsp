@@ -1,10 +1,12 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <title>content</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
@@ -79,12 +81,24 @@
     border: none; border-radius: 5px; margin-top:30px; }
     #updateBtn{margin-right:10px;margin-left:180px;}
     #cancle{margin-left:10px;}
+     
+   #ad_btn{
+      width : 15%;
+      height : 26px;
+      font-size : 12px;
+      color : gray;
+      margin-left : 5px;
+      background : lightgray;
+      border-radius : 3px;
+      border : 1px lightgray solid;
+      cursor : pointer;
+   }
    
 </style>
 </head>
 <body>
  <div class="outer">
-  <%--  <c:import url="../common/menubar.jsp"/> --%>
+   <c:import url="../common/menubar.jsp"/> 
    
    <!-- 내용 -->
    <div class="contents">
@@ -125,6 +139,12 @@
        </tr>
        
    </table>
+   <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	        <script>
+		        $(function(){
+		           $("#ad_btn").postcodifyPopUp();
+		        });
+		        </script>
    
    <table>
    
@@ -137,7 +157,6 @@
 				<td><button type="button" id="cancle" class="upBtn" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
    </tr>
      </table>
-   
    
    
    
@@ -161,7 +180,7 @@
    
    
    </div>
-   
+   	<c:import url="../common/footer.jsp"/> 
    </div>
    
    

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
 import com.kh.ReaderForChildren.list_ys.model.exception.listException;
 import com.kh.ReaderForChildren.list_ys.model.service.listService;
@@ -71,6 +72,31 @@ public class listController {
 			mv.addObject("list",list);
 			mv.addObject("pi", pi);
 			mv.setViewName("shippinglist");
+			
+		}else {
+			throw new listException("게시글 전체 조회에 실패하였습니다.");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("orlist.li")
+	public ModelAndView orderList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = liService.getorListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<OrderDetail> olist = liService.selectorList(pi);
+		
+		if(olist != null) {
+			mv.addObject("olist",olist);
+			mv.addObject("pi", pi);
+			mv.setViewName("basketlist");
 			
 		}else {
 			throw new listException("게시글 전체 조회에 실패하였습니다.");

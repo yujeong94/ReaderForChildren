@@ -22,7 +22,9 @@ public interface sponsorService {
 
 	int suupdateMember(Support s);
 
-	int insertSupport(Support s);
+	int insertSupport(Support support);
+
+	
 
 
 	

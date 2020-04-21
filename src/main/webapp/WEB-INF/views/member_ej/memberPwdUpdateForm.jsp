@@ -73,18 +73,19 @@
       vertical-align: middle; 
    }
    .input_info{
+   	  margin-left: 25px;
       border-radius: 5px;
       border : 1px lightgray solid;
       height : 27px;
-      width : 58%;
+      width : 95%;
    }
  /*   .upBtn{width:100px;height:30px; color:white; margin-right : -360px;
       margin-left : 440px; margin-top:30px; cursor:pointer} */
       .upBtn{width:80px;height:35px;  color: white;  box-shadow: none; 
     border: none; border-radius: 5px; margin-top:30px; }
-    #updateBtn{margin-right:10px;margin-left:470px;}
+    #updateBtn{margin-right:10px;margin-left:420px;}
     #cancle{margin-left:10px;}
-   
+   #tabletd{height:150px;}
 </style>
 </head>
 <body>
@@ -105,18 +106,55 @@
    <table class = "info" id="tabletd" >
        <tr>
           <td class = "info_title2" >현재비밀번호</td>
-          <td class = "right"><input type = "password" name="userPwd" class = "input_info" ></td>
+          <td class = "right"><input type = "password" id="userPwd" name="userPwd" class = "input_info" >
+          </td>
        </tr>
        <tr>
           <td class = "info_title2">비밀번호</td>
-          <td class = "right"><input type = "password" name="newPwd1" class = "input_info"></td>
+          <td class = "right"><input type = "password" name="newPwd1" id="newPwd1" class = "input_info">
+           <input type="hidden" name="pwdCheck" id="pwdCheck" value="0" required></td>
        </tr>
        <tr>
           <td class = "info_title2">비밀번호 확인</td>
-          <td class = "right"><input type = "password" name="newPwd2" class = "input_info"></td>
+          <td class = "right"><input type = "password" name="newPwd2" id="newPwd2" class = "input_info"></td>
+          <td class = "right">
+		 			<span class = "pwdinform sm" id = "same" style="display:none">비밀번호 일치</span>
+		 			<span class = "pwdinform df" id = "diff" style="display:none">비밀번호 불일치</span>
+		 			<input type="hidden" name="pwdCheck2" id="pwdCheck2" value="0">
+		 		</td>
        </tr>
    </table>
    
+   
+   <script>
+ 	 $('#newPwd1').blur(function(){
+     	var str = $(this).val();
+     	var passrule = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+     	
+     	if(passrule.test(str)){
+     		$('#pwdCheck').val(1);
+     	}else{
+     		$('#pwdCheck').val(0);
+     	}
+     });
+     
+     $('#newPwd1').blur(function(){
+     	if($('#newPwd2').val() == ""){
+     		$('.pwdinform.sm').hide();
+     		$('.pwdinform.df').hide();
+     		$('#pwdCheck2').val(0);
+     	}else if($('#newPwd1').val() == $('#newPwd2').val()){
+     		$('.pwdinform.sm').show();
+     		$('.pwdinform.df').hide();
+     		$('#pwdCheck2').val(1);
+     	}else{
+     		$('.pwdinform.sm').hide();
+     		$('.pwdinform.df').show();
+     		$('#pwdCheck2').val(0);
+     	}
+     });
+    </script>
+    
    <table>
 	   <tr> 
    				<td><input id="updateBtn" type="submit" value="적용" class="upBtn"></td> 
