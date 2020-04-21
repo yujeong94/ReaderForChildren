@@ -53,7 +53,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 <div class="outer">
 	<jsp:include page="common/menubar.jsp"/>
 	<div class="home_contents">
-		<c:if test="${ empty sessionScope.loginUser }">	
+		<c:if test="${ empty sessionScope.loginUser && empty sessionScope.adminUser }">	
 			<form class="home_login" action="login.me" method="post" id = "goLogin">
 				<table>
 				<tr>
@@ -73,51 +73,65 @@ a:hover { text-decoration: none; cursor : pointer;}
 					<span type="button" id="findId" onclick="location.href='idView.me'">Find ID</span>
 				</div>
 			</form>
-		</c:if>
-		
-		<script>
+			<script>
 			$('#loginBtn').click(function(){
-				if($('#inputId').val == 'admin'){
+				if($('#inputId').val() == 'admin'){
 					$('#goLogin').attr("action","loginAdmin.ad");
 				}else{
 					$('#goLogin').submit();
 				}
 			})
-		</script>
+			</script>
+		</c:if>
 		
-		<c:if test="${ !empty sessionScope.loginUser }">
-
+		
+		
+		<c:if test="${ !empty sessionScope.loginUser || !empty sessionScope.adminUser }">
 			<table id = "123">
 				<tr>
+					<c:if test = "${ !empty sessionScope.loginUser }">
 					<td colspan = '2'><label id = "welcome"><a href = "myinfo.me" id = "logincu"><span id = "namehover">${ sessionScope.loginUser.userName }</span></a>님 환영합니다.</label></td>
+					</c:if>
+					<c:if test = "${ !empty sessionScope.adminUser }">
+					<td colspan = '2'><label id = "welcome"><a href = "myinfo.me" id = "logincu"><span id = "namehover">${ sessionScope.adminUser.userName }</span></a>님 환영합니다.</label></td>
+					</c:if>
 				</tr>
 				<tr>
 					<td class = "loginMenu"><a id = "logoutBtn" >로그아웃</a></td>
-					<script>
-					$(function(){
-						if("${ loginUser.userId }" == "admin"){
-							$('#logincu').prop('href', "userList.ad");
-						}
-					});
-					
-						$(function(){
-							$('#logoutBtn').click(function(){
-								var an = confirm("로그아웃 하시겠습니까?")
-								if(an){
-									location.href='logout.me';
-								}else{
-									return false;
-								}
-							});
-						});
-					</script>
 				</tr>
 			</table>
-
-
 		</c:if>
+		
+		
 	</div>
 	<jsp:include page="common/footer.jsp"/>
 </div>
+
+<script>
+	$(function(){
+		if("${ adminUser.userId }" == "admin"){
+			$('#logincu').prop('href', "userList.ad");
+			
+			$('#logoutBtn').click(function(){
+				var an = confirm("로그아웃 하시겠습니까?");
+				if(an){
+					location.href='logout.ad';
+				}else{
+					return false;
+				}
+			});
+		}else{
+			$('#logoutBtn').click(function(){
+				var an = confirm("로그아웃 하시겠습니까?");
+				if(an){
+					location.href='logout.me';
+				}else{
+					return false;
+				}
+			})
+		}
+	});
+
+</script>
 </body>
 </html>

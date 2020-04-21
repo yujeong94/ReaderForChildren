@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.exception.AdminPageException;
@@ -19,7 +20,7 @@ import com.kh.ReaderForChildren.adminPage_ssj.model.service.AdminPageService;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
-@SessionAttributes("loginUser")
+@SessionAttributes("adminUser")
 @Controller
 public class AdminPageController {
 	
@@ -100,19 +101,21 @@ public class AdminPageController {
 	
 	@RequestMapping("loginAdmin.ad")
 	public String adminLogin(Admin a, Model model, HttpServletResponse response) {
-		
+		System.out.println("여긴 오니" + a.getUserId());
 		Admin adminUser = aService.adminLogin(a);
+		System.out.println("adminUser2 : " + adminUser);
 		response.setContentType("text/html; charset=utf-8");
 		
 		if(adminUser != null) {
 			model.addAttribute("adminUser", adminUser);
+			System.out.println("세션들어옴");
 			return "redirect:home.do";
 		}else {
 			PrintWriter out;
 			try {
 				out = response.getWriter();
 				out.println("<script language='javascript'>");
-				out.println("alert('로그인에 실패하였습니다.'); location.href='/ReaderForChildren/home.do';");
+				out.println("alert('로그인에 실패하였습니다.!@#!@#@!#@!#'); location.href='/ReaderForChildren/home.do';");
 				out.println("</script>");
 				out.flush();
 			} catch (IOException e) {
@@ -120,6 +123,14 @@ public class AdminPageController {
 			}
 		}
 		return null;
+	}
+	
+	
+	@RequestMapping("logout.ad")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		
+		return "redirect:home.do";
 	}
 	
 }
