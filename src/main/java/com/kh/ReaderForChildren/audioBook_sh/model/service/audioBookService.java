@@ -6,6 +6,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.Cart;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
@@ -40,5 +41,9 @@ public interface audioBookService {
 	int selectDefaultSA(String userId);
 
 	int orderInsert(OrderDetail order);
+
+	int deleteProduct(int bkCode);
+
+	int cartInsert(Cart c);
 
 }

@@ -1,12 +1,15 @@
 package com.kh.ReaderForChildren.audioBook_sh.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +27,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.Cart;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Pagination;
@@ -447,18 +452,69 @@ public class audioBookController {
 	
 	// 장바구니 insert
 	@RequestMapping("cartInsert.ab")
-	public String cartInsert() {
+	@ResponseBody
+	public String cartInsert(HttpSession session, int bkCode, String hidden3, String hidden1) {
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
+		String containBk = "";
+		if(hidden1.equals("[도서+오디오북]")) {
+			containBk = "Y";
+		} else {
+			containBk = "N";
+		}
 		
-		return null;
+		int audCodeF = 0;
+		int audCodeM = 0;
+		if(hidden3.contains(",")) {
+			String[] hiddenArr = hidden3.split(",");
+			audCodeF = Integer.parseInt(hiddenArr[0]);
+			audCodeM = Integer.parseInt(hiddenArr[1]);
+		} else if((Integer.parseInt(hidden3)) % 2 == 1){
+			audCodeF = Integer.parseInt(hidden3);
+		} else {
+			audCodeM = Integer.parseInt(hidden3);
+		}
+		
+		Cart c = new Cart(0, userId, bkCode, audCodeF, audCodeM, containBk, null);
+		int result = abService.cartInsert(c);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new audioBookException("상품을 장바구니에 담는 것에 실패하였습니다.");
+		}
 	}
 	
 	
 	// 상품 삭제
 	@RequestMapping("deleteProduct.ab")
-	public String deleteProduct(int bkCode) {
+	public void deleteProduct(int bkCode, HttpServletResponse response) {
 		
-		System.out.println(bkCode);
+		int result = abService.deleteProduct(bkCode);
+		
+		response.setContentType("text/html; charset=utf-8");
+		
+		if(result >= 4) {
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.println("<script type='text/javascript'>");
+				out.println("alert('상품이 삭제되었습니다.'); location.href='ablist.ab';");
+				out.println("</script>");
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		} else {
+			throw new audioBookException("상품 삭제에 실패하였습니다.");
+		}
+	}
+	
+	
+	// 상품 수정페이지로 이동
+	@RequestMapping("updateProductView.ab")
+	public String updateProductView() {
 		return null;
 	}
 	

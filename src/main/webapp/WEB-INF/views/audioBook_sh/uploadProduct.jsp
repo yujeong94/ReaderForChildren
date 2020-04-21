@@ -38,9 +38,9 @@
 	.record{height: 100px;}
 	.btnBox{margin-bottom: 30px;}
 	.upload{background: rgb(231, 76, 60); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
-		font-weight: bold; font-size: 20px; text-align: center; margin-right: 8px;}
+		font-weight: bold; font-size: 20px; text-align: center; margin-right: 8px;} .upload:hover {cursor: pointer;}
 	.delBtn{color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
-		font-weight: bold; font-size: 20px; text-align: center;}
+		font-weight: bold; font-size: 20px; text-align: center;} .delBtn:hover {cursor: pointer;}
 </style>
 </head>
 <body>

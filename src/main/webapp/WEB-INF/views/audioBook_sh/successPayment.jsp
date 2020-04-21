@@ -14,8 +14,8 @@
 	.btns{text-align: center; margin-bottom: 200px;}
 	.btns button{width: 160px; height: 50px; border-radius: 3px; border: none; color: white; font-weight: bold;
 				font-size: 20px;}
-	.goOrderList{background: rgb(243, 156, 18); margin-right: 8px;}
-	.goCart{background: rgb(190, 190, 190);}
+	.goOrderList{background: rgb(243, 156, 18); margin-right: 8px;} .goOrderList:hover {cursor: pointer;}
+	.goCart{background: rgb(190, 190, 190);} .goCart:hover {cursor: pointer;}
 </style>
 </head>
 <body>

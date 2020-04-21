@@ -10,6 +10,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.Cart;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
@@ -98,6 +99,26 @@ public class audioBookDAO {
 
 	public int orderInsert(SqlSessionTemplate sqlSession, OrderDetail order) {
 		return sqlSession.insert("audioBookMapper.orderInsert", order);
+	}
+
+	public int deleteBook(SqlSessionTemplate sqlSession, int bkCode) {
+		return sqlSession.update("audioBookMapper.deleteBook", bkCode);
+	}
+
+	public int deleteAudioBook(SqlSessionTemplate sqlSession, int bkCode) {
+		return sqlSession.update("audioBookMapper.deleteAudioBook", bkCode);
+	}
+
+	public int deleteBookImage(SqlSessionTemplate sqlSession, int bkCode) {
+		return sqlSession.update("audioBookMapper.deleteBookImage", bkCode);
+	}
+
+	public int deleteAudioFile(SqlSessionTemplate sqlSession, int bkCode) {
+		return sqlSession.update("audioBookMapper.deleteAudioFile", bkCode);
+	}
+
+	public int cartInsert(SqlSessionTemplate sqlSession, Cart c) {
+		return sqlSession.insert("audioBookMapper.cartInsert", c);
 	}
 
 }

@@ -11,6 +11,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioFile;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Book;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.Cart;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
@@ -100,6 +101,21 @@ public class audioBookServiceImpl implements audioBookService{
 	@Override
 	public int orderInsert(OrderDetail order) {
 		return abDAO.orderInsert(sqlSession, order);
+	}
+
+	@Override
+	public int deleteProduct(int bkCode) {
+		int result1 = abDAO.deleteBook(sqlSession, bkCode);
+		int result2 = abDAO.deleteAudioBook(sqlSession, bkCode);
+		int result3 = abDAO.deleteBookImage(sqlSession, bkCode);
+		int result4 = abDAO.deleteAudioFile(sqlSession, bkCode);
+		
+		return result1 + result2 + result3 + result4;
+	}
+
+	@Override
+	public int cartInsert(Cart c) {
+		return abDAO.cartInsert(sqlSession, c);
 	}
 
 }

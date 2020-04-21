@@ -42,8 +42,8 @@
 	.Mtab{height: 30px; border: none; background: darkgrey; color: white; font-weight: bold; outline: none;} .Mtab:hover {cursor: pointer;}
 	.intro3{margin: 8px 0 70px 0; height: 30px; font-size: 14px;}
 	.record{height: 100px; margin-top: 20px;}
-	.updateBtn{background: rgb(231, 76, 60); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
-				font-weight: bold; font-size: 20px; text-align: center; margin-top: 20px; margin-right: 8px;} .updateBtn:hover {cursor: pointer;}
+	.modifyBtn{background: rgb(231, 76, 60); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
+				font-weight: bold; font-size: 20px; text-align: center; margin-top: 20px; margin-right: 8px;} .modifyBtn:hover {cursor: pointer;}
 	.deleteBtn{background: rgb(231, 76, 60); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
 				font-weight: bold; font-size: 20px; text-align: center; margin-top: 20px;} .deleteBtn:hover {cursor: pointer;}
 </style>
@@ -174,7 +174,7 @@
 				</div>
 				
 				<div class="btnBox">
-					<input type="button" class="updateBtn" value="정보수정" onclick="updateProduct();">
+					<input type="button" class="modifyBtn" value="정보수정" onclick="modifyProduct();">
 					<input type="button" class="deleteBtn" value="상품삭제" onclick="deleteProduct();">
 				</div>
 			</div>
@@ -183,137 +183,5 @@
 		
 	<c:import url="../common/footer.jsp"/>
 	</div>
-	
-	<script>
-	
-	function check(){
-		var checkedB = $("input:checkbox[id='checkB']").is(":checked");
-		var checkedAM = $("input:checkbox[id='checkAM']").is(":checked");
-		var checkedAF = $("input:checkbox[id='checkAF']").is(":checked");
-		
-		if('${loginUser}' != ''){		// EL은 null 못씀
-			
-			if(checkedB==true && checkedAM==false && checkedAF==false){
-				alert("도서만 단독으로 구매는 불가능합니다.");
-				return false;
-			} else if(checkedB==false && checkedAM==false && checkedAF==false){
-				alert("구매하실 상품을 선택해주세요.");
-				return false;
-			} else if(checkedB==true && checkedAM==true && checkedAF==true){
-				$('#hidden1').val('[도서+오디오북]');
-				$('#hidden2').val('(여자음성+남자음성)');
-				$('#hidden3').val('${abF.audCode},${abM.audCode}');
-				return true;
-			} else if(checkedB==true && checkedAM==true && checkedAF==false){
-				$('#hidden1').val('[도서+오디오북]');
-				$('#hidden2').val('(남자음성)');
-				$('#hidden3').val('${abM.audCode}');
-				return true;
-			} else if(checkedB==true && checkedAM==false && checkedAF==true){
-				$('#hidden1').val('[도서+오디오북]');
-				$('#hidden2').val('(여자음성)');
-				$('#hidden3').val('${abF.audCode}');
-				return true;
-			} else if(checkedB==false && checkedAM==true && checkedAF==true){
-				$('#hidden1').val('[오디오북]');
-				$('#hidden2').val('(여자음성+남자음성)');
-				$('#hidden3').val('${abF.audCode},${abM.audCode}');
-				return true;
-			} else if(checkedB==false && checkedAM==true && checkedAF==false){
-				$('#hidden1').val('[오디오북]');
-				$('#hidden2').val('(남자음성)');
-				$('#hidden3').val('${abM.audCode}');
-				return true;
-			} else if(checkedB==false && checkedAM==false && checkedAF==true){
-				$('#hidden1').val('[오디오북]');
-				$('#hidden2').val('(여자음성)');
-				$('#hidden3').val('${abF.audCode}');
-				return true;
-			} else{
-				return true;
-			}
-			
-		} else{
-			alert("로그인 후 이용해주세요.");
-			return false;
-		}
-	}
-	
-	
-	function itemSum(){
-		var total = 0;
-		for(i=0; i<frm.chkbox.length; i++){
-			if(frm.chkbox[i].checked==true){
-				total = total + parseInt(frm.chkbox[i].value);
-			}
-		}
-		frm.sum.value=total;
-	}
-	
-	
-	
-	function clickFtab(){
-		$('#FemaleReader').attr('style', 'display:inline-block');
-		$('#MaleReader').attr('style', 'display:none');
-		$('#Ftab').css('background','rgb(243, 156, 18)');
-		$('#Mtab').css('background','darkgrey');
-	}
-	
-	function clickMtab(){
-		$('#FemaleReader').attr('style', 'display:none');
-		$('#MaleReader').attr('style', 'display:inline-block');
-		$('#Ftab').css('background','darkgrey');
-		$('#Mtab').css('background','rgb(243, 156, 18)');
-	}
-	
-	
-	function goPurchase(){
-		
-		var ch = check();
-		
-		if(ch){
-			var f = document.frm;
-			f.action = "purchase.ab";
-			f.submit();
-		}
-	}
-	
-	
-	function goCart(){
-		var ch = check();
-		if(ch){
-			var queryString = $("form[name=frm]").serialize(); // form데이터를 쿼리스트링 형식으로 넘겨주기
-			
-			$.ajax({
-				type: 'post',
-				url: 'cartInsert.ab',
-				data: queryString,
-				success: function(data){
-					if(data == "success"){
-						var bool = confirm('장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?');
-						if(bool){
-							location.href="ablist.ab"; /* 여기에 장바구니 url 넣기 */
-						}
-					}
-				}
-			});
-		}
-	}
-	
-	
-	function deleteProduct(){
-		var bool = confirm("해당 상품을 삭제하시겠습니까?");
-		if(bool){
-			var bkCode = $('#bkCode').val();
-			location.href="deleteProduct.ab?bkCode="+bkCode;
-		}
-	}
-	
-	function updateProduct(){
-		location.href="updateProductView.ab";	
-	}
-	
-	</script>	
-	
 </body>
 </html>
