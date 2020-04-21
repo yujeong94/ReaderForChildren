@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
 import com.kh.ReaderForChildren.event_ssj.model.dao.EventDAO;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Reply;
@@ -70,6 +71,11 @@ public class EventImpl implements EventService {
 	@Override
 	public int replyCheck(Reply r) {
 		return evDAO.replyCheck(sqlSession, r);
+	}
+
+	@Override
+	public Reader selectReader(String userId) {
+		return evDAO.selectReader(sqlSession, userId);
 	}
 	
 }

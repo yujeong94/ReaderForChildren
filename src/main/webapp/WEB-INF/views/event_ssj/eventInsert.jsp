@@ -105,7 +105,6 @@ input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 							<option value="모든 회원" selected>모든 회원</option>
 							<option value="후원자">후원자</option>
 							<option value="오디션 지원자">오디션 지원자</option>
-							<option value="기타">기타</option>
 						</select>
 					</td>
 				</tr>

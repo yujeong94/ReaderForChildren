@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Reply;
 
@@ -49,6 +50,10 @@ public class EventDAO {
 
 	public int replyCheck(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.selectOne("eventMapper.replyCheck", r);
+	}
+
+	public Reader selectReader(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("eventMapper.selectReader", userId);
 	}
 
 }

@@ -23,14 +23,14 @@
 		select *
 		from member
 		where status = 'Y'
-		order by user_id asc
+		order by regexp_replace(user_id, '[0-9]'), to_number(regexp_replace(user_id, '[^0-9]')) asc
 	</select>
 	
 	<select id="selectUserSearch" parameterType="string" resultMap="MemberResultSet">
 		select *
 		from member
 		where status='Y'and user_id like '%' || #{userId} || '%'
-		order by user_id asc
+		order by regexp_replace(user_id, '[0-9]'), to_number(regexp_replace(user_id, '[^0-9]')) asc
 	</select>
 	
 	<select id="selectUserInfo" resultMap="MemberResultSet">
