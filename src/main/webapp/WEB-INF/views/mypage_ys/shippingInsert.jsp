@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <title>content</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
@@ -84,7 +85,7 @@
 </head>
 <body>
  <div class="outer">
-  <%--  <c:import url="../common/menubar.jsp"/> --%>
+ <c:import url="../common/menubar.jsp"/> 
    
    <!-- 내용 -->
    <div class="contents">
@@ -121,12 +122,19 @@
        </tr>
         <tr>
           <td class = "info_title2" id = "address">주소</td>
-          <td class = "right"><input type = "text" class = "input_info" id = "ad_num" name="rZipcode"><input type = "button" id = "ad_btn" value = "우편번호"><br>
-          <input type = "text" id="address2" class = "input_info info_address" name="rBasicadd"><br>
-          <input type = "text" id="address2" class = "input_info info_address" name="rDetailadd"></td>
+          <td class = "right"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" name="rZipcode"><input type = "button" id = "ad_btn" value = "우편번호"><br>
+          <input type = "text" id="address2" class = "input_info info_address postcodify_address" name="rBasicadd"><br>
+          <input type = "text" id="address2" class = "input_info info_address postcodify_extra_info" name="rDetailadd"></td>
        </tr>
        
    </table>
+ <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	        <script>
+		        $(function(){
+		           $("#ad_btn").postcodifyPopUp();
+		        });
+		        </script>
+
 
    <table>
    
@@ -135,6 +143,7 @@
 				<td><button type="button" id="cancle" class="upBtn" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
    </tr>
      </table>
+    
       </form>
    
    

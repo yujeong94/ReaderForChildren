@@ -152,7 +152,7 @@
 		 
 		<br><br>
     <div  id = "title3" >
-  		<%--   후원금 납입 합계 :  ${ sp.donation } --%>
+  		
     </div>
     
     
@@ -198,6 +198,7 @@
 					</table>
 				</div>
     </c:forEach>
+    
     
     
     

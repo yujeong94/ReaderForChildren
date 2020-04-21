@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
 import com.kh.ReaderForChildren.list_ys.model.vo.Rec;
 import com.kh.ReaderForChildren.sponsor_ys.model.vo.PageInfo;
@@ -50,6 +51,16 @@ public class listDAO {
 
 	public Shipping selectShipping(SqlSessionTemplate sqlSession, int sNo) {
 		return sqlSession.selectOne("mypageMapper.selectShipping", sNo);
+	}
+
+	public int getorListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("mypageMapper.getorListCount");
+	}
+
+	public ArrayList<OrderDetail> selectorList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
 	}
 
 }

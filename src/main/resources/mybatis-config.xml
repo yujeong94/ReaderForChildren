@@ -24,6 +24,8 @@
 		<typeAlias type="com.kh.ReaderForChildren.list_ys.model.vo.Rec" alias="Rec"/>
 		<typeAlias type="com.kh.ReaderForChildren.volunteer_ej.model.vo.Volunteer" alias="Volunteer"/>
 		<typeAlias type="com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin" alias="Admin"/>
+		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail" alias="OrderDetail"/> 
+		
 	</typeAliases>
 	
 	<mappers>

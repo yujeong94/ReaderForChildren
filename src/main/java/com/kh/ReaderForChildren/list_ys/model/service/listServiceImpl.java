@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
 import com.kh.ReaderForChildren.list_ys.model.dao.listDAO;
 import com.kh.ReaderForChildren.list_ys.model.vo.Rec;
@@ -60,6 +61,16 @@ public class listServiceImpl implements listService {
 		
 		
 		return liDAO.selectShipping(sqlSession, sNo);
+	}
+
+	@Override
+	public int getorListCount() {
+		return liDAO.getorListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<OrderDetail> selectorList(PageInfo pi) {
+		return liDAO.selectorList(sqlSession, pi);
 	}
 
 }

@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
- <script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>Insert title here</title>
@@ -203,6 +202,7 @@
    <!-- 로고, 장바구니, 메뉴바 -->
    <div class="outer">
     <c:import url="../common/menubar.jsp"/>
+     
     
    <div class = "contents">
    
@@ -219,13 +219,19 @@
 		</table>
 		<br><br>
 	 
+		<form name="form" id="form" action="suinsert.sp" method="post">
 		<table id = "won" > <!--  style="margin-left: auto; margin-right: auto;" -->
-		
-			<button id="button" class="button" value="10000" name="donation">10000</button>
-			<button id="button2"  class="button" value="30000" name="donation">30000</button>
-			<button id="button3" class="button" value="50000" name="donation">50000</button>
-			<button id="button4"  class="button" value="70000" name="donation">70000</button>
-			<input type="hidden" id = "donation_value" name = "donation123">
+		<tr>
+			<td>
+				<button type="button" id="button" class="button" onclick="choosed(this);">10000</button>
+				<button type="button" id="button2" class="button" onclick="choosed(this);">30000</button>
+				<!-- <button type="button" id="button3" class="button" onclick="choosed();">50000</button>
+				<button type="button" id="button4"  class="button" onclick="choosed();">70000</button> -->
+				
+				<input type="hidden" id="donation" name="donation" value="">
+			</td>
+		</tr>	
+		<!-- 	<input type="hidden" id = "donation_value" name = "donation123"> -->
 			<!-- <tr>
 				<td class="button" >10000</td>
 				<td class="button2">20000</td>
@@ -233,11 +239,11 @@
 				<td class="button4">40000</td>
 			</tr> -->
 		</table>
-		<c:url var="sllist" value="sllist.sp">
+		<%-- <c:url var="sllist" value="sllist.sp">
 						<c:param name="snum" value="${  sp.snum  }"/>
 						<c:param name="page" value="${ pi.currentPage }"/>
-					</c:url>
-	  <form action="suinsert.sp" method="post" enctype="Multipart/form-data" ><!-- onsubmit="payment()" -->
+					</c:url> --%>
+	 
 		<table id = "content_table" style="margin-left: auto; margin-right: auto; margin-top:50px">
 		
 			<tr>
@@ -269,7 +275,7 @@
 					</c:if>
 				</c:forTokens> --%>
        <tr>
-          <td class = "info_title2" id = "address"><label class = "title_word">주소</lable></td>
+          <td class = "info_title2" id = "address"><span class = "title_word">주소</span></td>
 		 		<td class = "right" id = "address2"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" name = "postalCode" value="${ loginUser.postalCode }"><input type = "button" id = "ad_btn" value = "우편번호"><br>
 		 		<input type = "text" class = "input_info info_address postcodify_address" value="${ loginUser.bAddress }" name = "bAddress"><br>
 		 		<input type = "text" class = "input_info info_address postcodify_extra_info" value="${ loginUser.lAddress }" name = "lAddress"></td>
@@ -277,16 +283,16 @@
        <tr>
           <td class = "info_title2">휴대전화</td>
           <td class = "right"><input type = "text" class = "input_info" name="phone" value="${ loginUser.phone }">
-          <input type = "text" class = "input_info" name="donation" value="${ sp.donation }">
+          <!-- <input type = "text" class = "input_info" id="donation" name="donation"> -->
           <input type = "text" class = "input_info" name="userId" value="${loginUser.userId }">
-           <input type = "text" class = "input_info" name="spCode" value="${sp.spCode }"></td>
+           <input type = "text" class = "input_info" name="spCode" value="${support.spCode }"></td>
        </tr>
        <tr>
           <td class = "info_title2">이메일</td>
           <td class = "right">
              <input type = "text" class = "input_info infro_email" id = "email01" name="email1" value="${email1 }" name="email1" > @ <input type = "text"  value="${selectEmail }" name="selectEmail"  class = "input_info infro_email" id = "email02">
             <input type="hidden" name="emailCkeck" id="emailCheck" value="${loginUser.email }">
-             <select name="selectEmail" id="selectEmail" value="${selectEmail }">
+             <select name="selectEmail" id="selectEmail">
                   <option value="1">직접입력</option>
                   <option value="daum.net">daum.net</option>
                   <option value="empal.com" >empal.com</option>
@@ -310,12 +316,17 @@
          <input type = "text" class = "input_info"   value="${ sp.donation }">${ sp.donation }</td>
        </tr> --%>
     </table>
+    
     <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	        <script>
 		        $(function(){
 		           $("#ad_btn").postcodifyPopUp();
 		        });
 		        </script>
+		        
+		        
+	
+		        
 		        
  <script>
  $('#email01').blur(function(){
@@ -403,122 +414,72 @@
        <label><b>이용약관에 동의하십니까?</b></label><input type = "radio" id = "agree" value="0"><label><b>동의함</b></label>
     </div>
     
-    
-    
-     <script>
-   var donation = ""; 
-   
-   
-   $( document ).ready( function() {
-       
-
-		 
-       $(".button").click(function(){
-			console.log(va);
-             va = ($(this).attr(''));
-       });
- 
-   }); 
-   
-   
-   
-   
- function payValidation(){
-	 
- 	if(va == ""){
- 		alert("후원금액을 선택해주세요!");
- 		return false;
- 	}
- 	if($('#userName').val() == ""){
- 		alert("후원자 이름을 입력해주세요!");
- 		$('#userName').focus();
- 		return false;
- 	}
- 	/* if($('#baddress').val() == ""){
- 		alert("주소를 입력해주세요!");
- 		$('#baddress').focus();
- 		return false;
- 	} */
- 	if($('#email01').val() == ""){
- 		alert("이메일을 입력해주세요!");
- 		$('#email01').focus();
- 		return false;
- 	}
- 	if($('#email02').val() == ""){
- 		alert("이메일을 입력해주세요!");
- 		$('#email02').focus();
- 		return false;
- 	}
- 	if(agree.checked == false){
- 		alert("이용약관에 동의해주세요!");
- 		return false;
- 	}
- 	
- 	return true;
- };
- 
- function payment(){
-	 
-	  if(payValidation() == false){
-		 return false;
-	 } 
-	    var email = $('#email01').val()+"@"+$('#email02').val();
-		
-		var IMP = window.IMP; 
-		IMP.init('imp36870177');
-		
-		IMP.request_pay({
-   	    pg : 'inicis',
-   	    pay_method : 'card',
-   	    merchant_uid : 'merchant_' + new Date().getTime(),
-   	    name : '아동후원',
-   	    amount : va,
-   	    buyer_email :email,
-   	    buyer_name : '${loginUser.userId }',
-   	    buyer_tel : '${ loginUser.phone }',
-   	    buyer_addr : 'sss',
-   	    buyer_postcode : '${post}',
-   	    m_redirect_url : 'https://www.yourdomain.com/payments/complete' 
-
-		}, function(rsp) {
-		    if ( rsp.success ) {
-		        var msg = '후원';
-		        msg += '결제 금액 ' + rsp.paid_amount + '원이 결제 되었습니다.';
-		   
-		    } else {
-		        var msg = '결제에 실패하였습니다.\n';
-		        msg += '에러내용 : ' + rsp.error_msg;
-		       
-		      
-		    }
-	       location.href='sllist.sp'; 
-		    alert("msg : " +msg);
-		});
- 	};
-	
- 
-	</script> 
-      
-    <div id="btn">
+     <div id="btn">
    		 <table>
   	 		<tr> 
-				<td><button type="submit" value="submit" onclick="payment()" class="upBtn" id="pay">결제하기</button></td>
-				<td><button onclick = "location.href = 'sponser1.jsp'" class="upBtn" id="cancel" >취소하기</button></td>
+				<td><input type="button" class="upBtn" id="payment" value="후원하기"></td>
+				<!-- <td><button onclick = "location.href = 'sponser1.jsp'" class="upBtn" id="cancel" >취소하기</button></td> -->
   			 </tr>
     	 </table>
   
   </div>
-    </form>
+    
+     <script>
+     function choosed(obj){
+			var price = obj.innerHTML;
+			document.getElementById("donation").value = price;
+	
+		}
 
+		$('#payment').click(function(){
+			    var email = $('#email01').val()+$('#email02').val();
+		 		var donation = $('#donation').val();
+			   
+				var IMP = window.IMP; 
+				IMP.init('imp36870177');
+				
+				IMP.request_pay({
+			   	    pg : 'inicis',
+			   	    pay_method : 'card',
+			   	    merchant_uid : 'merchant_' + new Date().getTime(),
+			   	    name : '아동후원',
+			   	    amount : donation,
+			   	    buyer_email :email, 
+			   	    buyer_name : '${loginUser.userId }',
+			   	    buyer_tel : '${ loginUser.phone }',
+			   	    buyer_addr : '${loginUser.bAddress}',
+			   	    buyer_postcode : '${post}',
+			   	    m_redirect_url : 'https://www.yourdomain.com/payments/complete' 
+
+				}, function(rsp) {
+				    if ( rsp.success ) {
+				        var msg = '후원';
+				        msg += '결제 금액 ' + rsp.paid_amount + '원이 결제 되었습니다.';
+				   
+				        $('#form').submit();
+				    } else {
+				        var msg = '결제에 실패하였습니다.\n';
+				        msg += '에러내용 : ' + rsp.error_msg;
+				       
+				        alert(msg);
+				      
+				    }
+				
+				});
+		 	});
+	</script>
+     
+
+ 
+      
+   
+	</form>
+  
+ 
   
    </div>
-  
-    	<c:import url="../common/footer.jsp"/> 
-  
- <!--  <form action="suupdate.sp" method="post" id="form1">  -->
- 
-	
-	<!-- </form> -->
+    <c:import url="../common/footer.jsp"/> 
+
   
    </div>
 

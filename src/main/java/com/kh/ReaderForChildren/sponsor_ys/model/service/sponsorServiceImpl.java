@@ -53,9 +53,11 @@ public class sponsorServiceImpl implements sponsorService {
 	}
 
 	@Override
-	public int insertSupport(Support s) {
-		return spDAO.insertSupport(sqlSession, s);
+	public int insertSupport(Support support) {
+		return spDAO.insertSupport(sqlSession, support);
 	}
+
+	
 
 
 

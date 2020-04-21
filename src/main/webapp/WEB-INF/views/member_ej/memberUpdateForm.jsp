@@ -217,7 +217,7 @@
        </tr>
        <tr>
           <td class = "info_title2">비밀번호</td>
-          <td class = "right"><input type = "text" class = "input_info" name = "userPwd" required><span id="changePwd" onclick="location.href='mpwdUpdateView.me'" >비밀번호 변경하기</span></a>
+          <td class = "right"><input type = "password" id = "userPwd" class = "input_info" name = "userPwd" required><span id="changePwd" onclick="location.href='mpwdUpdateView.me'" >비밀번호 변경하기</span></a>
           <input type="hidden" name="pwdCheck" id="pwdCheck" value="0" required></td>
        </tr>
        <tr>
@@ -235,7 +235,8 @@
        </tr>
       	<tr>
 		 		<td class = "info_title2" id = "address"><label class = "title_word">주소</lable></td>
-		 		<td class = "right" id = "address2"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" name = "postalCode" value="${ loginUser.postalCode }"><input type = "button" id = "ad_btn" value = "우편번호"><br>
+		 		<td class = "right" id = "address2"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" name = "postalCode" value="${ loginUser.postalCode }">
+		 		<input type = "button" id = "ad_btn" value = "우편번호"><br>
 		 		<input type = "text" class = "input_info info_address postcodify_address" value="${ loginUser.bAddress }" name = "bAddress"><br>
 		 		<input type = "text" class = "input_info info_address postcodify_extra_info" value="${ loginUser.lAddress }" name = "lAddress"></td>
 		</tr>

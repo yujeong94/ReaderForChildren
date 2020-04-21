@@ -98,7 +98,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("mPwdUpdate.me")
-	public String memberPwdUpdate(@RequestParam("newPwd1")String newPwd1, HttpSession session, Model model) {
+	public String memberPwdUpdate(@RequestParam("newPwd1")String newPwd1,@RequestParam("userPwd")String userPwd, HttpSession session, Model model) {
 		Member member = (Member)session.getAttribute("loginUser");
 		String userId = member.getUserId();
 		
@@ -107,12 +107,12 @@ public class MemberController {
 		
 		HashMap<String, String> map = new HashMap<String, String>(); 
 		map.put("userId", userId);
-		/*map.put("encPwd", encPwd);*/
+		map.put("userPwd", userPwd);
+		map.put("newPwd1", newPwd1);
 		
 		int result = mService.memberPwdUpdate(map);
 		
 		if(result > 0) {
-			/*member.setUserPwd(encPwd);*/
 			member.setUserPwd(newPwd1);
 			model.addAttribute("loginUser", member);
 			return "mypage";
