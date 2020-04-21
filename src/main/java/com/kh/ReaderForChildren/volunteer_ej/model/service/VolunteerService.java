@@ -13,4 +13,6 @@ public interface VolunteerService {
 
 	int serviceAsk(Volunteer v);
 
+	int checkMax(Volunteer v);
+
 }

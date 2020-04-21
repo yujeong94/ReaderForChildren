@@ -23,4 +23,8 @@ public class VolunteerDAO {
 		return sqlSession.insert("volunteerMapper.insertEntry", v);
 	}
 
+	public int checkMax(SqlSessionTemplate sqlSession, Volunteer v) {
+		return sqlSession.selectOne("volunteerMapper.checkMax", v);
+	}
+
 }

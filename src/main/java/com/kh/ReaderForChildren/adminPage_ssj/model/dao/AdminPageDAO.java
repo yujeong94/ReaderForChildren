@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Repository("aDAO")
@@ -20,6 +21,10 @@ public class AdminPageDAO {
 
 	public Member selectUserInfo(SqlSessionTemplate sqlSession, String userId) {
 		return sqlSession.selectOne("adminPageMapper.selectUserInfo", userId);
+	}
+
+	public Admin adminLogin(SqlSessionTemplate sqlSession, Admin a) {
+		return sqlSession.selectOne("adminPageMapper.adminLogin", a);
 	}
 
 }

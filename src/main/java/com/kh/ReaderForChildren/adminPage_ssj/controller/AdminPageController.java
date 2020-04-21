@@ -1,17 +1,25 @@
 package com.kh.ReaderForChildren.adminPage_ssj.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.exception.AdminPageException;
 import com.kh.ReaderForChildren.adminPage_ssj.model.service.AdminPageService;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
+@SessionAttributes("loginUser")
 @Controller
 public class AdminPageController {
 	
@@ -88,6 +96,30 @@ public class AdminPageController {
 		}
 		
 		return mv;
+	}
+	
+	@RequestMapping("loginAdmin.ad")
+	public String adminLogin(Admin a, Model model, HttpServletResponse response) {
+		
+		Admin adminUser = aService.adminLogin(a);
+		response.setContentType("text/html; charset=utf-8");
+		
+		if(adminUser != null) {
+			model.addAttribute("adminUser", adminUser);
+			return "redirect:home.do";
+		}else {
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.println("<script language='javascript'>");
+				out.println("alert('로그인에 실패하였습니다.'); location.href='/ReaderForChildren/home.do';");
+				out.println("</script>");
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 	
 }

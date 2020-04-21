@@ -10,11 +10,12 @@ public class VolunteerSchedule {
 	private Date volEnd;
 	private int volMax;
 	private String volStatus;
+	private int volCur;
 	
 	public VolunteerSchedule() {}
 
-	public VolunteerSchedule(int volAddNum, String volContent, Date volStart, Date volEnd, int volMax,
-			String volStatus) {
+	public VolunteerSchedule(int volAddNum, String volContent, Date volStart, Date volEnd, int volMax, String volStatus,
+			int volCur) {
 		super();
 		this.volAddNum = volAddNum;
 		this.volContent = volContent;
@@ -22,6 +23,7 @@ public class VolunteerSchedule {
 		this.volEnd = volEnd;
 		this.volMax = volMax;
 		this.volStatus = volStatus;
+		this.volCur = volCur;
 	}
 
 	public int getVolAddNum() {
@@ -72,11 +74,20 @@ public class VolunteerSchedule {
 		this.volStatus = volStatus;
 	}
 
+	public int getVolCur() {
+		return volCur;
+	}
+
+	public void setVolCur(int volCur) {
+		this.volCur = volCur;
+	}
+
 	@Override
 	public String toString() {
 		return "VolunteerSchedule [volAddNum=" + volAddNum + ", volContent=" + volContent + ", volStart=" + volStart
-				+ ", volEnd=" + volEnd + ", volMax=" + volMax + ", volStatus=" + volStatus + "]";
+				+ ", volEnd=" + volEnd + ", volMax=" + volMax + ", volStatus=" + volStatus + ", volCur=" + volCur + "]";
 	}
+
 	
 	
 	
