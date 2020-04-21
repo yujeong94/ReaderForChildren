@@ -15,10 +15,8 @@
 	#imgArea{width: 280px; height: 350px; border: 1px solid grey;}
 	#imgArea:hover{cursor: pointer;}
 	.td1{padding: 15px 0 50px 40px;} .td1 span, .td4 span, .td5 span{margin: 5px;}
+	.td1 input{margin-bottom: 10px;}
 	.td1 input, .td4 input, .td5 input, .simpleInfo input{margin-right: 5px; border-radius: 4px; height: 18px;}
-	.td2{text-align: center; padding: 0 0 10px 50px;} .td2 img{width: 120px; height: 35px; margin: 0 10px;}
-	.td3{text-align: center; height: 30px; padding: 0 0 20px 60px;}
-	.chkbox{width: 19px; height: 19px; margin: 0 62px 0 62px;}
 	.td4, .td5{margin-right: 20px; float: right; margin-bottom: 3px;}
 	.td6{text-align: center;}
 	.Btn{color: white; border: none; width: 120px; height: 45px; border-radius: 5px;
@@ -26,7 +24,7 @@
 	.purchaseBtn{background: rgb(231, 76, 60);}
 	.cartBtn{background: rgb(190, 190, 190)}
 	
-	.info{margin: 0 auto 80px; width: 840px; height: 100%;}
+	.info{margin: 0 0 80px 130px; width: 840px; height: 100%;}
 	.IT{font-weight: bold; font-size: 19px; margin: 10px 0 20px 0;}
 	.line{width: 730px; border-bottom: 2px solid rgb(136, 136, 136); margin-bottom: 20px;}
 	.simpleInfo span{margin-right: 7px;}
@@ -62,47 +60,27 @@
 								<input type="file" id="thumbnailImg" multiple="multiple" name="thumbnailImg" onchange="LoadImg(this)">
 							</div>
 						</td>
-						<td width="30px"></td>
+						<td width="150px"></td>
 						<td>
 							<table>
 								<tr>
 									<td class="td1">
-										<span>도서 제목</span> <input type="text" name="bkName" style="width: 130px;" required>
-										<span>페이지</span> <input type="text" name="bkPage" style="width: 50px;" required>
-										<span>출판</span> <input type="text" name="bkPublisher" id="bkPublisher" style="width: 80px;" required><br>
-										<span>글</span> <input type="text" name="bkWriter" id="bkWriter" style="width: 100px;" required>
-										<span>그림</span> <input type="text" name="bkDraw" id="bkDraw" style="width: 100px;" required>
-										<span>출판일</span> <input type="date" name="bkPubdate" id="bkPubdate" style="width: 120px;" required>
+										<span>도서 제목</span> <input type="text" name="bkName" style="width: 130px;" required><br>
+										<span style="margin-right: 27px;">페이지</span> <input type="text" name="bkPage" style="width: 50px;" required><br>
+										<span style="margin-right: 43px;">출판</span> <input type="text" name="bkPublisher" id="bkPublisher" style="width: 80px;" required><br>
+										<span style="margin-right: 59px;">글</span> <input type="text" name="bkWriter" id="bkWriter" style="width: 100px;" required><br>
+										<span style="margin-right: 43px;">그림</span> <input type="text" name="bkDraw" id="bkDraw" style="width: 100px;" required><br>
+										<span style="margin-right: 27px;">출판일</span> <input type="date" name="bkPubdate" id="bkPubdate" style="width: 120px;" required>
 		                        	</td>
 								</tr>
 								<tr>
-									<td class="td2">
-										<img src="${ contextPath }/resources/images/book.PNG">
-										<img src="${ contextPath }/resources/images/audioM.PNG">
-										<img src="${ contextPath }/resources/images/audioF.PNG">
-		                         	</td>
-								</tr>
-								<tr>
-									<td class="td3">
-										<input type="checkbox" class="chkbox" disabled>
-										<input type="checkbox" class="chkbox" disabled>
-										<input type="checkbox" class="chkbox" disabled>
-									</td>
-								</tr>
-								<tr>
 									<td class="td4">
-										<span>도서 가격</span> <input type="text" name="bkPrice" style="width: 100px;" required>원
+										<span style="margin-right: 33px;">도서 가격</span> <input type="text" name="bkPrice" style="width: 100px;" required>원
 									</td>
 								</tr>
 								<tr>
 									<td class="td5">
-										<span>오디오북 가격</span> <input type="text" name="audPrice" style="width: 100px;" required>원
-									</td>
-								</tr>
-								<tr>
-									<td class="td6">
-										<input type="button" class="Btn purchaseBtn" value="바로구매" disabled>
-										<button class="Btn cartBtn" disabled>장바구니</button>
+										<span style="margin-right: 33px;">오디오북 가격</span> <input type="text" name="audPrice" style="width: 100px;" required>원
 									</td>
 								</tr>
 							</table>

@@ -16,7 +16,8 @@
 	.tb td {vertical-align: top;}
 	.td0 img{width: 280px; height: 350px;}
 	.td1{padding: 15px 0 50px 40px;} .td1 span{color: grey; margin: 5px;} .td1 b{font-weight: bold; margin-right: 5px;}
-	.td2{text-align: center; padding: 0 0 10px 25px;} .td2 img{width: 120px; height: 35px; margin: 0 10px;}
+	.td2{text-align: center; padding: 0 0 0 25px;} .td2 img{width: 120px; height: 35px; margin: 0 10px;}
+	.priceTd{padding-bottom: 10px;} .priceTd b{font-size: 17px; font-weight: bold; margin: 0 35px 0 35px; color: grey;}
 	.td3{text-align: center; height: 30px; padding: 0 0 20px 27px;}
 	.chkbox{width: 19px; height: 19px; margin: 0 62px 0 62px;}
 	.td4{margin-right: 20px; float: right;}
@@ -80,6 +81,12 @@
 										<img src="${ contextPath }/resources/images/audioF.PNG">
 										<img src="${ contextPath }/resources/images/audioM.PNG">
 		                         	</td>
+								</tr>
+								<tr>
+									<td class="priceTd">
+										<b style="padding-left: 40px;">${ b.bkPrice }원</b>
+										<b style="padding-left: 13px;">${ abF.audPrice }원</b>
+										<b style="padding-left: 13px;">${ abM.audPrice }원</b></td>
 								</tr>
 								<tr>
 									<td class="td3">
@@ -267,6 +274,16 @@
 	}
 	
 	
+	function checkForCart(){
+		var bool = confirm('선택하신 상품을 장바구니에 담으시겠습니까?');
+		if(bool){
+			return true;
+		} else{
+			return false;
+		}
+	}
+	
+	
 	function goPurchase(){
 		
 		var ch = check();
@@ -282,21 +299,24 @@
 	function goCart(){
 		var ch = check();
 		if(ch){
-			var queryString = $("form[name=frm]").serialize(); // form데이터를 쿼리스트링 형식으로 넘겨주기
-			
-			$.ajax({
-				type: 'post',
-				url: 'cartInsert.ab',
-				data: queryString,
-				success: function(data){
-					if(data == "success"){
-						var bool = confirm('장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?');
-						if(bool){
-							location.href="ablist.ab"; /* 여기에 장바구니 url 넣기 */
+			var chCart = checkForCart();
+			if(chCart){
+				var queryString = $("form[name=frm]").serialize(); // form데이터를 쿼리스트링 형식으로 넘겨주기
+				
+				$.ajax({
+					type: 'post',
+					url: 'cartInsert.ab',
+					data: queryString,
+					success: function(data){
+						if(data == "success"){
+							var bool = confirm('장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?');
+							if(bool){
+								location.href="ablist.ab"; /* 여기에 장바구니 url 넣기 */
+							}
 						}
 					}
-				}
-			});
+				});
+			}
 		}
 	}
 	
