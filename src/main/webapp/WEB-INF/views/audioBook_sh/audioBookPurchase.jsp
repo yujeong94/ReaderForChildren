@@ -108,7 +108,7 @@
 								<div>
 									<input type="text" id="bAInput" size="50" value="${ lu.bAddress }" readonly>
 								</div>
-								<button class="changeBtn" onclick="changeShipAdd();">배송지 변경</button><br>
+								<button type="button" class="changeBtn" onclick="changeShipAdd();">배송지 변경</button><br>
 								<div>
 									<input type="text" id="lAInput" size="50" value="${ lu.lAddress }" readonly>
 								</div>
