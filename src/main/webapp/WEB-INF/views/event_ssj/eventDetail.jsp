@@ -207,6 +207,7 @@
 				<tr>
 					<td colspan="4" class="event_content" id="event_intro">
 						<div class="divStyle event_text">
+							이벤트 대상자 - ${ event.eTarget } <br>
 							${ fn:replace(event.eWay, newLineChar, "<br>") }
 						</div>
 					</td>
@@ -248,17 +249,29 @@
 				<tr>
 					<td colspan="4" class="borderStyle">
 						<button type="button" class="defaultBtn delBtn btn1" onclick="location.href='eventList.ev'">목록으로</button>
+						<c:if test="${ loginUser.userId == 'admin' }">
+							<button type="button" class="defaultBtn upBtn btn1" onclick="location.href='updateEvent.ev'">수정</button>
+						</c:if>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4" class="replyStyle" id="replyInsert">
-						<c:if test="${ !empty sessionScope.loginUser }">
-						<input type="text" class="inputStyle" name="reply" id="reply" placeholder="댓글을 작성해주세요.">
-						<input type="button" class="defaultBtn upBtn btn1" id="rSubmit" value="등록">
-						</c:if>
-						<c:if test="${ empty sessionScope.loginUser }">
-						로그인시 댓글을 작성하실 수 있습니다.
-						</c:if>
+						<c:choose>
+							<c:when test="${ empty sessionScope.loginUser }">
+								로그인시 댓글을 작성하실 수 있습니다.
+							</c:when>
+							<c:when test="${ loginUser.userId == 'admin' }">
+								관리자는 댓글을 작성할 수 없습니다.
+							</c:when>
+							<c:when test="${ (event.eTarget == '후원자' && loginUser.donation == 0) || (event.eTarget == '오디션 지원자' && reader == null)}">
+								이벤트 대상자가 아니므로 댓글을 작성하실 수 없습니다.
+							</c:when>
+							<c:otherwise>
+								<input type="text" class="inputStyle" name="reply" id="reply" placeholder="댓글을 작성해주세요.">
+								<input type="button" class="defaultBtn upBtn btn1" id="rSubmit" value="등록">
+							</c:otherwise>
+						</c:choose>
+						
 					</td>
 				</tr>
 			</thead>
@@ -280,48 +293,46 @@
 		}); 
 		
 		$(function(){
-			var replyCheck = null;
-			var eNum = ${ event.eNum }
-			var userId = "${ loginUser.userId}";
 			
 			// 댓글 등록
 			$('#rSubmit').on('click', function(){
-				// 댓글여부
-				$.ajax({
-					url: "replyCheck.ev",
-					data: {eNum:eNum, userId:userId},
-					success: function(data){
-						console.log("ajax data:" + data);
-						replyCheck = data;
-					}
-				});
-				
-				console.log("댓글여부 replyCheck : " + replyCheck);
-				
-				
+				var replyCheck = 0;
+				var eNum = ${ event.eNum }
+				var userId = "${ loginUser.userId}";
 				var rContent = $('#reply').val();
-				
-				if(rContent != null){
-					if(replyCheck == false){
-						$.ajax({
-							url: "addReply.ev",
-							data: {eNum:eNum, rContent:rContent},
-							type: "post",
-							success: function(data){
-								if(data != null){
-									getReplyList();
-									$('#reply').val("");
-									replyCheck = true;
-								}
+				// 댓글여부
+				if(rContent != ""){
+					$.ajax({
+						url: "replyCheck.ev",
+						data: {eNum:eNum, userId:userId},
+						success: function(data){
+							console.log("ajax data:" + data);
+							replyCheck = data;
+							console.log("댓글여부 replyCheck : " + replyCheck);
+							
+							if(replyCheck == 0){
+								$.ajax({
+									url: "addReply.ev",
+									data: {eNum:eNum, rContent:rContent},
+									type: "post",
+									success: function(data){
+										if(data != null){
+											getReplyList();
+											$('#reply').val("");
+											replyCheck = 1;
+										}
+									}
+								});
+							} else {
+								alert('댓글은 한 번만 등록하실 수 있습니다.');
+								$('#reply').val("");
 							}
-						});
-					} else {
-						alert('댓글은 한 번만 등록하실 수 있습니다.');
-						$('#reply').val("");
-					}
+						}
+					});
 				} else {
 					alert('댓글을 작성해주세요.');
 				}
+				
 				
 			});
 			
@@ -334,7 +345,7 @@
 			var eNum = ${ event.eNum }
 			var loginId = "${ loginUser.userId}";
 			
-			if(loginId == userId){
+			if(loginId == userId || loginId == 'admin'){
 				var deleteCheck = confirm("정말로 삭제하시겠습니까?");
 				if(deleteCheck){
 					$.ajax({

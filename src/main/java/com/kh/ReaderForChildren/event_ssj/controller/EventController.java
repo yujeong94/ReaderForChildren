@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
 import com.kh.ReaderForChildren.event_ssj.model.exception.EventException;
 import com.kh.ReaderForChildren.event_ssj.model.service.EventService;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
@@ -62,11 +63,7 @@ public class EventController {
 		
 		ArrayList<Event> event = evService.selectEndList();
 		
-		if(event != null) {
-			mv.addObject("event", event).setViewName("endEventList");
-		} else {
-			throw new EventException("당첨 게시판 조회 실패");
-		}
+		mv.addObject("event", event).setViewName("endEventList");
 		
 		return mv;
 	}
@@ -128,7 +125,17 @@ public class EventController {
 	}
 	
 	@RequestMapping("eventDetail.ev")
-	public ModelAndView eventDetailView(@RequestParam("eNum") int eNum, ModelAndView mv) {
+	public ModelAndView eventDetailView(@RequestParam("eNum") int eNum, ModelAndView mv, HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		Reader reader = null;
+		
+		if(loginUser != null) {
+			String userId = loginUser.getUserId();
+			
+			reader = evService.selectReader(userId);
+			
+			mv.addObject("reader", reader);
+		}
 		
 		Event event = evService.selectEvent(eNum);
 		
@@ -171,7 +178,7 @@ public class EventController {
 			r.setrContent(URLEncoder.encode(r.getrContent(), "UTF-8"));
 		}
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(rList, response.getWriter());
 		
 	}
@@ -193,7 +200,8 @@ public class EventController {
 	@RequestMapping("replyCheck.ev")
 	public void replyCheck(Reply r, HttpServletResponse response) throws IOException {
 		
-		boolean result = evService.replyCheck(r) == 0 ? false : true;
+		int result = evService.replyCheck(r);
+		System.out.println("result:" + result);
 		response.getWriter().print(result);
 		
 	}

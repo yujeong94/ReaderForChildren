@@ -69,6 +69,11 @@
 	border: none;
 }
 
+#noEvent{
+	text-align: center;
+	font-size: 20px;
+}
+
 /* #sbox1{
 	background: rgb(241, 196, 15);
 } */

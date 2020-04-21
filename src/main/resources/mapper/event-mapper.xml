@@ -31,6 +31,19 @@
 		<result property="userId" column="user_id"/>
 	</resultMap>
 	
+	<resultMap type="Reader" id="readerResultSet">
+		<id property="userId" column="user_id"/>
+		<result property="introduce" column="introduce"/>
+		<result property="imgOrigin" column="img_origin"/>
+		<result property="imgChange" column="img_change"/>
+		<result property="imgPath" column="img_path"/>
+		<result property="recName" column="rec_name"/>
+		<result property="recPath" column="rec_path"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="status" column="status"/>
+		<result property="aNum" column="anum"/>
+	</resultMap>
+	
 
 	<insert id="insertEvent" parameterType="Event">
 		insert into event
@@ -63,6 +76,12 @@
 		select *
 		from event
 		where e_status = 'Y' and e_num = #{eNum}
+	</select>
+	
+	<select id="selectReader" resultMap="readerResultSet">
+		select *
+		from reader
+		where user_id = #{userId} and status != 3
 	</select>
 	
 	<update id="eventAddCount" parameterType="_int">
