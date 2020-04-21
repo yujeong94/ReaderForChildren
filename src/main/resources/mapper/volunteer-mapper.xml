@@ -4,7 +4,7 @@
 
 	<insert id="insertSchedule">
 		insert into volunteer_add
-		values(SEQ_VOL_SCH.NEXTVAL, #{volContent},#{volStart},#{volEnd},#{volMax},default)
+		values(SEQ_VOL_SCH.NEXTVAL, #{volContent},#{volStart},#{volEnd},#{volMax},default,default)
 	</insert>
 	
 	<resultMap type="VolunteerSchedule" id="ScheduleResultSet">
@@ -14,6 +14,7 @@
 		<result property="volEnd" column="vol_end" />
 		<result property="volMax" column="vol_max" />
 		<result property="volStatus" column="vol_status" />
+		<result property="volCur" column="vol_cur" />
 	</resultMap>
 	
 	<select id="getSchedule" resultMap = "ScheduleResultSet">
@@ -23,7 +24,25 @@
 	
 	<insert id="insertEntry">
 		insert into volunteer
-		values(SEQ_ENTRY.NEXTVAL,)
+		values(SEQ_ENTRY.NEXTVAL, default, #{userID}, #{vlNum2}, #{vlPhone}, #{userName})
 	</insert>
 	
+	
+	<select id="checkMax" resultType="_int">
+		SELECT COUNT(*)
+		FROM VOLUNTEER
+		JOIN VOLUNTEER_ADD ON VOL_ADD_NUM = VL_NUM2
+		WHERE VOL_MAX > (select count(*)
+		                 FROM VOLUNTEER
+		                 WHERE VL_NUM2 = #{vlNum2} AND VL_STATUS = 'Y')
+	</select>
+	
+	<resultMap type="Volunteer" id="volResultSet">
+		<id property="vlNum" column ="vl_num" />
+		<result property="vlStatus" column="vl_status" />
+		<result property="userID" column="user_id" />
+		<result property="vlNum2" column="vl_num2" />
+		<result property="vlPhone" column="vl_phone" />
+		<result property="userName" column="user_name" />
+	</resultMap>
 </mapper>

@@ -34,4 +34,9 @@ public class VolunteerServiceImpl implements VolunteerService{
 	public int serviceAsk(Volunteer v) {
 		return vDAO.serviceAsk(sqlSession, v);
 	}
+
+	@Override
+	public int checkMax(Volunteer v) {
+		return vDAO.checkMax(sqlSession, v);
+	}
 }

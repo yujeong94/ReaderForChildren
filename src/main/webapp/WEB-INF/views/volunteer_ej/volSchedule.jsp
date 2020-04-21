@@ -138,26 +138,21 @@ label{
 		
 	<form action = "submitInform.vo"  method="post" id = "submitInform" >
 		<div>
-			 			<input type = "hidden" id = "schedule" name = "schedule" >
+		<input type = "hidden" id = "schedule" name = "schedule" >
+		<input type = "hidden" id = "eventNum" name = "vlNum2" >
 		<table id = "info">
 			
-			<c:set var="schedule" value="${ schedule.value }" />
 			
-			 <c:if test="${ not empty schedule }">
-				<tr>
-			 		<td class = "info_title">
-			 			<label class = "title_word">활동</label>
-			 			<input type = "hidden" id = "vlNum2" name = "vlNum2" value="${ volAddNum }" >
-			 		</td>
-			 		<td class = "right"><label>asdfsdf</label></td>
+				<tr id = "tr2" style = "display:none">
+			 		<td class = "info_title"><label class = "title_word">활동</label></td>
+			 		<td class = "right"><label id="schedule2"></label></td>
 
 			 	</tr>
-			 </c:if>	
 				<tr>
 			 		<td class = "info_title"><label class = "title_word">이름</label></td>
 			 		<td class = "right">
 			 			<label>${ loginUser.userName }</label>
-			 			<input type = "hidden" id = "userID" name = "userID" value="${ loginUser.userName }">
+			 			<input type = "hidden" id = "userID" name = "userName" value="${ loginUser.userName }">
 			 		</td>
 			 	</tr>
 		
@@ -185,8 +180,12 @@ label{
 			alert("지원하실 봉사할동을 클릭해주세요");
 			return false;
 		}else{
-			alert($('#schedule').val()+"\n선택하신 봉사활동에 정말 신청하시겠습니까?");
-			$('#submitInform').submit();
+			var result = confirm($('#schedule').val()+"\n선택하신 봉사활동에 정말 신청하시겠습니까?");
+			if(result){
+				$('#submitInform').submit();
+			}else{
+				return false;
+			}
 		}
 	});
 </script>
@@ -207,6 +206,7 @@ label{
         	<c:forEach var="vsS" items="${vs}" varStatus="vss">
         		<c:if test="${vss.last}">
 	        		{
+	        		  id 	 : '${ vsS.volAddNum }',
 	  	              title  : '${ vsS.volContent }',
 	  	              start  : '${ vsS.volStart }',
 	  	              end    : '${ vsS.volEnd }',
@@ -214,20 +214,26 @@ label{
 	        		</c:if>
 	        		<c:if test="${!vss.last}">
 	        			{
+	        				id 	   : '${ vsS.volAddNum }',
 	  	              		title  : '${ vsS.volContent }',
 	  	              		start  : '${ vsS.volStart }',
-	  	              		end    : '${ vsS.volEnd }'
+	  	              		end    : '${ vsS.volEnd }',
   	           		},
     			</c:if>
 	        </c:forEach>   
 	   ],
 	   eventClick :  
-	   
-			   function(info){
-					
-		  	   $(this).css("color","red");
+	   			
+			   function(info,event, element){
+		   		
+		   		
+		   	   
 			   $("#schedule").val(info.event.title);
-			   console.log(schedule.value);
+			   $("#eventNum").val(info.event.id);
+			   
+			   $("#schedule2").text($('#schedule').val());
+			   $('#tr2').removeAttr('style');	
+			   
 			   
 		   },
 		   
@@ -250,6 +256,13 @@ label{
     
 </script>
 
+
+<script type="text/javascript">
+	var message = '${msg}'; 
+	if(message != ""){
+		alert(msg); 
+	}
+</script>
 
 
 </html>

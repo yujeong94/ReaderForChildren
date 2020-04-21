@@ -54,7 +54,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 	<jsp:include page="common/menubar.jsp"/>
 	<div class="home_contents">
 		<c:if test="${ empty sessionScope.loginUser }">	
-			<form class="home_login" action="login.me" method="post">
+			<form class="home_login" action="login.me" method="post" id = "goLogin">
 				<table>
 				<tr>
 					<th>ID</th>
@@ -74,6 +74,17 @@ a:hover { text-decoration: none; cursor : pointer;}
 				</div>
 			</form>
 		</c:if>
+		
+		<script>
+			$('#loginBtn').click(function(){
+				if($('#inputId').val == 'admin'){
+					$('#goLogin').attr("action","loginAdmin.ad");
+				}else{
+					$('#goLogin').submit();
+				}
+			})
+		</script>
+		
 		<c:if test="${ !empty sessionScope.loginUser }">
 
 			<table id = "123">

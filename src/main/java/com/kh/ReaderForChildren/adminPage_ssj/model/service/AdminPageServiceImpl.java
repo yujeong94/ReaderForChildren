@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.dao.AdminPageDAO;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Service("aService")
@@ -31,5 +32,10 @@ public class AdminPageServiceImpl implements AdminPageService {
 	@Override
 	public Member selectUserInfo(String userId) {
 		return aDAO.selectUserInfo(sqlSession, userId);
+	}
+
+	@Override
+	public Admin adminLogin(Admin a) {
+		return aDAO.adminLogin(sqlSession, a);
 	}
 }
