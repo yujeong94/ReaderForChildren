@@ -26,12 +26,12 @@
 	.td1{font-weight: bold; padding: 20px 20px 0 0;}
 	.td2{padding: 20px 0 8px 0;}
 	.td3{padding-top: 20px;}
-	.nameInput{border-radius: 4px; width: 80px; height: 20px; margin-bottom: 20px;}
+	.nameInput{border-radius: 4px; width: 80px; height: 20px; margin-bottom: 20px; outline: none;}
 	.td4{border: 1px solid lightgrey; padding: 5px 20px 5px 8px;} .td4 div{display: inline-block;}
-	.td4 input{border: none; background: none;}
+	.td4 input{border: none; background: none; outline: none;}
 	.changeBtn{background: rgb(241, 196, 15); color: white; border-radius: 5px; border: none; width: 92px; height: 35px;
 				font-size: 14px; font-weight: bold; margin-left: 100px;}
-	.phoneInput{margin-top: 20px; border-radius: 4px; width: 160px; height: 22px; margin-bottom: 30px;}
+	.phoneInput{margin-top: 20px; border-radius: 4px; width: 160px; height: 22px; margin-bottom: 30px; outline: none;}
 	.line{width: 640px; border-bottom: 2px solid lightgrey; margin-bottom: 30px;}
 	.td5{font-weight: bold; padding-right: 20px;}
 	.selbox{border-radius: 4px; width: 400px; height: 30px; border: 1px solid lightgrey;}
@@ -47,7 +47,7 @@
 	.agreeMent{margin-right: 50px; text-decoration: underline;} .agreeMent:hover {cursor: pointer;}
 	.frame6{margin: 20px auto 50px; width: 840px; height: 100%; text-align: center;}
 	.payBtn{background: rgb(231, 76, 60); color: white; border: none; width: 200px; height: 60px; border-radius: 5px;
-		font-weight: bold; font-size: 20px;}
+		font-weight: bold; font-size: 20px;} .payBtn:hover {cursor: pointer;}
 </style>
 </head>
 <body>
@@ -97,27 +97,27 @@
 						<tr>
 							<td>
 								<input type="hidden" id="sNoInput" name="sNo" value="${ sNo }">
-								<input type="text" class="nameInput" id="nameInput" value="${ lu.userName }">
+								<input type="text" class="nameInput" id="nameInput" value="${ lu.userName }" readonly>
 							</td>
 						</tr>
 						<tr>
 							<td class="td4" colspan="2">
 								<div style="margin-bottom: 8px;">
-									<input type="text" id="pcInput" value="${ lu.postalCode }">
+									<input type="text" id="pcInput" value="${ lu.postalCode }" readonly>
 								</div><br>
 								<div>
-									<input type="text" id="bAInput" size="50" value="${ lu.bAddress }">
+									<input type="text" id="bAInput" size="50" value="${ lu.bAddress }" readonly>
 								</div>
 								<button class="changeBtn" onclick="changeShipAdd();">배송지 변경</button><br>
 								<div>
-									<input type="text" id="lAInput" size="50" value="${ lu.lAddress }">
+									<input type="text" id="lAInput" size="50" value="${ lu.lAddress }" readonly>
 								</div>
 									
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="text" class="phoneInput" id="phoneInput" value="${ newPhone }">
+								<input type="text" class="phoneInput" id="phoneInput" value="${ newPhone }" readonly>
 							</td>
 						</tr>
 						<tr>
@@ -126,7 +126,7 @@
 						<tr>
 							<td class="td5">&nbsp;&nbsp;배송메세지</td>
 							<td colspan="2">
-								<select class="selbox" name="delRequest" required>
+								<select class="selbox" name="delRequest">
 									<option value="">배송 메세지를 선택해주세요.</option>
 									<option value="부재 시 경비실에 맡겨주세요.">부재 시 경비실에 맡겨주세요.</option>
 									<option value="부재 시 택배함에 넣어주세요.">부재 시 택배함에 넣어주세요.</option>
@@ -159,7 +159,7 @@
 				<div class="frame5">
 					<div style="float: right;">
 						<div class="agreeMent">개인정보 제 3자 제공 동의 > </div>
-						<div><input type="checkbox" required>동의합니다.</div>
+						<div><input type="checkbox" id="chkagree">동의합니다.</div>
 					</div>	
 				</div>
 					
@@ -200,41 +200,63 @@
 			window.open("agreeInform.ab", "agreeForInformProvision", "width=400, height=530, "+ ", left=" + popLeft + ", top="+ popTop);
 		});
 	});
+	
+	
+	function check(){
+		var selected = $('.selbox > option:selected').val();
+		var checked = $("input:checkbox[id='chkagree']").is(":checked");
+		
+		if(!selected) {
+			alert('배송 메세지를 선택해주세요.');
+			$('.selbox').focus();
+		    return false;
+		} else if(!checked){
+			alert('개인정보 제 3자 제공에 동의해주세요.');
+			$('#chkagree').focus();
+		    return false;
+		} else{
+			return true;
+		}
+	}
+	
 	</script>
 	
 	<script>
 	
 	$('#payment').click(function(){
-		var IMP = window.IMP;
-		IMP.init('imp30707400');
-	
-		IMP.request_pay({
-			pg : 'inicis',
-			pay_method : 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : 'ReaderForChildren 오디오북 결제',
-		    amount : '${ sum }',
-		    buyer_email : '${ loginUser.email }',
-		    buyer_name : '${ loginUser.userName }',
-		    buyer_tel : '${ loginUser.phone }',
-		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-		}, function(rsp) {
-		    if ( rsp.success ) {
-		        var msg = '결제가 완료되었습니다.';
-		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        msg += '카드 승인번호 : ' + rsp.apply_num;
-		        alert(msg);
-		        
-		        $('#form').submit();
-		    } else {
-		        var msg = '결제에 실패하였습니다.';
-		        msg += '에러내용 : ' + rsp.error_msg;
-		        
-		        alert(msg);
-		    }
-		    
-		});
-	
+		var ch = check();
+		
+		if(ch){
+			var IMP = window.IMP;
+			IMP.init('imp30707400');
+		
+			IMP.request_pay({
+				pg : 'inicis',
+				pay_method : 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				name : 'ReaderForChildren 오디오북 결제',
+			    amount : '${ sum }',
+			    buyer_email : '${ loginUser.email }',
+			    buyer_name : '${ loginUser.userName }',
+			    buyer_tel : '${ loginUser.phone }',
+			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			        alert(msg);
+			        
+			        $('#form').submit();
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			        
+			        alert(msg);
+			    }
+			    
+			});
+		}
 	});
 	
 	

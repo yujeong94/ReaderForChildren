@@ -190,4 +190,35 @@
 				#{delRequest}, default, default, #{containBk}, #{sNo}, #{userId})
 	</insert>
 	
+	<update id="deleteBook" parameterType="_int">
+		update book
+		set bk_status='N'
+		where bk_code=#{bkCode}
+	</update>
+	
+	<update id="deleteAudioBook" parameterType="_int">
+		update audio_book
+		set aud_status='N'
+		where bk_code=#{bkCode}
+	</update>
+	
+	<update id="deleteBookImage" parameterType="_int">
+		update book_image
+		set bi_status='N'
+		where bk_code=#{bkCode}
+	</update>
+	
+	<update id="deleteAudioFile" parameterType="_int">
+		update audio_file
+		set status='N'
+		where aud_code in (select aud_code
+        					from audio_book
+        					where bk_code=#{bkCode})
+	</update>
+	
+	<insert id="cartInsert">
+		insert into cart
+		values(seq_cart.nextval, #{userId}, #{bkCode}, #{audCodeF}, #{audCodeM}, #{containBk}, default)
+	</insert>
+	
 </mapper>

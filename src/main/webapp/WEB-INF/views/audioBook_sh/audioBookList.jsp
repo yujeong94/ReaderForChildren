@@ -17,7 +17,7 @@
 	.selectbox{width: 80px; height: 32px; border-radius: 5px; margin-right: 10px;}
 	.frame{text-align: center;}
 	.searchline{border: 0; border-bottom: 2px solid darkgray; outline: none; width: 500px; height: 40px;}
-	.sBtn{border: none; background:none;}
+	.sBtn{border: none; background:none;} .sBtn:hover {cursor: pointer;}
 	.product{width: 300px; display: inline-block; margin: 10px 10px 40px 10px; align: center; border: 1px solid gray;}
 	.bookImg{margin-bottom: 10px;}
 	.text1{font-weight: bold; font-size: 18px; margin-bottom: 10px;}
@@ -152,11 +152,7 @@
 		
 		location.href="search.ab?searchCondition="+searchCondition+"&searchValue="+searchValue;
 	}
-	
 	</script>
-	
-	
-	
 	
 	
 </body>
