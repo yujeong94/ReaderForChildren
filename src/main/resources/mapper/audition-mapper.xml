@@ -58,16 +58,12 @@
 	
 	<insert id="insertApply" parameterType="Reader">
 		insert into reader 
-		values(#{userId},#{cDate},#{career},#{company},#{introduce},default,
-				#{aNum},#{originName},#{changeName},#{imPath},default,#{recName},#{recPath})
+		values(#{userId},#{introduce},#{imgOrigin},#{imgChange},#{imgPath},#{recName},#{recPath},sysdate,default,#{aNum})
 	</insert>
 	
-	<update id="insertCareer" parameterType="arraylist">
-		<foreach collection="list" item="c" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO CAREER VALUES(seq_cnum.nextval,#{c.userId},#{c.cDate},#{c.cContent},#{c.cCompany})
-		</foreach>
-	</update>
-	
+	<insert id="insertCareer" parameterType="arraylist">
+		insert into career values(seq_cnum.nextval, #{userId},#{cDate},#{cContent},#{cCompany})
+	</insert>
 	
 </mapper>
 
