@@ -28,13 +28,20 @@
 				<div class="ment">주문이 완료되었습니다.</div>		
 				
 				<div class="btns">
-					<button type="submit" class="goOrderList">주문내역 보기</button>
+					<button type="submit" class="goOrderList" onclick="goOrderList();">주문내역 보기</button>
 					<button type="reset" class="goCart">장바구니로</button>
 				</div>	
 			</div>
 			
 		<c:import url="../common/footer.jsp"/>
 	</div>
+	
+	
+	<script>
+		function goOrderList(){
+			location.href="orlist.li";
+		}
+	</script>
 
 </body>
 </html>
