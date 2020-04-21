@@ -28,8 +28,8 @@
 				<div class="ment">주문이 완료되었습니다.</div>		
 				
 				<div class="btns">
-					<button type="submit" class="goOrderList" onclick="goOrderList();">주문내역 보기</button>
-					<button type="reset" class="goCart">장바구니로</button>
+					<button type="button" class="goOrderList" onclick="goOrderList();">주문내역 보기</button>
+					<button type="button" class="goCart" onclick="goCart();">장바구니로</button>
 				</div>	
 			</div>
 			
@@ -41,6 +41,10 @@
 		function goOrderList(){
 			location.href="orlist.li";
 		}
+		
+		/* function goCart(){
+			location.href=".li";
+		} */
 	</script>
 
 </body>
