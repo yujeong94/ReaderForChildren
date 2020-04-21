@@ -32,10 +32,12 @@
 		<div class="contents">
 			<div id="title"><h1>오디오북</h1></div>
 			
-			<div class="btnArea">
-				<button id="uploadBtn" onclick="location.href='abinsertView.ab';">상품 등록</button>
-			</div>
-			
+			<c:set var="adminUser" value="${ adminUser }"/>
+			<c:if test="${ adminUser ne null }">
+				<div class="btnArea">
+					<button id="uploadBtn" onclick="location.href='abinsertView.ab';">상품 등록</button>
+				</div>
+			</c:if>
 			<br clear="all">
 
 			<div class="search">

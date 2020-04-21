@@ -84,9 +84,9 @@
 								</tr>
 								<tr>
 									<td class="priceTd">
-										<b style="padding-left: 40px;">${ b.bkPrice }원</b>
-										<b style="padding-left: 13px;">${ abF.audPrice }원</b>
-										<b style="padding-left: 13px;">${ abM.audPrice }원</b></td>
+										<b style="padding-left: 38px;">${ b.bkPrice }원</b>
+										<b style="padding-left: 9px;">${ abF.audPrice }원</b>
+										<b style="padding-left: 10px;">${ abM.audPrice }원</b></td>
 								</tr>
 								<tr>
 									<td class="td3">
@@ -179,11 +179,13 @@
 						</div>
 					</div>
 				</div>
-				
-				<div class="btnBox">
-					<input type="button" class="updateBtn" value="정보수정" onclick="updateProduct();">
-					<input type="button" class="deleteBtn" value="상품삭제" onclick="deleteProduct();">
-				</div>
+				<c:set var="adminUser" value="${ adminUser }"/>
+				<c:if test="${ adminUser ne null }">
+					<div class="btnBox">
+						<input type="button" class="updateBtn" value="정보수정" onclick="updateProduct();">
+						<input type="button" class="deleteBtn" value="상품삭제" onclick="deleteProduct();">
+					</div>
+				</c:if>
 			</div>
 			</form>
 		</div>
