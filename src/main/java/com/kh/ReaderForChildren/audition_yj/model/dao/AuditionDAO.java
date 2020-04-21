@@ -32,13 +32,19 @@ public class AuditionDAO {
 		return sqlSession.update("auditionMapper.deleteAudition", aNum);
 	}
 
-	public int insertCareer(SqlSessionTemplate sqlSession, ArrayList<Career> cArr) {
-		return sqlSession.insert("auditionMapper.insertCareer", cArr);
-	}
 	
 	public int insertApply(SqlSessionTemplate sqlSession, Reader r) {
 		return sqlSession.insert("auditionMapper.insertApply", r);
 	}
 
+	public int insertCareer(SqlSessionTemplate sqlSession, ArrayList<Career> cArr) {
+		int result = 0;
+		
+		for(int i = 0; i < cArr.size(); i++) {
+			result = sqlSession.insert("auditionMapper.insertCareer", cArr.get(i));
+		}
+		
+		return result;
+	}
 
 }

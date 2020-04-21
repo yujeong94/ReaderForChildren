@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>녹음 부스 예약하기 | ReaderForChildren</title>
-<link rel="stylesheet" href="../../resources/css/common.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <link href='${ contextPath }/fullcalendar/packages/core/main.css' rel='stylesheet' />
 <link href='${ contextPath }/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
 <script src='${ contextPath }/fullcalendar/packages/core/main.js'></script>
@@ -22,6 +22,8 @@
 		text-align: center;
 		vertical-align: middle;
 		font-size: 1.2rem;
+		margin-top: 100px;
+		margin-bottom: 30px;
 	}
 	#myAddr {
 		width: 300px;
@@ -47,6 +49,17 @@
 		border: 1px solid black;
 		cursor: pointer;
 	}
+	
+	#searchBtn {
+		margin-left: 10px;
+		height: 30px;
+		vertical-align: middle;
+	}
+	
+	#infoArea {
+		display: none;
+	}
+
 </style>
 </head>
 <body>
@@ -54,13 +67,33 @@
 	<c:import url="../common/menubar.jsp"/>
 	<div class="contents">
 	<h1>녹음 부스 예약</h1>
+	
+		<div id="searchAddr">
+			<span style="vertical-align: middle;">주소  </span><input type="text" id="myAddr" list="addrList"><button class="defaultBtn upBtn" id="searchBtn"> 검색</button><br>
+			<datalist id="addrList">
+				<option value="레벨나인 스튜디오">서울특별시 강남구 논현로 414 세일빌딩 9층</option>
+				<option value="모닝스타녹음실">서울특별시 강남구 논현로72길 29 리치노아빌 지하1층</option>
+				<option value="웨이브랩">서울특별시 마포구 양화로 73-1 이스턴빌딩 지하 1층</option>
+				<option value="IMCL">서울특별시 서대문구 이화여대1길 15</option>
+				<option value="원더레코즈">서울특별시 강남구 역삼로9길 24</option>
+				<option value="온에어뮤직">서울 송파구 백제고분로42길 35</option>
+				<option value="지니스튜디오">경기도 구리시 이문안로 138</option>
+				<option value="사운드유엑스">경기도 안양시 동안구 시민대로327번길 11-41 5층 517호</option>
+				<option value="밴드하우스">인천광역시 미추홀구 주안중로 32-5 지하1층</option>
+				<option value="뉴렉녹음실">충청북도 청주시 상당구 상당로115번길 51</option>
+				<option value="비커즈뮤직">경상북도 대구광역시 중구 명덕로 127</option>
+				<option value="보이스팩토리">전라남도 광주광역시 남구 중앙로 90 2층</option>
+			</datalist>		
+		</div>
+		
 		<div id="map" style="width:500px;height:400px;">
 		</div>
-		<br>
-		<div id="searchAddr">
-			<span>주소 : </span><input type="text" id="myAddr"> <button id="searchBtn">검색</button><br>		
+		<div id="infoArea" align="center">
+			녹음실 : <span id="companyName"></span><br>
+			주소 : <span id="companyAddr"></span>
 		</div>
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ba6d1c50b0830380e7bf47f39814068&libraries=services,clusterer,drawing"></script>
+		
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=398d38ff223ba6e4b87ae695ed9759f4&libraries=services,clusterer,drawing"></script>
 		<script>
 			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 			var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -76,36 +109,52 @@
 			// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 			var positions = [
 			    {
-			        content: '<div>[ 레벨나인 스튜디오 ] 서울특별시 강남구 727-13 세일빌딩 9층 (논현로 414)</div>', 
-			        latlng: new kakao.maps.LatLng(37.498786, 127.038978)
+			        content: '레벨나인 스튜디오 | 서울특별시 강남구 논현로 414 세일빌딩 9층', 
+			        latlng: new kakao.maps.LatLng(37.4972385027886, 127.039064239457)
 			    },
 			    {
-			        content: '<div>[ 리플레이사운드 ] 서울특별시 용산구 효창동</div>',
-			        latlng: new kakao.maps.LatLng(37.544259, 126.960600)
+			        content: '모닝스타녹음실 | 서울특별시 강남구 논현로72길 29 리치노아빌 지하1층',
+			        latlng: new kakao.maps.LatLng(37.4963568837854, 127.041654989761)
 			    },
 			    {
-			        content: '<div>[ 지니영상녹음실 ] 역삼동 738번지 KS빌딩 503호 강남구 서울특별시 KR</div>',
-			        latlng: new kakao.maps.LatLng(37.498811, 127.036463)
+			        content: '웨이브랩 | 서울특별시 마포구 양화로 73-1 이스턴빌딩 지하 1층',
+			        latlng: new kakao.maps.LatLng(37.5515565949487, 126.916106694815)
 			    },
 			    {
-			        content: '<div>[ 녹음실뉴렉 ] 충청북도 청주시 상당구 영동 100-6</div>', 
-			        latlng: new kakao.maps.LatLng(36.643613, 127.487577)
+			        content: 'IMCL | 서울특별시 서대문구 이화여대1길 15', 
+			        latlng: new kakao.maps.LatLng(37.5572104627807, 126.944919267804)
 			    },
 			    {
-			        content: '<div>[ 모나미녹음스튜디오 ] 대구광역시 수성구 황금2동</div>', 
-			        latlng: new kakao.maps.LatLng(35.843868, 128.624458)
+			        content: '원더레코즈 | 서울특별시 강남구 역삼로9길 24', 
+			        latlng: new kakao.maps.LatLng(37.4956071073488, 127.033920262182)
 			    },
 			    {
-			        content: '<div>[ 연스튜디오 ] 광주광역시 남구 사동 177-39</div>',
-			        latlng: new kakao.maps.LatLng(35.145611, 126.915075)
+			        content: '온에어뮤직 | 서울 송파구 백제고분로42길 35',
+			        latlng: new kakao.maps.LatLng(37.5040249437866, 127.111685370422)
 			    },
 			    {
-			        content: '<div>[ 뮤직센스 ] 서울특별시 서초구 서초동 1328-11</div>',
-			        latlng: new kakao.maps.LatLng(37.495459, 127.028616)
+			        content: '지니스튜디오 | 경기도 구리시 이문안로 138',
+			        latlng: new kakao.maps.LatLng(37.590948897369, 127.146640595875)
 			    },
 			    {
-			        content: '<div>[ 케이엠아이스튜디오 ] 경기도 구리시 교문동 235</div>',
-			        latlng: new kakao.maps.LatLng(37.606107, 127.134291)
+			        content: '사운드유엑스 | 경기도 안양시 동안구 시민대로327번길 11-41 5층 517호',
+			        latlng: new kakao.maps.LatLng(37.3982031689559, 126.96314114623)
+			    },
+			    {
+			        content: '밴드하우스 | 인천광역시 미추홀구 주안중로 32-5 지하1층',
+			        latlng: new kakao.maps.LatLng(37.4615262731348, 126.683003154536)
+			    },
+			    {
+			        content: '뉴렉녹음실 | 충청북도 청주시 상당구 상당로115번길 51',
+			        latlng: new kakao.maps.LatLng(36.638347188937, 127.487124868381)
+			    },
+			    {
+			        content: '비커즈뮤직 | 대구광역시 중구 명덕로 127',
+			        latlng: new kakao.maps.LatLng(35.8566551633687, 128.584074220755)
+			    },
+			    {
+			        content: '보이스팩토리 | 광주광역시 남구 중앙로 90 2층',
+			        latlng: new kakao.maps.LatLng(35.1438728149344, 126.907874967636)
 			    }
 			];
 
@@ -127,34 +176,8 @@
 			    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 			    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 			    
-			    // 내가 한거 : 마커의 위치정보 가져오기
 			    var geocoder = new kakao.maps.services.Geocoder();
-			    kakao.maps.event.addListener(marker, 'click', function() {        
-		             console.log(marker.getPosition($(this).latlng));
-		             var latlng = marker.latLng; 
-		             console.log(latlng);
-		            
-		             searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-		            	 if (status === kakao.maps.services.Status.OK) {
-		                     var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-		                     detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-		                     
-		                     var content = '<div class="bAddr">' +
-		                                     '<span class="title">법정동 주소정보</span>' + 
-		                                     detailAddr + 
-		                                 '</div>';
-
-		                     // 마커를 클릭한 위치에 표시합니다 
-		                     marker.setPosition(mouseEvent.latLng);
-		                     marker.setMap(map);
-
-		                     // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-		                     infowindow.setContent(content);
-		                     infowindow.open(map, marker);
-		                 }  
-		             });
-		         });
-			    
+			    kakao.maps.event.addListener(marker, 'click', clickMarker(marker, infowindow));
 			}
 
 			// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -171,13 +194,55 @@
 			    };
 			}
 			
-			/* var geocoder = new kakao.maps.services.Geocoder();
+			// 클릭이벤트 클로저
+			function clickMarker(marker, infowindow) {
+				return function() {
+					console.log(marker.getPosition());
+					console.log(infowindow.getContent());
+					var reg = /[\[\]\]/g;
+					$("#companyName").text(infowindow.getContent().replace());
+					$("#companyAddr").text(infowindow.getContent());
+					$("#infoArea").css("display","block");
+				}
+			}
 			
-			kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+	        // 주소 입력시 마커로 이동
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			$("#searchBtn").click(function(){
+				var inputAddr = $("#myAddr").val();
+				var optionAddr = "";
+				
+				for(var i = 0; i < $("#addrList option").length; i++) {
+					if(inputAddr == $("#addrList option:eq("+ i +")").val()){
+						optionAddr = $("#addrList option:eq("+ i +")").text();
+						break;
+					} 
+				}
+				if(optionAddr == ""){
+					alert("입력한 주소로 등록된 녹음실이 없습니다ㅠㅠ 주소 목록을 확인해 주세요!");
+				}
+				
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch(optionAddr, function(result, status) {
+	
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+	
+				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				        map.setCenter(coords);
+				  	}
+				});
+			});
+			
+			/* kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
 	             
 	             // 클릭한 위도, 경도 정보를 가져옵니다 
 	             var latlng = mouseEvent.latLng; 
-	             console.log(latlng);
+	             console.log(latlng); */
 	             
 	             // 마커 위치를 클릭한 위치로 옮깁니다
 	             /* marker.setPosition(latlng);
@@ -204,37 +269,6 @@
 	             geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 	         }  */
 			
-			/* // 주소-좌표 변환 객체를 생성합니다
-			var geocoder = new kakao.maps.services.Geocoder();
-			
-			var inputAddr = $("#myAddr").text();
-			$("#searchBtn").click(function(){
-				console.log(inputAddr);
-			});
-			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
-
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-			        // 결과값으로 받은 위치를 마커로 표시합니다
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-
-			        // 인포윈도우로 장소에 대한 설명을 표시합니다
-			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-			        });
-			        infowindow.open(map, marker);
-
-			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			        map.setCenter(coords);
-			  	}
-			});  */
 		</script>
 		
 		<div id="calendar"></div>
@@ -276,10 +310,11 @@
 			});
 		</script>
 		<div class=btnBox>
-			<button class="defaultBtn upBtn">예약</button>
+			<button class="defaultBtn upBtn rBtn">예약</button>
+			<button onclick="location.href='testMap.re'">테스트</button>
 		</div>
 		<script>
-			$('.defaultBtn').click(function(){
+			$('.rBtn').click(function(){
 				alert("예약이 완료되었습니다.");
 			});
 		</script>

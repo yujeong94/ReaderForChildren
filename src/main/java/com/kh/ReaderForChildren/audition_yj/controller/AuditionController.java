@@ -236,7 +236,7 @@ public class AuditionController {
 		int result = auService.insertApply(r,cArr);
 		
 		if(result > 0) {
-			return "redirect:aulist.au";			
+			return "applyResult";			
 		} else {
 			throw new AuditionException("리더 지원 실패!");
 		}
