@@ -35,7 +35,7 @@
 		where snum=#{snum}
 	</update> -->
 	
-	<insert id="insertSupport" parameterType="Support">
+	<insert id="insertSupport" >
 		insert into support values(
 			seq_snum.nextval, #{donation}, sysdate, #{userId}, #{spCode} 
 			

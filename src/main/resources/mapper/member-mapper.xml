@@ -29,13 +29,13 @@
 		update member
 		set user_Name=#{userName}, birth=#{birth}, postal_code=#{postalCode}, b_address=#{bAddress},
 		 	l_address=#{lAddress}, email=#{email}, phone=#{phone}
-		where user_id=#{userId}
+		where user_id=#{userId} and user_pwd=#{userPwd}
 	</update>
 	
 	<update id="pwdUpdate" parameterType="map">
 		update member
-		set user_pwd=#{userPwd}
-		where user_id=#{userId} <!-- and status='Y' -->
+		set user_pwd=#{newPwd1}
+		where user_id=#{userId} and user_pwd=#{userPwd} <!-- and status='Y' -->
 	
 	</update>		
 	

@@ -42,8 +42,8 @@ public class sponsorDAO {
 		return sqlSession.update("supportrMapper.suupdateMember", s);
 	}
 
-	public int insertSupport(SqlSessionTemplate sqlSession, Support s) {
-		return sqlSession.insert("supportMapper.insertSupport", s);
+	public int insertSupport(SqlSessionTemplate sqlSession, Support support) {
+		return sqlSession.insert("supportMapper.insertSupport", support);
 	}
 
 

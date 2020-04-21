@@ -1,8 +1,10 @@
 package com.kh.ReaderForChildren.sponsor_ys.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,6 @@ import com.kh.ReaderForChildren.sponsor_ys.model.vo.Pagination;
 import com.kh.ReaderForChildren.sponsor_ys.model.vo.Sponsor;
 import com.kh.ReaderForChildren.sponsor_ys.model.vo.Support;
 
-@SessionAttributes("loginUser")
 @Controller
 public class sponsorController {
 
@@ -114,24 +115,25 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 		}
 	
 	@RequestMapping("suinsert.sp")												
-	public ModelAndView boardInsert(HttpServletRequest request,Support s, ModelAndView mv ,@RequestParam("donation") int donation  , 
-																							@RequestParam("spCode") int spCode) {
+	public String boardInsert(HttpSession session, @RequestParam("donation") int donation, int spCode, Date supdate) {
+		
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
 		System.out.println(donation);
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		s.setDonation(donation);
-		s.setSpCode(spCode);
+		Support support = new Support();
+		support.setDonation(donation);
+		support.setSpCode(spCode);
+		support.setUserId(userId);
+		support.setSupdate(supdate);
 		
-		
-		int result = spService.insertSupport(s);
+		int result = spService.insertSupport(support);
 		
 		if(result > 0) {
-			mv.setViewName("sponser3");
-			/*System.out.println("result??" + result);*/
+			return "sponser3";
 		}else {
 			throw new sponsorException("실패");
 		}
-		return mv;
 	}
 	
 	
@@ -153,6 +155,6 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 	
 }
 	
-	
+
 
 

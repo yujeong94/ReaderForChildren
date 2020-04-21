@@ -2,6 +2,7 @@ package com.kh.ReaderForChildren.list_ys.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
 import com.kh.ReaderForChildren.list_ys.model.vo.Rec;
 import com.kh.ReaderForChildren.sponsor_ys.model.vo.PageInfo;
@@ -23,5 +24,9 @@ public interface listService {
 	int updateShipping(Shipping s);
 
 	Shipping selectShipping(int sNo);
+
+	int getorListCount();
+
+	ArrayList<OrderDetail> selectorList(PageInfo pi);
 
 }

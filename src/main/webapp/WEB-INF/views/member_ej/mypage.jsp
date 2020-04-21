@@ -199,8 +199,8 @@
 				<div class="quick_menu">
 				<table>
 					
-					<tr class="boardTr">
-						<td class="td" onclick="location.href = 'shlist.li'" id="infoTd">주문 내역 조회
+					<tr class="boardTr"><!-- shlist.li -->
+						<td class="td" onclick="location.href = 'orlist.li'" id="infoTd">주문 내역 조회
 						</td>
 					</tr>
 					<tr class="boardTr">

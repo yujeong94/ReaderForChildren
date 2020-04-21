@@ -79,4 +79,31 @@
 		from shipping
 		where s_no=#{sNo} and s_status='Y'
 	</select>
+	
+	<select id="selectorList" parameterType="string" resultMap="OrderDetailResultSet">
+		select *
+		from order_detail
+		where or_status='Y' and user_id=#{userId}
+		
+	</select>
+	
+	<select id="getorListCount" resultType="_int">
+		select count(*)
+		from order_detail
+		where or_status='Y'
+	</select>
+	<resultMap type="OrderDetail" id="OrderDetailResultSet">
+		<id property="orNo" column="OR_NO"/>
+		<result property="bkCode" column="BK_CODE"/>
+		<result property="audCodeF" column="AUD_CODE_F"/>
+		<result property="audCodeM" column="AUD_CODE_M"/>
+		<result property="orPrice" column="OR_PRICE"/>
+		<result property="orDate" column="OR_DATE"/>
+		<result property="delRequest" column="DEL_REQUEST"/>
+		<result property="delStatus" column="DEL_STATUS"/>
+		<result property="orStatus" column="OR_STATUS"/>
+		<result property="containBk" column="CONTAIN_BK"/>
+		<result property="sNo" column="S_NO"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
 </mapper>
