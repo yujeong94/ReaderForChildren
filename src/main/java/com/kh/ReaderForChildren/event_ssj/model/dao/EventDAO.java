@@ -56,4 +56,8 @@ public class EventDAO {
 		return sqlSession.selectOne("eventMapper.selectReader", userId);
 	}
 
+	public int updateEvent(SqlSessionTemplate sqlSession, Event e) {
+		return sqlSession.update("eventMapper.updateEvent", e);
+	}
+
 }

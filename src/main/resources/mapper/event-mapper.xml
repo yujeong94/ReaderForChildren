@@ -114,9 +114,13 @@
 		where e_num = #{eNum} and user_id = #{userId} and r_status = 'Y'
 	</select>
 	
-	
-	
-	
+	<update id="updateEvent" parameterType="Event">
+		update event
+		set e_title=#{eTitle}, e_start=#{eStart}, e_end=#{eEnd}, e_anno=#{eAnno}, e_target=#{eTarget},
+			e_content=#{eContent}, e_way=#{eWay}, e_stand=#{eStand}, e_eventnum=#{eEventNum},
+			origin_name=#{originName}, change_name=#{changeName}, im_path=#{imPath}
+		where e_num = #{eNum}
+	</update>
 	
 	
 	

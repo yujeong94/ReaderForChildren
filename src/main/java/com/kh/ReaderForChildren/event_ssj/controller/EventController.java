@@ -206,11 +206,62 @@ public class EventController {
 		
 	}
 	
+	// 이벤트게시글 수정 페이지로 이동
+	@RequestMapping("updateEventView.ev")
+	public ModelAndView updateEventView(@RequestParam("eNum") int eNum, ModelAndView mv) {
+		
+		Event event = evService.updateEventView(eNum);
+		
+		if(event != null) {
+			mv.addObject("event", event).setViewName("updateEvent");
+		} else {
+			throw new EventException("이벤트 수정 페이지 이동 실패");
+		}
+		
+		return mv;
+	}
 	
+	// 이벤트 수정
+	@RequestMapping("updateEvent.ev")
+	public ModelAndView updateEvent(@ModelAttribute Event e, @RequestParam("uploadBtn1") MultipartFile uploadFile, 
+									HttpServletRequest request, ModelAndView mv) {
+		
+		if(uploadFile != null & !uploadFile.isEmpty()) {
+			if(e.getChangeName() != null) {
+				deleteFile(e.getChangeName(), request);
+			}
+			
+			Event ev = saveFile(uploadFile, request);
+			
+			if(ev != null) {
+				e.setOriginName(uploadFile.getOriginalFilename());
+				e.setChangeName(ev.getChangeName());
+				e.setImPath(ev.getImPath());
+			}
+		}
+		
+		int result = evService.updateEvent(e);
+		
+		if(result > 0) {
+			mv.setViewName("redirect:eventDetail.ev?eNum=" + e.geteNum());
+		} else {
+			throw new EventException("게시글 등록을 실패하였습니다.");
+		}
+		
+		return mv;
+	}
 	
-	
-	
-	
+	// 파일 삭제
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\uploadFiles";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}
+	}
 	
 	
 	
