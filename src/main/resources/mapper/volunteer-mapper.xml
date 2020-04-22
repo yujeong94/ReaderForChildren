@@ -29,12 +29,9 @@
 	
 	
 	<select id="checkMax" resultType="_int">
-		SELECT COUNT(*)
-		FROM VOLUNTEER
-		JOIN VOLUNTEER_ADD ON VOL_ADD_NUM = VL_NUM2
-		WHERE VOL_MAX > (select count(*)
-		                 FROM VOLUNTEER
-		                 WHERE VL_NUM2 = #{vlNum2} AND VL_STATUS = 'Y')
+		UPDATE VOLUNTEER_ADD
+		SET VOL_CUR = VOL_CUR+1
+		WHERE VOL_ADD_NUM = #{vlNum2} and vol_max>vol_cur and vol_status = 'Y'
 	</select>
 	
 	<resultMap type="Volunteer" id="volResultSet">

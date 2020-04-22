@@ -24,7 +24,7 @@ public class VolunteerDAO {
 	}
 
 	public int checkMax(SqlSessionTemplate sqlSession, Volunteer v) {
-		return sqlSession.selectOne("volunteerMapper.checkMax", v);
+		return sqlSession.update("volunteerMapper.checkMax", v);
 	}
 
 }
