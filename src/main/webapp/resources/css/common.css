@@ -118,11 +118,13 @@ header {
     font-weight: bold;
     color: white;
     border-radius: 5px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .upBtn{background: #1A249A;}
 .delBtn{background: #707171;}
+
+button { cursor: pointer; }
 
 /* 페이징 css */
 .pagingArea{

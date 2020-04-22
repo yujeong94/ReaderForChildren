@@ -47,4 +47,16 @@ public class AuditionDAO {
 		return result;
 	}
 
+	public Reader selectApply(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("auditionMapper.selectApply", userId);
+	}
+
+	public ArrayList<Career> selectCareer(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("auditionMapper.selectCareer", userId);
+	}
+
+	public int readerCheck(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("auditionMapper.readerCheck", userId);
+	}
+
 }

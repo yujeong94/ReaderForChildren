@@ -57,4 +57,19 @@ public class AuditionServiceImpl implements AuditionService {
 		
 		return result;
 	}
+
+	@Override
+	public Reader selectReader(String userId) {
+		return auDAO.selectApply(sqlSession, userId);
+	}
+
+	@Override
+	public ArrayList<Career> selectCareer(String userId) {
+		return auDAO.selectCareer(sqlSession, userId);
+	}
+
+	@Override
+	public int readerCheck(String userId) {
+		return auDAO.readerCheck(sqlSession, userId);
+	}
 }

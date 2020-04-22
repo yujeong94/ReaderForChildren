@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>지원서 | ReaderForChildren</title>
+<title>지원서 작성 | ReaderForChildren</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/audition/apply.css">
 <style></style>

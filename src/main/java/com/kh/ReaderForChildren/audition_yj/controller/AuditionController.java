@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -243,13 +244,31 @@ public class AuditionController {
 				
 	}
 	
-	/*@RequestMapping("apDetail.au")
+	// 지원서 상세보기
+	@RequestMapping("apDetail.au")
 	public ModelAndView applyDetailView(HttpSession session, ModelAndView mv) {
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
-		
 		Reader r = auService.selectReader(userId);
-		Career c = auService.selectAudition(userId);
+		ArrayList<Career> c = auService.selectCareer(userId);
+		Audition a = auService.selectAudition(r.getaNum());
 		
-		mv.addObject("r", r).addObject("c", c).setViewName("auditionApplyDetail");
-	}*/
+		if(r != null && c != null) {
+			mv.addObject("r", r).addObject("c", c).addObject("a", a).setViewName("auditionApplyDetail");
+		} else {
+			throw new AuditionException("게시글 조회 실패!");
+		}
+		
+		return mv;
+	}
+	
+	// 지원자인지 체크
+	@RequestMapping("readerCheck.au")
+	@ResponseBody
+	public int readerCheck(@RequestParam("userId") String userId) {
+		
+		int result = auService.readerCheck(userId);
+		
+		return result;
+	}
+	
 }

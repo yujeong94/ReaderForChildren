@@ -199,9 +199,11 @@
 				return function() {
 					console.log(marker.getPosition());
 					console.log(infowindow.getContent());
-					var reg = /[\[\]\]/g;
-					$("#companyName").text(infowindow.getContent().replace());
-					$("#companyAddr").text(infowindow.getContent());
+					var info = infowindow.getContent();
+					var infoArr = info.split("|");
+					console.log(infoArr);
+					$("#companyName").text(infoArr[0]);
+					$("#companyAddr").text(infoArr[1]);
 					$("#infoArea").css("display","block");
 				}
 			}

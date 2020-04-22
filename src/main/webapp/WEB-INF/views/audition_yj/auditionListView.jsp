@@ -60,16 +60,76 @@
 		border: none;
 		border-radius: 3px;
 	}
+	
+/* 서브메뉴 */
+.quick_menu {
+	 position:absolute; 
+	 margin-top: 100px; 
+	 margin-left: 145px;
+	}
+	.quick_menu table {
+		display: inline-table;
+		text-align: center;
+		border-top: 2px solid gray;
+		border-bottom: 2px solid gray;
+		margin-bottom: 20px;
+		width: 100px;
+		height: 100px;
+	}
+	.quick_menu td {
+		cursor: pointer; 
+		vertical-align: middle;
+		font-weight: 800;
+	}
+	.quick_menu td:hover {
+		color: yellow;
+	}
 </style>
 </head>
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
+	
+	<!-- 서브메뉴 -->
+	<div class="quick_menu">
+		<table>
+			<c:if test="${ adminUser != null }">
+			<tr class="boardTr" style="background: lightyellow;">
+				<td class="td" onclick="location.href='auListInsertView.au'" class="infoTd no1">오디션등록
+				</td>
+			</tr>
+			</c:if>
+			<tr class="boardTr" style="background: green; color: white;">
+				<td class="td" onclick="location.href='apDetail.au'" class="infoTd no2">지원서보기
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script>
+	$(function(){
+		var userId = "${ loginUser.userId }";
+		if(userId != ""){
+			$.ajax({
+				url: "readerCheck.au",
+				type: 'post',
+				data: {userId:userId},
+				success: function(data) {
+					console.log("result ? " + data);
+				},
+				error: function(data) {
+					alert("열람할 수 없습니다!");
+				}
+			});
+		} 
+	});
+	</script>
+	
 	<div class="contents clear-fix">
 		<h1>Reader 오디션 지원</h1>
 		<h2>이 달의 판매 예정 오디오북</h2>
 		<h3>※ 오디션 지원에 관한 자세한 사항은 공지사항을 참고하세요 <a href="#" style="color:navy; text-decoration: none;"> >> 바로가기</a></h3>
 		
+			
 		<c:forEach var="a" items="${ aulist }">
 			<table class="aListTable">
 				<tr>
@@ -106,13 +166,12 @@
 					<c:if test="${ loginUser.userId == 'admin' }">
 						<td class="btnTd">
 							<button class="defaultBtn upBtn" onclick="location.href='${ upView }'">Edit</button>
-							<button class="defaultBtn delBtn" onclick="delCheck();">Delete</button> 
+							<button class="defaultBtn delBtn" onclick="delCheck();">Delete</button>
 						</td>
 					</c:if>
 				</tr>
 			</table>
 		</c:forEach>
-		<button onclick="location.href='auListInsertView.au'">여기눌러!</button>
 	</div>
 	<c:import url="../common/footer.jsp"/>
 </div>
