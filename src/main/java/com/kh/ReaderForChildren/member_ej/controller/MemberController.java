@@ -265,17 +265,6 @@ public class MemberController {
 				
 			}
 			
-   
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			mv.addObject("userName", m.getUserName())
 			.addObject("userId", m.getUserId())
 			.addObject("email", m.getEmail())

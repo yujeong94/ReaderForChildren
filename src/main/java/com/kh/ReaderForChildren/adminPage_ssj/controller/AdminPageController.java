@@ -101,21 +101,18 @@ public class AdminPageController {
 	
 	@RequestMapping("loginAdmin.ad")
 	public String adminLogin(Admin a, Model model, HttpServletResponse response) {
-		System.out.println("여긴 오니" + a.getUserId());
 		Admin adminUser = aService.adminLogin(a);
-		System.out.println("adminUser2 : " + adminUser);
 		response.setContentType("text/html; charset=utf-8");
 		
 		if(adminUser != null) {
 			model.addAttribute("adminUser", adminUser);
-			System.out.println("세션들어옴");
 			return "redirect:home.do";
 		}else {
 			PrintWriter out;
 			try {
 				out = response.getWriter();
 				out.println("<script language='javascript'>");
-				out.println("alert('로그인에 실패하였습니다.!@#!@#@!#@!#'); location.href='/ReaderForChildren/home.do';");
+				out.println("alert('관리자 로그인에 실패하였습니다.'); location.href='/ReaderForChildren/home.do';");
 				out.println("</script>");
 				out.flush();
 			} catch (IOException e) {
