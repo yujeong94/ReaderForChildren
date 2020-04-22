@@ -28,6 +28,9 @@ public interface EventService {
 
 	int replyCheck(Reply r);
 
+	Event updateEventView(int eNum);
+
+	int updateEvent(Event e);
 
 
 }

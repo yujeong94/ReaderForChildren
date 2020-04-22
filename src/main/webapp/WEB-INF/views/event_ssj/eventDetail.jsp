@@ -249,8 +249,8 @@
 				<tr>
 					<td colspan="4" class="borderStyle">
 						<button type="button" class="defaultBtn delBtn btn1" onclick="location.href='eventList.ev'">목록으로</button>
-						<c:if test="${ loginUser.userId == 'admin' }">
-							<button type="button" class="defaultBtn upBtn btn1" onclick="location.href='updateEvent.ev'">수정</button>
+						<c:if test="${ adminUser != null }">
+							<button type="button" class="defaultBtn upBtn btn1" id="updateEventBtn">수정</button>
 						</c:if>
 					</td>
 				</tr>
@@ -258,10 +258,14 @@
 					<td colspan="4" class="replyStyle" id="replyInsert">
 						<c:choose>
 							<c:when test="${ empty sessionScope.loginUser }">
-								로그인시 댓글을 작성하실 수 있습니다.
-							</c:when>
-							<c:when test="${ loginUser.userId == 'admin' }">
-								관리자는 댓글을 작성할 수 없습니다.
+								<c:choose>
+									<c:when test="${ !empty sessionScope.adminUser }">
+										관리자는 댓글을 작성할 수 없습니다.
+									</c:when>
+									<c:otherwise>
+										로그인시 댓글을 작성하실 수 있습니다.
+									</c:otherwise>
+								</c:choose>
 							</c:when>
 							<c:when test="${ (event.eTarget == '후원자' && loginUser.donation == 0) || (event.eTarget == '오디션 지원자' && reader == null)}">
 								이벤트 대상자가 아니므로 댓글을 작성하실 수 없습니다.
@@ -344,8 +348,9 @@
 			var userId = $(obj).parent().parent().children('.replyName').text();
 			var eNum = ${ event.eNum }
 			var loginId = "${ loginUser.userId}";
+			var loginAdmin = "${adminUser.userId}";
 			
-			if(loginId == userId || loginId == 'admin'){
+			if(loginId == userId || loginAdmin == 'admin' ){
 				var deleteCheck = confirm("정말로 삭제하시겠습니까?");
 				if(deleteCheck){
 					$.ajax({
@@ -409,6 +414,12 @@
 				}
 			});
 		}
+		
+		// 이벤트 게시물 수정
+		$('#updateEventBtn').click(function(){
+			var eNum = ${event.eNum};
+			location.href='updateEventView.ev?eNum='+ eNum;
+		});
 		
 	</script>
 	

@@ -77,5 +77,15 @@ public class EventImpl implements EventService {
 	public Reader selectReader(String userId) {
 		return evDAO.selectReader(sqlSession, userId);
 	}
+
+	@Override
+	public Event updateEventView(int eNum) {
+		return evDAO.selectEvent(sqlSession, eNum);
+	}
+
+	@Override
+	public int updateEvent(Event e) {
+		return evDAO.updateEvent(sqlSession, e);
+	}
 	
 }
