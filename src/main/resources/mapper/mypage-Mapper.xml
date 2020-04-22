@@ -106,4 +106,10 @@
 		<result property="sNo" column="S_NO"/>
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
+	
+<!-- 	<insert id="orderInsert">
+		insert into order_detail
+		values(seq_or.nextval, #{bkCode}, #{audCodeF}, #{audCodeM}, #{orPrice}, default,
+				#{delRequest}, default, default, #{containBk}, #{sNo}, #{userId})
+	</insert> -->
 </mapper>

@@ -89,14 +89,15 @@ public class listController {
 		
 		int listCount = liService.getorListCount();
 		
+		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<OrderDetail> olist = liService.selectorList(pi);
-		
-		if(olist != null) {
-			mv.addObject("olist",olist);
+		ArrayList<OrderDetail> list = liService.selectorList(pi);
+	/*	System.out.println(list);*/
+		if(list != null) {
+			mv.addObject("list",list);
 			mv.addObject("pi", pi);
-			mv.setViewName("basketlist");
+			mv.setViewName("buylist");
 			
 		}else {
 			throw new listException("게시글 전체 조회에 실패하였습니다.");

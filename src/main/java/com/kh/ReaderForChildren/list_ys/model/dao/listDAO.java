@@ -60,7 +60,10 @@ public class listDAO {
 	public ArrayList<OrderDetail> selectorList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
+//		return (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
+		ArrayList<OrderDetail> list =  (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
+		System.out.println("dao단 : " + list);
+		return list;
 	}
 
 }

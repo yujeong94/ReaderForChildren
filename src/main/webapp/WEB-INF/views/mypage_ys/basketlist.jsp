@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <title>Insert title here</title>
-<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
+<link rel="stylesheet" href="../../resources/css/common.css">
 
 <style>
    
@@ -111,7 +111,7 @@
 	</table>
     
      <div id="listarea">
-    <table id="basketlist">
+    <table id="sponserlist">
     	<tr>
     		<th class="list_title" id="th1">목록번호<input type="checkbox" id="chk_list" name="chk_list" value="list1" /></th>
     		<th colspan="2" class="list_title" id="th2">상품명</th>
@@ -125,20 +125,10 @@
     <div id = "tablearea2">
 					<table id = "list_table">
 						<!-- 게시글 불러오는곳 -->
-						<c:forEach var="or" items="${ olist }">
 					<!-- <tr>
 						<td id="noList">존재하는 게시글이 없습니다.</td>
 					</tr> -->
 							<tr id="contentTr">
-							
-							<c:if test="${ !empty loginUser }">
-					<c:url var="ordetail" value="ordetail.li">
-						<c:param name="sNo" value="${ sh.sNo }"/>
-						<c:param name="page" value="${ pi.currentPage }"/>
-					</c:url>
-					<%-- <a href="${ shdetail }">${ sh.rName }</a> --%>
-					</c:if>
-							
 						<td rowspan="2" class = "list_line2" id="td1"  > 11 <input type="checkbox" id="chk_all" name="chk_all" /></td>
 							<td rowspan="2" class = "list_line2" id="td2" >사진 	</td>
 							<td >어린왕자 오디오북</td>
@@ -149,55 +139,7 @@
 						<tr>
 							<td>옵션: 오디오북 + 음성</td>
 						</tr>
-						</c:forEach>
 					</table>
-					
-					<table id="buttonTab">
-						<tr align="center" height="20" id="buttonTab">
-			<td colspan="6">
-			
-				<!-- [이전] -->
-				<c:if test="${ pi.currentPage <= 1 }">
-					[이전] &nbsp;
-				</c:if>
-				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="orlist.li">
-						<c:param name="page" value="${ pi.currentPage - 1 }"/>
-					</c:url>
-					<a href="${ before }">[이전]</a> &nbsp;
-				</c:if>
-				
-				<!-- 페이지 -->
-				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-					<c:if test="${ p eq pi.currentPage }">
-						<font color="red" size="4"><b>[${ p }]</b></font>
-					</c:if>
-					
-					<c:if test="${ p ne pi.currentPage }">
-						<c:url var="pagination" value="orlist.li">
-							<c:param name="page" value="${ p }"/>
-						</c:url>
-						<a href="${ pagination }">${ p }</a> &nbsp;
-					</c:if>
-				</c:forEach>
-				
-				<!-- [다음] -->
-				<c:if test="${ pi.currentPage >= pi.maxPage }">
-					[다음]
-				</c:if>
-				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="orlist.li">
-						<c:param name="page" value="${ pi.currentPage + 1 }"/>
-					</c:url> 
-					<a href="${ after }">[다음]</a>
-				</c:if>
-			</td>
-		</tr>
-		</table>
-		
-					
-					
-					
 				</div>
 	<div>
 	<table>
