@@ -65,5 +65,43 @@
 		insert into career values(seq_cnum.nextval, #{userId},#{cDate},#{cContent},#{cCompany})
 	</insert>
 	
+	<select id="selectApply" parameterType="string" resultMap="readerResultSet">
+		select *
+		from reader
+		where user_id=#{userId}
+	</select>
+	
+	<select id="selectCareer" parameterType="string" resultMap="careerResultSet">
+		select *
+		from career
+		where user_id=#{userId}
+	</select>
+	
+	<resultMap type="Reader" id="readerResultSet">
+		<id property="userId" column="user_id"/>
+		<result property="introduce" column="introduce"/>
+		<result property="imgOrigin" column="img_origin"/>
+		<result property="imgChange" column="img_change"/>
+		<result property="imgPath" column="img_path"/>
+		<result property="recName" column="rec_name"/>
+		<result property="recPath" column="rec_path"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="status" column="status"/>
+		<result property="aNum" column="anum"/>
+	</resultMap>
+	
+	<resultMap type="Career" id="careerResultSet">
+		<id property="cNum" column="CNUM"/>
+		<id property="userId" column="USER_ID"/>
+		<result property="cDate" column="C_DATE"/>
+		<result property="cContent" column="C_CONTENT"/>
+		<result property="cCompany" column="C_COMPANY"/>
+	</resultMap>
+	
+	<select id="readerCheck" parameterType="string" resultType="_int">
+		select count(*)
+		from reader
+		where user_id = #{userId}
+	</select>
 </mapper>
 

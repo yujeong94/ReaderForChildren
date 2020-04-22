@@ -18,6 +18,12 @@ public interface AuditionService {
 
 	int deleteAudition(int aNum);
 
-	int insertApply(Reader r, ArrayList<Career> cArr); 
+	int insertApply(Reader r, ArrayList<Career> cArr);
+
+	Reader selectReader(String userId);
+
+	ArrayList<Career> selectCareer(String userId);
+
+	int readerCheck(String userId); 
 
 }

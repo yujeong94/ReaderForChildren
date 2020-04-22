@@ -26,13 +26,13 @@
 			
 			<div id="profileArea" class="divblank">
 				<div id="proImgArea">
-					<img id="proImg">
+					<img id="proImg" src="${ contextPath }/resources/uploadFiles/${ r.imgChange }">
 				</div>
 				
 				<table id="profileCon">
 					<tr>
 						<th width="120px">오디오북 명</th>
-						<td width="120px">어쩌고저쩌고</td>
+						<td width="120px">${ a.bkName }</td>
 						<th width="80px">이름</th>
 						<td>${ loginUser.userName }<input type="hidden" name="userName" class="inputSize"></td>
 						<th width="80px">성별</th>
@@ -58,26 +58,26 @@
 						<th width=180px class="careerBorder">기간</th>
 						<th width=300px class="careerBorder">경력 사항</th>
 						<th width=180px class="careerBorder">근무기관</th>
-						<td></td>
 					</tr>
+					<c:forEach var="c" items="${ c }">
 					<tr>
-						<td width=180px class="careerBorder">2019-03-13 ~ 2020-04-01<input type="hidden" class="careerInput"></td>
-						<td width=300px class="careerBorder">성우<input type="hidden" class="careerInput"></td>
-						<td width=180px class="careerBorder">kh정보교육원<input type="hidden" class="careerInput"></td>
-						<td></td>
+						<td width=180px class="careerBorder">${ c.cDate }<input type="hidden" class="careerInput"></td>
+						<td width=300px class="careerBorder">${ c.cContent }<input type="hidden" class="careerInput"></td>
+						<td width=180px class="careerBorder">${ c.cCompany }<input type="hidden" class="careerInput"></td>
 					</tr>
-					<tr>
+					</c:forEach>
 				</table>
 			</div>
 			
 			<h2>Introduce</h2>
 			
 			<div id="introArea" align="center">
-				<textarea rows="40px" cols="100px" readonly></textarea>
+				<textarea rows="40px" cols="100px" readonly style="padding: 10px;">${ r.introduce }</textarea>
 			</div>
 			
 			<div id="recordArea">
 				<span id="recordSpan"> 녹음 파일 </span><input type="hidden" accept="audio/*">
+				<a href="${ contextPath }/resources/uploadFiles/${ r.recName }">${ r.recName }</a>
 			</div>
 			
 			<div class="btnBox">
