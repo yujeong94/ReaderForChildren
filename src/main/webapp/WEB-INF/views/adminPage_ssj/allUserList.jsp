@@ -166,7 +166,7 @@ table > tbody > tr > td {
 			}).mouseout(function(){
 				$(this).parent().css({'color':'black', 'background':'none','font-weight':'normal'});
 			}).click(function(){
-				var userId = $(this).eq(0).text();
+				var userId = $(this).parent().children("td").eq(1).text();
 				
 				location.href="userInfo.ad?userId="+userId;
 			});

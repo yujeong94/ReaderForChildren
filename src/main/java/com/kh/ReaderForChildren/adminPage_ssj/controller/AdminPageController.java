@@ -67,8 +67,37 @@ public class AdminPageController {
 	@RequestMapping("eventWinner.ad")
 	public ModelAndView eventWinnerView(ModelAndView mv) {
 		
-		/*ArrayList<Event> list = aService.eventWinnerList();*/
+		ArrayList<Event> list = aService.eventWinnerList();
 		
+		if(list != null) {
+			mv.addObject("list", list).setViewName("eventWinner");
+		} else {
+			throw new AdminPageException("이벤트 리스트 출력 실패");
+		}
+		
+		return mv;
+	}
+	
+	// 이벤트 리스트 카테고리 별 
+	@RequestMapping("eventListSelect.ad")
+	public ModelAndView eventListSelect(ModelAndView mv, @RequestParam("selectbox") String selectbox) {
+		
+		ArrayList<Event> list = null;
+		
+		if(selectbox.equals("전체")) {
+			list = aService.eventWinnerList();
+		} else if(selectbox.equals("진행")) {
+			list = aService.eventIngList();
+		} else {
+			list = aService.eventEndList();
+		}
+		
+		if(list != null) {
+			mv.addObject("list", list).addObject("selectbox", selectbox).setViewName("eventWinner");
+		} else {
+			throw new AdminPageException("이벤트 리스트 출력 실패");
+		}
+				
 		return mv;
 	}
 	

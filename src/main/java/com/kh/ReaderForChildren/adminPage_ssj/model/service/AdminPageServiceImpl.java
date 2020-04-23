@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.dao.AdminPageDAO;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
+import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Service("aService")
@@ -37,5 +38,20 @@ public class AdminPageServiceImpl implements AdminPageService {
 	@Override
 	public Admin adminLogin(Admin a) {
 		return aDAO.adminLogin(sqlSession, a);
+	}
+
+	@Override
+	public ArrayList<Event> eventWinnerList() {
+		return aDAO.eventWinnerList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Event> eventIngList() {
+		return aDAO.eventIngLIst(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Event> eventEndList() {
+		return aDAO.eventEndList(sqlSession);
 	}
 }
