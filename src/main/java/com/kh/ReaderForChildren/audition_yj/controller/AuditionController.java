@@ -356,12 +356,12 @@ public class AuditionController {
 	public String deleteApply(HttpSession session, HttpServletRequest request) {
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
-		int result = auService.deleteApply(userId);
 		Reader r = auService.selectReader(userId);
+		int result = auService.deleteApply(userId);
 		if(result > 0) {
 			deleteFile(r.getImgChange(), request);
 			deleteFile(r.getRecName(), request);
-			return "aulist.au";
+			return "redirect:aulist.au";
 		} else {
 			throw new AuditionException("게시글 삭제 실패");
 		}
