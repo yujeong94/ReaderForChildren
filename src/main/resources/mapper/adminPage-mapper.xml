@@ -19,6 +19,26 @@
 		<result property="status" column="status"/>
 	</resultMap>
 	
+	<resultMap type="Event" id="eventResultSet">
+		<id property="eNum" column="e_num"/>
+		<result property="eTitle" column="e_title"/>
+		<result property="eStart" column="e_start"/>
+		<result property="eEnd" column="e_end"/>
+		<result property="eAnno" column="e_anno"/>
+		<result property="eTarget" column="e_target"/>
+		<result property="eContent" column="e_content"/>
+		<result property="eWay" column="e_way"/>
+		<result property="eStand" column="e_stand"/>
+		<result property="eDate" column="e_date"/>
+		<result property="eCount" column="e_count"/>
+		<result property="eStatus" column="e_status"/>
+		<result property="eDivision" column="e_division"/>
+		<result property="eEventNum" column="e_eventnum"/>
+		<result property="originName" column="origin_name"/>
+		<result property="changeName" column="change_name"/>
+		<result property="imPath" column="im_path"/>
+	</resultMap>
+	
 	<select id="selectUserList" resultMap="MemberResultSet">
 		select *
 		from member
@@ -51,5 +71,27 @@
 		from admin
 		where ad_id = #{userId} and ad_pwd = #{userPwd}
 	</select>
+	
+	<select id="eventWinnerList" resultMap="eventResultSet">
+		select *
+		from event
+		order by e_num desc
+	</select>
+	
+	<select id="eventIngList" resultMap="eventResultSet">
+		select *
+		from event
+		where e_division = 1
+		order by e_num desc
+	</select>
+	
+	<select id="eventEndList" resultMap="eventResultSet">
+		select *
+		from event
+		where e_division = 2
+		order by e_num desc
+	</select>
+	
+	
 	
 </mapper>

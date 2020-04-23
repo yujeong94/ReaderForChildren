@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,12 +70,16 @@ table > tbody > tr > td {
 	top: 0;
 }
 
+.Numtd{
+	width: 80px;
+}
+
 .Datetd{
-	width: 200px;
+	width: 180px;
 }
 
 .Titletd{
-	width: 350px;
+	width: 300px;
 }
 
 .AnnDatetd{
@@ -82,7 +87,7 @@ table > tbody > tr > td {
 }
 
 .Replytd{
-	width: 100px;
+	width: 90px;
 }
 
 /* 검색창 */
@@ -132,15 +137,16 @@ table > tbody > tr > td {
 			<div id="title">이벤트 리스트</div>
 			<div class="search">
 				<select size="1" id="category" name="event_status">
-					<option value="전체" selected>전체 이벤트</option>
-					<option value="진행">진행 중인 이벤트</option>
-					<option value="종료">종료된 이벤트</option>
+					<option value="전체" <c:if test="${ selectbox == '전체' }">selected</c:if>>전체 이벤트</option>
+					<option value="진행" <c:if test="${ selectbox == '진행' }">selected</c:if>>진행 중인 이벤트</option>
+					<option value="종료" <c:if test="${ selectbox == '종료' }">selected</c:if>>종료된 이벤트</option>
 				</select>
 			</div>
 			<div class="tableDiv">
 				<table class="listTable">
 					<thead>
 					<tr id="listTitle">
+						<th class="Numtd fixedHeader">번호</th>
 						<th class="Datetd fixedHeader">기간</th>
 						<th class="Titletd fixedHeader">제목</th>
 						<th class="AnnDatetd fixedHeader">발표날짜</th>
@@ -148,14 +154,38 @@ table > tbody > tr > td {
 					</tr>
 					</thead>
 					<tbody>
-					<c:forEach begin="1" end="30" step="1" var="i">
+					<c:if test="${ !empty list }">
+						<c:forEach var="w" items="${ list }">
+							<tr>
+								<td>${ w.eNum }</td>
+								<td>
+									<fmt:formatDate value="${ w.eStart }" pattern="yy.MM.dd"/>
+									~
+									<fmt:formatDate value="${ w.eEnd }" pattern="yy.MM.dd"/>
+								</td>
+								<td>${ w.eTitle }</td>
+								<td>
+									<fmt:formatDate value="${ w.eAnno }" pattern="yy.MM.dd"/>
+								</td>
+								<td>
+									<jsp:useBean id="now" class="java.util.Date"/>
+									<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate"/>
+									<fmt:formatDate value="${ w.eEnd }" pattern="yyyyMMdd" var="closeDate"/>
+									<c:choose>
+										<c:when test="${ w.eDivision == 2 }">완료</c:when>
+										<c:when test="${ w.eDivision == 1 && nowDate > closeDate }">추첨대기</c:when>
+										<c:otherwise>진행중</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${ empty list }">
 						<tr>
-							<td>20.04.22~20.04.23</td>
-							<td>스타벅스 기프티콘 증정 이벤트</td>
-							<td>20.04.24</td>
-							<td>진행중</td>
+							<td colspan="4">등록된 이벤트가 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
+					
 					</tbody>
 				</table>
 			</div>
@@ -171,7 +201,27 @@ table > tbody > tr > td {
 				$(this).parent().css({'color':'#390609', 'cursor':'pointer', 'font-weight':'bold'});
 			}).mouseout(function(){
 				$(this).parent().css({'color':'black','font-weight':'normal'});
+			}).click(function(){
+				var eNum = $(this).parent().children().eq(0).text();
+				var status = $(this).parent().children().eq(4).text();
+				console.log("eNum:" + eNum + ", status:" + status);
+				
+				if(status == "진행중"){
+					location.href="eventDetail.ev?eNum=" + eNum;
+				} else if(status == "완료"){
+					/* location.href="eventEndDetail.ev?eNum=" + eNum; */
+				} else{
+					
+				}
 			});
+			
+			
+			$('#category').change(function(){
+				var selectbox = $(this).val();
+				
+				location.href="eventListSelect.ad?selectbox=" + selectbox;
+			});
+			
 		});
 	</script>
 	
