@@ -133,4 +133,37 @@ public class VolunteerController {
 		
 	}
 	
+	@RequestMapping("checkDe.vo")
+	public void checkDemander(@RequestParam("vlNum2") int vlNum2, HttpSession session, HttpServletResponse response) throws IOException {
+		
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		System.out.println("vlNum2 : " + vlNum2);
+		Volunteer v = new Volunteer();
+		v.setUserID(userId);
+		v.setVlNum2(vlNum2);
+		
+		int result = vService.checkDemander(v);
+		
+		if(result > 0) {
+			response.getWriter().print(true);
+		}else {
+			response.getWriter().print(false);
+		}
+	}
+	
+	@RequestMapping("checkDate.vo")
+	public void checkDate(@RequestParam("vlNum2") int vlNum2, HttpServletResponse response) throws IOException{
+		
+		VolunteerSchedule vs = new VolunteerSchedule();
+		vs.setVolAddNum(vlNum2);
+		
+		int result = vService.checkDate(vs);
+		
+		if(result > 0) {
+			response.getWriter().print(true);
+		}else {
+			response.getWriter().print(false);
+		}
+	}
+	
 }

@@ -40,4 +40,12 @@ public class VolunteerDAO {
 		return sqlSession.update("volunteerMapper.updateCur", vlNum2);
 	}
 
+	public int checkDemander(SqlSessionTemplate sqlSession, Volunteer v) {
+		return sqlSession.selectOne("volunteerMapper.checkDe", v);
+	}
+
+	public int checkDate(SqlSessionTemplate sqlSession, VolunteerSchedule vs) {
+		return sqlSession.selectOne("volunteerMapper.checkDate", vs);
+	}
+
 }

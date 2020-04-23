@@ -22,4 +22,8 @@ public interface VolunteerService {
 
 	int updateCur(int vlNum2);
 
+	int checkDemander(Volunteer v);
+
+	int checkDate(VolunteerSchedule vs);
+
 }
