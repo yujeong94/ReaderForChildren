@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.ReaderForChildren.adminPage_ssj.model.exception.AdminPageException;
 import com.kh.ReaderForChildren.adminPage_ssj.model.service.AdminPageService;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
+import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @SessionAttributes("adminUser")
@@ -64,8 +65,11 @@ public class AdminPageController {
 	}
 	
 	@RequestMapping("eventWinner.ad")
-	public String eventWinnerView() {
-		return "eventWinner";
+	public ModelAndView eventWinnerView(ModelAndView mv) {
+		
+		/*ArrayList<Event> list = aService.eventWinnerList();*/
+		
+		return mv;
 	}
 	
 	// 검색기능
