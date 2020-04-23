@@ -29,4 +29,12 @@ public interface listService {
 
 	ArrayList<OrderDetail> selectorList(PageInfo pi);
 
+	int deleteBuy(int orNo);
+
+	int getcartListCount();
+
+	ArrayList<OrderDetail> selectcartList(PageInfo pi);
+
+	int deletecart(int cNo);
+
 }

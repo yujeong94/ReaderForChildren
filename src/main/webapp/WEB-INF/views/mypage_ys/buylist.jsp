@@ -11,7 +11,7 @@
 <style>
    .contents{
       width: 1100px;
-      height: 700px;
+  /*     height: 700px; */
       background: white;
       margin: auto;
       margin-bottom: 100px;
@@ -87,9 +87,9 @@
 		}
 		 #list_table td { border-bottom : 2px solid gray; vertical-align: middle; } 
 	 	#noList{text-align:center; width:2000px; height:300px;}
-		#td1{ width:110px; height:100px; }
-		#td2{ width:180px;}
-		#td3{ width:180px; }
+		#td1{ width:150px; height:100px; }
+		#td2{ width:250px;} 
+		#td3{ width:250px;}
 		#td4{ width:140px; }
 		#td5{ width:80px; }
 		.list_line2{
@@ -97,7 +97,7 @@
 		}
 		#gomain{width: 125px;height: 40px; background-color: rgb(236, 158, 149); color: white; font-weight: bold; cursor:pointer;
 		margin-left:480px;   margin-top:15px;  font-size: 18px; text-align: center; border: 0; border-radius: 5px;}
-		
+		#buttonTab{margin-left:480px; margin-top:25px;}
 		
 </style>
 
@@ -143,7 +143,7 @@
 					</tr> -->
 							<tr id="contentTr">
 							
-							<td align="center">${ o.orNo }</td>
+							<td align="center"></td>
 							
 					 <td align="left">
 							<c:if test="${ !empty loginUser }">
@@ -152,31 +152,45 @@
 						<c:param name="page" value="${ pi.currentPage }"/>
 					</c:url>
 					
-				</c:if>
+							</c:if>
 				<%-- <c:if test="${ empty loginUser }">
 					${sh.rName }		
 				</c:if> --%>
 			</td>  
 							
-						<td rowspan="2" class = "list_line2" id="td1"  > ${o.bkCode } </td>
-							<td rowspan="2" class = "list_line2" id="td2" >사진 	</td>
-							<td>어린왕자 오디오북</td>
+						<td rowspan="2" class = "list_line2" id="td1"  >${ o.orNo } </td>
+							<!-- <td rowspan="2" class = "list_line2" id="td2" >사진 	</td> -->
+							<td class = "list_line2" id="td2"> ${ o.bkName }</td>
 							
 							<td rowspan="2" class="list_line2" id="td3">${o.orDate }</td>
-							<td rowspan="2" class="list_line2" id="td4">배송준비중${o.delStatus }<button type="button">주문취소</button></td>
+							<td rowspan="2" class="list_line2" id="td4" >  ${ o.delStatus }<button type="button" onclick="deleteBuy()">주문취소</button>
+							<br>
+							<%-- <c:if test="">
+								
+							</c:if> --%>
+							</td>
 							<td  rowspan="2" class="list_line2" id="td5">
-								 <%-- <c:if test="${ ! empty b.originalFileName }">    --%>
-								<%-- <a href="${ contextPath }/resources/buploadFiles/${ board.renameFileName }" download="${ board.originalFileName }" >${ board.originalFileName }
+								<%--  <c:if test="${ ! empty b.originalFileName }">    
+								 <a href="${ contextPath }/resources/buploadFiles/${ board.originName }" download="${ board.originalFileName }" >${ board.originalFileName }
+							
 								<img src="${ contextPath }/resources/images/logo2.png" width = 30px height = 30px/>
-								  </a> --%>
-								 <%--  </c:if> --%>
+								  </a> 
+								  </c:if> --%>
 							</td> 
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td>옵션: 오디오북 + 음성</td>
-						</tr>
+						</tr> -->
+						
+						<c:url var="ordelete" value="ordelete.li">
+						<c:param name="orNo" value="${ o.orNo }"/>
+						</c:url>
 							</c:forEach>
+							
+							
 					</table>
+					
+						
 					
 					<table id="buttonTab">
 						<tr align="center" height="20" id="buttonTab">
@@ -220,6 +234,18 @@
 			</td>
 		</tr>
 		</table>
+					
+		 <script>
+		function deleteBuy(){
+			var bool = confirm("삭제하시겠습니까?");
+			
+			if( bool ){
+				location.href='${ordelete}';
+			}
+		}
+		</script>
+   			
+					
 					
 				</div>
     

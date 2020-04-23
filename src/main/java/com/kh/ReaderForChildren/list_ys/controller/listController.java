@@ -93,11 +93,49 @@ public class listController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<OrderDetail> list = liService.selectorList(pi);
-	/*	System.out.println(list);*/
+
 		if(list != null) {
 			mv.addObject("list",list);
 			mv.addObject("pi", pi);
 			mv.setViewName("buylist");
+			
+		}else {
+			throw new listException("게시글 전체 조회에 실패하였습니다.");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("ordelete.li")
+	public String buyDelete(@RequestParam("orNo") int orNo) {
+		
+		int result = liService.deleteBuy(orNo);
+		
+		if(result > 0) {
+			return "redirect:orlist.li";
+		}else {
+			throw new listException("게시글 삭제 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("calist.li")
+	public ModelAndView cartList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = liService.getcartListCount();
+		
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<OrderDetail> list = liService.selectcartList(pi);
+
+		if(list != null) {
+			mv.addObject("list",list);
+			mv.addObject("pi", pi);
+			mv.setViewName("basketlist");
 			
 		}else {
 			throw new listException("게시글 전체 조회에 실패하였습니다.");
@@ -135,6 +173,18 @@ public class listController {
 		
 		if(result > 0) {
 			return "redirect:shlist.li";
+		}else {
+			throw new listException("게시글 삭제 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("cadelete.li")
+	public String cartDelete(@RequestParam("cNo") int cNo) {
+		
+		int result = liService.deletecart(cNo);
+		
+		if(result > 0) {
+			return "redirect:calist.li";
 		}else {
 			throw new listException("게시글 삭제 실패하였습니다.");
 		}

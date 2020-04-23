@@ -57,7 +57,7 @@
    <insert id="insertBoard" parameterType="Shipping">
 		insert into shipping values(
 			seq_ship.nextval, #{sName}, #{rName}, #{rPhone}, #{rZipcode}, #{rBasicadd},
-			#{rDetailadd}, default,#{userId}, default
+			#{rDetailadd}, default, default, #{userId}
 		)
 	</insert>
 	
@@ -80,19 +80,37 @@
 		where s_no=#{sNo} and s_status='Y'
 	</select>
 	
-	<select id="selectorList" parameterType="string" resultMap="OrderDetailResultSet">
-		select *
-		from order_detail
-		where or_status='Y' and user_id=#{userId}
-		
-	</select>
+	
 	
 	<select id="getorListCount" resultType="_int">
 		select count(*)
 		from order_detail
 		where or_status='Y'
 	</select>
-	<resultMap type="OrderDetail" id="OrderDetailResultSet">
+	
+<!-- 	<select id="selectorList" resultMap="OrderDetailResultSet">
+		select orNo, orDate, orStatus, bkName
+		from order_list
+		where or_status = 'Y'
+			
+	</select> -->
+	<select id="selectorList" resultMap="OrlistResultSet">
+		select or_no, or_date, or_status, decode(del_status,'1','배송준비중','2','배송완료') as del_status, bk_name
+		from order_list
+		where or_status = 'Y'
+			
+	</select>
+	
+	<resultMap type="Orlist" id="OrlistResultSet">
+		<result property="orNo" column="OR_NO"/>
+		<result property="bkName" column="BK_NAME"/>
+		<result property="orDate" column="OR_DATE"/>
+		<result property="orStatus" column="OR_STATUS"/>
+		<result property="delStatus" column="DEL_STATUS"/>
+	</resultMap>
+	
+	
+	 <resultMap type="OrderDetail" id="OrderDetailResultSet">
 		<id property="orNo" column="OR_NO"/>
 		<result property="bkCode" column="BK_CODE"/>
 		<result property="audCodeF" column="AUD_CODE_F"/>
@@ -105,7 +123,44 @@
 		<result property="containBk" column="CONTAIN_BK"/>
 		<result property="sNo" column="S_NO"/>
 		<result property="userId" column="USER_ID"/>
+	</resultMap> 
+	
+	<update id="deleteBuy" parameterType="_int">
+		update order_list
+		set or_status='N'
+		where or_no=#{orNo}
+	</update>
+	
+	<select id="getcartListCount" resultType="_int">
+		select count(*)
+		from cart
+		where status='Y'
+	</select>
+	
+	<select id="selectcartList" resultMap="cartListResultSet">
+		select c_no, bk_name, status
+		from cart_list
+    	
+    	where status = 'Y'
+	
+	</select>
+	
+	<update id="deletecart" parameterType="_int">
+		update cart_list
+		set status='N'
+		where c_no=#{cNo}
+	</update>
+	
+	<resultMap type="cartList" id="cartListResultSet">
+		<result property="cNo" column="C_NO"/>
+		<result property="bkName" column="BK_NAME"/>
+		<result property="status" column="STATUS"/>
+		<result property="bkCode" column="BK_CODE"/>
+		<result property="audCodeF" column="AUD_CODE_F"/>
+		<result property="audCodeM" column="AUD_CODE_M"/>
+		<result property="orPrice" column="OR_PRICE"/>
 	</resultMap>
+	
 	
 <!-- 	<insert id="orderInsert">
 		insert into order_detail

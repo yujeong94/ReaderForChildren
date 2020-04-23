@@ -1,7 +1,5 @@
 package com.kh.ReaderForChildren.sponsor_ys.model.vo;
 
-import com.kh.ReaderForChildren.member_ej.model.vo.Member;
-import com.kh.ReaderForChildren.sponsor_ys.model.vo.*;
 
 import java.sql.Date;
 
@@ -11,17 +9,17 @@ public class Support {
 	private int donation;
 	private Date supdate;
 	private String userId;
-	private int spCode;
+	private String spName;
 	
 	public Support () {}
 
-	public Support(int snum, int donation, Date supdate, String userId, int spCode) {
+	public Support(int snum, int donation, Date supdate, String userId, String spName) {
 		super();
 		this.snum = snum;
 		this.donation = donation;
 		this.supdate = supdate;
 		this.userId = userId;
-		this.spCode = spCode;
+		this.spName = spName;
 	}
 
 	public int getSnum() {
@@ -56,20 +54,22 @@ public class Support {
 		this.userId = userId;
 	}
 
-	public int getSpCode() {
-		return spCode;
+	public String getSpName() {
+		return spName;
 	}
 
-	public void setSpCode(int spCode) {
-		this.spCode = spCode;
+	public void setSpName(String spName) {
+		this.spName = spName;
 	}
 
 	@Override
 	public String toString() {
 		return "Support [snum=" + snum + ", donation=" + donation + ", supdate=" + supdate + ", userId=" + userId
-				+ ", spCode=" + spCode + "]";
+				+ ", spName=" + spName + "]";
 	}
 
+
+	
 	
 	
 }
