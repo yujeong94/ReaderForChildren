@@ -55,24 +55,20 @@
 				<table id="profileCon">
 					<tr>
 						<th width="120px">오디오북 명</th>
-						<td>${ bkName }
+						<td width="120px">${ bkName }
 							<input type="hidden" value="${ aNum }" name="aNum">
 						</td>
 						<th width="80px">이름</th>
-						<%-- <td><input type="text" name="userName" value="${ loginUser.userName }" class="inputSize" required></td> --%>
 						<td>${ loginUser.userName }</td>
 						<th width="80px">성별</th>
 						<td>${ loginUser.gender }</td>
 					</tr>
 					<tr>
 						<th>생년월일</th>
-						<%-- <td><input type="text" name="age" value="${ loginUser.birth }" class="inputSize" required></td> --%>
 						<td>${ loginUser.birth }</td>
 						<th>연락처</th>
-						<%-- <td><input type="text" name="phone" value="${ loginUser.phone }"  class="inputSize" required></td> --%>
 						<td>${ loginUser.phone }</td>
 						<th>이메일</th>
-						<%-- <td><input type="email" name="email" value="${ loginUser.email }"  class="emailSize" required></td> --%>
 						<td>${ loginUser.email }</td>
 					</tr>
 				</table>
@@ -113,7 +109,6 @@
 			
 			<div class="btnBox">
 				<button class="defaultBtn upBtn">Apply</button>	
-				<button type=button id="testBtn">${ loginUser.birth }</button>
 			</div>
 		</form>
 		
@@ -158,6 +153,11 @@
 						console.log($('.careerTr td').children('input[name=cDate]').val());
 					}
 				});  */
+			});
+			
+			$('.minusBtn').click(function(){
+				var $tr = $(this).parent().parent();
+				$tr.remove();
 			});
 			
 			

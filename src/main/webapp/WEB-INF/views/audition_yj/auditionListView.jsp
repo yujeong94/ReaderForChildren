@@ -95,18 +95,18 @@
 		<table>
 			<c:if test="${ adminUser != null }">
 			<tr class="boardTr" style="background: lightyellow;">
-				<td class="td" onclick="location.href='auListInsertView.au'" class="infoTd no1">오디션등록
+				<td  onclick="location.href='auListInsertView.au'" id="no1">오디션등록
 				</td>
 			</tr>
 			</c:if>
 			<tr class="boardTr" style="background: green; color: white;">
-				<td class="td" onclick="location.href='apDetail.au'" class="infoTd no2">지원서보기
+				<td id="no2">지원서보기
 				</td>
 			</tr>
 		</table>
 	</div>
 	<script>
-	$(function(){
+	$("#no2").click(function(){
 		var userId = "${ loginUser.userId }";
 		if(userId != ""){
 			$.ajax({
@@ -114,7 +114,11 @@
 				type: 'post',
 				data: {userId:userId},
 				success: function(data) {
-					console.log("result ? " + data);
+					if(data == 'no'){
+						alert("지원한 지원서가 없습니다!");
+					} else {
+						location.href="apDetail.au";
+					}
 				},
 				error: function(data) {
 					alert("열람할 수 없습니다!");
@@ -122,6 +126,7 @@
 			});
 		} 
 	});
+	
 	</script>
 	
 	<div class="contents clear-fix">

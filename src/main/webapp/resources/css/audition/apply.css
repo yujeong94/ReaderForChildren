@@ -27,7 +27,7 @@ th {
 	padding: 20px;
 }
 
-#applyForm {
+#applyForm, #updateForm {
 	border: 1px solid black;
 	margin-left: 50px;
 	margin-right: 50px;
@@ -100,6 +100,7 @@ th {
 	margin-left: 100px;
 	width: 700px;
 	margin-top: 30px;
+	text-align: center;
 }
 
 .careerBorder {

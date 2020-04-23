@@ -103,5 +103,22 @@
 		from reader
 		where user_id = #{userId}
 	</select>
+	
+	<update id="updateApply" parameterType="Reader">
+		update reader
+		set introduce=#{introduce}, img_origin=#{imgOrigin}, img_change=#{imgChange}, img_path=#{imgPath}, rec_name=#{recName}, rec_path=#{recPath}
+		where user_id=#{userId}
+	</update>
+	
+	<delete id="deleteCareer" parameterType="string">
+		delete from career 
+		where user_id=#{userId}
+	</delete>
+	
+	<delete id="deleteApply" parameterType="string">
+		delete from reader 
+		where user_id=#{userId}
+	</delete>
+	
 </mapper>
 
