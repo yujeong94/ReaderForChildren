@@ -115,7 +115,7 @@ public class audioBookController {
 	
 	// 오디오북 상세조회
 	@RequestMapping("abdetail.ab")
-	public ModelAndView audioBookDetail(@RequestParam("bkCode") int bkCode, ModelAndView mv) {
+	public ModelAndView audioBookDetail(@RequestParam("bkCode") int bkCode, int page, ModelAndView mv) {
 		
 		Book b = abService.selectBook(bkCode);
 		ArrayList<AudioBook> ab = abService.selectAudioBook(bkCode);
@@ -135,6 +135,7 @@ public class audioBookController {
 			mv.addObject("abM", abM);
 			mv.addObject("afF", afF);
 			mv.addObject("afM", afM);
+			mv.addObject("page", page);
 			mv.setViewName("audioBookDetail");
 		} else {
 			throw new audioBookException("게시글 상세 조회에 실패하였습니다.");
@@ -268,8 +269,9 @@ public class audioBookController {
 		
 		String originName = file.getOriginalFilename();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		int random = (int)(Math.random() * 100) + 1;
 		String changeName
-			= originName + sdf.format(new Date(System.currentTimeMillis()))
+			= originName.substring(0, 1) + random + sdf.format(new Date(System.currentTimeMillis()))
 			+ "." + originName.substring(originName.lastIndexOf(".") + 1);
 		
 		String changePath = folder + "\\" + changeName;
@@ -299,8 +301,9 @@ public class audioBookController {
 		
 		String originName = file.getOriginalFilename();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		int random = (int)(Math.random() * 100) + 1;
 		String changeName
-			= originName + sdf.format(new Date(System.currentTimeMillis()))
+			= originName.substring(0, 1) + random + sdf.format(new Date(System.currentTimeMillis()))
 			+ "." + originName.substring(originName.lastIndexOf(".") + 1);
 		
 		String changePath = folder + "\\" + changeName;
@@ -514,8 +517,177 @@ public class audioBookController {
 	
 	// 상품 수정페이지로 이동
 	@RequestMapping("updateProductView.ab")
-	public String updateProductView() {
-		return null;
+	public ModelAndView updateProductView(int bkCode, int page, ModelAndView mv) {
+		
+		Book b = abService.selectBook(bkCode);
+		ArrayList<AudioBook> ab = abService.selectAudioBook(bkCode);
+		BookImage i = abService.selectBookImage(bkCode);
+		ArrayList<AudioFile> af = abService.selectAudioFile(bkCode);
+		
+		AudioBook abF = ab.get(0);
+		AudioBook abM = ab.get(1);
+		
+		AudioFile afF = af.get(0);
+		AudioFile afM = af.get(1);
+		
+		if(b != null) {
+			mv.addObject("b", b);
+			mv.addObject("i", i);
+			mv.addObject("abF", abF);
+			mv.addObject("abM", abM);
+			mv.addObject("afF", afF);
+			mv.addObject("afM", afM);
+			mv.addObject("page", page);
+			mv.setViewName("audioBookUpdate");
+		} else {
+			throw new audioBookException("오디오북 수정 페이지로의 이동에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	
+	// 상품 수정
+	@RequestMapping("updateProduct.ab")
+	public ModelAndView updateProduct(@ModelAttribute Book b, int bkCode, int audPrice, String rdNameF, String rdIdF, String audDateF, String rdIntroF,
+								String rdNameM, String rdIdM, String audDateM, String rdIntroM, HttpServletRequest request,
+								@RequestParam("thumbnailImg") MultipartFile thumbnailImg, String imgOriginName, String imgChangeName,
+								@RequestParam("fileF") MultipartFile fileF, String audioFileFOr, String audioFileF,
+								@RequestParam("fileM") MultipartFile fileM, String audioFileMOr, String audioFileM,
+								int biNo, int audCodeF, int audCodeM, int page, int afCodeF, int afCodeM, ModelAndView mv) {
+		
+		// [BookImage]
+		// 		thumbnailImg는 새로 첨부한 사진 확인
+		// 		imgChangeName는 원래 들어있던 사진 이름
+		BookImage bi = new BookImage();
+		bi.setBiNo(biNo);
+		bi.setOriginName(imgOriginName);
+		bi.setChangeName(imgChangeName);
+		
+		// 새로 첨부한 사진이 있으면
+		if(thumbnailImg != null && !thumbnailImg.isEmpty()) {
+			deleteImage(imgChangeName, request); // 원래 들어있던 사진 지우고
+		
+			String[] imgArr = saveImage(thumbnailImg, request); // 새로 첨부한 사진 이름을 rename하여 저장
+			String changeName = imgArr[0];
+			
+			if(changeName != null) {
+				bi.setOriginName(thumbnailImg.getOriginalFilename());
+				bi.setChangeName(changeName);
+			}
+		}
+		
+		// 여자 오디오북 발행일 String->Date
+		Date audioDateF = null;
+		if(audDateF != "") {
+			String[] dateArr = audDateF.split("-");
+			
+			int year = Integer.parseInt(dateArr[0]);
+			int month = Integer.parseInt(dateArr[1])-1;
+			int day = Integer.parseInt(dateArr[2]);
+			
+			audioDateF = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+		} else {
+			audioDateF = new Date(new GregorianCalendar().getTimeInMillis());
+		}
+		
+		// [AudioBook-여자]
+		AudioBook abF = new AudioBook(audCodeF, audioDateF, audPrice, rdNameF, rdIntroF, null, b.getBkCode());
+		
+		// 남자 오디오북 발행일 String->Date
+		Date audioDateM = null;
+		if(audDateM != "") {
+			String[] dateArr = audDateM.split("-");
+					
+			int year = Integer.parseInt(dateArr[0]);
+			int month = Integer.parseInt(dateArr[1])-1;
+			int day = Integer.parseInt(dateArr[2]);
+					
+			audioDateM = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+		} else {
+			audioDateM = new Date(new GregorianCalendar().getTimeInMillis());
+		}
+		
+		// [AudioBook-남자]
+		AudioBook abM = new AudioBook(audCodeM, audioDateM, audPrice, rdNameM, rdIntroM, null, b.getBkCode());
+		
+		
+		// [AudioFile-여자]
+		// 		fileF는 새로 첨부한 파일 확인
+		// 		audioFileF는 원래 들어있던 파일 이름
+		AudioFile afF = new AudioFile();
+		afF.setAfCode(afCodeF);
+		afF.setOriginName(audioFileFOr);
+		afF.setChangeName(audioFileF);
+				
+		// 새로 첨부한 파일이 있으면
+		if(fileF != null && !fileF.isEmpty()) {
+			deleteFile(audioFileF, request); // 원래 들어있던 파일 지우고
+				
+			String[] fileArr = saveFile(fileF, request); // 새로 첨부한 사진 이름을 rename하여 저장
+			String changeName = fileArr[0];
+					
+			if(changeName != null) {
+				afF.setOriginName(fileF.getOriginalFilename());
+				afF.setChangeName(changeName);
+			}
+		}
+		
+		// [AudioFile-남자]
+		// 		fileM은 새로 첨부한 파일 확인
+		// 		audioFileM은 원래 들어있던 파일 이름
+		AudioFile afM = new AudioFile();
+		afM.setAfCode(afCodeM);
+		afM.setOriginName(audioFileMOr);
+		afM.setChangeName(audioFileM);
+		
+		// 새로 첨부한 파일이 있으면
+		if(fileM != null && !fileM.isEmpty()) {
+			deleteFile(audioFileM, request); // 원래 들어있던 파일 지우고
+			
+			String[] fileArr = saveFile(fileM, request); // 새로 첨부한 사진 이름을 rename하여 저장
+			String changeName = fileArr[0];
+			
+			if(changeName != null) {
+				afM.setOriginName(fileM.getOriginalFilename());
+				afM.setChangeName(changeName);
+			}
+		}
+		
+		
+		int result = abService.updateProduct(b, bi, abF, abM, afF, afM);
+		
+		if(result >= 6) {
+			mv.addObject("page", page);
+			mv.addObject("bkCode", b.getBkCode());
+			mv.setViewName("redirect:abdetail.ab?bkCode="+b.getBkCode()+"&page="+page);
+		} else {
+			throw new audioBookException("상품 수정에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	public void deleteImage(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\bookUploadImages";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}
+	}
+	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\bookUploadImages";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}
 	}
 	
 }

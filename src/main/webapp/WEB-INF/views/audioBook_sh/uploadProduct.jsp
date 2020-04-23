@@ -39,6 +39,7 @@
 		font-weight: bold; font-size: 20px; text-align: center; margin-right: 8px;} .upload:hover {cursor: pointer;}
 	.delBtn{color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
 		font-weight: bold; font-size: 20px; text-align: center;} .delBtn:hover {cursor: pointer;}
+	.recordSpan {font-weight:bold; background:lightgray; border-radius: 4px; margin-right: 5px; height: 10px;}
 </style>
 </head>
 <body>
@@ -121,8 +122,20 @@
 							<span>리더 소개</span><br>
 							<textarea class="intro3" name="rdIntroF" required></textarea><br>
 							
-							<span>미리듣기</span><br><br>
-							<input type="file" name="fileF" required>
+							<span>미리듣기</span>
+							
+							<br><br>
+							
+							<div class="recordArea">
+          						<label class="star">* </label><span class="recordSpan">&nbsp;녹음 파일을 첨부해주세요. </span>
+               					<span id="fileShowF">${ afF.originName } <input type="hidden" name="recName" value="${ afF.originName }"></span>
+           						<button type="button" id="recFileF" class="defaultBtn upBtn" style="background: gray; width: 60px; height: 30px; padding: 2px;">첨부</button>
+         					</div>
+         					
+         					<div class="fileArea">
+        					 	<input type="file" accept="audio/*" id="recBtnF" name="fileF" onchange="Load(this,1)" required>
+      						</div>
+							
 						</div>
 					</div>
 					
@@ -141,8 +154,19 @@
 							<span>리더 소개</span><br>
 							<textarea class="intro3" name="rdIntroM" required></textarea><br>
 							
-							<span>미리듣기</span><br><br>
-							<input type="file" name="fileM" required>
+							<span>미리듣기</span>
+							
+							<br><br>
+							
+							<div class="recordArea">
+          						<label class="star">* </label><span class="recordSpan">&nbsp;녹음 파일을 첨부해주세요. </span>
+               					<span id="fileShowM">${ afM.originName } <input type="hidden" name="recName" value="${ afM.originName }"></span>
+           						<button type="button" id="recFileM" class="defaultBtn upBtn" style="background: gray; width: 60px; height: 30px; padding: 2px;">첨부</button>
+         					</div>
+         					
+         					<div class="fileArea">
+        						<input type="file" accept="audio/*" id="recBtnM" name="fileM" onchange="Load(this,2)" required>
+      						</div>
 						</div>
 					</div>
 				</div>
@@ -160,6 +184,39 @@
 	</div>
 	
 	<script>
+	
+	$(function(){
+	       $('.fileArea').hide();
+	       $('#recFileF').click(function(){
+	          $("#recBtnF").click();
+	       });
+	       $('#recFileM').click(function(){
+	          $("#recBtnM").click();
+	       });
+	    });
+	    
+	    function Load(input, num){
+	       if(input.files && input.files[0]){
+	          var reader = new FileReader();
+	          reader.onload = function(e) {
+	             switch(num){
+	             case 1: 
+	            	 var fileValue = $("#recBtnF").val().split("\\");
+	                 var fileName = fileValue[fileValue.length-1];
+	                 $('#fileShowF').text(fileName); break;
+	             case 2: 
+	                var fileValue = $("#recBtnM").val().split("\\");
+	                var fileName = fileValue[fileValue.length-1];
+	                $('#fileShowM').text(fileName); break;
+	             }
+	          }
+	          
+	          reader.readAsDataURL(input.files[0]);
+	       }
+	    }
+	
+	
+	
 	$('.delBtn').click(function(){
 		location.href="ablist.ab";
 	});
@@ -209,6 +266,11 @@
 	$('#bkDraw').keyup(function(){
 		var bkD = $(this).val();
 		$('#bkDraw2').val(bkD);
+	});
+	
+	$('#bkPubdate').change(function(){
+		var bkPdt = $(this).val();
+		$('#bkPubdate2').val(bkPdt);
 	});
 	</script>	
 	

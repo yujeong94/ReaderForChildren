@@ -118,4 +118,16 @@ public class audioBookServiceImpl implements audioBookService{
 		return abDAO.cartInsert(sqlSession, c);
 	}
 
+	@Override
+	public int updateProduct(Book b, BookImage bi, AudioBook abF, AudioBook abM, AudioFile afF, AudioFile afM) {
+		int result1 = abDAO.updateBook(sqlSession, b);
+		int result2 = abDAO.updateBookImage(sqlSession, bi);
+		int result3 = abDAO.updateAudioBookF(sqlSession, abF);
+		int result4 = abDAO.updateAudioFileF(sqlSession, afF);
+		int result5 = abDAO.updateAudioBookM(sqlSession, abM);
+		int result6 = abDAO.updateAudioFileM(sqlSession, afM);
+		
+		return result1 + result2 + result3 + result4 + result5 + result6;
+	}
+
 }

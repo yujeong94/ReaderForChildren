@@ -46,4 +46,6 @@ public interface audioBookService {
 
 	int cartInsert(Cart c);
 
+	int updateProduct(Book b, BookImage bi, AudioBook abF, AudioBook abM, AudioFile afF, AudioFile afM);
+
 }

@@ -70,19 +70,19 @@ public class audioBookDAO {
 	}
 
 	public int insertAudioBookF(SqlSessionTemplate sqlSession, AudioBook abF) {
-		return sqlSession.insert("audioBookMapper.insertAudioBookF", abF);
+		return sqlSession.insert("audioBookMapper.insertAudioBook", abF);
 	}
 
 	public int insertAudioFileF(SqlSessionTemplate sqlSession, AudioFile afF) {
-		return sqlSession.insert("audioBookMapper.insertAudioFileF", afF);
+		return sqlSession.insert("audioBookMapper.insertAudioFile", afF);
 	}
 
 	public int insertAudioBookM(SqlSessionTemplate sqlSession, AudioBook abM) {
-		return sqlSession.insert("audioBookMapper.insertAudioBookM", abM);
+		return sqlSession.insert("audioBookMapper.insertAudioBook", abM);
 	}
 
 	public int insertAudioFileM(SqlSessionTemplate sqlSession, AudioFile afM) {
-		return sqlSession.insert("audioBookMapper.insertAudioFileM", afM);
+		return sqlSession.insert("audioBookMapper.insertAudioFile", afM);
 	}
 
 	public int selectDefaultSA(SqlSessionTemplate sqlSession, String userId) {
@@ -120,5 +120,30 @@ public class audioBookDAO {
 	public int cartInsert(SqlSessionTemplate sqlSession, Cart c) {
 		return sqlSession.insert("audioBookMapper.cartInsert", c);
 	}
+
+	public int updateBook(SqlSessionTemplate sqlSession, Book b) {
+		return sqlSession.update("audioBookMapper.updateBook", b);
+	}
+
+	public int updateBookImage(SqlSessionTemplate sqlSession, BookImage bi) {
+		return sqlSession.update("audioBookMapper.updateBookImage", bi);
+	}
+
+	public int updateAudioBookF(SqlSessionTemplate sqlSession, AudioBook abF) {
+		return sqlSession.update("audioBookMapper.updateAudioBook", abF);
+	}
+	
+	public int updateAudioFileF(SqlSessionTemplate sqlSession, AudioFile afF) {
+		return sqlSession.update("audioBookMapper.updateAudioFile", afF);
+	}
+
+	public int updateAudioBookM(SqlSessionTemplate sqlSession, AudioBook abM) {
+		return sqlSession.update("audioBookMapper.updateAudioBook", abM);
+	}
+
+	public int updateAudioFileM(SqlSessionTemplate sqlSession, AudioFile afM) {
+		return sqlSession.update("audioBookMapper.updateAudioFile", afM);
+	}
+
 
 }
