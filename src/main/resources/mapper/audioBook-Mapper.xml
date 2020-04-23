@@ -133,22 +133,12 @@
 		values(seq_bi.nextval, #{originName}, #{changeName}, #{biPath}, sysdate, default, seq_book.currval)
 	</insert>
 	
-	<insert id="insertAudioBookF" parameterType="AudioBook">
+	<insert id="insertAudioBook" parameterType="AudioBook">
 		insert into audio_book
 		values(seq_aub.nextval, #{audDate}, #{audPrice}, #{rdName}, #{rdIntro}, default, seq_book.currval)
 	</insert>
 	
-	<insert id="insertAudioFileF" parameterType="AudioFile">
-		insert into audio_file
-		values(seq_af.nextval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
-	</insert>
-	
-	<insert id="insertAudioBookM" parameterType="AudioBook">
-		insert into audio_book
-		values(seq_aub.nextval, #{audDate}, #{audPrice}, #{rdName}, #{rdIntro}, default, seq_book.currval)
-	</insert>
-	
-	<insert id="insertAudioFileM" parameterType="AudioFile">
+	<insert id="insertAudioFile" parameterType="AudioFile">
 		insert into audio_file
 		values(seq_af.nextval, #{originName}, #{changeName}, #{filePath}, sysdate, default, #{userId}, seq_aub.currval)
 	</insert>
@@ -216,9 +206,36 @@
         					where bk_code=#{bkCode})
 	</update>
 	
+	
 	<insert id="cartInsert">
 		insert into cart
 		values(seq_cart.nextval, #{userId}, #{bkCode}, #{audCodeF}, #{audCodeM}, #{containBk}, default)
 	</insert>
+	
+	
+	<update id="updateBook">
+		update book
+		set bk_name=#{bkName}, bk_writer=#{bkWriter}, bk_draw=#{bkDraw}, bk_publisher=#{bkPublisher},
+    		bk_page=#{bkPage}, bk_intro=#{bkIntro}, bk_pubdate=#{bkPubdate}, bk_price=#{bkPrice}
+		where bk_code=#{bkCode}
+	</update>
+	
+	<update id="updateBookImage">
+		update book_image
+		set origin_name=#{originName}, change_name=#{changeName}, upload_date=sysdate
+		where bi_no=#{biNo}
+	</update>
+	
+	<update id="updateAudioBook">
+		update audio_book
+		set aud_date=#{audDate}, aud_price=#{audPrice}, rd_name=#{rdName}, rd_intro=#{rdIntro}
+		where aud_code=#{audCode}
+	</update>
+	
+	<update id="updateAudioFile">
+		update audio_file
+		set origin_name=#{originName}, change_name=#{changeName}, upload_date=sysdate
+		where af_code=#{afCode}
+	</update>
 	
 </mapper>

@@ -9,12 +9,12 @@ public class AudioBook {
 	private String rdName;
 	private String rdIntro;
 	private String audStatus;
-	private String bkCode;
+	private int bkCode;
 	
 	public AudioBook() {}
 
 	public AudioBook(int audCode, Date audDate, int audPrice, String rdName, String rdIntro, String audStatus,
-			String bkCode) {
+			int bkCode) {
 		super();
 		this.audCode = audCode;
 		this.audDate = audDate;
@@ -73,11 +73,11 @@ public class AudioBook {
 		this.audStatus = audStatus;
 	}
 
-	public String getBkCode() {
+	public int getBkCode() {
 		return bkCode;
 	}
 
-	public void setBkCode(String bkCode) {
+	public void setBkCode(int bkCode) {
 		this.bkCode = bkCode;
 	}
 

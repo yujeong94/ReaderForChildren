@@ -186,6 +186,8 @@
 						<input type="button" class="deleteBtn" value="상품삭제" onclick="deleteProduct();">
 					</div>
 				</c:if>
+				
+				<input type="hidden" name="page" value="${ page }">
 			</div>
 			</form>
 		</div>
@@ -332,7 +334,9 @@
 	}
 	
 	function updateProduct(){
-		location.href="updateProductView.ab";	
+		var f = document.frm;
+		f.action = "updateProductView.ab";
+		f.submit();
 	}
 	
 	</script>	
