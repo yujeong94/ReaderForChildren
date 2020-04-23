@@ -238,6 +238,10 @@ public class EventController {
 				e.setChangeName(ev.getChangeName());
 				e.setImPath(ev.getImPath());
 			}
+		} else {
+			e.setChangeName(e.getChangeName());
+			e.setOriginName(e.getOriginName());
+			e.setImPath(e.getImPath());
 		}
 		
 		int result = evService.updateEvent(e);

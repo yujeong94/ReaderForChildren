@@ -256,26 +256,36 @@
 				</tr>
 				<tr>
 					<td colspan="4" class="replyStyle" id="replyInsert">
+						<jsp:useBean id="now" class="java.util.Date"/>
+						<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate"/>
+						<fmt:formatDate value="${ event.eEnd }" pattern="yyyyMMdd" var="closeDate"/>
 						<c:choose>
-							<c:when test="${ empty sessionScope.loginUser }">
-								<c:choose>
-									<c:when test="${ !empty sessionScope.adminUser }">
-										관리자는 댓글을 작성할 수 없습니다.
-									</c:when>
-									<c:otherwise>
-										로그인시 댓글을 작성하실 수 있습니다.
-									</c:otherwise>
-								</c:choose>
-							</c:when>
-							<c:when test="${ (event.eTarget == '후원자' && loginUser.donation == 0) || (event.eTarget == '오디션 지원자' && reader == null)}">
-								이벤트 대상자가 아니므로 댓글을 작성하실 수 없습니다.
+							<c:when test="${ nowDate > closeDate }">
+								이벤트 기간이 종료되었습니다. 다음 이벤트에서 참여부탁드립니다.<br>
+								당첨자 발표를 기다려주세요.
 							</c:when>
 							<c:otherwise>
-								<input type="text" class="inputStyle" name="reply" id="reply" placeholder="댓글을 작성해주세요.">
-								<input type="button" class="defaultBtn upBtn btn1" id="rSubmit" value="등록">
+								<c:choose>
+									<c:when test="${ empty sessionScope.loginUser }">
+										<c:choose>
+											<c:when test="${ !empty sessionScope.adminUser }">
+												관리자는 댓글을 작성할 수 없습니다.
+											</c:when>
+											<c:otherwise>
+												로그인시 댓글을 작성하실 수 있습니다.
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:when test="${ (event.eTarget == '후원자' && loginUser.donation == 0) || (event.eTarget == '오디션 지원자' && reader == null)}">
+										이벤트 대상자가 아니므로 댓글을 작성하실 수 없습니다.
+									</c:when>
+									<c:otherwise>
+										<input type="text" class="inputStyle" name="reply" id="reply" placeholder="댓글을 작성해주세요.">
+										<input type="button" class="defaultBtn upBtn btn1" id="rSubmit" value="등록">
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
-						
 					</td>
 				</tr>
 			</thead>
