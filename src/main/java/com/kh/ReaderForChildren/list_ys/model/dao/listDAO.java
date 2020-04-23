@@ -60,10 +60,27 @@ public class listDAO {
 	public ArrayList<OrderDetail> selectorList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-//		return (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
-		ArrayList<OrderDetail> list =  (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
-		System.out.println("dao단 : " + list);
-		return list;
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
+		/*ArrayList<OrderDetail> list =  (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
+		return list;*/
+	}
+
+	public int deleteBuy(SqlSessionTemplate sqlSession, int orNo) {
+		return sqlSession.update("mypageMapper.deleteBuy", orNo);
+	}
+
+	public int getcartListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("mypageMapper.getcartListCount");
+	}
+
+	public ArrayList<OrderDetail> selectcartList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectcartList", null, rowBounds);
+	}
+
+	public int deletecart(SqlSessionTemplate sqlSession, int cNo) {
+		return sqlSession.update("mypageMapper.deletecart", cNo);
 	}
 
 }

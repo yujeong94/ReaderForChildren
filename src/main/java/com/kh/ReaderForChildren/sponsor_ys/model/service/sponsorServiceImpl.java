@@ -57,7 +57,6 @@ public class sponsorServiceImpl implements sponsorService {
 		return spDAO.insertSupport(sqlSession, support);
 	}
 
-	
 
 
 

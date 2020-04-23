@@ -208,7 +208,7 @@
 						</td>
 					</tr>
 					<tr class="boardTr">
-						<td class="td" onclick="location.href = '../basket/basketlist.jsp'" id="infoTd">장바구니 조회
+						<td class="td" onclick="location.href = 'calist.li'" id="infoTd">장바구니 조회
 						</td>
 					</tr>
 					<tr class="boardTr">

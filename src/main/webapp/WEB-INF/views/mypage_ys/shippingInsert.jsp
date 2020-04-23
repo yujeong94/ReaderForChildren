@@ -104,7 +104,8 @@
        
        <tr>
           <td class = "info_title2" >배송지 명</td>
-          <td class = "right"><input type = "text" class = "input_info" name="sName" ></td>
+          <td class = "right"><input type = "text" class = "input_info" name="sName" >
+        <input type = "hidden" class = "input_info" name="userId" ></td>
        </tr>
        <tr>
           <td class = "info_title2">수령인</td>
