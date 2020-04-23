@@ -138,15 +138,14 @@
 	</select>
 	
 	<select id="selectcartList" resultMap="cartListResultSet">
-		select c_no, bk_name, status
+		select c_no, bk_name, bk_code, aud_code_f, aud_code_m, status, or_price
 		from cart_list
-    	
-    	where status = 'Y'
+		where status = 'Y'
 	
 	</select>
 	
 	<update id="deletecart" parameterType="_int">
-		update cart_list
+		update cart
 		set status='N'
 		where c_no=#{cNo}
 	</update>
@@ -159,6 +158,7 @@
 		<result property="audCodeF" column="AUD_CODE_F"/>
 		<result property="audCodeM" column="AUD_CODE_M"/>
 		<result property="orPrice" column="OR_PRICE"/>
+			<result property="userId" column="USER_ID"/>
 	</resultMap>
 	
 	
