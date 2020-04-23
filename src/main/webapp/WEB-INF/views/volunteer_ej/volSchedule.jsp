@@ -119,7 +119,7 @@ label{
    <!-- 내용 -->
    <div class="contents">
       <div id="title"><h1>봉사 일정</h1></div>
-   		<a href = "my_volunteer.jsp" target="_blank" onclick = "window.open(this.href,'','width = 800, height = 700'); return false;" ><img src = "${ contextPath }/resources/images/detail.png" width = 40px height = 40px id="detail"></a>
+   		<a href = "myVolunteer.vo" target="_blank" onclick = "window.open(this.href,'','width = 800, height = 700'); return false;" ><img src = "${ contextPath }/resources/images/detail.png" width = 40px height = 40px id="detail"></a>
    		<div id = "calendar_div">
 			<div  id="calendar"> </div>
    		</div>

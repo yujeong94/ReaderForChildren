@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.ReaderForChildren.volunteer_ej.model.vo.MyVolunteerActivity;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.Volunteer;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.VolunteerSchedule;
 
@@ -25,6 +26,18 @@ public class VolunteerDAO {
 
 	public int checkMax(SqlSessionTemplate sqlSession, Volunteer v) {
 		return sqlSession.update("volunteerMapper.checkMax", v);
+	}
+
+	public ArrayList<MyVolunteerActivity> selMyVol(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("volunteerMapper.selMyVol", userId);
+	}
+
+	public int cancelVol(SqlSessionTemplate sqlSession, int vlNum2) {
+		return sqlSession.update("volunteerMapper.cancelVol", vlNum2);
+	}
+
+	public int updateCur(SqlSessionTemplate sqlSession, int vlNum2) {
+		return sqlSession.update("volunteerMapper.updateCur", vlNum2);
 	}
 
 }
