@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../../resources/css/common.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
 	h1	{
 		margin-top: 150px;

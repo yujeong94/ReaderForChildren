@@ -264,11 +264,107 @@ public class AuditionController {
 	// 지원자인지 체크
 	@RequestMapping("readerCheck.au")
 	@ResponseBody
-	public int readerCheck(@RequestParam("userId") String userId) {
+	public String readerCheck(@RequestParam("userId") String userId) {
 		
 		int result = auService.readerCheck(userId);
 		
-		return result;
+		String check = "";
+		if(result > 0) {
+			check = "ok";
+		} else {
+			check = "no";
+		}
+		return check;
+	}
+	
+	@RequestMapping("applyUpdateView.au")
+	public ModelAndView applyUpdateView(ModelAndView mv, HttpSession session) {
+		
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		Reader r = auService.selectReader(userId);
+		ArrayList<Career> c = auService.selectCareer(userId);
+		Audition a = auService.selectAudition(r.getaNum());
+		
+		mv.addObject("r", r).addObject("c", c).addObject("a", a).setViewName("auditionApplyUpdate");
+		
+		return mv;
+	}
+	
+	@RequestMapping("updateApply.au")
+	public String updateApply(@ModelAttribute Reader r, HttpServletRequest request, HttpSession session,
+			@RequestParam("profileImg") MultipartFile profileImg, @RequestParam("recordFile") MultipartFile recordFile,
+			@RequestParam("cDate") String[] cDateArr, @RequestParam("cContent") String[] cContentArr, @RequestParam("cCompany") String[] cComArr) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId= loginUser.getUserId();
+		Reader oldr = auService.selectReader(userId);
+		
+		r.setUserId(userId);
+		
+		System.out.println("사진 바뀐거 들어가? " + profileImg + " , 녹음파일은???? " + recordFile);
+		
+		// 경력사항 데이터 담기
+		ArrayList<Career> cArr = new ArrayList<Career>();
+		for(int i = 0; i < cDateArr.length; i++) {
+			Career c = new Career(0, userId, cDateArr[i], cContentArr[i], cComArr[i]);
+			cArr.add(c);
+		}
+		
+		// 지원서사진
+		if(profileImg != null && !profileImg.isEmpty()) {
+			
+			deleteFile(r.getImgChange(), request);
+			
+			ArrayList<String> renameProImg = saveFile(profileImg, request);
+			if(renameProImg != null) {
+				r.setImgOrigin(profileImg.getOriginalFilename());
+				r.setImgChange(renameProImg.get(0));
+				r.setImgPath(renameProImg.get(1));
+			}
+		} else {
+			r.setImgOrigin(oldr.getImgOrigin());
+			r.setImgChange(oldr.getImgChange());
+			r.setImgPath(oldr.getImgPath());
+		}
+		
+		// 녹음파일
+		if(recordFile != null && !recordFile.isEmpty()) {
+			deleteFile(r.getRecName(), request);
+			
+			ArrayList<String> renameRecord = saveFile(recordFile, request);
+			if(renameRecord != null) {
+				r.setRecName(renameRecord.get(0));
+				r.setRecPath(renameRecord.get(1));
+			}
+		} else {
+			r.setRecName(oldr.getRecName());
+			r.setRecPath(oldr.getRecPath());
+		}
+		
+		System.out.println("사진 들어가? " + r.getImgOrigin() + "레코드는? " + r.getRecName());
+		
+		int result = auService.updateApply(r, cArr);
+		
+		if(result > 0) {
+			return "redirect:apDetail.au";
+		} else {
+			throw new AuditionException("게시글 수정 실패");
+		}
+	}
+	
+	@RequestMapping("apDelete.au")
+	public String deleteApply(HttpSession session, HttpServletRequest request) {
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		int result = auService.deleteApply(userId);
+		Reader r = auService.selectReader(userId);
+		if(result > 0) {
+			deleteFile(r.getImgChange(), request);
+			deleteFile(r.getRecName(), request);
+			return "aulist.au";
+		} else {
+			throw new AuditionException("게시글 삭제 실패");
+		}
 	}
 	
 }

@@ -24,6 +24,10 @@ public interface AuditionService {
 
 	ArrayList<Career> selectCareer(String userId);
 
-	int readerCheck(String userId); 
+	int readerCheck(String userId);
+
+	int updateApply(Reader r, ArrayList<Career> cArr);
+
+	int deleteApply(String userId); 
 
 }

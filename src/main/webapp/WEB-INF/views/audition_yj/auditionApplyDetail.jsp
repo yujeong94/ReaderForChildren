@@ -9,9 +9,7 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/audition/apply.css">
 <style>
-	#careerCon {
-		text-align: center;
-	}
+	
 </style>
 </head>
 <body>
@@ -20,7 +18,7 @@
 	<div class="contents">
 		<h1>내 지원서</h1>
 		
-		<form id="applyForm" class="divblank" action="apUpdate.au" method="post" enctype="Multipart/form-data">
+		<form id="applyForm" class="divblank" action="applyUpdateView.au" method="post" enctype="Multipart/form-data">
 			
 			<h2>Profile</h2>
 			
@@ -81,7 +79,7 @@
 			</div>
 			
 			<div class="btnBox">
-				<button type="submit" class="defaultBtn upBtn">수정</button>
+				<button class="defaultBtn upBtn">수정</button>
 				<button type="button" class="defaultBtn delBtn">삭제</button>
 			</div>
 		</form>
