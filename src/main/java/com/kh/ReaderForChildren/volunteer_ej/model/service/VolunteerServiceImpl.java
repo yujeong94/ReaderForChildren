@@ -55,4 +55,14 @@ public class VolunteerServiceImpl implements VolunteerService{
 	public int updateCur(int vlNum2) {
 		return vDAO.updateCur(sqlSession, vlNum2);
 	}
+
+	@Override
+	public int checkDemander(Volunteer v) {
+		return vDAO.checkDemander(sqlSession, v);
+	}
+
+	@Override
+	public int checkDate(VolunteerSchedule vs) {
+		return vDAO.checkDate(sqlSession, vs);
+	}
 }

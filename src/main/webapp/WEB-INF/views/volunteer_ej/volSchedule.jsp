@@ -182,7 +182,32 @@ label{
 		}else{
 			var result = confirm($('#schedule').val()+"\n선택하신 봉사활동에 정말 신청하시겠습니까?");
 			if(result){
-				$('#submitInform').submit();
+				var vlNum2 = $('#eventNum').val();
+				
+				$.ajax({
+					type : "POST",
+					url : 'checkDate.vo',
+					data : {vlNum2 : vlNum2},
+					success : function(data){
+						if(data == "true"){
+							alert("날짜를 확인해주세요");
+						}else{
+							$.ajax({
+								type : "POST",
+								url : 'checkDe.vo',
+								data : {vlNum2 : vlNum2},
+								success : function(data){
+									if(data == "true"){
+										alert("이미 신청하신 봉사활동입니다.");
+									}else{
+										$('#submitInform').submit();
+									}
+								}
+							});
+						}
+					}
+				});
+				
 			}else{
 				return false;
 			}
