@@ -12,11 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.ReaderForChildren.member_ej.model.exception.MemberException;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 import com.kh.ReaderForChildren.volunteer_ej.model.exception.VolunteerException;
 import com.kh.ReaderForChildren.volunteer_ej.model.service.VolunteerService;
+import com.kh.ReaderForChildren.volunteer_ej.model.vo.MyVolunteerActivity;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.Volunteer;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.VolunteerSchedule;
 
@@ -30,7 +33,6 @@ public class VolunteerController {
 	public ModelAndView volunteerView(ModelAndView mv) {
 		
 		ArrayList<VolunteerSchedule> vs = vService.getSchedule();
-		System.out.println("VS : " + vs);
 		mv.addObject("vs", vs).setViewName("volSchedule");
 		
 		return mv;
@@ -40,8 +42,6 @@ public class VolunteerController {
 	public String addVolSchedule(@ModelAttribute VolunteerSchedule vs, Model model) {
 
 		int result = vService.addVolSchedule(vs);
-
-		System.out.println("result:" + result);
 
 		/* ArrayList<VolunteerSchedule> vsS = vService.getSchedule(); */
 
@@ -56,7 +56,7 @@ public class VolunteerController {
 	}
 
 	@RequestMapping("submitInform.vo")
-	public ModelAndView serviceAsk(@ModelAttribute Volunteer v, HttpSession session, HttpServletResponse response) {
+	public String serviceAsk(@ModelAttribute Volunteer v, HttpSession session, HttpServletResponse response) {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out;
 
@@ -99,6 +99,38 @@ public class VolunteerController {
 		return null;
 	}
 	
+	@RequestMapping("myVolunteer.vo")
+	public ModelAndView myVolunteerView(ModelAndView mv, HttpSession session) {
+		
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		ArrayList<MyVolunteerActivity> mva = vService.selMyVol(userId);
+		
+		mv.addObject("mva", mva)
+		.setViewName("myVolunteer");
+		
+		
+		return mv;
+	}
 	
+	@RequestMapping("cancelVol.vo")
+	public String cancelVolunteer(@RequestParam("vlNum2") int vlNum2) {
+		
+		int result = vService.cancelVol(vlNum2);
+		
+		if(result > 0) {
+			
+			int result2 = vService.updateCur(vlNum2);
+			
+			if(result2 > 0) {
+				return "redirect:myVolunteer.vo";
+			}else {
+				throw new VolunteerException("현재인원 수정에 실패했습니다.");
+			}
+		}else {
+			throw new VolunteerException("봉사활동 취소에 실패했습니다.");
+		}
+		
+	}
 	
 }

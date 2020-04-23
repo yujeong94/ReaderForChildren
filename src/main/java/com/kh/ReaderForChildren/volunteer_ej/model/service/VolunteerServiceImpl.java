@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.volunteer_ej.model.dao.VolunteerDAO;
+import com.kh.ReaderForChildren.volunteer_ej.model.vo.MyVolunteerActivity;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.Volunteer;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.VolunteerSchedule;
 
@@ -38,5 +39,20 @@ public class VolunteerServiceImpl implements VolunteerService{
 	@Override
 	public int checkMax(Volunteer v) {
 		return vDAO.checkMax(sqlSession, v);
+	}
+
+	@Override
+	public ArrayList<MyVolunteerActivity> selMyVol(String userId) {
+		return vDAO.selMyVol(sqlSession, userId);
+	}
+
+	@Override
+	public int cancelVol(int vlNum2) {
+		return vDAO.cancelVol(sqlSession, vlNum2);
+	}
+
+	@Override
+	public int updateCur(int vlNum2) {
+		return vDAO.updateCur(sqlSession, vlNum2);
 	}
 }
