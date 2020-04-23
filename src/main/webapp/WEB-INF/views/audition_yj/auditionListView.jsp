@@ -62,7 +62,7 @@
 	}
 	
 /* 서브메뉴 */
-.quick_menu {
+/* .quick_menu {
 	 position:absolute; 
 	 margin-top: 100px; 
 	 margin-left: 145px;
@@ -83,15 +83,15 @@
 	}
 	.quick_menu td:hover {
 		color: yellow;
-	}
+	} */
 </style>
 </head>
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
-	
+	<c:import url="auMenubar.jsp"/>
 	<!-- 서브메뉴 -->
-	<div class="quick_menu">
+	<%-- <div class="quick_menu">
 		<table>
 			<c:if test="${ adminUser != null }">
 			<tr class="boardTr" style="background: lightyellow;">
@@ -127,7 +127,7 @@
 		} 
 	});
 	
-	</script>
+	</script> --%>
 	
 	<div class="contents clear-fix">
 		<h1>Reader 오디션 지원</h1>
@@ -165,10 +165,10 @@
 					</c:url>
 					
 				<tr class="conBg">
-				    <c:if test="${ loginUser.userId != 'admin' && loginUser != null }">
+				    <c:if test="${ loginUser != null }">
 						<td class="btnTd"><button class="defaultBtn applyBtn" onclick="location.href='${ apply }'">Apply</button></td>
 					</c:if>
-					<c:if test="${ loginUser.userId == 'admin' }">
+					<c:if test="${ adminUser != null }">
 						<td class="btnTd">
 							<button class="defaultBtn upBtn" onclick="location.href='${ upView }'">Edit</button>
 							<button class="defaultBtn delBtn" onclick="delCheck();">Delete</button>

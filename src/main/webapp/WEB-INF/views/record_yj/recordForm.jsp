@@ -7,10 +7,13 @@
 <meta charset="UTF-8">
 <title>녹음 부스 예약하기 | ReaderForChildren</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
+
 <link href='${ contextPath }/fullcalendar/packages/core/main.css' rel='stylesheet' />
 <link href='${ contextPath }/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
 <script src='${ contextPath }/fullcalendar/packages/core/main.js'></script>
 <script src='${ contextPath }/fullcalendar/packages/daygrid/main.js'></script>
+<script src='${ contextPath }/fullcalendar/packages/interaction/main.js'></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	.btnBox {
 		margin-bottom: 80px;
@@ -59,6 +62,9 @@
 	#infoArea {
 		display: none;
 	}
+	
+	.fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
+    .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
 
 </style>
 </head>
@@ -88,10 +94,47 @@
 		
 		<div id="map" style="width:500px;height:400px;">
 		</div>
-		<div id="infoArea" align="center">
-			녹음실 : <span id="companyName"></span><br>
-			주소 : <span id="companyAddr"></span>
+		
+		<div id="calendar"></div>
+		
+		<div id="timeBox">
+			<table id="timeTable">
+				<tr>
+					<td>09:00 - 11:00</td>
+					<td>11:00 - 13:00</td>
+					<td>13:00 - 15:00</td>
+				</tr>
+				<tr>
+					<td>15:00 - 17:00</td>
+					<td>17:00 - 19:00</td>
+					<td>19:00 - 21:00</td>
+				</tr>
+			</table>
 		</div>
+		
+		<form id="infoArea" action="insertRecord.re">
+			<table style="margin: auto;">
+				<tr>
+					<th>녹음실</th>
+					<td>
+						<input type="text" id="companyName" readOnly><br>
+						<input type="text" id="companyAddr" size="50px" readOnly>
+					</td>
+				</tr>
+				<tr>
+					<th>날짜</th>
+					<td><input type="text" id="dateInfo" readOnly></td>
+				</tr>
+				<tr>
+					<th>시간</th>
+					<td><input type="text" id="timeInfo" readOnly></td>
+				</tr>
+			</table>
+		<div class=btnBox>
+			<button class="defaultBtn upBtn rBtn">예약</button>
+			<button type="button" onclick="location.href='testMap.re'">테스트</button>
+		</div>
+		</form>
 		
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=398d38ff223ba6e4b87ae695ed9759f4&libraries=services,clusterer,drawing"></script>
 		<script>
@@ -197,13 +240,11 @@
 			// 클릭이벤트 클로저
 			function clickMarker(marker, infowindow) {
 				return function() {
-					console.log(marker.getPosition());
-					console.log(infowindow.getContent());
 					var info = infowindow.getContent();
 					var infoArr = info.split("|");
 					console.log(infoArr);
-					$("#companyName").text(infoArr[0]);
-					$("#companyAddr").text(infoArr[1]);
+					$("#companyName").val(infoArr[0]);
+					$("#companyAddr").val(infoArr[1]);
 					$("#infoArea").css("display","block");
 				}
 			}
@@ -223,7 +264,7 @@
 					} 
 				}
 				if(optionAddr == ""){
-					alert("입력한 주소로 등록된 녹음실이 없습니다ㅠㅠ 주소 목록을 확인해 주세요!");
+					swal("입력한 주소로 등록된 녹음실이 없습니다ㅠㅠ 주소 목록을 확인해 주세요!");
 				}
 				
 				// 주소로 좌표를 검색합니다
@@ -240,88 +281,49 @@
 				});
 			});
 			
-			/* kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-	             
-	             // 클릭한 위도, 경도 정보를 가져옵니다 
-	             var latlng = mouseEvent.latLng; 
-	             console.log(latlng); */
-	             
-	             // 마커 위치를 클릭한 위치로 옮깁니다
-	             /* marker.setPosition(latlng);
-	             $('#area_x').val(latlng.getLat());
-	             $('#area_y').val(latlng.getLng()); */
-	             
-	             /* console.log("위도 : " + latlng.getLat());
-	             console.log("경도 : " + latlng.getLng()); */
-	             /* 
-	             searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-	                 if (status === kakao.maps.services.Status.OK) {
-	                    $('#adr').val(result[0].address.address_name);
-	                    var local_name = result[0].address.address_name.substring(0, 2);
-	                    if(local_name == '세종'){
-	                       local_name = '충남';
-	                    }
-	                    $('#local_name').val(local_name);
-	                 }   
-	             });
-	         });
-	         
-	         function searchDetailAddrFromCoords(coords, callback) {
-	             // 좌표로 법정동 상세 주소 정보를 요청합니다
-	             geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-	         }  */
-			
 		</script>
 		
-		<div id="calendar"></div>
-		
+		<!-- 캘린더 script -->
 		<script>
 	    document.addEventListener('DOMContentLoaded', function() {
 	    	var calendarEl = document.getElementById('calendar');
 	    
 	    	var calendar = new FullCalendar.Calendar(calendarEl, {
-	        	plugins: [ 'dayGrid' ]
+	        	plugins: [ 'interaction', 'dayGrid' ],
+	    		dateClick: function(info) {
+	    			$("#dateInfo").val(info.dateStr);
+	    			$("#infoArea").css("display","block");
+	    		}
 	        });
-	    
-	      
-	        calendar.addEvent( {'title':'어린이집 일일교사', 'start':'2020-04-10', 'end':'2020-04-10'});
 	      
 	        calendar.render();
 	    });
+	    
+	    /* $("#calendar").fullCalendar({
+	        dayRender: function (date, cell) {
+	            cell.css("background-color", "red");
+	        }
+	    }); */
 		</script>
 		
-		<div id="timeBox">
-			<table id="timeTable">
-				<tr>
-					<td>09:00 - 11:00</td>
-					<td>11:00 - 13:00</td>
-					<td>13:00 - 15:00</td>
-				</tr>
-				<tr>
-					<td>15:00 - 17:00</td>
-					<td>17:00 - 19:00</td>
-					<td>19:00 - 21:00</td>
-				</tr>
-			</table>
-		</div>
-		<script>
-			$("#timeTable td").mouseover(function(){
-				$(this).css("background","lightgreen");
-			}).mouseout(function(){
-				$(this).css("background","white");
-			});
-		</script>
-		<div class=btnBox>
-			<button class="defaultBtn upBtn rBtn">예약</button>
-			<button onclick="location.href='testMap.re'">테스트</button>
-		</div>
-		<script>
-			$('.rBtn').click(function(){
-				alert("예약이 완료되었습니다.");
-			});
-		</script>
 	</div>
 	<c:import url="../common/footer.jsp"/>
 </div>
+<script>
+
+	$("#timeTable td").mouseover(function(){
+		$(this).css("background","lightgreen");
+	}).mouseout(function(){
+		$(this).css("background","white");
+	}).click(function(){
+		$("#timeInfo").val($(this).text());
+		$("#infoArea").css("display","block");
+	});
+	$('.rBtn').click(function(){
+		swal("예약이 완료되었습니다.");
+		
+	});
+	
+</script>
 </body>
 </html>
