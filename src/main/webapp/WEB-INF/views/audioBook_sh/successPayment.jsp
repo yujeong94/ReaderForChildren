@@ -42,9 +42,9 @@
 			location.href="orlist.li";
 		}
 		
-		/* function goCart(){
-			location.href=".li";
-		} */
+		function goCart(){
+			location.href="calist.li";
+		}
 	</script>
 
 </body>
