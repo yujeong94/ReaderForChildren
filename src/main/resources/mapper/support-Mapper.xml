@@ -27,6 +27,7 @@
 	</resultMap>
 	
 	
+	
 	<!-- <update id="suupdateMember" parameterType="Support">
 		update support
 		set snum=#{snum}, donation=#{donation},sup_date=sysdate, user_id=#{userid},

@@ -136,28 +136,33 @@
 							<td align="center"></td>
 							
 					 <td align="left">
-							<c:if test="${ !empty loginUser }">
-					<c:url var="cadetail" value="cadetail.li">
-						<c:param name="cNo" value="${ ca.cNo }"/>
-						<c:param name="page" value="${ pi.currentPage }"/>
-					</c:url>
 					
-							</c:if>
-				<%-- <c:if test="${ empty loginUser }">
-					${sh.rName }		
-				</c:if> --%>
+					<input type="hidden" id="bkCode" value="${ ca.bkCode }">
+					<input type="hidden" id="page" value="${ pi.currentPage }">
+						
+					<c:url var="abdetail" value="abdetail.ab">
+							<c:param name="bkCode" value="${ ca.bkCode }"/>
+							<c:param name="page" value="${ pi.currentPage }"/>
+						</c:url>
+					<%--  <a href="${ shdetail }">${ sh.sNo }</a>  --%>
 			</td>  
 			
 						<td rowspan="2" class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" name="chk_all" /></td>
-							<td rowspan="2" class = "list_line2" id="td2" >사진 	</td>
-							<td >${ ca.bkName }</td>
+							<td rowspan="2" class = "list_line2" id="td2" >사진</td>
+							<td rowspan="2" class = "list_line2" id="td2">${ ca.bkName }</td>
 							
-							<td rowspan="2" class="list_line2" id="td4">20000원</td>
+							<td rowspan="2" class="list_line2" id="td4">${ca.orPrice }</td>
 							<td rowspan="2" class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" onclick="deletecart()">삭제하기</button>
+						
+						<td>
+								
+							</td>
+						
 						</tr>
-						<!-- <tr>
-							<td>옵션: 오디오북 + 음성</td>
-						</tr> -->
+						
+						
+							
+						
 						<c:url var="cadelete" value="cadelete.li">
 						<c:param name="cNo" value="${ ca.cNo }"/>
 						</c:url>
@@ -229,6 +234,22 @@
 			}
 		}
 		</script>
+		
+		<script >
+		$(function(){
+			$('#contentTr').mouseenter(function(){
+				$(this).css({'color':'yellowgreen', 'font-weight':'bole', 'cursor':'pointer'});
+			}).mouseout(function(){
+				$(this).css({'color':'black', 'font-weight':'normal'});
+			}).click(function(){
+				var bkCode = $('#bkCode').val();
+				var page = $('#page').val();
+				
+				location.href="abdetail.ab?bkCode="+bkCode+"&page="+page;
+			});						
+		});
+	</script>
+		
     </div>
     
     
