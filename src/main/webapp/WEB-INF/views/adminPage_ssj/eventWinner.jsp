@@ -16,14 +16,6 @@
 	margin-bottom: 100px;
 }
 
-.ap_menubar{
-	display: inline-block;
-	width: 249px;
-	height: 100%;
-	border-right: 2px solid lightgray;
-	vertical-align: middle;
-}
-
 .ap_content{
 	display: inline-block;
 	width: 843px;
@@ -32,39 +24,19 @@
 }
 
 #title {
-	margin: 50px;
+	margin: 40px;
 	margin-bottom:30px;
 	text-align: center;
 	font-size: 30px;
 	font-weight: bold;
 }
 
-.menubarInDiv{
-	margin-top: 30px;
-}
-
-.ap_menubar a {
-	    text-decoration: none;
-	    color: #1C1C1C;
-	    display: block;
-	    transition: 0.3s;
-	}
-
-.bigCategory{
-	font-size: 25px; font-weight: bold;
-	padding: 8px 8px 10px 30px;
-}
-
-.smallCategory{
-	font-size: 16px;
-	padding: 5px 8px 5px 30px;
-}
 
 .listTable{
 	margin: auto;
-	font-size: 18px;
+	font-size: 15px;
 	text-align: center;
-	background: #E9EDE4;
+	background: #F6E3E3;
 }
 
 .tableDiv{
@@ -80,10 +52,10 @@
 }
 
 table > thead > tr > th {
-	background: #233C0B;
+	background: #A73232;
 	color: white;
 	padding: 5px;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 table > tbody > tr > td {
@@ -97,26 +69,28 @@ table > tbody > tr > td {
 	top: 0;
 }
 
-.NOtd{
+.Datetd{
 	width: 200px;
 }
 
-.IDtd{
-	width: 250px;
+.Titletd{
+	width: 350px;
 }
 
-.NAMEtd{
-	width: 300px;
+.AnnDatetd{
+	width: 100px;
+}
+
+.Replytd{
+	width: 100px;
 }
 
 /* 검색창 */
 .search{
-	height: 35px;
-	width: 260px;
-	border: 1px solid #C6C618;
+	width: 160px;
 	margin-bottom: 10px;
 	position: relative;
-	left: 520px;
+	left: 625px;
 }
 
 .searchInput{
@@ -138,6 +112,13 @@ table > tbody > tr > td {
 	color: white;
 }
 
+#category{
+	width: 160px;
+	padding: .5em .5em;
+	border: 1px solid #A73232;
+	font-family: inherit;
+	border-radius: 0px;
+}
 
 </style>
 </head>
@@ -146,43 +127,33 @@ table > tbody > tr > td {
 	
 	<!-- 내용 -->
 	<div class="contents">
-		<div class="ap_menubar">
-			<div class="menubarInDiv">
-				<a href="#" class="bigCategory">회원 관리</a>
-				<a href="${ contextPath }/userList.ad" class="smallCategory">전체 회원 리스트</a>
-				<a href="${ contextPath }/buyerList.ad" class="smallCategory">구매자 리스트</a>
-				<a href="${ contextPath }/sponsorList.ad" class="smallCategory">후원자 리스트</a>
-				<a href="${ contextPath }/revenue.ad" class="smallCategory">전체 수익 현황</a>
-				<br>
-				<a href="#" class="bigCategory">오디션</a>
-				<a href="${ contextPath }/auditionList.ad" class="smallCategory">지원자 리스트</a>
-				<br>
-				<a href="#" class="bigCategory">이벤트</a>
-				<a href="${ contextPath }/eventInsert.ev" class="smallCategory">이벤트 등록</a>
-				<a href="${ contextPath }/eventWinner.ad" class="smallCategory">당첨자 리스트</a>
-			</div>
-		</div>
+		<%@ include file="../common/adminMenubar.jsp" %>
 		<div class="ap_content">
-			<div id="title">당첨자 리스트</div>
+			<div id="title">이벤트 리스트</div>
 			<div class="search">
-				<input type="text" class="searchInput" placeholder="아이디 입력">
-				<button class="searchBtn"><img src="${ contextPath }/resources/images/search2.png" width="22px"></button>
+				<select size="1" id="category" name="event_status">
+					<option value="전체" selected>전체 이벤트</option>
+					<option value="진행">진행 중인 이벤트</option>
+					<option value="종료">종료된 이벤트</option>
+				</select>
 			</div>
 			<div class="tableDiv">
 				<table class="listTable">
 					<thead>
 					<tr id="listTitle">
-						<th class="NOtd fixedHeader">No</th>
-						<th class="IDtd fixedHeader">ID</th>
-						<th class="NAMEtd fixedHeader">NAME</th>
+						<th class="Datetd fixedHeader">기간</th>
+						<th class="Titletd fixedHeader">제목</th>
+						<th class="AnnDatetd fixedHeader">발표날짜</th>
+						<th class="Replytd fixedHeader">상태</th>
 					</tr>
 					</thead>
 					<tbody>
 					<c:forEach begin="1" end="30" step="1" var="i">
 						<tr>
-							<td class="NOtd"><c:out value="${ i }"/></td>
-							<td class="IDtd">user<c:out value="${ i }"/></td>
-							<td class="NAMEtd">홍길동</td>
+							<td>20.04.22~20.04.23</td>
+							<td>스타벅스 기프티콘 증정 이벤트</td>
+							<td>20.04.24</td>
+							<td>진행중</td>
 						</tr>
 					</c:forEach>
 					</tbody>
@@ -197,7 +168,7 @@ table > tbody > tr > td {
 	<script>
 		$(function(){
 			$('.listTable td').mouseover(function(){
-				$(this).parent().css({'color':'#0FB07A', 'cursor':'pointer', 'font-weight':'bold'});
+				$(this).parent().css({'color':'#390609', 'cursor':'pointer', 'font-weight':'bold'});
 			}).mouseout(function(){
 				$(this).parent().css({'color':'black','font-weight':'normal'});
 			});

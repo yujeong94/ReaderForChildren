@@ -9,13 +9,13 @@
 <meta charset="UTF-8">
 <script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <title>Insert title here</title>
-<link rel="stylesheet" href="../../resources/css/common.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 
 <style>
    
    .contents{
       width: 1100px;
-      height: 700px;
+ /*      height: 700px; */
       background: white;
       margin: auto;
       margin-bottom: 100px;
@@ -90,6 +90,7 @@
 #golist{width: 125px;height: 40px; background-color: rgb(236, 158, 149); color: white; font-weight: bold; cursor:pointer; 
 		margin-left:260px;   margin-top:35px;    font-size: 18px; line-height: 40px; border: none; border-radius: 5px;}
 #checkdelete{margin-left:140px; margin-top:15px;}
+#buttonTab{margin-left:480px; margin-top:25px;}
 </style>
 
 </head>
@@ -124,22 +125,88 @@
     
     <div id = "tablearea2">
 					<table id = "list_table">
+					
+					<c:forEach var="ca" items="${ list }">
 						<!-- 게시글 불러오는곳 -->
 					<!-- <tr>
 						<td id="noList">존재하는 게시글이 없습니다.</td>
 					</tr> -->
 							<tr id="contentTr">
-						<td rowspan="2" class = "list_line2" id="td1"  > 11 <input type="checkbox" id="chk_all" name="chk_all" /></td>
+							
+							<td align="center"></td>
+							
+					 <td align="left">
+							<c:if test="${ !empty loginUser }">
+					<c:url var="cadetail" value="cadetail.li">
+						<c:param name="cNo" value="${ ca.cNo }"/>
+						<c:param name="page" value="${ pi.currentPage }"/>
+					</c:url>
+					
+							</c:if>
+				<%-- <c:if test="${ empty loginUser }">
+					${sh.rName }		
+				</c:if> --%>
+			</td>  
+			
+						<td rowspan="2" class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" name="chk_all" /></td>
 							<td rowspan="2" class = "list_line2" id="td2" >사진 	</td>
-							<td >어린왕자 오디오북</td>
+							<td >${ ca.bkName }</td>
 							
 							<td rowspan="2" class="list_line2" id="td4">20000원</td>
-							<td rowspan="2" class="list_line2" id="td5"><button type="button" >삭제하기</button></td>
+							<td rowspan="2" class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" onclick="deletecart()">삭제하기</button>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td>옵션: 오디오북 + 음성</td>
-						</tr>
+						</tr> -->
+						<c:url var="cadelete" value="cadelete.li">
+						<c:param name="cNo" value="${ ca.cNo }"/>
+						</c:url>
+							</c:forEach>
 					</table>
+					
+					<table id="buttonTab">
+						<tr align="center" height="20" id="buttonTab">
+			<td colspan="6">
+			
+				<!-- [이전] -->
+				<c:if test="${ pi.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ pi.currentPage > 1 }">
+					<c:url var="before" value="calist.li">
+						<c:param name="page" value="${ pi.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq pi.currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne pi.currentPage }">
+						<c:url var="pagination" value="calist.li">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pi.currentPage >= pi.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pi.currentPage < pi.maxPage }">
+					<c:url var="after" value="calist.li">
+						<c:param name="page" value="${ pi.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
+		</table>
+					
 				</div>
 	<div>
 	<table>
@@ -152,6 +219,16 @@
 			</td>
 		</tr>  
     </table>
+    
+     <script>
+		function deletecart(){
+			var bool = confirm("삭제하시겠습니까?");
+			
+			if( bool ){
+				location.href='${cadelete}';
+			}
+		}
+		</script>
     </div>
     
     

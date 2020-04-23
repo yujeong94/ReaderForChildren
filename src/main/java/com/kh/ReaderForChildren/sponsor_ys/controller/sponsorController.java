@@ -115,7 +115,7 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 		}
 	
 	@RequestMapping("suinsert.sp")												
-	public String boardInsert(HttpSession session, @RequestParam("donation") int donation, int spCode, Date supdate) {
+	public String boardInsert(HttpSession session, @RequestParam("donation") int donation, String spName, Date supdate) {
 		
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
@@ -123,7 +123,7 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 		
 		Support support = new Support();
 		support.setDonation(donation);
-		support.setSpCode(spCode);
+		support.setSpName(spName);
 		support.setUserId(userId);
 		support.setSupdate(supdate);
 		

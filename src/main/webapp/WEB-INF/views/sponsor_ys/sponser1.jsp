@@ -58,7 +58,7 @@
 .intro{font-size:13pt; text-align:left; color:rgb(231, 127, 53);}
 
  #updateBtn{width: 100px;height: 40px; background-color: rgb(236, 158, 149); color: white; font-weight: bold; cursor:pointer;
-		margin-left:150px; margin-bottom:25px;  margin-top:20px;  font-size: 15px; text-align: center; border: 0; border-radius: 5px;}
+		margin-left:830px; margin-bottom:25px;  margin-top:20px;  font-size: 17px; text-align: center; border: 0; border-radius: 5px;}
 	#cancle{width: 100px;height: 40px; background-color: rgb(236, 158, 149); color: white; font-weight: bold; cursor:pointer;
 		margin-left:150px; margin-bottom:25px;  margin-top:70px;    font-size: 15px; text-align: center; border: 0; border-radius: 4px;}
 </style>
@@ -75,7 +75,7 @@
 	
 		<table id = "content_table" style="margin-left: auto; margin-right: auto;">
 			<tr>
-				<td class = "content_title" id = "title2">후원기관선택</td>
+				<td class = "content_title" id = "title2">후원기관</td>
 			</tr>
 		</table>
 	
@@ -104,11 +104,11 @@
 				
 				<div class="address"> 주소 : ${ b.spAddress }</div><!-- 번호 -->
 				
-				<button class="btnBox" id="updateBtn" onclick ="location.href='suinsertView.sp';">후원하기</button>
+				
 			</div>
 		</div>
 	</c:forEach>
-  
+  <button class="btnBox" id="updateBtn" onclick ="location.href='suinsertView.sp';">후원하기</button>
    </div>
    	<c:import url="../common/footer.jsp"/> 
   

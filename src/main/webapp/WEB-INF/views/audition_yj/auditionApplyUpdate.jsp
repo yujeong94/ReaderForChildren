@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>지원서 수정 | ReaderForChildren</title>
-<link rel="stylesheet" href="../../resources/css/common.css">
-<link rel="stylesheet" href="../../resources/css/audition/apply.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/audition/apply.css">
 <style></style>
 </head>
 <body>
@@ -18,61 +18,33 @@
 		
 		<span><label class="star" style="margin-left: 50px;">* </label>필수입력항목</span>
 		
-		<form id="applyForm" class="divblank" action="insert.ap" method="post" enctype="Multipart/form-data">
+		<form id="updateForm" class="divblank" action="updateApply.au" method="post" enctype="Multipart/form-data">
 			
 			<h2><label class="star">* </label>Profile</h2>
 			
 			<div id="profileArea" class="divblank">
 				<div id="proImgArea">
-				 	<span id="imgCon">click!!</span>
-					<img id="proImg">
+					<img id="proImg" src="${ contextPath }/resources/uploadFiles/${ r.imgChange }">
+					<input type=hidden name="imgChange" value="${ r.imgChange }">
 				</div>
-				<div id="fileArea">
-					<input type="file" id="ImgBtn" name="profileImg" onchange="Load(this)">
-				</div>
-				
-				<script>
-					$(function(){
-						$('#fileArea').hide();
-						$('#proImgArea').click(function(){
-							$('#ImgBtn').click();
-						});
-					});
-					
-					function Load(input){
-						if(input.files && input.files[0]){
-							var reader = new FileReader();
-							reader.onload = function(e) {
-								$('#proImg').attr("src", e.target.result);
-								$('#imgCon').hide();
-							}
-							
-							reader.readAsDataURL(input.files[0]);
-						}
-					}
-				</script>
 				
 				<table id="profileCon">
 					<tr>
 						<th width="120px">오디오북 명</th>
-						<td>${ bkName }
-							<input type="hidden" value="${ aNum }" name="aNum">
+						<td width="120px">${ a.bkName }
+							<%-- <input type="hidden" value="${ r.aNum }" name="aNum"> --%>
 						</td>
 						<th width="80px">이름</th>
-						<%-- <td><input type="text" name="userName" value="${ loginUser.userName }" class="inputSize" required></td> --%>
 						<td>${ loginUser.userName }</td>
 						<th width="80px">성별</th>
 						<td>${ loginUser.gender }</td>
 					</tr>
 					<tr>
 						<th>생년월일</th>
-						<%-- <td><input type="text" name="age" value="${ loginUser.birth }" class="inputSize" required></td> --%>
 						<td>${ loginUser.birth }</td>
 						<th>연락처</th>
-						<%-- <td><input type="text" name="phone" value="${ loginUser.phone }"  class="inputSize" required></td> --%>
 						<td>${ loginUser.phone }</td>
 						<th>이메일</th>
-						<%-- <td><input type="email" name="email" value="${ loginUser.email }"  class="emailSize" required></td> --%>
 						<td>${ loginUser.email }</td>
 					</tr>
 				</table>
@@ -88,12 +60,20 @@
 						<th width=180px class="careerBorder">근무기관</th>
 						<td></td>
 					</tr>
+					<c:forEach var="c" items="${ c }">
 					<tr>
-						<td width=180px class="careerBorder"><input type="text" class="careerInput" name="cDate"></td>
-						<td width=300px class="careerBorder"><input type="text" class="careerInput" name="cContent"></td>
-						<td width=180px class="careerBorder"><input type="text" class="careerInput" name="cCompany"></td>
+						<td width=180px class="careerBorder">
+							<input type="text" class="careerInput" name="cDate" value="${ c.cDate }">
+						</td>
+						<td width=300px class="careerBorder">
+							<input type="text" class="careerInput" name="cContent" value="${ c.cContent }">
+						</td>
+						<td width=180px class="careerBorder">
+							<input type="text" class="careerInput" name="cCompany" value="${ c.cCompany }">
+						</td>
 						<td><img src='${ contextPath }/resources/images/minus0.png' class='minusBtn' style="padding-left: 5px;"></td>
 					</tr>
+					</c:forEach>
 				</table>
 				<div align="center">
 					<img src="${ contextPath }/resources/images/plus.png" id="plusBtn">
@@ -103,19 +83,58 @@
 			<h2><label class="star">* </label>Introduce</h2>
 			
 			<div id="introArea" align="center">
-				<textarea rows="40px" cols="100px" name="introduce"></textarea>
+				<textarea rows="40px" cols="100px" name="introduce" required>${ r.introduce }</textarea>
 			</div>
 			
 			<div id="recordArea">
-				<label class="star">* </label><span id="recordSpan"> 녹음 파일 첨부 </span><input type="file" accept="audio/*">
+				<label class="star">* </label><span id="recordSpan"> 녹음 파일 첨부 </span>
+					<span id="fileShow">${ r.recName } <input type="hidden" name="recName" value="${ r.recName }"></span>
+				<button type="button" id="recFile" class="defaultBtn upBtn" style="background: gray; width: 60px; height: 30px; padding: 2px;">변경</button>
 			</div>
 			
 			<div class="btnBox">
-				<button type="submit" class="defaultBtn upBtn">수정</button>				
+				<button class="defaultBtn upBtn">수정</button>
+				<button type="button" class="defaultBtn delBtn" onclick="location.href='apDetail.au'">취소</button>				
 			</div>
+			
+			<div id="fileArea">
+				<input type="file" accept="image/*" id="ImgBtn" name="profileImg" onchange="Load(this,1)">
+				<input type="file" accept="audio/*" id="recBtn" name="recordFile" onchange="Load(this,2)">
+			</div>
+			
 		</form>
 		
+		
 		<script>
+			$(function(){
+				$('#fileArea').hide();
+				$('#proImgArea').click(function(){
+					$('#ImgBtn').click();
+				});
+				$('#recFile').click(function(){
+					$("#recBtn").click();
+				});
+			});
+			
+			function Load(input, num){
+				if(input.files && input.files[0]){
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						switch(num){
+						case 1: 
+							$('#proImg').attr("src", e.target.result); break;
+						case 2: 
+							var fileValue = $("#recBtn").val().split("\\");
+							var fileName = fileValue[fileValue.length-1];
+							
+							$('#fileShow').text(fileName); break;
+						}
+					}
+					
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			
 			$('#plusBtn').click(function(){
 				var $table = $("#careerCon");
 				var $tr = $("<tr>");
@@ -145,12 +164,12 @@
 				});
 			});
 			
+			// 기존꺼 삭제할때
 			$('.minusBtn').click(function(){
 				var $tr = $(this).parent().parent();
 				$tr.remove();
 			});
 			
-		
 		</script>
 	</div>
 	<c:import url="../common/footer.jsp"/>

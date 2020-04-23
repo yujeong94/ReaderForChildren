@@ -78,7 +78,9 @@ input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 		<div id="title"><h1>EVENT UPDATE</h1></div>
 		<form action="updateEvent.ev" method="post" enctype="Multipart/form-data" onsubmit="return submitForm();">
 			<input type="hidden" name="eNum" value="${ event.eNum }">
+			<input type="hidden" name="originName" value="${ event.originName }">
 			<input type="hidden" name="changeName" value="${ event.changeName }">
+			<input type="hidden" name="imPath" value="${ event.imPath }">
 			<table class="tableStyle">
 				<tr>
 					<td class="label" id="labelTd">제목</td>
@@ -139,7 +141,7 @@ input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 					<td class="photoTD" id="testTD">
 						<input type="text" name="potoFile" id="potoFile" class="inputStyle" value="${ event.changeName }" readonly>
 						<label for="uploadBtn1" class="btn_file">첨부파일</label>
-						<input type="file" name="uploadBtn1" id="uploadBtn1" class="uploadBtn1" accept="image/jpeg, image/png, image/jpg" required>
+						<input type="file" name="uploadBtn1" id="uploadBtn1" class="uploadBtn1" accept="image/jpeg, image/png, image/jpg">
 					</td>
 				</tr>
 				<tr>

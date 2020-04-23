@@ -13,7 +13,7 @@
    
   .contents {
 	width: 1000px;
-   height: 900px; 
+/*    height: 900px;  */
     background: white;
     margin: auto;
     margin-bottom: 100px;
@@ -38,7 +38,9 @@
 	#content_table td{
 			border-bottom : 1pt solid gray;
 				width : 1140px;
+			
 		}
+		
 	#title {
    margin: 50px;
    text-align: center;
@@ -47,17 +49,23 @@
 	.content_title{
 			font-weight : bold;
 		}
+		#content_table2{
+		font-size: 18px; font-weight : bold;
+		margin-top:20px;
+		
+		}
 	#price{margin-left:60px; color: gray;  margin-bottom:-30px; font-size: 18px; }
 	#button{ width: 130px; height: 50px;  background-color: rgb(253, 236, 236); color: white;  font-weight: bold; cursor:pointer; font-size: 23px;
-		margin-left: 250px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;}
+		margin-left: 150px; margin-top: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;}
 		#button2{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;} 
 		#button3{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;} 
 		#button4{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
-		margin-left: 50px; line-height: 40px;  text-align: center; border:black;  border-radius: 5px;}  
-	  #won{margin-left:50px;width : 80%; margin-top:-100px;
+		margin-left: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;} 
+	  #won{margin-left:50px;width : 100%; margin-top:-100px;
 		height : 70px;}   
+		#name{border-top : 1pt solid gray;}
 		button:hover
 		
 	   .info{
@@ -126,7 +134,24 @@
       border-radius: 5px;
       border : 1px lightgray solid;
       height : 24px;
-      width : 50%;
+      width : 60%;
+    /*   margin-top:30px; */
+   }
+    .input_info2{
+      border-radius: 5px;
+      border : 1px lightgray solid;
+      height : 24px;
+      width : 30px;
+      margin-top:50px; 
+      margin-left:150px;
+   }
+   .input_info3{
+     /*  border-radius: 5px;
+      border : 1px lightgray solid; */
+      height : 24px;
+      width:30px;
+      margin-left:30px;
+      margin-top:50px; 
    }
    
    #ad_btn{
@@ -191,7 +216,7 @@
 		margin-left:400px; margin-bottom:25px; font-size: 15px; text-align: center; border: 0; border-radius: 5px;}
 	.cancle{width: 100px;height: 40px; background-color: rgb(236, 158, 149); color: white; font-weight: bold; cursor:pointer;
 		margin-left:50px; margin-bottom:25px;    font-size: 15px; text-align: center; border: 0; border-radius: 4px;} */
-#pay{margin-left:400px; margin-bottom:25px; font-size: 15px; width:100px; height: 40px; text-align:center; cursor:pointer; font-weight:bold;color: white;  box-shadow: none; 
+.upBtn{margin-left:400px; margin-bottom:25px; font-size: 15px; width:100px; height: 40px; text-align:center; cursor:pointer; font-weight:bold;color: white;  box-shadow: none; 
     border: none; border-radius: 5px;}
 #cancel{margin-left:50px; margin-bottom:25px; font-size: 15px; width:100px; height: 40px; text-align:center; cursor:pointer; font-weight:bold; color: white;  box-shadow: none; 
     border: none; border-radius: 5px;}
@@ -206,7 +231,8 @@
     
    <div class = "contents">
    
- <div id="title"><h1>${sp.spCode}아동 후원</h1></div>
+ <div id="title"><h1>아동 후원</h1></div>
+ <form name="form" id="form" action="suinsert.sp" method="post">
 		<table id = "content_table" style="margin-left: auto; margin-right: auto;">
 			<tr>
 				<td class = "content_title" id = "title2">후원금액
@@ -214,35 +240,43 @@
 						선택하신 후원금액을 확인해주세요.
 					</p>
 				</td>
-			</tr>
-			
-		</table>
-		<br><br>
-	 
-		<form name="form" id="form" action="suinsert.sp" method="post">
-		<table id = "won" > <!--  style="margin-left: auto; margin-right: auto;" -->
-		<tr>
+				<tr>
 			<td>
 				<button type="button" id="button" class="button" onclick="choosed(this);">10000</button>
 				<button type="button" id="button2" class="button" onclick="choosed(this);">30000</button>
-				<!-- <button type="button" id="button3" class="button" onclick="choosed();">50000</button>
-				<button type="button" id="button4"  class="button" onclick="choosed();">70000</button> -->
+				<button type="button" id="button3" class="button" onclick="choosed(this);">50000</button>
+				<button type="button" id="button4" class="button" onclick="choosed(this);">70000</button> 
 				
 				<input type="hidden" id="donation" name="donation" value="">
 			</td>
 		</tr>	
-		<!-- 	<input type="hidden" id = "donation_value" name = "donation123"> -->
-			<!-- <tr>
-				<td class="button" >10000</td>
-				<td class="button2">20000</td>
-				<td class="button3">30000</td>
-				<td class="button4">40000</td>
-			</tr> -->
+			</tr>
+			
+			
 		</table>
-		<%-- <c:url var="sllist" value="sllist.sp">
-						<c:param name="snum" value="${  sp.snum  }"/>
-						<c:param name="page" value="${ pi.currentPage }"/>
-					</c:url> --%>
+		<table id = "content_table2">
+			<tr>
+				<td class = "content_title2" id = "title3">후원기관이름
+				 	<p id="price" >
+						선택하신 후원기관을 확인해주세요.
+					</p>
+				</td>
+	 		</tr>
+	 		<tr>
+	 				<td><input type = "radio" class = "input_info2" name="spName" value="하트재단">하트재단</td>
+         		    <td><input type = "radio" class = "input_info3" name="spName" value="사랑의 달팽이">사랑의 달팽이</td>
+			</tr>
+			
+			
+		</table>
+		<br><br>
+	 
+		
+		<table id = "won" > <!--  style="margin-left: auto; margin-right: auto;" -->
+		
+		</table>
+	 
+	 	
 	 
 		<table id = "content_table" style="margin-left: auto; margin-right: auto; margin-top:50px">
 		
@@ -260,20 +294,7 @@
           <td class = "right"><input type = "text" class = "input_info" id="userName" name="userName" value="${ loginUser.userName }" ></td>
        </tr>
        
-       <%-- <c:forTokens var="addr" items="${ loginUser.address }" delims="/" varStatus="status">
-					<c:if test="${ status.index eq 0 && addr >= '0' && addr <= '99999' }">
-						<c:set var="post" value="${ addr }"/>
-					</c:if>
-					<c:if test="${ status.index eq 0 && !(addr >= '0' && addr <= '99999') }">
-						<c:set var="address1" value="${ addr }"/>
-					</c:if>
-					<c:if test="${ status.index eq 1 }">
-						<c:set var="address1" value="${ addr }"/>
-					</c:if>
-					<c:if test="${ status.index eq 2 }">
-						<c:set var="address2" value="${ addr }"/>
-					</c:if>
-				</c:forTokens> --%>
+      
        <tr>
           <td class = "info_title2" id = "address"><span class = "title_word">주소</span></td>
 		 		<td class = "right" id = "address2"><input type = "text" class = "input_info postcodify_postcode5" id = "ad_num" name = "postalCode" value="${ loginUser.postalCode }"><input type = "button" id = "ad_btn" value = "우편번호"><br>
@@ -284,8 +305,8 @@
           <td class = "info_title2">휴대전화</td>
           <td class = "right"><input type = "text" class = "input_info" name="phone" value="${ loginUser.phone }">
           <!-- <input type = "text" class = "input_info" id="donation" name="donation"> -->
-          <input type = "text" class = "input_info" name="userId" value="${loginUser.userId }">
-           <input type = "text" class = "input_info" name="spCode" value="${support.spCode }"></td>
+          <input type = "hidden" class = "input_info" name="userId" value="${loginUser.userId }">
+           </td>
        </tr>
        <tr>
           <td class = "info_title2">이메일</td>
@@ -418,7 +439,7 @@
    		 <table>
   	 		<tr> 
 				<td><input type="button" class="upBtn" id="payment" value="후원하기"></td>
-				<!-- <td><button onclick = "location.href = 'sponser1.jsp'" class="upBtn" id="cancel" >취소하기</button></td> -->
+				<td><button onclick = "location.href = 'index.jsp'" class="upBtn" id="cancel" >취소하기</button></td> 
   			 </tr>
     	 </table>
   

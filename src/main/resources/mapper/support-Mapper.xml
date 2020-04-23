@@ -22,8 +22,7 @@
 		<result property="supdate" column="SUP_DATE"/>
 		<!-- <result property="userNAME" column="USER_NAME"/> -->
 		 <result property="userId" column="USER_ID"/> 
-		<!-- <result property="spName" column="SP_NAME"/> -->
-	 <result property="spCode" column="SP_CODE"/> 
+		<result property="spName" column="SP_NAME"/>
 		
 	</resultMap>
 	
@@ -37,7 +36,7 @@
 	
 	<insert id="insertSupport" >
 		insert into support values(
-			seq_snum.nextval, #{donation}, sysdate, #{userId}, #{spCode} 
+			seq_snum.nextval, #{donation}, sysdate, #{userId}, #{spName} 
 			
 		)
 	</insert>

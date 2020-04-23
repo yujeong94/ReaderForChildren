@@ -73,4 +73,24 @@ public class listServiceImpl implements listService {
 		return liDAO.selectorList(sqlSession, pi);
 	}
 
+	@Override
+	public int deleteBuy(int orNo) {
+		return liDAO.deleteBuy(sqlSession, orNo);
+	}
+
+	@Override
+	public int getcartListCount() {
+		return liDAO.getcartListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<OrderDetail> selectcartList(PageInfo pi) {
+		return liDAO.selectcartList(sqlSession, pi);
+	}
+
+	@Override
+	public int deletecart(int cNo) {
+		return liDAO.deletecart(sqlSession, cNo);
+	}
+
 }

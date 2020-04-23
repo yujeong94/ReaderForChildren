@@ -120,7 +120,7 @@
 		</tr> -->
 				<tr class="contentTr">
 				
-				<td align="center">${ sh.sNo }</td>
+				<td align="center" id="td2" class="list_line2" >${ sh.sNo } </td>
 			
 			<td align="left">
 				<c:if test="${ !empty loginUser }">
@@ -128,17 +128,17 @@
 						<c:param name="sNo" value="${ sh.sNo }"/>
 						<c:param name="page" value="${ pi.currentPage }"/>
 					</c:url>
-					<%-- <a href="${ shdetail }">${ sh.rName }</a> --%>
+					<%--  <a href="${ shdetail }">${ sh.sNo }</a>  --%>
 				</c:if>
 				<c:if test="${ empty loginUser }">
-					<%-- ${sh.rName }		 --%>
+					 ${sh.rName }	
 				</c:if>
 			</td>
 				
 				
 				
 			<td class = "list_line2" id="td1" value=" ${ sh.rLevel }" ><input type="checkbox" id="chk_all" name="chk_all" /></td>
-				<td class = "list_line2" id="td2" >${ sh.sNo }</td>
+			<%-- <td class = "list_line2" id="td2" >${ sh.sNo }</td> --%>
 				<td class="list_line2" id="td3">${ sh.sName }님 배송지</td>
 				<td class="list_line2" id="td4">${sh.rName }</td>
 				<td class="list_line2" id="td5">${sh.rZipcode }${sh.rBasicadd }${sh.rDetailadd }</td>

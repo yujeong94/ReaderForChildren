@@ -190,9 +190,9 @@
 					</tr> -->
 							<tr id="contentTr">
 						<td class = "list_line2" id="td1"  >${ sp.snum }</td>
-						<td class = "list_line2" id="td2" name="spCode" > ${ sp.spCode} </td> 
+						<td class = "list_line2" id="td2"> ${ sp.spName} </td> 
 							<td class="list_line2" id="td3">${ sp.supdate }</td>
-							<td class="list_line2" id="td4" name="donation" >${ sp.donation }</td>
+							<td class="list_line2" id="td4" >${ sp.donation }</td>
 						</tr>
 						
 					</table>

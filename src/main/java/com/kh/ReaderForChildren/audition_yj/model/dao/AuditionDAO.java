@@ -59,4 +59,34 @@ public class AuditionDAO {
 		return sqlSession.selectOne("auditionMapper.readerCheck", userId);
 	}
 
+	public int updateApply(SqlSessionTemplate sqlSession, Reader r, ArrayList<Career> cArr) {
+		int result = 0;
+		
+		result = sqlSession.update("auditionMapper.updateApply", r);
+		
+		if(result > 0) {
+			result = sqlSession.delete("auditionMapper.deleteCareer", r.getUserId());
+			
+			if(result > 0) {
+				for(int i = 0; i < cArr.size(); i++) {
+					result = sqlSession.insert("auditionMapper.insertCareer", cArr.get(i));
+				}
+			}
+			
+		}
+		
+		return result;
+	}
+
+	public int deleteApply(SqlSessionTemplate sqlSession, String userId) {
+		int result = 0;
+		
+		result = sqlSession.delete("auditionMapper.deleteCareer", userId);
+		
+		if(result > 0) {
+			result = sqlSession.delete("auditionMapper.deleteApply", userId);
+		}
+		return result;
+	}
+
 }

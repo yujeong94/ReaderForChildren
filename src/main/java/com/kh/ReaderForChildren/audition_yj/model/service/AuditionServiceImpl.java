@@ -72,4 +72,14 @@ public class AuditionServiceImpl implements AuditionService {
 	public int readerCheck(String userId) {
 		return auDAO.readerCheck(sqlSession, userId);
 	}
+
+	@Override
+	public int updateApply(Reader r, ArrayList<Career> cArr) {
+		return auDAO.updateApply(sqlSession, r, cArr);
+	}
+
+	@Override
+	public int deleteApply(String userId) {
+		return auDAO.deleteApply(sqlSession, userId);
+	}
 }
