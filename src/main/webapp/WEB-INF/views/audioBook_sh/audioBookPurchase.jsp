@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,10 +148,10 @@
 						<div class="yellowbox">
 							<div class="smallBox">
 								<div class="price orderPrice">&nbsp;&nbsp;주문 금액</div>
-								<span>${ sum }원</span>
+								<span><fmt:formatNumber value="${ sum }"/>원</span>
 							</div>
 							<div class="price finalPrice">&nbsp;&nbsp;결제 금액</div>
-							<span id="finalPrice">${ sum }원</span>
+							<span id="finalPrice"><fmt:formatNumber value="${ sum }"/>원</span>
 							<input type="hidden" name="sum" value="${ sum }">
 						</div>
 					</div>
@@ -259,20 +260,6 @@
 		}
 	});
 	
-	
-	/* $('#levelInput').on('propertychange change keyup paste input', function(){
-		var level = $('#levelInput').val();
-		if(level == 1){
-			$('#defSALabel').css('display','none');
-		}
-	}); */
-	
-	/* $(function(){
-		var level = $('#levelInput').val();
-		if(level == 1){
-			$('#defSALabel').css('display','none');
-		}
-	}); */
 	
 	</script>
 	

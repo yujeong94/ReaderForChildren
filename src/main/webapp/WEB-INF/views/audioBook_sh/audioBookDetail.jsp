@@ -84,9 +84,9 @@
 								</tr>
 								<tr>
 									<td class="priceTd">
-										<b style="padding-left: 38px;">${ b.bkPrice }원</b>
-										<b style="padding-left: 9px;">${ abF.audPrice }원</b>
-										<b style="padding-left: 10px;">${ abM.audPrice }원</b></td>
+										<b style="padding-left: 38px;"><fmt:formatNumber value="${ b.bkPrice }"/>원</b>
+										<b style="padding-left: 9px;"><fmt:formatNumber value="${ abF.audPrice }"/>원</b>
+										<b style="padding-left: 10px;"><fmt:formatNumber value="${ abM.audPrice }"/>원</b></td>
 								</tr>
 								<tr>
 									<td class="td3">
@@ -258,10 +258,28 @@
 				total = total + parseInt(frm.chkbox[i].value);
 			}
 		}
-		frm.sum.value=total;
+		frm.sum.value=comma(total);
 	}
 	
-	
+	function comma(num){
+	    var len, point, str; 
+	       
+	    num = num + ""; 
+	    point = num.length % 3 ;
+	    len = num.length; 
+	   
+	    str = num.substring(0, point); 
+	    while (point < len) { 
+	        if (str != "") str += ","; 
+	        str += num.substring(point, point + 3); 
+	        point += 3; 
+	    } 
+	     
+	    return str;
+	 
+	}
+
+
 	
 	function clickFtab(){
 		$('#FemaleReader').attr('style', 'display:inline-block');
