@@ -15,14 +15,13 @@
 			font-weight: bold; font-size: 17.5px; margin: 0 5px 20px 5px; cursor: pointer;}
 	.search{text-align: center; margin-bottom: 80px;}
 	.selectbox{width: 80px; height: 32px; border-radius: 5px; margin-right: 10px;}
-	.frame{text-align: center;}
+	.frame{text-align: center; margin-bottom: 30px;}
 	.searchline{border: 0; border-bottom: 2px solid darkgray; outline: none; width: 500px; height: 40px;}
 	.sBtn{border: none; background:none;} .sBtn:hover {cursor: pointer;}
-	.product{width: 300px; display: inline-block; margin: 10px 10px 40px 10px; align: center; border: 1px solid gray;}
+	.product{width: 270px; display: inline-block; margin: 10px 10px 40px 10px; align: center; border: 1px solid gray;}
 	.bookImg{margin-bottom: 10px;}
 	.text1{font-weight: bold; font-size: 18px; margin-bottom: 10px;}
 	.text2{color: gray; margin-bottom: 10px;}
-	.frame{margin-bottom: 30px; height: 1080px;}
 </style>
 </head>
 <body>
@@ -42,12 +41,36 @@
 
 			<div class="search">
 				<select class="selectbox" id="searchCondition" name="searchCondition">
+				<c:if test="${ searchCondition eq null }">
 					<option selected disabled>-------</option>
 					<option value="title" id="title">제목</option>
 					<option value="writer" id="writer">저자</option>
 					<option value="publisher" id="publisher">출판사</option>
+				</c:if>
+				<c:if test="${ searchCondition eq 'title' }">
+					<option disabled>-------</option>
+					<option selected value="title" id="title">제목</option>
+					<option value="writer" id="writer">저자</option>
+					<option value="publisher" id="publisher">출판사</option>
+				</c:if>
+				<c:if test="${ searchCondition eq 'writer' }">
+					<option disabled>-------</option>
+					<option value="title" id="title">제목</option>
+					<option selected value="writer" id="writer">저자</option>
+					<option value="publisher" id="publisher">출판사</option>
+				</c:if>
+				<c:if test="${ searchCondition eq 'publisher' }">
+					<option disabled>-------</option>
+					<option value="title" id="title">제목</option>
+					<option value="writer" id="writer">저자</option>
+					<option selected value="publisher" id="publisher">출판사</option>
+				</c:if>
 				</select>
-				<input type="search" id="searchValue" class="searchline">
+				
+				<c:if test="${ searchValue ne ''}">
+					<c:set var="value" value='${ searchValue }'/>
+				</c:if>
+				<input type="search" id="searchValue" class="searchline" value="${ value }">
 				<button class="sBtn" onclick="searchBoard();"><img src="${ contextPath }/resources/images/search.PNG" width="30px" height="30px"></button>
 			</div>
 			
@@ -64,7 +87,7 @@
 						<c:forEach var="bi" items="${ bilist }">	
 							<c:if test="${ b.bkCode eq bi.bkCode }">
 								<a href="${ abdetail }">
-									<img src="${ contextPath }/resources/bookUploadImages/${ bi.changeName }" width="300px" height="300px" class="image">
+									<img src="${ contextPath }/resources/bookUploadImages/${ bi.changeName }" width="270px" height="280px" class="image">
 								</a>
 							</c:if>
 						</c:forEach>

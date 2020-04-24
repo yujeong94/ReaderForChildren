@@ -125,7 +125,13 @@
 		var rPhone = $(this).parent().parent().children('td').eq(2).children('input').eq(0).val();
 		
 		opener.document.getElementById("sNoInput").value = sNo;
-		opener.document.getElementById("levelInput").value = rLevel;
+
+		if(rLevel == '0'){
+			opener.document.getElementById("defSALabel").innerHTML = '[기본배송지]';
+		} else{
+			opener.document.getElementById("defSALabel").innerHTML = '';
+		}
+		
 		opener.document.getElementById("nameInput").value = rName;
 		opener.document.getElementById("pcInput").value = rZipcode;
 		opener.document.getElementById("bAInput").value = rBasicadd;

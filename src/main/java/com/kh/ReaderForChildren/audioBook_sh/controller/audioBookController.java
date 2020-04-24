@@ -322,8 +322,18 @@ public class audioBookController {
 	
 	// 구매 페이지
 	@RequestMapping("purchase.ab")
-	public ModelAndView audioBookPurchase(String bkName, int bkCode, int sum, String hidden1, String hidden2, String hidden3,
+	public ModelAndView audioBookPurchase(String bkName, int bkCode, @RequestParam("sum") String total, String hidden1, String hidden2, String hidden3,
 										HttpSession session, ModelAndView mv) {
+		
+		int sum = 0;
+		if(total.contains(",")) {
+			String[] arr = total.split(",");
+			String str = "";
+			for(int i=0; i<arr.length; i++) {
+				str += arr[i];
+			}
+			sum = Integer.parseInt(str);
+		}
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String userId = loginUser.getUserId();
