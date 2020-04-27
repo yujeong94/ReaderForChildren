@@ -65,4 +65,9 @@ public class VolunteerServiceImpl implements VolunteerService{
 	public int checkDate(VolunteerSchedule vs) {
 		return vDAO.checkDate(sqlSession, vs);
 	}
+
+	@Override
+	public int updateStatus() {
+		return vDAO.updateStatus(sqlSession);
+	}
 }

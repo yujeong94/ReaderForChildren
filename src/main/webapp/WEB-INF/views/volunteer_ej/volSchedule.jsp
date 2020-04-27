@@ -30,7 +30,7 @@
    text-align: center;
 }
 #calendar_div{
-	height : 700px;
+	height : 650px;
 }
 
 #calendar{
@@ -47,12 +47,22 @@ label{
 	font-size : 15px;
 }
 
+#addSc{
+	width : 74%;
+	margin-left:auto;
+	margin-right:auto;
+	
+	text-align : right;
+	
+}
+
 #info{
 	border-top : 3px solid gray;
 	border-bottom : 3px solid gray;
 	width : 74%;
 	margin-right : auto;
 	margin-left : auto;
+	margin-top:70px;
 	border-collapse: collapse;
 	border-spacing: 0;
 }
@@ -88,9 +98,12 @@ label{
 	width : 100%;
 	height : 100%;
 	font-weight : bold;
-	border : solid 2px gray;
-	background : white;
+	border : solid 0px rgb(26,36,154);
+	border-radius : 5px;
+	background : rgb(26,36,154);
 	cursor : pointer;
+	color:white;
+	
 }
 
 #btn_div{
@@ -105,6 +118,22 @@ label{
 	position : absolute;
 	right : 14%;
 	top : 30%;
+}
+
+.fc-event{
+	cursor : pointer;
+	background-color : skyblue;
+}
+
+.fc-button{
+	background-color : skyblue;
+	border : 1px solid lightblue;
+}
+
+.fc-left{
+	font-size : 20px;
+	margin-left : 40%;
+	color : skyblue;
 }
 
 </style>
@@ -124,48 +153,54 @@ label{
 			<div  id="calendar"> </div>
    		</div>
    		
-    	<div style = "float:right">
+   		<c:if test="${ !empty adminUser && adminUser.userId eq 'admin' }">
+    	<div id = "addSc">
    			<button onclick = "addSchedule()">일정 등록</button>
    		</div>
+		</c:if>
 		
  		<script>
 			function addSchedule(){
 				/* window.open("${ contextPath }/volunteer_ej/addScheduleForm.jsp","스케줄 등록","width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes") */
-				window.open("addSchForm.vo","스케줄등록","width=800, height=700");
+				window.open("addSchForm.vo","스케줄등록","width=10, height=10","scrollbars=no");
 			}
 		</script>
 		
 		
 	<form action = "submitInform.vo"  method="post" id = "submitInform" >
-		<div>
-		<input type = "hidden" id = "schedule" name = "schedule" >
-		<input type = "hidden" id = "eventNum" name = "vlNum2" >
-		<table id = "info">
+		<c:if test="${ !empty loginUser }">
+			<div>
+			<input type = "hidden" id = "schedule" name = "schedule" >
+			<input type = "hidden" id = "eventNum" name = "vlNum2" >
 			
-			
-				<tr id = "tr2" style = "display:none">
-			 		<td class = "info_title"><label class = "title_word">활동</label></td>
-			 		<td class = "right"><label id="schedule2"></label></td>
-
-			 	</tr>
-				<tr>
-			 		<td class = "info_title"><label class = "title_word">이름</label></td>
-			 		<td class = "right">
-			 			<label>${ loginUser.userName }</label>
-			 			<input type = "hidden" id = "userID" name = "userName" value="${ loginUser.userName }">
-			 		</td>
-			 	</tr>
-		
-			 	<tr>
-			 		<td class = "info_title"><label class = "title_word">전화번호</label></td>
-			 		<td class = "right right2"><input type = "text" class = "input_info" name = "vlPhone" value = "${ loginUser.phone }"></td>
-			 	</tr>
-		</table>
-   		</div>
+			<table id = "info">
+				
+				
+					<tr id = "tr2" style = "display:none">
+				 		<td class = "info_title"><label class = "title_word">활동</label></td>
+				 		<td class = "right"><label id="schedule2"></label></td>
 	
-   		<div id ="btn_div">
-	   		<input type = "button" id = "submit_btn" value = "봉사활동 신청">
-   		</div>
+				 	</tr>
+					<tr>
+				 		<td class = "info_title"><label class = "title_word">이름</label></td>
+				 		<td class = "right">
+				 			<label>${ loginUser.userName }</label>
+				 			<input type = "hidden" id = "userID" name = "userName" value="${ loginUser.userName }">
+				 		</td>
+				 	</tr>
+			
+				 	<tr>
+				 		<td class = "info_title"><label class = "title_word">전화번호</label></td>
+				 		<td class = "right right2"><input type = "text" class = "input_info" name = "vlPhone" value = "${ loginUser.phone }"></td>
+				 	</tr>
+			</table>
+	   		</div>
+		
+	   		<div id ="btn_div">
+		   		<input type = "button" id = "submit_btn" value = "봉사활동 신청">
+	   		</div>
+	   		
+   		</c:if>
    	</form>
    </div>
    
@@ -281,13 +316,31 @@ label{
     
 </script>
 
+<script>
+	$(document).ready(function(){
+		setInterval(function(){
+			$.ajax({
+				type : "POST",
+				url : "updateStatus.vo",
+				success : function(data){
+					if(data == true){
+						/* alert("업데이트 됐다!"); */
+					}else{
+						/* alert("실행은 된다!"); */
+					}
+				}
+			});
+		},1000);
+	});
 
-<script type="text/javascript">
-	var message = '${msg}'; 
-	if(message != ""){
-		alert(msg); 
-	}
 </script>
 
+<script>
+	$(function(){
+		$('.fc-event').click(function(){
+			$(this).css("background-color","green");
+		});
+	})
+</script>
 
 </html>
