@@ -10,10 +10,13 @@ public class Orlist {
 	private String orStatus;
 	private int bkCode;
 	private String delStatus;
+	private String changeName;
+	private String ima;
 	
 	public Orlist() {}
 
-	public Orlist(int orNo, String bkName, Date orDate, String orStatus, int bkCode, String delStatus) {
+	public Orlist(int orNo, String bkName, Date orDate, String orStatus, int bkCode, String delStatus,
+			String changeName, String ima) {
 		super();
 		this.orNo = orNo;
 		this.bkName = bkName;
@@ -21,6 +24,8 @@ public class Orlist {
 		this.orStatus = orStatus;
 		this.bkCode = bkCode;
 		this.delStatus = delStatus;
+		this.changeName = changeName;
+		this.ima = ima;
 	}
 
 	public int getOrNo() {
@@ -71,11 +76,29 @@ public class Orlist {
 		this.delStatus = delStatus;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getIma() {
+		return ima;
+	}
+
+	public void setIma(String ima) {
+		this.ima = ima;
+	}
+
 	@Override
 	public String toString() {
 		return "Orlist [orNo=" + orNo + ", bkName=" + bkName + ", orDate=" + orDate + ", orStatus=" + orStatus
-				+ ", bkCode=" + bkCode + ", delStatus=" + delStatus + "]";
+				+ ", bkCode=" + bkCode + ", delStatus=" + delStatus + ", changeName=" + changeName + ", ima=" + ima
+				+ "]";
 	}
+
 	
 	
 	

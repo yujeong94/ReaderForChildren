@@ -178,6 +178,20 @@ public class listController {
 		}
 	}
 	
+	@RequestMapping("rLupdate.li")
+	public String rLUpdate(@RequestParam("sNo") int sNo) {
+		
+		int result = liService.updaterL(sNo);
+		
+		if(result > 0) {
+			return "redirect:shlist.li";
+		}else {
+			throw new listException("기본배송지 등록에 실패하였습니다.");
+		}
+	}
+	
+	
+	
 	@RequestMapping("cadelete.li")
 	public String cartDelete(@RequestParam("cNo") int cNo) {
 		
@@ -223,6 +237,9 @@ public class listController {
 	
 	@RequestMapping("shdetail.li")
 	public ModelAndView shippingDetail(@RequestParam("sNo")int sNo, @RequestParam("page")int page, ModelAndView mv) {
+		
+		System.out.println(sNo);
+		
 		Shipping shipping = liService.selectShipping(sNo);
 		
 		if(shipping != null) {
