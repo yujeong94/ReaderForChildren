@@ -28,7 +28,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.volunteer_ej.model.vo.MyVolunteerActivity" alias="MyVolunteerActivity"/>
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.Orlist" alias="Orlist"/> 
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList" alias="cartList"/> 
-		<!-- <typeAlias type="com.kh.ReaderForChildren.record_yj.model.vo.RecBooth" alias="RecBooth"/> -->
+		<typeAlias type="com.kh.ReaderForChildren.record_yj.model.vo.RecBooth" alias="RecBooth"/> 
 		
 	</typeAliases>
 	
@@ -42,5 +42,6 @@
 		<mapper resource="mapper/audition-mapper.xml"/>
 		<mapper resource="mapper/event-mapper.xml"/>
 		<mapper resource="mapper/volunteer-mapper.xml"/>
+		<mapper resource="mapper/record-mapper.xml"/>
 	</mappers>
 </configuration>

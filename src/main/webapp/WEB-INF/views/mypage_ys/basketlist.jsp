@@ -77,8 +77,8 @@
 		 #list_table td { border-bottom : 2px solid gray; vertical-align: middle; } 
 	 	#noList{text-align:center; width:2000px; height:300px;}
 		#td1{ width:110px; height:100px;  }
-		#td2{ width:225px;}
-		
+		#td2{ width:240px;}
+		#td3{width:100px;}
 		#td4{ width:190px; }
 		#td5{ width:140px;}
 		.list_line2{
@@ -131,41 +131,34 @@
 					<!-- <tr>
 						<td id="noList">존재하는 게시글이 없습니다.</td>
 					</tr> -->
-							<tr id="contentTr">
+							<tr class="contentTr">
 							
+							<!-- <td align="center"></td> -->
 							<td align="center"></td>
-							
 					 <td align="left">
-					
 					<input type="hidden" id="bkCode" value="${ ca.bkCode }">
 					<input type="hidden" id="page" value="${ pi.currentPage }">
-						
 					<c:url var="abdetail" value="abdetail.ab">
 							<c:param name="bkCode" value="${ ca.bkCode }"/>
 							<c:param name="page" value="${ pi.currentPage }"/>
 						</c:url>
-					<%--  <a href="${ shdetail }">${ sh.sNo }</a>  --%>
-			</td>  
-			
-						<td rowspan="2" class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" name="chk_all" /></td>
-							<td rowspan="2" class = "list_line2" id="td2" >사진</td>
-							<td rowspan="2" class = "list_line2" id="td2">${ ca.bkName }</td>
-							
-							<td rowspan="2" class="list_line2" id="td4">${ca.orPrice }</td>
-							<td rowspan="2" class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" onclick="deletecart()">삭제하기</button>
-						
-						<td>
-								
-							</td>
-						
-						</tr>
-						
-						
-							
-						
 						<c:url var="cadelete" value="cadelete.li">
 						<c:param name="cNo" value="${ ca.cNo }"/>
 						</c:url>
+			</td>  
+			
+						<td class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" class="basketCheck" name="chk_all" /></td>
+							<td class = "list_line2" id="td3" ><img src="${ contextPath }/resources/bookUploadImages/${ca.changeName}" width="140px" height="110px"/></td>
+							<td  class = "list_line2" id="td2">${ ca.bkName }</td>
+							
+							<td class="list_line2" id="td4">${ca.orPrice }</td>
+							<td  class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" onclick="deletecart()">삭제하기</button>
+						
+						<!-- <td>
+								
+							</td> -->
+						
+						</tr>
 							</c:forEach>
 					</table>
 					
@@ -237,15 +230,18 @@
 		
 		<script >
 		$(function(){
-			$('#contentTr').mouseenter(function(){
+			$('#td2').mouseenter(function(){
 				$(this).css({'color':'yellowgreen', 'font-weight':'bole', 'cursor':'pointer'});
 			}).mouseout(function(){
 				$(this).css({'color':'black', 'font-weight':'normal'});
 			}).click(function(){
-				var bkCode = $('#bkCode').val();
-				var page = $('#page').val();
+			
+				 var bkCode = $('#bkCode').val();
+				var page = $('#page').val(); 
+				/* var bkCode = $(this).children('td #td2').eq(0).text(); */
 				
-				location.href="abdetail.ab?bkCode="+bkCode+"&page="+page;
+				location.href="abdetail.ab?bkCode="+bkCode+"&page="+${pi.currentPage};
+				
 			});						
 		});
 	</script>

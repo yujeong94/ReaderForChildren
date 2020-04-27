@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,6 @@
 <script src='${ contextPath }/fullcalendar/packages/core/main.js'></script>
 <script src='${ contextPath }/fullcalendar/packages/daygrid/main.js'></script>
 <script src='${ contextPath }/fullcalendar/packages/interaction/main.js'></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	.btnBox {
 		margin-bottom: 80px;
@@ -59,13 +59,90 @@
 		vertical-align: middle;
 	}
 	
-	#infoArea {
+/* 	#infoArea {
 		display: none;
+	} */
+	
+	#infoArea input {
+		border: none;
 	}
 	
-	.fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
-    .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
+	#infoTable {
+		margin: auto;
+		border: 1px solid black;
+		margin-top: 50px;
+		width: 500px;
+		height: 100px;
+	}
+	
+	#infoTable th, #infoTable td {
+		border: 1px solid gray;
+		padding: 10px;
+	}
+	
+	.contents {
+		border-radius: 30px;
+	}
+	
+	/*  */
+#menu {
+  visibility: hidden;
+}
 
+label {
+  width: 100px;
+  height: 10px;
+  border-radius: 5px;
+  background: black;
+  cursor: pointer;
+  transition: .6s;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -7.5px;
+}
+
+label:before {
+  content: "";
+  width: 100px;
+  height: 10px;
+  background: black;
+  position: absolute;
+  transform: translateY(-30px);
+  -webkit-transform: translateY(-30px);
+  border-radius: 5px;
+  -webkit-transition: .6s;
+  transition: .6s;
+}
+
+label:after {
+  content: "";
+  width: 100px;
+  height: 10px;
+  background: black;
+  position: absolute;
+  transform: translateY(30px);
+  -webkit-transform: translateY(30px);
+  border-radius: 5px;
+  transition: .6s;
+  -webkit-transition: .6s;
+}
+
+#menu:checked + label {
+  width: 0;
+}
+
+#menu:checked + label:before {
+  transform: rotate(45deg) translate(0px);
+  -webkit-transform: rotate(45deg) translate(0px);
+}
+
+#menu:checked + label:after {
+  transform: rotate(-45deg) translate(0px);
+  -webkit-transform: rotate(-45deg) translate(0px);
+}
+	
 </style>
 </head>
 <body>
@@ -73,6 +150,11 @@
 	<c:import url="../common/menubar.jsp"/>
 	<div class="contents">
 	<h1>녹음 부스 예약</h1>
+	
+		<!--  -->
+		<input id="menu" type="checkbox">
+		<label for="menu"></label>
+		<!--  -->
 	
 		<div id="searchAddr">
 			<span style="vertical-align: middle;">주소  </span><input type="text" id="myAddr" list="addrList"><button class="defaultBtn upBtn" id="searchBtn"> 검색</button><br>
@@ -113,27 +195,33 @@
 		</div>
 		
 		<form id="infoArea" action="insertRecord.re">
-			<table style="margin: auto;">
+			<table id="infoTable">
 				<tr>
-					<th>녹음실</th>
-					<td>
-						<input type="text" id="companyName" readOnly><br>
-						<input type="text" id="companyAddr" size="50px" readOnly>
+					<th width="100px">녹음실</th>
+					<td colspan="3">
+						<input type="text" id="recCompany" name="recCompany" readOnly><br>
+						<input type="text" id="address" name="address" size="50px" readOnly>
 					</td>
 				</tr>
 				<tr>
 					<th>날짜</th>
-					<td><input type="text" id="dateInfo" readOnly></td>
+					<td>
+						<input type="text" id="dateInfo" name="dateInfo" readOnly>
+						<jsp:useBean id="now" class="java.util.Date"/>
+						<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="today"/>
+					</td>
+					<th width="90px">시간</th>
+					<td><input type="text" id="rTime" name="rTime" readOnly></td>
 				</tr>
-				<tr>
-					<th>시간</th>
-					<td><input type="text" id="timeInfo" readOnly></td>
-				</tr>
+				<!-- <tr>
+				</tr> -->
 			</table>
-		<div class=btnBox>
-			<button class="defaultBtn upBtn rBtn">예약</button>
-			<button type="button" onclick="location.href='testMap.re'">테스트</button>
-		</div>
+			
+			<div class=btnBox style="display: none;">
+				<button class="defaultBtn upBtn rBtn">예약</button>
+				<button type="button" onclick="location.href='testMap.re'">테스트</button>
+			</div>
+			
 		</form>
 		
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=398d38ff223ba6e4b87ae695ed9759f4&libraries=services,clusterer,drawing"></script>
@@ -240,11 +328,14 @@
 			// 클릭이벤트 클로저
 			function clickMarker(marker, infowindow) {
 				return function() {
+					$("#calendar").show();
+					var offset = $("#calendar").offset();
+					$('html').animate({scrollTop: offset.top},300);
+					
 					var info = infowindow.getContent();
 					var infoArr = info.split("|");
-					console.log(infoArr);
-					$("#companyName").val(infoArr[0]);
-					$("#companyAddr").val(infoArr[1]);
+					$("#recCompany").val(infoArr[0]);
+					$("#address").val("주소 : " + infoArr[1]);
 					$("#infoArea").css("display","block");
 				}
 			}
@@ -290,8 +381,70 @@
 	    
 	    	var calendar = new FullCalendar.Calendar(calendarEl, {
 	        	plugins: [ 'interaction', 'dayGrid' ],
+	        	selectable: true,
 	    		dateClick: function(info) {
-	    			$("#dateInfo").val(info.dateStr);
+	    			
+	    			// 시작 
+	    			$.ajax({
+						url: "recInfo.re",
+						dataType: "json",
+						success: function(data) {
+							var userId = "${ loginUser.userId }";
+							var inputRecCompany = $("#recCompany").val();
+							var inputAddress = $("#address").val();
+							var inputRdate = $("#dateInfo").val();
+							var timeTd = $("#timeTable td").text();
+							console.log(inputRecCompany.replace(/(\s*)/g,""));
+							if(data.length > 0) {
+								for(var i in data) {
+									if(inputRecCompany.replace(/(\s*)/g,"") == decodeURIComponent(data[i].recCompany.replace(/\+/g,""))) {
+										if(inputAddress.replace(/(\s*)/g,"") == decodeURIComponent(data[i].address.replace(/\+/g,""))) {
+											if(inputRdate == data[i].rDate) {
+												if('$("#timeTable td").text()' == data[i].rTime) {
+													$("#timeTable td").css("background","gray");
+												} else {
+													$("#timeTable td").mouseover(function(){
+														$(this).css("background","lightgreen");
+													}).mouseout(function(){
+														$(this).css("background","white");
+													}).click(function(){
+														$("#rTime").val($(this).text());
+														$("#infoArea").css("display","block");
+													});
+												}
+											}
+										}
+									}
+								}
+							} else {
+								$("#timeTable td").mouseover(function(){
+									$(this).css("background","lightgreen");
+								}).mouseout(function(){
+									$(this).css("background","white");
+								}).click(function(){
+									$("#rTime").val($(this).text());
+									$("#infoArea").css("display","block");
+								});
+							}
+						}
+					});
+	    			// 끝
+	    			$("#timeBox").show();
+	    			var offset = $("#timeBox").offset();
+	    			$("html").animate({scrollTop: offset.top},300);
+	    			
+	    			var today = ${ today };
+	    			var clickD = info.dateStr;
+	    			var newD = clickD.replace(/-/gi, "");
+	    			 
+	    			if(newD < today) {
+	    				swal("지난 날짜입니다. 날짜를 다시 선택해주세요!");
+	    				var calOff = $("#calendar").offset();
+	    				$("html").animate({scrollTop: calOff.top},300);
+	    			} else {
+		    			$("#dateInfo").val(info.dateStr);	    				
+	    			}
+	    			
 	    			$("#infoArea").css("display","block");
 	    		}
 	        });
@@ -311,18 +464,62 @@
 </div>
 <script>
 
-	$("#timeTable td").mouseover(function(){
-		$(this).css("background","lightgreen");
-	}).mouseout(function(){
-		$(this).css("background","white");
-	}).click(function(){
-		$("#timeInfo").val($(this).text());
-		$("#infoArea").css("display","block");
+	// 달력, 시간표 숨기기
+	$(function(){
+		/* $("#calendar").hide();
+		$("#timeBox").hide(); */
 	});
-	$('.rBtn').click(function(){
-		swal("예약이 완료되었습니다.");
-		
-	});
+	
+	// 예약완료 알림창
+	var msg = "${ msg }";
+	if(msg != ""){
+		swal(msg);
+	}
+	
+	/* $(function(){
+		$.ajax({
+			url: "recInfo.re",
+			dataType: "json",
+			success: function(data) {
+				var userId = "${ loginUser.userId }";
+				var inputRecCompany = $("#recCompany").val();
+				var inputAddress = $("#address").val();
+				var inputRdate = $("#dateInfo").val();
+				console.log()
+				if(data.length > 0) {
+					for(var i in data) {
+						if(inputRecCompany.trim() == decodeURIComponent(data[i].recCompany.replace(/\+/g,""))) {
+							if(inputAddress.trim() == decodeURIComponent(data[i].address.replace(/\+/g,""))) {
+								if(inputRdate == data[i].rDate) {
+									if(inputRtime == data[i].rTime) {
+										$("#timeTable td").css("background","gray");
+									} else {
+										$("#timeTable td").mouseover(function(){
+											$(this).css("background","lightgreen");
+										}).mouseout(function(){
+											$(this).css("background","white");
+										}).click(function(){
+											$("#rTime").val($(this).text());
+											$("#infoArea").css("display","block");
+										});
+									}
+								}
+							}
+						}
+					}
+				} else {
+					$("#timeTable td").mouseover(function(){
+						$(this).css("background","lightgreen");
+					}).mouseout(function(){
+						$(this).css("background","white");
+					}).click(function(){
+						$("#rTime").val($(this).text());
+						$("#infoArea").css("display","block");
+					});
+				}
+			}
+		});
+	});  */
 	
 </script>
 </body>

@@ -167,7 +167,7 @@ table > tbody > tr > td {
 								<td>
 									<fmt:formatDate value="${ w.eAnno }" pattern="yy.MM.dd"/>
 								</td>
-								<td>
+								<td class="status">
 									<jsp:useBean id="now" class="java.util.Date"/>
 									<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate"/>
 									<fmt:formatDate value="${ w.eEnd }" pattern="yyyyMMdd" var="closeDate"/>
@@ -203,15 +203,15 @@ table > tbody > tr > td {
 				$(this).parent().css({'color':'black','font-weight':'normal'});
 			}).click(function(){
 				var eNum = $(this).parent().children().eq(0).text();
-				var status = $(this).parent().children().eq(4).text();
-				console.log("eNum:" + eNum + ", status:" + status);
+				var status = $(this).parent().children('.status').text();
+				var trimStatus = status.trim();
 				
-				if(status == "진행중"){
+				if(trimStatus == "진행중"){
 					location.href="eventDetail.ev?eNum=" + eNum;
-				} else if(status == "완료"){
-					/* location.href="eventEndDetail.ev?eNum=" + eNum; */
+				} else if(trimStatus == "완료"){
+					location.href="eventEndDetail.ev?eNum=" + eNum;
 				} else{
-					
+					window.open("eventRandom.ev?eNum=" + eNum, "eventRandom", "width=600, height=500");
 				}
 			});
 			

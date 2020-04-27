@@ -10,6 +10,8 @@ import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
 import com.kh.ReaderForChildren.event_ssj.model.dao.EventDAO;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Reply;
+import com.kh.ReaderForChildren.event_ssj.model.vo.Winner;
+import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Service("evService")
 public class EventImpl implements EventService {
@@ -86,6 +88,39 @@ public class EventImpl implements EventService {
 	@Override
 	public int updateEvent(Event e) {
 		return evDAO.updateEvent(sqlSession, e);
+	}
+
+	@Override
+	public ArrayList<Winner> selectEventWinner(int eNum) {
+		return evDAO.selectEventWinner(sqlSession, eNum);
+	}
+
+	@Override
+	public ArrayList<Member> selectEventWinnerMember(ArrayList<Winner> winner) {
+		return evDAO.selectEventWinnerMember(sqlSession, winner);
+	}
+
+	@Override
+	public int countReply(int eNum) {
+		return evDAO.countReply(sqlSession, eNum);
+	}
+
+	@Override
+	public int insertEventRandom(ArrayList<Reply> rList, int eNum) {
+		
+		int result = evDAO.insertEventRandom(sqlSession, rList);
+		
+		if(result > 0) {
+			int result2 = evDAO.updateWinnerEvent(sqlSession, eNum);
+			if(result2 > 0) {
+				return result;
+			} else {
+				return 0;
+			}
+		} else {
+			return 0;
+		}
+				
 	}
 	
 }

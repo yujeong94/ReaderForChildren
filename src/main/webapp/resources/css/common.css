@@ -65,7 +65,7 @@ header {
 .mainheader {
 	position : relative;
     display : inline-block;
-    width : 100%;
+    width : 99%;
     /* height : 100%; */
     margin-bottom : 100px;
 }

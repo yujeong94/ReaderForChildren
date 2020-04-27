@@ -44,6 +44,28 @@
 		<result property="aNum" column="anum"/>
 	</resultMap>
 	
+	<resultMap type="Member" id="MemberResultSet">
+		<id property="userId" column="user_id"/>
+		<result property="userPwd" column="user_pwd"/>
+		<result property="userName" column="user_name"/>
+		<result property="birth" column="birth"/>
+		<result property="postalCode" column="postal_code"/>
+		<result property="bAddress" column="b_address"/>
+		<result property="lAddress" column="l_address"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="gender" column="gender"/>
+		<result property="donation" column="donation"/>
+		<result property="revenue" column="revenue"/>
+		<result property="division" column="division"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	<resultMap type="Winner" id="WinnerResultSet">
+		<id property="eNum" column="e_num"/>
+		<id property="userId" column="user_id"/>
+	</resultMap>
+	
 
 	<insert id="insertEvent" parameterType="Event">
 		insert into event
@@ -122,9 +144,37 @@
 		where e_num = #{eNum}
 	</update>
 	
+	<select id="selectEventWinner" resultMap="WinnerResultSet">
+		select *
+		from winner
+		where e_num = #{eNum}
+	</select>
 	
+	<select id="selectEventWinnerMember" resultMap="MemberResultSet">
+		select *
+		from member
+		<where>
+			<foreach item="w" collection="list">
+				or user_id = #{w.userId}
+			</foreach>
+		</where>
+	</select>
 	
+	<select id="countReply" resultType="_int">
+		select count(*)
+		from reply
+		where e_num = #{eNum} and r_status ='Y'
+	</select>
 	
+	<insert id="insertEventRandom" parameterType="arrayList">
+		insert into winner values(#{eNum}, #{userId})
+	</insert>
+	
+	<update id="updateWinnerEvent" parameterType="_int">
+		update event
+		set e_division = 2, e_count = 0, e_date = sysdate
+		where e_num = #{eNum}
+	</update>
 	
 	
 </mapper>

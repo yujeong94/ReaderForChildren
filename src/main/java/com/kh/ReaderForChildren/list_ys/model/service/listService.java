@@ -37,4 +37,6 @@ public interface listService {
 
 	int deletecart(int cNo);
 
+	int updaterL(int sNo);
+
 }

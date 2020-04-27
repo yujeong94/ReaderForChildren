@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,21 +47,17 @@
 
 #imgTd{padding-top: 20px;}
 
-.textareaStyle{
+.divStyle{
 	width: 650px;
-	overflow-y: hidden;
-	text-align: center;
+	font-size: 1.7em;
 	margin: 30px;
 	margin-bottom: 60px;
-	font-size: 1.7em;
-	font-weight: bold;
-	resize: none;
-	border: none;
+	display: inline-block;
 }
 
 .event_text{
 	margin: 10px;
-	margin-bottom: 50px;
+	margin-bottom: 70px;
 }
 
 .circleStyle{
@@ -68,7 +65,7 @@
 	margin: auto;
 	padding: 9px;
 	border-radius: 20px;
-	font-size: 1.5em;
+	font-size: 1.7em;
 	font-weight: bold;
 	background: rgb(211, 84, 0);
 	color: white;
@@ -98,7 +95,6 @@
 }
 
 .borderStyle{
-	border-bottom: 3px double lightgray;
 	padding-bottom: 70px;
 	font-size: 22px; font-weight: bold; color: rgb(66, 120, 110);
 }
@@ -136,6 +132,11 @@
 	padding: 7px;
 }
 
+.borderStyle2{
+	border-bottom: 3px double lightgray;
+	padding-bottom: 10px;
+}
+
 
 </style>
 </head>
@@ -144,32 +145,32 @@
 	
 	<!-- 내용 -->
 	<div class="contents">
-		<div id="title"><h1>EVENT</h1></div>
+		<div id="title"><h1>EVENT WINNER</h1></div>
 		<form action="#">
 			<table class="tableStyle">
 				<tr>
 					<td class="label tdStyle">제목</td>
-					<td colspan="3" class="data tdStyle">[EVENT] 2월 best 오디오 북 증정</td>
+					<td colspan="3" class="data tdStyle">[EVENT] ${ event.eTitle }</td>
 				</tr>
 				<tr>
 					<td class="label tdStyle">작성일</td>
-					<td class="data data2 tdStyle" id="enrollDate">2020-03-29</td>
+					<td class="data data2 tdStyle" id="enrollDate">${ event.eDate }</td>
 					<td class="label tdStyle">조회수</td>
-					<td class="data data2 tdStyle" id="count">9278</td>
+					<td class="data data2 tdStyle" id="count">${ event.eCount }</td>
 				</tr>
 				<tr>
-					<td colspan="4" class="tdStyle" id="imgTd"><img alt="#" src="${ contextPath }/resourves/images/poster.jpg" width="70%"></td>
+					<td colspan="4" class="tdStyle" id="imgTd"><img alt="#" src="${ contextPath }/resources/uploadFiles/${ event.changeName }" width="70%"></td>
 				</tr>
 				<tr>
 					<td colspan="4" class="event_content" id="event_intro">
-						<textarea class="textareaStyle" readonly>2월 best 오디오북 '###' 을 증정합니다.
-이벤트 소개!!
-						</textarea>
+						<div class="divStyle event_text">
+							${ fn:replace(event.eContent, newLineChar, "<br>") }
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4" class="event_circle">
-						<div class="circleStyle">이벤트 기간</div>
+						<div class="circleStyle">당첨자</div>
 					</td>
 				</tr>
 				<tr>
@@ -183,14 +184,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td class="inTableTD">신수*</td>
-										<td class="inTableTD">7558</td>
-									</tr>
-									<tr>
-										<td class="inTableTD">박유*</td>
-										<td class="inTableTD">4186</td>
-									</tr>
+									<c:forEach var="m" items="${ member }">
+										<c:set var="name" value="${ m.userName}"/>
+										<c:set var="len" value="${fn:length(name)}"/>
+										<tr>
+											<td class="inTableTD">
+												${fn:substring(name, 0, len-1)}*</td>
+											<td class="inTableTD">${fn:substring(m.phone, 7, 11) }</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -201,6 +203,11 @@
 						당첨을 축하합니다:)<br>
 						상품은 마이페이지에 등록된 주소로 배송될 예정입니다.<br>
 						마이페이지에서 개인정보를 확인해주세요!
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" class="borderStyle2">
+						<button type="button" class="defaultBtn delBtn btn1" onclick="location.href='eventEndList.ev'">목록으로</button>
 					</td>
 				</tr>
 			</table>

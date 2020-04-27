@@ -93,4 +93,9 @@ public class listServiceImpl implements listService {
 		return liDAO.deletecart(sqlSession, cNo);
 	}
 
+	@Override
+	public int updaterL(int sNo) {
+		return liDAO.updaterL(sqlSession, sNo);
+	}
+
 }

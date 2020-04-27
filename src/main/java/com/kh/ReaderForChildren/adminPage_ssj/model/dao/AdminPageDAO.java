@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
+import com.kh.ReaderForChildren.sponsor_ys.model.vo.Support;
 
 @Repository("aDAO")
 public class AdminPageDAO {
@@ -38,6 +39,14 @@ public class AdminPageDAO {
 
 	public ArrayList<Event> eventEndList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminPageMapper.eventEndList");
+	}
+
+	public ArrayList<Support> selectSponsorList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminPageMapper.selectSponsorList");
+	}
+
+	public ArrayList<Support> sponsorSearch(SqlSessionTemplate sqlSession, String spName) {
+		return (ArrayList)sqlSession.selectList("adminPageMapper.sponsorSearch", spName);
 	}
 
 }
