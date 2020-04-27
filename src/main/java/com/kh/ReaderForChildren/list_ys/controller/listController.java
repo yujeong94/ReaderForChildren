@@ -29,6 +29,7 @@ public class listController {
 	@Autowired
 	private listService liService;
 	
+	//예약부스
 	@RequestMapping("relist.li")
 	public ModelAndView boardList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
 		
@@ -54,8 +55,12 @@ public class listController {
 		return mv;
 	}
 	
+	//배송지 목록
 	@RequestMapping("shlist.li")
-	public ModelAndView shippingList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
+	public ModelAndView shippingList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, HttpSession session ) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
 		int currentPage = 1;
 		if(page != null) {
@@ -66,7 +71,7 @@ public class listController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Shipping> list = liService.selectshList(pi);
+		ArrayList<Shipping> list = liService.selectshList(pi, userId);
 		
 		if(list != null) {
 			mv.addObject("list",list);
@@ -79,6 +84,7 @@ public class listController {
 		return mv;
 	}
 	
+	//주문목록
 	@RequestMapping("orlist.li")
 	public ModelAndView orderList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
 		
@@ -105,6 +111,7 @@ public class listController {
 		return mv;
 	}
 	
+	
 	@RequestMapping("ordelete.li")
 	public String buyDelete(@RequestParam("orNo") int orNo) {
 		
@@ -117,6 +124,7 @@ public class listController {
 		}
 	}
 	
+	//장바구니 목록
 	@RequestMapping("calist.li")
 	public ModelAndView cartList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
 		
@@ -178,12 +186,12 @@ public class listController {
 		}
 	}
 	
+	//기본배송지 업데이트 
 	@RequestMapping("rLupdate.li")
 	public String rLUpdate(@RequestParam("sNo") int sNo) {
-		
 		int result = liService.updaterL(sNo);
-		
-		if(result > 0) {
+
+		if(result > 0 ) {
 			return "redirect:shlist.li";
 		}else {
 			throw new listException("기본배송지 등록에 실패하였습니다.");
@@ -238,7 +246,6 @@ public class listController {
 	@RequestMapping("shdetail.li")
 	public ModelAndView shippingDetail(@RequestParam("sNo")int sNo, @RequestParam("page")int page, ModelAndView mv) {
 		
-		System.out.println(sNo);
 		
 		Shipping shipping = liService.selectShipping(sNo);
 		

@@ -30,11 +30,12 @@ public class listDAO {
 		return sqlSession.selectOne("mypageMapper.getshListCount");
 	}
 
-	public ArrayList<Shipping> selectshList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Shipping> selectshList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("mypageMapper.selectshList", null, rowBounds);
+		
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectshList", userId, rowBounds);
 	}
 
 	public int insertBoard(SqlSessionTemplate sqlSession, Shipping s) {
@@ -86,5 +87,10 @@ public class listDAO {
 	public int updaterL(SqlSessionTemplate sqlSession, int sNo) {
 		return sqlSession.update("mypageMapper.updaterL", sNo);
 	}
+
+	public int updateLL(SqlSessionTemplate sqlSession, int sNo) {
+		return sqlSession.update("mypageMapper.updateLL", sNo);
+	}
+
 
 }

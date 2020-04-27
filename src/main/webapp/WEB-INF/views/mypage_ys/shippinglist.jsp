@@ -85,6 +85,7 @@
     .defaultSA{background: rgb(231, 76, 60); color: white; border-radius: 3px; border: none; font-weight: bold;
 			font-size: 11px; width: 68px; height: 22px;}
 			#rlevel{margin-left:80px; width:140px;}
+			
 </style>
 </head>
 <body>
@@ -96,7 +97,7 @@
       <div id="title"><h1>배송지 관리</h1></div>
    			<table id = "content_table" style="margin-left: auto; margin-right: auto;">
 				<tr>
-					<td class = "content_title" id = "title2">배송지 목록
+					<td class = "content_title" id = "title2">배송지 목록 
 					</td>
 				</tr>
 			</table>
@@ -118,9 +119,6 @@
 		<table id = "list_table">
 			<!-- 게시글 불러오는곳 -->
 			<c:forEach var="sh" items="${ list }">
-		<!-- <tr>
-			<td id="noList">존재하는 게시글이 없습니다.</td>
-		</tr> -->
 		<c:if test="${ sh.rLevel == 0 }">
 				<tr class="contentTr">
 				
@@ -128,17 +126,18 @@
 			
 	 	<td align="left" id="td2"> <button disabled class="defaultSA">기본배송지</button><input type="hidden"  id="chk_all" name="chk_all" />
 			
-			<input type="hidden" id="sNo" value="${ sh.sNo }">
 			<input type="hidden" id="page" value="${ pi.currentPage }">
+				
+			
 			
 				
 					<c:url var="shdetail" value="shdetail.li">
 						<c:param name="sNo" value="${ sh.sNo }"/>
 						<c:param name="page" value="${ pi.currentPage }"/>
 					</c:url>
-					<c:url var="rLUpdate" value="rLupdate.li">
+					<%-- <c:url var="rLUpdate" value="rLupdate.li">
 						<c:param name="sNo" value="${ shipping.sNo }"/>
-					</c:url> 
+					</c:url> --%> 
 					<%--  <a href="${ shdetail }">${ sh.sNo }</a>  --%>
 				
 				<%-- <c:if test="${ empty loginUser }">
@@ -153,7 +152,7 @@
 				<td class="list_line2" id="td3">${ sh.sName }님 배송지</td>
 				<td class="list_line2" id="td4">${sh.rName }</td>
 				<td class="list_line2" id="td5">${sh.rZipcode }${sh.rBasicadd }${sh.rDetailadd }</td>
-				<td class="list_line2" id="td6" >${sh.rPhone }</td><td>
+				<td class="list_line2" id="td6" >${sh.rPhone }</td>
 			</tr>
 			</c:if>
 			<c:if test="${ sh.rLevel == 1 }">
@@ -161,9 +160,8 @@
 				
 			<%-- 	<td align="center" id="td2" class="list_line2" > ${ sh.sNo } </td> --%>
 		
-			<td align="left" id="td2"> <input type="hidden"  value="${ sh.rLevel }">	<input type="checkbox" onclick=" rLevelchange()" id="chk_all" name="check" />
+			<td align="left" id="td2"> <input type="hidden"  value="${ sh.rLevel }">	
 			
-			<input type="hidden" id="sNo" value="${ sh.sNo }">
 			<input type="hidden" id="page" value="${ pi.currentPage }">
 			
 				
@@ -255,7 +253,7 @@
    	<button type="button" class="upBtn" id="insert" onclick="location.href='shinsertView.li';">배송지 등록</button>
    </div>
    
-   
+   </div>
    
    <script>
 		function deleteShipping(){
@@ -269,7 +267,7 @@
 			}
 		}
 	</script>
-   <script>
+  <!--  <script>
     function rLevelchange(){
     	var rLevel = confirm("기본배송지로 변경하시겠습니까?");
     	
@@ -281,43 +279,22 @@
     		
     	}
     }
-   </script>
+   </script> -->
    
     <script >
 		$(function(){
 			$('.contentTr').mouseenter(function(){
-				$(this).css({'color':'yellowgreen', 'font-weight':'bole', 'cursor':'pointer'});
+				$(this).css({'color':'yellowgreen', 'font-weight':'bold', 'cursor':'pointer'});
 			}).mouseout(function(){
 				$(this).css({'color':'black', 'font-weight':'normal'});
 			}).click(function(){
 				
-				var sNo = $('#sNo').val();
-				/* var page = $('#page').val(); */
-				/* var sNo = $(this).children('td').eq(0).text(); */
-				 location.href="shdetail.li?sNo="+sNo+"&page="+${pi.currentPage}; 
-				 /* location.href="shdetail.li?sNo="+sNo+"&page="+${pi.currentPage}; */
-				
+				var sNo = $(this).children('td').eq(1).text();
+				location.href="shdetail.li?sNo="+sNo+"&page="+${pi.currentPage};
 			});						
 		});
 	</script>
     
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   </div>
    <script>
    function updateShipping(){
        window.open("shippingUpdate.jsp", "updateShipping", "width=500, height=690");

@@ -40,11 +40,7 @@
 		where s_status='Y' and user_id=#{userId}
 		order by s_no desc
 	</select> 
-	 <select id="selectShipping" parameterType="_int" resultMap="ShippingResultSet">
-		select *
-		from shipping
-		where user_id=#{userId} and s_status='Y'
-	</select> 
+	 
 	
 	<resultMap type="Shipping" id="ShippingResultSet">
       <id property="sNo" column="S_NO"/>
@@ -58,6 +54,11 @@
       <result property="userId" column="USER_ID"/>
        <result property="rLevel" column="R_LEVEL"/>
    </resultMap>
+   <select id="selectShipping" parameterType="_int" resultMap="ShippingResultSet">
+		select *
+		from shipping
+		where s_no=#{sNo} and s_status='Y'
+	</select> 
    
    <insert id="insertBoard" parameterType="Shipping">
 		insert into shipping values(
@@ -78,16 +79,24 @@
 			r_zipcode=#{rZipcode}, r_basicadd=#{rBasicadd}, r_detailadd=#{rDetailadd}
 		where s_no=#{sNo}
 	</update>
-	<update id="updaterLL" parameterType="Shipping">
+	
+	
+	<update id="updateLL" parameterType="Shipping">
 		update shipping
 		set r_Level='1'
 		where r_level='0'
+		
+		
 	</update>
+	
 	<update id="updaterL" parameterType="Shipping">	
 		 update shipping
 		set r_Level='0'
 		where s_no=#{sNo}
 	</update>
+	
+	
+	
 	
 
 	

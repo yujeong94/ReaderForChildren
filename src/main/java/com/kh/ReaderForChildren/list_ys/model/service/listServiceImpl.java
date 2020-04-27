@@ -37,8 +37,8 @@ public class listServiceImpl implements listService {
 	}
 
 	@Override
-	public ArrayList<Shipping> selectshList(PageInfo pi) {
-		return liDAO.selectshList(sqlSession, pi);
+	public ArrayList<Shipping> selectshList(PageInfo pi, String userId) {
+		return liDAO.selectshList(sqlSession, pi, userId);
 	}
 
 	@Override
@@ -95,7 +95,18 @@ public class listServiceImpl implements listService {
 
 	@Override
 	public int updaterL(int sNo) {
-		return liDAO.updaterL(sqlSession, sNo);
+		int result2 = liDAO.updateLL(sqlSession, sNo); 
+		int result = liDAO.updaterL(sqlSession, sNo);
+		int sum =0;
+		if(result>0 && result2>0) {
+			sum = 1;
+		}else {
+			sum = -1;
+		}
+		return sum;
 	}
+
+	
+	
 
 }

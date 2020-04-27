@@ -15,7 +15,7 @@ public interface listService {
 
 	int getshListCount();
 
-	ArrayList<Shipping> selectshList(PageInfo pi);
+	ArrayList<Shipping> selectshList(PageInfo pi, String userId);
 
 	int insertBoard(Shipping s);
 
@@ -38,5 +38,6 @@ public interface listService {
 	int deletecart(int cNo);
 
 	int updaterL(int sNo);
+
 
 }

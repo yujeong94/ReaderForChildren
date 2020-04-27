@@ -123,7 +123,7 @@
 		
 	</table>
     
-   	 	<table id="search">
+   	 <%-- 	<table id="search">
    	   		 <tr>
 				<td class = "content_title"  id="sponsername"  >${loginUser.userName }님의 후원금 납부내역입니다.</td>
 				<td id="searchYear">
@@ -148,7 +148,7 @@
 				<button id="searchBtn" type="button" class="defaultBtn" onclick="();" >조회</button>
 				</td>
 			</tr>
-		</table>
+		</table> --%>
 		 
 		<br><br>
     <div  id = "title3" >
