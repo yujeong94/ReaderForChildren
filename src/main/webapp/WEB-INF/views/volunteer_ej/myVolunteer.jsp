@@ -60,6 +60,12 @@
 		padding-right : 10px;
 		font-weight : bold;
 	}
+	
+	#overDate{
+		border: solid 1px gray;
+		background : gray;
+		pointer-events: none;
+	}
 </style>
 </head>
 <body>
@@ -84,7 +90,12 @@
 								<c:param name = "vlNum2" value = "${ mva.vlNum2 }"/>
 							</c:url> --%>
 							<input type="hidden" class="vlNum" name="vlNum2" value="${ mva.vlNum2 }">
-							<input type="button" class = "cancelBtn" value = "취소하기">
+							<c:if test="${ mva.volStatus eq 'N' }">
+								<input type="button" class = "cancelBtn" id = "overDate" value = "취소하기" >
+							</c:if>
+							<c:if test="${ mva.volStatus eq 'Y' }">
+								<input type="button" class = "cancelBtn" value = "취소하기">
+							</c:if>
 						</td>
 					</tr>
 					<tr>

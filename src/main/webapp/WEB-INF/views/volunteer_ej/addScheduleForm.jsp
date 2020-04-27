@@ -17,6 +17,9 @@
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a { color: blue; }
 </style>
 </head>
+
+<body onload='resizeWindow(this)'>
+
 <body>
 	
 	<form action = "addVolSchedule.vo" method = "post">
@@ -94,6 +97,15 @@
 				
 			});
 		});
+		
+		
+		
+		function resizeWindow(win)    {
+			var wid = win.document.body.offsetWidth + 30;
+			var hei = win.document.body.offsetHeight + 40;
+
+			win.resizeTo(wid,hei);
+			}
 	</script>
 	
 	
