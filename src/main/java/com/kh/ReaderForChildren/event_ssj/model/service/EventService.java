@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Reply;
+import com.kh.ReaderForChildren.event_ssj.model.vo.Winner;
+import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 public interface EventService {
 
@@ -31,6 +33,15 @@ public interface EventService {
 	Event updateEventView(int eNum);
 
 	int updateEvent(Event e);
+
+	ArrayList<Winner> selectEventWinner(int eNum);
+
+	ArrayList<Member> selectEventWinnerMember(ArrayList<Winner> winner);
+
+	int countReply(int eNum);
+
+	int insertEventRandom(ArrayList<Reply> rList, int eNum);
+
 
 
 }

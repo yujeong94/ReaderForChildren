@@ -94,6 +94,7 @@
 			<div class="boxDiv2">
 			<c:forEach var="e" items="${ event }">
 				<div class="eventBox" id="ebox1">
+					<input type="hidden" class="hiddenEventNo" value="${ e.eNum }">
 					<div class="eventImg">
 						<img alt="#" src="${ contextPath }/resources/uploadFiles/${ e.changeName }" width="240px" height="240px">
 					</div>
@@ -133,7 +134,7 @@
 				$(this).css('background','none');
 			}).click(function(){
 				var eventNum = $(this).children('input').val();
-				location.href="eventDetail.ev?eNum="+eventNum;
+				location.href="eventEndDetail.ev?eNum="+eventNum;
 			});
 			
 		});

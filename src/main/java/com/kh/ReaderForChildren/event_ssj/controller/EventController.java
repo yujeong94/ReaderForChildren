@@ -2,14 +2,17 @@ package com.kh.ReaderForChildren.event_ssj.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,7 @@ import com.kh.ReaderForChildren.event_ssj.model.exception.EventException;
 import com.kh.ReaderForChildren.event_ssj.model.service.EventService;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Reply;
+import com.kh.ReaderForChildren.event_ssj.model.vo.Winner;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Controller
@@ -143,6 +147,25 @@ public class EventController {
 			mv.addObject("event", event).setViewName("eventDetail");
 		} else {
 			throw new EventException("이벤트 상세 페이지 조회 실패");
+		}
+		
+		return mv;
+	}
+	
+	// 이벤트 종료 상세페이지
+	@RequestMapping("eventEndDetail.ev")
+	public ModelAndView eventEndDetailView(@RequestParam("eNum") int eNum, ModelAndView mv) {
+		
+		ArrayList<Winner> winner = evService.selectEventWinner(eNum);
+		
+		ArrayList<Member> member = evService.selectEventWinnerMember(winner);
+		
+		Event event = evService.selectEvent(eNum);
+		
+		if(winner != null) {
+			mv.addObject("winner", winner).addObject("member", member).addObject("event", event).setViewName("endEventDetail");
+		} else {
+			throw new EventException("당첨자 이벤트 상세 페이지 조회 실패");
 		}
 		
 		return mv;
@@ -265,6 +288,60 @@ public class EventController {
 		if(f.exists()) {
 			f.delete();
 		}
+	}
+	
+	// 이벤트 랜덤 창
+	@RequestMapping("eventRandom.ev")
+	public ModelAndView eventRandom(ModelAndView mv, @RequestParam("eNum") int eNum) {
+		
+		Event event = evService.selectEvent(eNum);
+		Integer reply = evService.countReply(eNum);
+		
+		if(event != null) {
+			mv.addObject("event", event).addObject("reply", reply).setViewName("eventRandom");
+		} else {
+			throw new EventException("랜덤 실패");
+		}
+		
+		return mv;
+	}
+	
+	// 이벤트 램덤 
+	@RequestMapping("eventWinnerRandom.ev")
+	public void eventWinnerRandom(HttpServletResponse response, @RequestParam("eNum") int eNum) throws JsonIOException, IOException {
+		System.out.println("controller eNum : "+eNum);
+		
+		
+		ArrayList<Winner> winner = evService.selectEventWinner(eNum);
+		
+		ArrayList<Member> member = evService.selectEventWinnerMember(winner);
+		
+		for(Member m : member) {
+			m.setPhone(URLEncoder.encode(m.getPhone(), "UTF-8"));
+		}
+		
+		Gson gson = new GsonBuilder().create();
+		gson.toJson(member, response.getWriter());
+		
+	}
+	
+	// 이벤트 데이터 넣기
+	@RequestMapping("eventRandomInsert.ev")
+	public void eventRandom(HttpServletResponse response, HttpServletRequest request, 
+							@RequestParam("eNum") int eNum, @RequestParam("eEventNum") int eEventNum) throws JsonIOException, IOException {
+		
+		ArrayList<Reply> rList = evService.selectReplyList(eNum);
+		Collections.shuffle(rList);
+		
+		for(int i = rList.size()-1; i > eEventNum -1; i--) {
+			rList.remove(i);
+		}
+		
+		int result = evService.insertEventRandom(rList, eNum);
+		
+		Gson gson = new GsonBuilder().create();
+		gson.toJson(result, response.getWriter());
+	
 	}
 	
 	
