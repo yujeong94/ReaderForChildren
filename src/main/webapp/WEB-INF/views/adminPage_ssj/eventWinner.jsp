@@ -125,6 +125,10 @@ table > tbody > tr > td {
 	border-radius: 0px;
 }
 
+.noneEvent{
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -182,7 +186,7 @@ table > tbody > tr > td {
 					</c:if>
 					<c:if test="${ empty list }">
 						<tr>
-							<td colspan="4">등록된 이벤트가 없습니다.</td>
+							<td colspan="5" class="noneEvent">등록된 이벤트가 없습니다.</td>
 						</tr>
 					</c:if>
 					
