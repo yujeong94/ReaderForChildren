@@ -82,6 +82,9 @@
 		 /* .btn{margin-bottom:15px;}  */
 		 .upBtn{width:100px;height:35px;  color: white;  box-shadow: none; 
     border: none; border-radius: 5px; margin-top:30px; }
+    .defaultSA{background: rgb(231, 76, 60); color: white; border-radius: 3px; border: none; font-weight: bold;
+			font-size: 11px; width: 68px; height: 22px;}
+			#rlevel{margin-left:80px; width:140px;}
 </style>
 </head>
 <body>
@@ -118,34 +121,88 @@
 		<!-- <tr>
 			<td id="noList">존재하는 게시글이 없습니다.</td>
 		</tr> -->
+		<c:if test="${ sh.rLevel == 0 }">
 				<tr class="contentTr">
 				
-				<td align="center" id="td2" class="list_line2" >${ sh.sNo } </td>
+				<!-- <td align="center" id="td2" class="list_line2" ></td> -->
 			
-			<td align="left">
-				<c:if test="${ !empty loginUser }">
+	 	<td align="left" id="td2"> <button disabled class="defaultSA">기본배송지</button><input type="hidden"  id="chk_all" name="chk_all" />
+			
+			<input type="hidden" id="sNo" value="${ sh.sNo }">
+			<input type="hidden" id="page" value="${ pi.currentPage }">
+			
+				
+					<c:url var="shdetail" value="shdetail.li">
+						<c:param name="sNo" value="${ sh.sNo }"/>
+						<c:param name="page" value="${ pi.currentPage }"/>
+					</c:url>
+					<c:url var="rLUpdate" value="rLupdate.li">
+						<c:param name="sNo" value="${ shipping.sNo }"/>
+					</c:url> 
+					<%--  <a href="${ shdetail }">${ sh.sNo }</a>  --%>
+				
+				<%-- <c:if test="${ empty loginUser }">
+					 ${sh.rName }	
+				</c:if> --%>
+			</td>
+				
+				
+				
+				<td class="list_line2" id="td">${sh.sNo } </td>
+				<%-- <td class = "list_line2" id="td2" >${ sh.sNo }</td> --%>
+				<td class="list_line2" id="td3">${ sh.sName }님 배송지</td>
+				<td class="list_line2" id="td4">${sh.rName }</td>
+				<td class="list_line2" id="td5">${sh.rZipcode }${sh.rBasicadd }${sh.rDetailadd }</td>
+				<td class="list_line2" id="td6" >${sh.rPhone }</td><td>
+			</tr>
+			</c:if>
+			<c:if test="${ sh.rLevel == 1 }">
+				<tr class="contentTr">
+				
+			<%-- 	<td align="center" id="td2" class="list_line2" > ${ sh.sNo } </td> --%>
+		
+			<td align="left" id="td2"> <input type="hidden"  value="${ sh.rLevel }">	<input type="checkbox" onclick=" rLevelchange()" id="chk_all" name="check" />
+			
+			<input type="hidden" id="sNo" value="${ sh.sNo }">
+			<input type="hidden" id="page" value="${ pi.currentPage }">
+			
+				
 					<c:url var="shdetail" value="shdetail.li">
 						<c:param name="sNo" value="${ sh.sNo }"/>
 						<c:param name="page" value="${ pi.currentPage }"/>
 					</c:url>
 					<%--  <a href="${ shdetail }">${ sh.sNo }</a>  --%>
-				</c:if>
-				<c:if test="${ empty loginUser }">
+				
+				<%-- <c:if test="${ empty loginUser }">
 					 ${sh.rName }	
-				</c:if>
+				</c:if> --%>
 			</td>
 				
 				
 				
-			<td class = "list_line2" id="td1" value=" ${ sh.rLevel }" ><input type="checkbox" id="chk_all" name="chk_all" /></td>
+			<td class = "list_line2" id="td1"  >${sh.sNo }</td>
 			<%-- <td class = "list_line2" id="td2" >${ sh.sNo }</td> --%>
 				<td class="list_line2" id="td3">${ sh.sName }님 배송지</td>
 				<td class="list_line2" id="td4">${sh.rName }</td>
 				<td class="list_line2" id="td5">${sh.rZipcode }${sh.rBasicadd }${sh.rDetailadd }</td>
 				<td class="list_line2" id="td6" >${sh.rPhone }</td><td>
 			</tr>
+			</c:if>
 			</c:forEach>
+			
 		</table>
+		
+		<script>
+			$(document).ready(function(){
+				$('input[type="checkbox"][name="check"]').click(function(){
+					if($(this).prop('checked')) {
+						$('input[type="checkbox"][name="check"]').prop('checked',false);
+						$(this).prop('checked', true);
+					}
+				});
+			});
+		
+		</script>
 		<table id="buttonTab">
 						<tr align="center" height="20" id="buttonTab">
 			<td colspan="6">
@@ -208,12 +265,23 @@
 				location.href='${shdelete}';
 				
 				location.href="shdelete.li?sNo="+5+"&page="+${pi.currentPage};
-				//sNo를 지정해주면 삭제가 되지만 지정을 안해주고 sNo라고 적으면 삭제가 안됨 400에러뜸 ㅠㅠ
 				
 			}
 		}
 	</script>
-   
+   <script>
+    function rLevelchange(){
+    	var rLevel = confirm("기본배송지로 변경하시겠습니까?");
+    	
+    	if( rLevel ){
+    		var sNo = $('#sNo').val();
+    		location.href='${rLUpdate}';
+    	location.href="rLupdate.li?sNo="+sNo; 
+    		
+    		
+    	}
+    }
+   </script>
    
     <script >
 		$(function(){
@@ -222,9 +290,13 @@
 			}).mouseout(function(){
 				$(this).css({'color':'black', 'font-weight':'normal'});
 			}).click(function(){
-				var sNo = $(this).children('td').eq(0).text();
 				
-				location.href="shdetail.li?sNo="+sNo+"&page="+${pi.currentPage};
+				var sNo = $('#sNo').val();
+				/* var page = $('#page').val(); */
+				/* var sNo = $(this).children('td').eq(0).text(); */
+				 location.href="shdetail.li?sNo="+sNo+"&page="+${pi.currentPage}; 
+				 /* location.href="shdetail.li?sNo="+sNo+"&page="+${pi.currentPage}; */
+				
 			});						
 		});
 	</script>

@@ -37,9 +37,14 @@
 	<select id="selectshList" resultMap="ShippingResultSet">
 		select *
 		from shipping
-		where s_status='Y'
+		where s_status='Y' and user_id=#{userId}
 		order by s_no desc
-	</select>
+	</select> 
+	 <select id="selectShipping" parameterType="_int" resultMap="ShippingResultSet">
+		select *
+		from shipping
+		where user_id=#{userId} and s_status='Y'
+	</select> 
 	
 	<resultMap type="Shipping" id="ShippingResultSet">
       <id property="sNo" column="S_NO"/>
@@ -73,12 +78,18 @@
 			r_zipcode=#{rZipcode}, r_basicadd=#{rBasicadd}, r_detailadd=#{rDetailadd}
 		where s_no=#{sNo}
 	</update>
+	<update id="updaterLL" parameterType="Shipping">
+		update shipping
+		set r_Level='1'
+		where r_level='0'
+	</update>
+	<update id="updaterL" parameterType="Shipping">	
+		 update shipping
+		set r_Level='0'
+		where s_no=#{sNo}
+	</update>
 	
-	<select id="selectShipping" parameterType="_int" resultMap="ShippingResultSet">
-		select *
-		from shipping
-		where s_no=#{sNo} and s_status='Y'
-	</select>
+
 	
 	
 	
@@ -95,7 +106,7 @@
 			
 	</select> -->
 	<select id="selectorList" resultMap="OrlistResultSet">
-		select or_no, or_date, or_status, decode(del_status,'1','배송준비중','2','배송완료') as del_status, bk_name
+		select or_no, or_date, or_status, decode(del_status,'1','배송준비중','2','배송완료') as del_status, bk_name, change_name, IMA
 		from order_list
 		where or_status = 'Y'
 			
@@ -107,8 +118,17 @@
 		<result property="orDate" column="OR_DATE"/>
 		<result property="orStatus" column="OR_STATUS"/>
 		<result property="delStatus" column="DEL_STATUS"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="ima" column="IMA"/>
+		
 	</resultMap>
-	
+	<!-- <select>
+	SELECT change_name
+FROM AUDIO_FILE
+WHERE AUD_CODE = (SELECT AUD_CODE_F
+                FROM ORDER_DETAIL
+                WHERE OR_NO = '2' AND USER_ID = 'user04');
+	</select> -->
 	
 	 <resultMap type="OrderDetail" id="OrderDetailResultSet">
 		<id property="orNo" column="OR_NO"/>
@@ -138,7 +158,7 @@
 	</select>
 	
 	<select id="selectcartList" resultMap="cartListResultSet">
-		select c_no, bk_name, bk_code, aud_code_f, aud_code_m, status, or_price
+		select c_no, bk_name, bk_code, aud_code_f, aud_code_m, status, or_price, change_name
 		from cart_list
 		where status = 'Y'
 	
@@ -159,6 +179,7 @@
 		<result property="audCodeM" column="AUD_CODE_M"/>
 		<result property="orPrice" column="OR_PRICE"/>
 			<result property="userId" column="USER_ID"/>
+			<result property="changeName" column="CHANGE_NAME"/>
 	</resultMap>
 	
 	

@@ -83,4 +83,8 @@ public class listDAO {
 		return sqlSession.update("mypageMapper.deletecart", cNo);
 	}
 
+	public int updaterL(SqlSessionTemplate sqlSession, int sNo) {
+		return sqlSession.update("mypageMapper.updaterL", sNo);
+	}
+
 }

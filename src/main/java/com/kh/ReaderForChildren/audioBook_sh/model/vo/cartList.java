@@ -10,11 +10,12 @@ public class cartList {
 	private int audCodeM;
 	private int orPrice;
 	private String userId;
+	private String changeName;
 	
 	public cartList() {}
 
 	public cartList(int cNo, int bkCode, String status, String bkName, int audCodeF, int audCodeM, int orPrice,
-			String userId) {
+			String userId, String changeName) {
 		super();
 		this.cNo = cNo;
 		this.bkCode = bkCode;
@@ -24,6 +25,7 @@ public class cartList {
 		this.audCodeM = audCodeM;
 		this.orPrice = orPrice;
 		this.userId = userId;
+		this.changeName = changeName;
 	}
 
 	public int getcNo() {
@@ -69,7 +71,7 @@ public class cartList {
 	public int getAudCodeM() {
 		return audCodeM;
 	}
- 
+
 	public void setAudCodeM(int audCodeM) {
 		this.audCodeM = audCodeM;
 	}
@@ -90,12 +92,22 @@ public class cartList {
 		this.userId = userId;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
 	@Override
 	public String toString() {
 		return "cartList [cNo=" + cNo + ", bkCode=" + bkCode + ", status=" + status + ", bkName=" + bkName
 				+ ", audCodeF=" + audCodeF + ", audCodeM=" + audCodeM + ", orPrice=" + orPrice + ", userId=" + userId
-				+ "]";
+				+ ", changeName=" + changeName + "]";
 	}
+
+	
 
 
 	
