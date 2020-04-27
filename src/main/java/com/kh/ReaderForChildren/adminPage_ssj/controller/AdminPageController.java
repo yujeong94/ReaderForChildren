@@ -20,6 +20,7 @@ import com.kh.ReaderForChildren.adminPage_ssj.model.service.AdminPageService;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
+import com.kh.ReaderForChildren.sponsor_ys.model.vo.Support;
 
 @SessionAttributes("adminUser")
 @Controller
@@ -50,8 +51,17 @@ public class AdminPageController {
 	}
 	
 	@RequestMapping("sponsorList.ad")
-	public String sponsorListView() {
-		return "sponsorList";
+	public ModelAndView sponsorListView(ModelAndView mv) {
+		
+		ArrayList<Support> list = aService.selectSponsorList();
+		
+		if(list != null) {
+			mv.addObject("list", list).setViewName("sponsorList");
+		} else {
+			throw new AdminPageException("후원자 리스트 조회 실패");
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping("revenue.ad")
@@ -161,6 +171,21 @@ public class AdminPageController {
 		status.setComplete();
 		
 		return "redirect:home.do";
+	}
+	
+	// sponsor 검색기능
+	@RequestMapping("sponsorSearch.ad")
+	public ModelAndView sponsorSearch(ModelAndView mv, @RequestParam("spName") String spName) {
+		
+		ArrayList<Support> list = aService.sponsorSearch(spName);
+		
+		if(list != null) {
+			mv.addObject("list", list).setViewName("sponsorList");
+		} else {
+			throw new AdminPageException("후원명 검색 실패");
+		}
+		
+		return mv;
 	}
 	
 }

@@ -10,6 +10,7 @@ import com.kh.ReaderForChildren.adminPage_ssj.model.dao.AdminPageDAO;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
+import com.kh.ReaderForChildren.sponsor_ys.model.vo.Support;
 
 @Service("aService")
 public class AdminPageServiceImpl implements AdminPageService {
@@ -53,5 +54,15 @@ public class AdminPageServiceImpl implements AdminPageService {
 	@Override
 	public ArrayList<Event> eventEndList() {
 		return aDAO.eventEndList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Support> selectSponsorList() {
+		return aDAO.selectSponsorList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Support> sponsorSearch(String spName) {
+		return aDAO.sponsorSearch(sqlSession, spName);
 	}
 }

@@ -39,6 +39,16 @@
 		<result property="imPath" column="im_path"/>
 	</resultMap>
 	
+	<resultMap type="Support" id="supportResultSet">
+		<id property="snum" column="SNUM"/>
+		<result property="donation" column="DONATION"/>
+		<result property="supdate" column="SUP_DATE"/>
+		<!-- <result property="userNAME" column="USER_NAME"/> -->
+		 <result property="userId" column="USER_ID"/> 
+		<result property="spName" column="SP_NAME"/>
+		
+	</resultMap>
+	
 	<select id="selectUserList" resultMap="MemberResultSet">
 		select *
 		from member
@@ -92,6 +102,18 @@
 		order by e_num desc
 	</select>
 	
+	<select id="selectSponsorList" resultMap="supportResultSet">
+		select *
+		from support
+		order by snum desc
+	</select>
 	
+	<select id="sponsorSearch" resultMap="supportResultSet">
+		select *
+		from support
+		where sp_name like '%' || #{spName} || '%'
+		order by snum desc
+	</select>
 	
+		
 </mapper>
