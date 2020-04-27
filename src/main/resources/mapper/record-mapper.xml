@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="recordMapper">
+
+	<insert id="insertRecord" parameterType="RecBooth">
+		insert into rec_booth
+		values(seq_rid.nextval, #{recCompany}, #{address}, #{rDate}, #{rTime}, #{userId}, default)
+	</insert>
+	
+	<select id="selectRecord" resultMap="recResultSet">
+		select *
+		from rec_booth
+		where re_status='Y'
+	</select>
+	
+	<resultMap type="RecBooth" id="recResultSet">
+		<id property="rId" column="rid"/>
+		<result property="recCompany" column="reccompany"/>
+		<result property="address" column="address"/>
+		<result property="rDate" column="rdate"/>
+		<result property="rTime" column="rtime"/>
+		<result property="userId" column="user_id"/>
+		<result property="reStatus" column="re_status"/>
+	</resultMap>
+</mapper>
