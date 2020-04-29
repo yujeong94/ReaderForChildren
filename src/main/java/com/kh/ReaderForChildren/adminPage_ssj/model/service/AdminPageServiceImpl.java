@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.dao.AdminPageDAO;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
@@ -127,5 +128,10 @@ public class AdminPageServiceImpl implements AdminPageService {
 	@Override
 	public ArrayList<Support> selectUserSupport(String userId) {
 		return aDAO.selectUserSupport(sqlSession, userId);
+	}
+
+	@Override
+	public ArrayList<AdminOrderList> buyerListView() {
+		return aDAO.buyerListView(sqlSession);
 	}
 }

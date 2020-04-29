@@ -231,6 +231,11 @@
 		order by sup_date desc
 	</select>
 	
+	<select id="buyerListView" resultType="AdminOrderList">
+		select *
+		from admin_orderlist
+		order by or_no desc
+	</select>
 	
 	
 	

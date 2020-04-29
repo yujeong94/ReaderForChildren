@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
@@ -98,6 +99,10 @@ public class AdminPageDAO {
 
 	public ArrayList<Support> selectUserSupport(SqlSessionTemplate sqlSession, String userId) {
 		return (ArrayList)sqlSession.selectList("adminPageMapper.selectUserSupport", userId);
+	}
+
+	public ArrayList<AdminOrderList> buyerListView(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminPageMapper.buyerListView");
 	}
 
 }

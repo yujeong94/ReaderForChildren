@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.ReaderForChildren.adminPage_ssj.model.exception.AdminPageException;
 import com.kh.ReaderForChildren.adminPage_ssj.model.service.AdminPageService;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
@@ -49,8 +50,13 @@ public class AdminPageController {
 	}
 	
 	@RequestMapping("buyerList.ad")
-	public String buyerListView() {
-		return "buyerList";
+	public ModelAndView buyerListView(ModelAndView mv) {
+		
+		ArrayList<AdminOrderList> list = aService.buyerListView();
+		
+		mv.addObject("list", list).setViewName("buyerList");
+		
+		return mv;
 	}
 	
 	@RequestMapping("sponsorList.ad")

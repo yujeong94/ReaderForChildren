@@ -3,6 +3,7 @@ package com.kh.ReaderForChildren.adminPage_ssj.model.service;
 import java.util.ArrayList;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
@@ -53,5 +54,7 @@ public interface AdminPageService {
 	int resultBanMemberTable(String userId);
 
 	ArrayList<Support> selectUserSupport(String userId);
+
+	ArrayList<AdminOrderList> buyerListView();
 
 }
