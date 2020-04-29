@@ -5,46 +5,128 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>auditionForm</title>
+<title>enroll reader</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/audition/apply.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <style>
-.contents {
-	width: 1100px;
-	height: 600px;
-	background: white;
-	margin: auto;
-	margin-bottom: 100px;
+.failBtn{
+	background: red;
 }
 
-.ap_content{
-	display: inline-block;
-	width: 843px;
-	height: 100%;
-	vertical-align: middle;
+.banBtn{
+	background: black;
 }
-
-#title {
-	margin: 50px;
-	margin-bottom:30px;
-	text-align: center;
-	font-size: 30px;
-	font-weight: bold;
-}
-
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp" %>
-	
-	<!-- 내용 -->
+<div class="outer">
+	<c:import url="../common/menubar.jsp"/>
 	<div class="contents">
-		<%@ include file="../common/adminMenubar.jsp" %>
-		<div class="ap_content">
-			<div id="title">지원서</div>
-		</div>
+		<h1>내 지원서</h1>
+			
+			<h2>Profile</h2>
+			
+			<div id="profileArea" class="divblank">
+				<div id="proImgArea">
+					<img id="proImg" src="${ contextPath }/resources/uploadFiles/${ r.imgChange }">
+				</div>
+				
+				<table id="profileCon">
+					<tr>
+						<th width="120px">오디오북 명</th>
+						<td width="120px">${ a.bkName }</td>
+						<th width="80px">이름</th>
+						<td>${ m.userName }<input type="hidden" name="userName" class="inputSize"></td>
+						<th width="80px">성별</th>
+						<td>${ m.gender }</td>
+					</tr>
+					<tr>
+						<th>생년월일</th>
+						<td>${ m.birth }<input type="hidden" name="age" class="inputSize"></td>
+						<th>연락처</th>
+						<td>${ m.phone }<input type="hidden" name="phone" class="inputSize"></td>
+						<th>이메일</th>
+						<td>${ m.email }<input type="hidden" name="email" class="emailSize"></td>
+					</tr>
+					
+				</table>
+			</div>
+			
+			<h2 style="margin-left: 10px; margin-top: 100px;">Career</h2>
+			
+			<div id="careerArea">
+				<table id="careerCon">
+					<tr>
+						<th width=180px class="careerBorder">기간</th>
+						<th width=300px class="careerBorder">경력 사항</th>
+						<th width=180px class="careerBorder">근무기관</th>
+					</tr>
+					<c:forEach var="c" items="${ c }">
+					<tr>
+						<td width=180px class="careerBorder">${ c.cDate }<input type="hidden" class="careerInput"></td>
+						<td width=300px class="careerBorder">${ c.cContent }<input type="hidden" class="careerInput"></td>
+						<td width=180px class="careerBorder">${ c.cCompany }<input type="hidden" class="careerInput"></td>
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
+			
+			<h2>Introduce</h2>
+			
+			<div id="introArea" align="center">
+				<textarea rows="40px" cols="100px" readonly style="padding: 10px;">${ r.introduce }</textarea>
+			</div>
+			
+			<div id="recordArea">
+				<span id="recordSpan"> 녹음 파일 </span><input type="hidden" accept="audio/*">
+				<a href="${ contextPath }/resources/uploadFiles/${ r.recName }">${ r.recName }</a>
+			</div>
+			
+			<div id="ex1" class="modal modalCSS">
+				 <label><input type="radio" name="resultValue" value="합격">합격</label>
+				 <label><input type="radio" name="resultValue" value="불합격">불합격</label>
+				 <label><input type="radio" name="resultValue" value="영구정지">영구정지</label>
+				 
+			</div>
+			 
+			<c:if test="${ r.status == 0 }">
+			<p><a href="#ex1" rel="modal:open">결과</a></p>
+			
+			<div class="btnBox">
+				<button type="button" class="defaultBtn upBtn">합격</button>
+				<button type="button" class="defaultBtn failBtn">불합격</button>
+			</div>
+			</c:if>
+			<div class="btnBox">
+				<c:if test="${ r.status == 0 }">
+					<button type="button" class="defaultBtn banBtn">영구정지</button>
+				</c:if>
+				<button type="button" class="defaultBtn delBtn">뒤로가기</button>
+			</div>
 	</div>
+	<c:import url="../common/footer.jsp"/>
+</div>
+<script>
+	var userId = "${ m.userId }";
+
+	$('.delBtn').click(function(){
+		window.history.back();
+	});
 	
-	<%@ include file="../common/footer.jsp" %>
+	$('.banBtn').click(function(){
+		location.href="banReader.ad?userId="+userId;
+	});
 	
+	$('.failBtn').click(function(){
+		location.href="failReader.ad?userId="+userId;
+	});
+	
+	$('.upBtn').click(function(){
+		location.href="passReader.ad?userId="+userId;
+	});
+</script>
 </body>
 </html>

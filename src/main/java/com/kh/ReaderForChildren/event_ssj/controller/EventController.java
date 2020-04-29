@@ -317,6 +317,7 @@ public class EventController {
 		ArrayList<Member> member = evService.selectEventWinnerMember(winner);
 		
 		for(Member m : member) {
+			m.setUserName(URLEncoder.encode(m.getUserName(), "UTF-8"));
 			m.setPhone(URLEncoder.encode(m.getPhone(), "UTF-8"));
 		}
 		

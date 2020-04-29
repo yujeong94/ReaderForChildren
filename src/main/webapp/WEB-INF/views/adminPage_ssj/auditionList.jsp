@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>auditionList</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
 <style>
 .contents {
    width: 1100px;
@@ -35,7 +38,6 @@
    margin: auto;
    font-size: 18px;
    text-align: center;
-   background: #E9EDE4;
 }
 
 .tableDiv{
@@ -87,37 +89,32 @@ table > tbody > tr > td {
 .stuTd{
    font-size: 15px;
    vertical-align: middle;
-   color: #F9670C;
 }
 
 /* 검색창 */
 .search{
-   height: 35px;
-   width: 260px;
-   border: 1px solid #C6C618;
+   width: 160px;
    margin-bottom: 10px;
    position: relative;
-   left: 520px;
+   left: 635px;
 }
 
-.searchInput{
-   font-size: 12px;
-   width: 180px;
-   padding: 10px;
-   border: 0px;
-   outline: none;
-   float: left;
+.borderTd{
+	border-bottom: 1px solid black;
 }
 
-.searchBtn{
-   width: 45px;
-   height: 100%;
-   border: 0px;
-   background: #C6C618;
-   outline: none;
-   float: right;
-   color: white;
+#category{
+	width: 160px;
+	padding: .5em .5em;
+	border: 1px solid #C6C618;
+	font-family: inherit;
+	border-radius: 0px;
 }
+
+/* modal css */
+/* .modalCSS{
+	max-width: 1000px;
+} */
 
 
 </style>
@@ -131,8 +128,13 @@ table > tbody > tr > td {
       <div class="ap_content">
          <div id="title">지원자 리스트</div>
          <div class="search">
-            <input type="text" class="searchInput" placeholder="아이디 입력">
-            <button class="searchBtn"><img src="${ contextPath }/resources/images/search2.png" width="22px"></button>
+            <select size=1 id="category" name="event_status">
+            	<option value="전체" <c:if test="${ selectbox == '전체' }">selected</c:if>>전체</option>
+				<option value="미응답" <c:if test="${ selectbox == '미응답' }">selected</c:if>>미응답 지원서</option>
+				<option value="합격" <c:if test="${ selectbox == '합격' }">selected</c:if>>합격자</option>
+				<option value="불합격" <c:if test="${ selectbox == '불합격' }">selected</c:if>>불합격자</option>
+				<option value="영구정지" <c:if test="${ selectbox == '영구정지' }">selected</c:if>>영구 정지</option>
+			</select>
          </div>
          <div class="tableDiv">
             <table class="listTable">
@@ -145,17 +147,34 @@ table > tbody > tr > td {
                </tr>
                </thead>
                <tbody>
-               <c:forEach begin="1" end="30" step="1" var="i">
-                  <tr>
-                     <td class="NOtd"><c:out value="${ i }"/></td>
-                     <td class="IDtd">user<c:out value="${ i }"/></td>
-                     <td class="DATEtd">2020-04-03</td>
-                     <!-- 상태에 따라 수락, 거절 css 변경 -->
-                     <td class="STATUStd stuTd">미응답</td>
-                  </tr>
-               </c:forEach>
+               <c:if test="${ !empty list }">
+	               <c:forEach items="${ list }" var="a" varStatus="s">
+	                  <tr>
+	                     <td class="NOtd borderTd">${ s.count }</td>
+	                     <td class="IDtd borderTd">${ a.userId }</td>
+	                     <td class="DATEtd borderTd">${ a.enrollDate }</td>
+                     	<c:choose>
+                     		<c:when test="${ a.status == 0 }"><td class="STATUStd stuTd borderTd" style="color:#E6C716;">미응답</c:when>
+                     		<c:when test="${ a.status == 1 }"><td class="STATUStd stuTd borderTd" style="color:#1D149F;">합격</c:when>
+                     		<c:when test="${ a.status == 2 }"><td class="STATUStd stuTd borderTd" style="color:#6D6B6A;">불합격</c:when>
+                     		<c:otherwise><td class="STATUStd stuTd borderTd" style="color:#D41113;">영구정지</c:otherwise>
+                     	</c:choose>
+	                     </td>
+	                  </tr>
+	               </c:forEach>
+               </c:if>
+               <c:if test="${ empty list }">
+               		<tr>
+               			<td colspan=4>리스트 결과가 없습니다.</td>
+               		</tr>
+               </c:if>
                </tbody>
             </table>
+            <!-- <div id="ex1" class="modal modalCSS">
+				 test
+			</div>
+			 
+			<p><a href="#ex1" rel="modal:open">모달창띄우기</a></p> -->
          </div>
       </div>
    
@@ -166,26 +185,38 @@ table > tbody > tr > td {
    <script>
       $(function(){
          $('.listTable td').mouseover(function(){
-            $(this).parent().css({'color':'#0FB07A', 'cursor':'pointer', 'font-weight':'bold'});
+            $(this).parent().css({'color':'#0FB07A', 'background':'#E9EDE4', 'cursor':'pointer', 'font-weight':'bold'});
          }).mouseout(function(){
-            $(this).parent().css({'color':'black','font-weight':'normal'});
+            $(this).parent().css({'color':'black', 'background':'none','font-weight':'normal'});
+         }).click(function(){
+        	var userId = $(this).parent().children().eq(1).text();
+        	 
+        	location.href="auditionForm.ad?userId="+userId;
          });
+         
+         /* .ready(function(){
+	        
+	         #C8C80D, #DE720D
+	         var status = $(this).parent().children('.stuTd').text();
+	         var trimStatus = status.trim();
+	         console.log("status : " + trimStatus);
+	         if(trimStatus == "미응답"){
+	        	 $('.stuTd').css('color','#D8D16F');
+	         } else if(trimStatus == "합격"){
+	        	 $('.stuTd').css('color','#1D149F');
+	         } else if(trimStatus == "불합격"){
+	        	 $('.stuTd').css('color','#6D6B6A');
+	         } else {
+	        	 $('.stuTd').css('color','#D41113');
+	         }
+         }) */
+         
+         $('#category').change(function(){
+        	var selectbox = $(this).val();
+        	location.href="auditionListSelect.ad?selectbox=" + selectbox;
+         });
+         
       });
-      
-      /* $('.statusBtn').click(function(){
-         var status = $(this).parent().children(".statusBtn").text();
-         console.log(status);
-         
-         if(status == '배송접수'){
-            var check = confirm("접수하시겠습니까?");
-            
-            if(check){
-               $(this).text("접수완료").css({'background':'#707171', 'color':'white'});
-               $(this).parent().children(".statusBtn").removeClass('blinking');
-            }
-         }
-         
-      }); */
       
    </script>
    

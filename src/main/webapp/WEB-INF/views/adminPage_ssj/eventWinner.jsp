@@ -98,31 +98,16 @@ table > tbody > tr > td {
 	left: 625px;
 }
 
-.searchInput{
-	font-size: 12px;
-	width: 180px;
-	padding: 10px;
-	border: 0px;
-	outline: none;
-	float: left;
-}
-
-.searchBtn{
-	width: 45px;
-	height: 100%;
-	border: 0px;
-	background: #C6C618;
-	outline: none;
-	float: right;
-	color: white;
-}
-
 #category{
 	width: 160px;
 	padding: .5em .5em;
 	border: 1px solid #A73232;
 	font-family: inherit;
 	border-radius: 0px;
+}
+
+.noneEvent{
+	text-align: center;
 }
 
 </style>
@@ -182,7 +167,7 @@ table > tbody > tr > td {
 					</c:if>
 					<c:if test="${ empty list }">
 						<tr>
-							<td colspan="4">등록된 이벤트가 없습니다.</td>
+							<td colspan="5" class="noneEvent">등록된 이벤트가 없습니다.</td>
 						</tr>
 					</c:if>
 					

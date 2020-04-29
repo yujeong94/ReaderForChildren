@@ -27,10 +27,11 @@ body{
 .winnerTable{
 	text-align: center;
 	margin: auto;
-	position: absolute;
+	/* position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%); */
+	margin-top: 110px;
 }
 
 .inTableTH{
@@ -58,9 +59,8 @@ body{
 	background-blend-mode: luminosity;
 } */
 .container {
-	height: 100%;
 	position: absolute;
-	top: 45%;
+	top: 15%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -154,10 +154,10 @@ body{
 			var eEventNum = ${ event.eEventNum };
 			console.log("eNum : " + eNum);
 			$.ajax({
-				url : "eventRandomInsert.ev",
-				data : {eNum : eNum, eEventNum:eEventNum},
+				url: "eventRandomInsert.ev",
+				data: {eNum:eNum, eEventNum:eEventNum},
 				type: "post",
-				success : function(data) {
+				success: function(data) {
 					if(data > 0){
 						getEventWinner();
 						$('a').off('click');
@@ -171,12 +171,13 @@ body{
 			var eNum = ${ event.eNum };
 			
 			console.log("getEventWinner eNum : " + eNum);
+			console.log("type " +typeof(eNum));
 			
 			$.ajax({
-				url : "eventWinnerRandom.ev",
-				data : {eNum : eNum},
-				type: "json",
-				success : function(data) {
+				url: "eventWinnerRandom.ev",
+				data: {eNum:eNum},
+				dataType: "json",
+				success: function(data) {
 					$tableBody = $('.winnerTable tbody');
 					$tableBody.html('');
 					
@@ -186,8 +187,9 @@ body{
 						for(var i in data){
 							$tr = $(
 							'<tr><td class="inTableTD">'+ data[i].userId + 
-							'</td><td class="inTableTD">'+ data[i].userName+
-							'</td><td class="inTableTD">'+ data[i].phone + '</td></tr>'
+							'</td><td class="inTableTD">'+ decodeURIComponent(data[i].userName)+
+							'</td><td class="inTableTD">'+ decodeURIComponent(data[i].phone) + 
+							'</td></tr>'
 							);
 							$tableBody.append($tr);
 						}
