@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,6 +83,7 @@
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
+	<c:import url="auMenubar.jsp"/>
 	<div class="contents clear-fix">
 		<h1>Reader 오디션 </h1>
 		<h2>- 오디오북 리스트 수정 -</h2>
@@ -99,15 +100,11 @@
 			</div>
 			
 			<table class="aListTable">
-				<tr>
-					<td class="aId">
-					게시글번호 <input type="number" min="1" max="5" name="aNum" value="${ audition.aNum }">
-					</td>
-				</tr>
 				<tr class="conBg">
 					<td style="padding-top:10px;">
 						<label id="bookName">책 이름</label>
 						<input type="text" name="bkName" value="${ audition.bkName }">
+						<input type="hidden" name="aNum" value="${ audition.aNum }">
 					</td>
 				</tr>
 				<tr class="conBg">
@@ -164,7 +161,9 @@
 					</td>
 				</tr>
 				<tr class="aCon conBg">
-					<td><label>마감날짜 </label><input type="date" name="endDate" value="${ audition.endDate }"></td>
+					<td><label>마감날짜 </label><input type="date" name="endDate" id="endDate" value="${ audition.endDate }"></td>
+					<jsp:useBean id="now" class="java.util.Date"/>
+					<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="today"/>
 				</tr>
 				<tr class="conBg">
 					<td class="btnTd"><button class="defaultBtn upBtn">수정</button>
@@ -218,6 +217,18 @@
 					}
 				}
 				
+			});
+			
+			$(".upBtn").click(function(){
+				var endDate = $("#endDate").val().replace(/-/g,"");
+				var today = ${ today };
+				
+				if(endDate < today) {
+					swal("지난 날짜입니다. 날짜를 확인해주세요");
+					$(this).attr("type","button");
+				} else {
+					$(this).attr("type","submit");
+				}
 			});
 		</script>
 </div>

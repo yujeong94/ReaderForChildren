@@ -13,6 +13,7 @@
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
+	<c:import url="auMenubar.jsp"/>
 	<div class="contents">
 		<h1>지원서 수정</h1>
 		
@@ -88,7 +89,7 @@
 			
 			<div id="recordArea">
 				<label class="star">* </label><span id="recordSpan"> 녹음 파일 첨부 </span>
-					<span id="fileShow">${ r.recName } <input type="hidden" name="recName" value="${ r.recName }"></span>
+					<span id="fileShow">${ oldRec } <input type="hidden" name="recName" value="${ r.recName }"></span>
 				<button type="button" id="recFile" class="defaultBtn upBtn" style="background: gray; width: 60px; height: 30px; padding: 2px;">변경</button>
 			</div>
 			

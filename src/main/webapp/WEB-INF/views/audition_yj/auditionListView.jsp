@@ -61,80 +61,32 @@
 		border-radius: 3px;
 	}
 	
-/* 서브메뉴 */
-/* .quick_menu {
-	 position:absolute; 
-	 margin-top: 100px; 
-	 margin-left: 145px;
-	}
-	.quick_menu table {
-		display: inline-table;
+	#nullInfo {
+		margin: auto;
+		margin-top: 50px;
+		margin-bottom: 100px;
+		width: 300px;
 		text-align: center;
-		border-top: 2px solid gray;
-		border-bottom: 2px solid gray;
-		margin-bottom: 20px;
-		width: 100px;
-		height: 100px;
+		font-size: 1.5rem;
 	}
-	.quick_menu td {
-		cursor: pointer; 
-		vertical-align: middle;
-		font-weight: 800;
-	}
-	.quick_menu td:hover {
-		color: yellow;
-	} */
 </style>
 </head>
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
 	<c:import url="auMenubar.jsp"/>
-	<!-- 서브메뉴 -->
-	<%-- <div class="quick_menu">
-		<table>
-			<c:if test="${ adminUser != null }">
-			<tr class="boardTr" style="background: lightyellow;">
-				<td  onclick="location.href='auListInsertView.au'" id="no1">오디션등록
-				</td>
-			</tr>
-			</c:if>
-			<tr class="boardTr" style="background: green; color: white;">
-				<td id="no2">지원서보기
-				</td>
-			</tr>
-		</table>
-	</div>
-	<script>
-	$("#no2").click(function(){
-		var userId = "${ loginUser.userId }";
-		if(userId != ""){
-			$.ajax({
-				url: "readerCheck.au",
-				type: 'post',
-				data: {userId:userId},
-				success: function(data) {
-					if(data == 'no'){
-						alert("지원한 지원서가 없습니다!");
-					} else {
-						location.href="apDetail.au";
-					}
-				},
-				error: function(data) {
-					alert("열람할 수 없습니다!");
-				}
-			});
-		} 
-	});
-	
-	</script> --%>
 	
 	<div class="contents clear-fix">
 		<h1>Reader 오디션 지원</h1>
 		<h2>이 달의 판매 예정 오디오북</h2>
 		<h3>※ 오디션 지원에 관한 자세한 사항은 공지사항을 참고하세요 <a href="#" style="color:navy; text-decoration: none;"> >> 바로가기</a></h3>
 		
-			
+		<c:if test="${ adminUser != null && aulist == null}">
+			<div id="nullInfo">
+				오디션 공고를 등록해주세요.
+			</div>
+		</c:if>
+
 		<c:forEach var="a" items="${ aulist }">
 			<table class="aListTable">
 				<tr>
@@ -153,10 +105,6 @@
 				<tr class="conTitle conBg"><td>마감날짜 </td></tr>
 				<tr class="aCon conBg"><td>${ a.endDate }</td></tr>
 					
-					<c:url var="apply" value="applyInsert.au">
-						<c:param name="aNum" value="${ a.aNum }"/>
-						<c:param name="bkName" value="${ a.bkName }"/>
-					</c:url>
 					<c:url var="upView" value="auListUpView.au">
 						<c:param name="aNum" value="${ a.aNum }"/>
 					</c:url>
@@ -165,8 +113,11 @@
 					</c:url>
 					
 				<tr class="conBg">
-				    <c:if test="${ loginUser != null }">
-						<td class="btnTd"><button class="defaultBtn applyBtn" onclick="location.href='${ apply }'">Apply</button></td>
+				    <c:if test="${ loginUser != null && loginUser.division == 1 }">
+						<td class="btnTd"><button class="defaultBtn applyBtn">Apply</button>
+						<input type="hidden" value="${ a.aNum }" id="anum">
+						<input type="hidden" value="${ a.bkName }" id="bkname">
+						</td>
 					</c:if>
 					<c:if test="${ adminUser != null }">
 						<td class="btnTd">
@@ -186,6 +137,25 @@
 			location.href="${ delete }";
 		}
 	}
+	
+	// 오디션 한번만 지원가능
+	$(".applyBtn").click(function(){
+		var userId = "${ loginUser.userId }";
+		var anum = $("#anum").val();
+		var bkname = $("#bkname").val();
+		$.ajax({
+			url: "readerCheck.au",
+			type: "post",
+			data: {userId:userId},
+			success: function(data) {
+				if(data == "ok") {
+					swal("이미 지원하셨습니다. 오디션은 한번만 지원가능합니다.");
+				} else {
+					location.href="applyInsert.au?aNum=" + anum + "&bkName=" + bkname;
+				}
+			}
+		});
+	});
 </script>
 </body>
 </html>

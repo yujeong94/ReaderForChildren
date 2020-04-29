@@ -20,8 +20,9 @@
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
+	<c:import url="auMenubar.jsp"/>
 	<div class="contents">
-		<h1>박유정님 지원이 완료되었습니다.<br>
+		<h1>${ loginUser.userName }님 지원이 완료되었습니다.<br>
 			지원해주셔서 감사합니다.</h1>
 		<div class="btnBox">
 		<button class="defaultBtn upBtn" onclick="location.href='apDetail.au'">지원서 확인</button>

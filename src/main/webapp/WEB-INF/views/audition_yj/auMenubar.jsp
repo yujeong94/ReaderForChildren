@@ -16,8 +16,8 @@
 	.quick_menu table {
 		display: inline-table;
 		text-align: center;
-		border-top: 2px solid gray;
-		border-bottom: 2px solid gray;
+		/* border-top: 2px solid black;
+		border-bottom: 2px solid black; */
 		margin-bottom: 20px;
 		width: 100px;
 		height: 100px;
@@ -28,26 +28,47 @@
 		font-weight: 800;
 	}
 	.quick_menu td:hover {
-		color: yellow;
-	}
+		color: white;
+	} 
 </style>
 </head>
 <body>
-	<!-- 서브메뉴 -->
+	<!-- 회원 서브메뉴 -->
+	<c:if test="${ loginUser != null }">
 	<div class="quick_menu">
 		<table>
-			<c:if test="${ adminUser != null }">
-			<tr class="boardTr" style="background: lightyellow;">
-				<td  onclick="location.href='auListInsertView.au'" id="no1">오디션등록
+			<tr class="boardTr" style="background: #5583A6;">
+				<td id="no1">오디션  리스트
 				</td>
 			</tr>
-			</c:if>
-			<tr class="boardTr" style="background: green; color: white;">
+			<tr class="boardTr" style="background: #EFA885;">
 				<td id="no2">지원서보기
 				</td>
 			</tr>
+			<tr>	
+				<td onclick="location.href='testSlider.au'">testSlider</td>
+			</tr>
 		</table>
 	</div>
+	</c:if>
+	
+	<!-- 관리자 서브메뉴 -->
+	<c:if test="${ adminUser != null }">
+	<div class="quick_menu">
+		<table>
+			<tr class="boardTr">
+				<td id="no10" onclick="location.href='aulist.au'">오디션  리스트</td>
+			</tr>
+			<tr class="boardTr">
+				<td id="no20" onclick="location.href='auListInsertView.au'">오디션등록</td>
+			</tr>
+			<tr>	
+				<td onclick="location.href='testSlider.au'">testSlider</td>
+			</tr>
+		</table>
+	</div>
+	</c:if>
+	
 	<script>
 	$("#no2").click(function(){
 		var userId = "${ loginUser.userId }";

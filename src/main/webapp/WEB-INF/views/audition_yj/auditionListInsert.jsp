@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,6 +82,7 @@
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
+	<c:import url="auMenubar.jsp"/>
 	<div class="contents clear-fix">
 		<h1>Reader 오디션 </h1>
 		<h2>- 오디오북 리스트 등록 -</h2>
@@ -92,7 +94,7 @@
 				<button type="button" id="imgCon" class="defaultBtn">사진 업로드</button>
 			</div>
 			<table class="aListTable">
-				<tr><td class="aId">게시글번호 <input type="number" min="1" max="5" name="aNum"></td></tr>
+				<!-- <tr><td class="aId">게시글번호 <input type="number" min="1" max="5" name="aNum"></td></tr> -->
 				<tr class="conBg"><td style="padding-top:10px;"><label id="bookName">책 이름</label><input type="text" name="bkName"></td></tr>
 				<tr class="conBg"><td class="conTitle">테스트 구절</td></tr>
 				<tr class="conBg"><td>
@@ -124,7 +126,9 @@
 					<label>요청사항</label><textarea rows="10" name="request"></textarea>
 				</td></tr>
 				<tr class="aCon conBg">
-					<td><label>마감날짜 </label><input type="date" name="endDate"></td>
+					<td id="dateCheck"><label>마감날짜 </label><input type="date" name="endDate" id="endDate"></td>
+					<jsp:useBean id="now" class="java.util.Date"/>
+					<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="today"/>
 				</tr>
 				<tr class="conBg">
 					<td class="btnTd"><button class="defaultBtn upBtn">등록</button></td>
@@ -161,13 +165,21 @@
 					reader.readAsDataURL(value.files[0]);
 				}
 			}
+			
+			$(".upBtn").click(function(){
+				var endDate = $("#endDate").val().replace(/-/g,"");
+				var today = ${ today };
+				
+				if(endDate < today) {
+					swal("지난 날짜입니다. 날짜를 확인해주세요");
+					$(this).attr("type","button");
+				} else {
+					$(this).attr("type","submit");
+				}
+			});
 		</script>
 </div>
 	<c:import url="../common/footer.jsp"/>
 </div>
-<script>
-	// ajax로 게시글 번호 중복되는지 안되는지 확인 
-	
-</script>
 </body>
 </html>

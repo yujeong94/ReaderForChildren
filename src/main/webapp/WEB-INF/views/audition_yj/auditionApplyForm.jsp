@@ -13,6 +13,7 @@
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
+	<c:import url="auMenubar.jsp"/>
 	<div class="contents">
 		<h1>Reader 지원하기</h1>
 		
@@ -85,7 +86,9 @@
 						<td></td>
 					</tr>
 					<tr class="careerTr">
-						<td width=180px class="careerBorder"><input type="text" class="careerInput" name="cDate"></td>
+						<td width=180px class="careerBorder">
+							<input type="text" class="careerInput" name="cDate" placeholder="0000-00-00 ~ 0000-00-00">
+						</td>
 						<td width=300px class="careerBorder"><input type="text" class="careerInput" name="cContent"></td>
 						<td width=180px class="careerBorder"><input type="text" class="careerInput" name="cCompany"></td>
 						<td><img src='${ contextPath }/resources/images/minus0.png' class='minusBtn' style="padding-left: 5px;"></td>
