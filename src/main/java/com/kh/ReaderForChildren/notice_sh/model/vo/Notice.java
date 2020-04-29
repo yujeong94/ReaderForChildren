@@ -10,10 +10,12 @@ public class Notice {
 	private String noStatus;
 	private String adId;
 	private int noHit;
+	private String category;
 	
 	public Notice() {}
 
-	public Notice(int noCode, String noTitle, String noContent, Date noDate, String noStatus, String adId, int noHit) {
+	public Notice(int noCode, String noTitle, String noContent, Date noDate, String noStatus, String adId, int noHit,
+			String category) {
 		super();
 		this.noCode = noCode;
 		this.noTitle = noTitle;
@@ -22,6 +24,7 @@ public class Notice {
 		this.noStatus = noStatus;
 		this.adId = adId;
 		this.noHit = noHit;
+		this.category = category;
 	}
 
 	public int getNoCode() {
@@ -80,10 +83,18 @@ public class Notice {
 		this.noHit = noHit;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [noCode=" + noCode + ", noTitle=" + noTitle + ", noContent=" + noContent + ", noDate=" + noDate
-				+ ", noStatus=" + noStatus + ", adId=" + adId + ", noHit=" + noHit + "]";
+				+ ", noStatus=" + noStatus + ", adId=" + adId + ", noHit=" + noHit + ", category=" + category + "]";
 	}
-	
+
 }

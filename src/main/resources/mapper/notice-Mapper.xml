@@ -6,5 +6,72 @@
 		from notice
 		where no_status='Y'
 	</select>
+	
+	<select id="selectList" resultMap="noticeResultSet">
+		select *
+		from notice
+		where no_status='Y'
+		order by no_code desc
+	</select>
+	<resultMap type="Notice" id="noticeResultSet">
+		<id property="noCode" column="NO_CODE"/>
+		<result property="noTitle" column="NO_TITLE"/>
+		<result property="noContent" column="NO_CONTENT"/>
+		<result property="noDate" column="NO_DATE"/>
+		<result property="noStatus" column="NO_STATUS"/>
+		<result property="adId" column="AD_ID"/>
+		<result property="noHit" column="NO_HIT"/>
+		<result property="category" column="CATEGORY"/>
+	</resultMap>
+	
+	<select id="getSearchListCount" resultType="_int">
+		select count(*)
+		from notice
+		where no_status='Y'
+		<if test="delivery != null">
+			and category = #{delivery}
+		</if>
+		<if test="audition != null">
+			and category = #{audition}
+		</if>
+		<if test="sponsor != null">
+			and category = #{sponsor}
+		</if>
+		<if test="volunteer != null">
+			and category = #{volunteer}
+		</if>
+		<if test="record != null">
+			and category = #{record}
+		</if>
+		<if test="event != null">
+			and category = #{event}
+		</if>
+	</select>
+	
+	<select id="selectSearchList" resultMap="noticeResultSet">
+		select *
+		from notice
+		where no_status='Y'
+		<choose>
+		<when test="delivery != null">
+			and category = #{delivery}
+		</when>
+		<when test="audition != null">
+			and category = #{audition}
+		</when>
+		<when test="sponsor != null">
+			and category = #{sponsor}
+		</when>
+		<when test="volunteer != null">
+			and category = #{volunteer}
+		</when>
+		<when test="record != null">
+			and category = #{record}
+		</when>
+		<when test="event != null">
+			and category = #{event}
+		</when>
+		</choose>
+	</select>
 
 </mapper>

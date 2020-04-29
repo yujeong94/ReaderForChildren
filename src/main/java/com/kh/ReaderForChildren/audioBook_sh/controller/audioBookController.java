@@ -466,7 +466,7 @@ public class audioBookController {
 	// 장바구니 insert
 	@RequestMapping("cartInsert.ab")
 	@ResponseBody
-	public String cartInsert(HttpSession session, int bkCode, String hidden3, String hidden1) {
+	public String cartInsert(HttpSession session, int bkCode, String hidden3, String hidden1, @RequestParam("sum") String total) {
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
 		String containBk = "";
@@ -488,7 +488,17 @@ public class audioBookController {
 			audCodeM = Integer.parseInt(hidden3);
 		}
 		
-		Cart c = new Cart(0, userId, bkCode, audCodeF, audCodeM, containBk, null);
+		int sum = 0;
+		if(total.contains(",")) {
+			String[] arr = total.split(",");
+			String str = "";
+			for(int i=0; i<arr.length; i++) {
+				str += arr[i];
+			}
+			sum = Integer.parseInt(str);
+		}
+		
+		Cart c = new Cart(0, userId, bkCode, audCodeF, audCodeM, containBk, null, sum);
 		int result = abService.cartInsert(c);
 		
 		if(result > 0) {
