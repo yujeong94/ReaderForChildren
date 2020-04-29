@@ -16,19 +16,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class ChatController {
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	  @RequestMapping("chatView.ch") public String chatView() { return "chat2"; }
+		
+	  @RequestMapping("chatView.ch")
+	  public String chatView() { 
+		  return "chat2"; 
+	  }
 	 
 	
 	

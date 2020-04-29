@@ -27,21 +27,25 @@
 }
 
 	.info{
-		border : 1px solid black;
+		border-top : 1px solid #E44E6C;
+		border-bottom : 2px solid #E44E6C;
 		width : 80%;
 		margin-right : auto;
 		margin-left : auto;
 		border-collapse: collapse;
 		border-spacing: 0;
+		
 	}
 	
 	#info_title{
 		height : 50px;
-		background : #D8D8D8;
+		background : #E44E6C;
 		font-size : 25px;
+		
 	}
 	
 	#info_word{
+		color:white;
 		margin-left : 5px;
 		vertical-align: middle;
 	}
@@ -49,7 +53,7 @@
 	.info_title2{
 		width : 25%;
 		height : 44px;
-		border-top : 2px solid gray;
+		border-top : 2px solid #E44E6C;
 		font-size:18px;
 		vertical-align: middle;
 		color : gray;
@@ -63,12 +67,12 @@
 	#address{
 		width : 25%;
 		height : 105px;
-		border-top : 2px solid gray;
+		border-top : 2px solid #E44E6C;
 	}
 	
 	.right{
 		width: 75%;
-		border-top : 2px solid gray;
+		border-top : 2px solid #E44E6C;
 		padding-top : 8px;
 		
 	}
@@ -108,9 +112,9 @@
 		width : 10%;
 		height : 26px;
 		font-size : 12px;
-		color : gray;
+		color : white;
 		margin-left : 5px;
-		background : lightgray;
+		background : #E44E6C;
 		border-radius : 3px;
 		border : 1px lightgray solid;
 		cursor : pointer;
@@ -134,6 +138,7 @@
 	
 	.gender{
 		width:30px;
+		text-align: center
 	}
 	
 	.fm{
@@ -185,6 +190,9 @@
 		cursor : pointer;
 	}
 	
+	.rightgender{
+		vertical-align :middle;
+	}
 
 </style>
 </head>
@@ -357,7 +365,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td class = "info_title2"><label class = "title_word">성별</label></td>
-		 		<td class = "right">
+		 		<td class = "right rightgender">
 			 		<input type = "radio" name = "gender" value = "남" class = "gender" id="male"><label class = "input_gender">남</label>
 			 		<input type = "radio" name = "gender" value = "여" class = "gender fm"><label class = "input_gender">여</label>
 		 		</td>

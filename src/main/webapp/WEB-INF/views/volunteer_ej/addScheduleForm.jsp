@@ -13,40 +13,46 @@
 <!-- jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <style>
+
+	#form1{
+		margin-right : auto;
+		margin-left : auto;
+	}
+
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a { color: red; }
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a { color: blue; }
 </style>
 </head>
 
-<body onload='resizeWindow(this)'>
 
 <body>
 	
 	<form action = "addVolSchedule.vo" method = "post">
-	<div style = 'width : 100%; height : 30px'>
-		<div style = 'width:30%; float:left; padding-left:30px'>일정 명칭</div>
-		<div style='width:60%; float:right'><input type ='text' id='calendar_title' name = "volContent"></div>
+	<div id = form1">
+		<div style = 'width : 100%; height : 30px'>
+			<div style = 'width:30%; float:left; padding-left:30px'>일정 명칭</div>
+			<div style='width:60%; float:right'><input type ='text' id='calendar_title' name = "volContent"></div>
+		</div>
+		
+		<div style = 'width : 100%; height : 30px'>
+			<div style = 'width:30%; float:left; padding-left:30px'>시작 날짜</div>
+			<div style='width:60%; float:right'><input type ='text' id='start_date' name = "volStart" style='width:80px'></div>
+		</div>
+		
+		<div style = 'width : 100%; height : 30px'>
+			<div style = 'width:30%; float:left; padding-left:30px'>마감 날짜</div>
+			<div style='width:60%; float:right'><input type ='text' id='end_date' name = "volEnd" style='width:80px'></div>
+		</div>
+		
+		<div>
+			<div style = 'width:30%; float:left; padding-left:30px'>모집 인원</div>
+			<div style='width:60%; float:right'><input type ='number' id='max' name = "volMax" style='width:80px'></div>
+		</div>
+		
+		<div style = 'width : 100%; text-align:center; height : 30px; margin-top:40px'>
+			<button onclick='saveSchedule();'>저장하기</button>
+		</div>
 	</div>
-	
-	<div style = 'width : 100%; height : 30px'>
-		<div style = 'width:30%; float:left; padding-left:30px'>시작 날짜</div>
-		<div style='width:60%; float:right'><input type ='text' id='start_date' name = "volStart" style='width:80px'></div>
-	</div>
-	
-	<div style = 'width : 100%; height : 30px'>
-		<div style = 'width:30%; float:left; padding-left:30px'>마감 날짜</div>
-		<div style='width:60%; float:right'><input type ='text' id='end_date' name = "volEnd" style='width:80px'></div>
-	</div>
-	
-	<div>
-		<div style = 'width:30%; float:left; padding-left:30px'>모집 인원</div>
-		<div style='width:60%; float:right'><input type ='number' id='max' name = "volMax" style='width:80px'></div>
-	</div>
-	
-	<div style = 'width : 100%; text-align:center; height : 30px; margin-bottom:15px; margin-top:10px'>
-		<button onclick='saveSchedule();'>저장하기</button>
-	</div>
-	
 	</form>
 	
 	<script>
@@ -100,12 +106,7 @@
 		
 		
 		
-		function resizeWindow(win)    {
-			var wid = win.document.body.offsetWidth + 30;
-			var hei = win.document.body.offsetHeight + 40;
-
-			win.resizeTo(wid,hei);
-			}
+		
 	</script>
 	
 	

@@ -48,10 +48,10 @@ label{
 }
 
 #addSc{
-	width : 74%;
+	width : 73%;
 	margin-left:auto;
 	margin-right:auto;
-	
+	margin-top : 40px;
 	text-align : right;
 	
 }
@@ -136,6 +136,15 @@ label{
 	color : skyblue;
 }
 
+#insertSc{
+	background-color : #0101DF;
+	color : white;
+	font-weight : bold;
+	border-radius : 5px;
+	border : 1px solid #0101DF;
+	width : 100px;
+	height : 30px;
+}
 </style>
 </head>
 
@@ -148,21 +157,23 @@ label{
    <!-- 내용 -->
    <div class="contents">
       <div id="title"><h1>봉사 일정</h1></div>
-   		<a href = "myVolunteer.vo" target="_blank" onclick = "window.open(this.href,'','width = 800, height = 700'); return false;" ><img src = "${ contextPath }/resources/images/detail.png" width = 40px height = 40px id="detail"></a>
+      	<c:if test="${ !empty loginUser }">
+   			<a href = "myVolunteer.vo" target="_blank" onclick = "window.open(this.href,'','width = 800, height = 700'); return false;" ><img src = "${ contextPath }/resources/images/detail.png" width = 40px height = 40px id="detail"></a>
+   		</c:if>
    		<div id = "calendar_div">
 			<div  id="calendar"> </div>
    		</div>
    		
    		<c:if test="${ !empty adminUser && adminUser.userId eq 'admin' }">
     	<div id = "addSc">
-   			<button onclick = "addSchedule()">일정 등록</button>
+   			<button onclick = "addSchedule()" id = "insertSc">일정 등록</button>
    		</div>
 		</c:if>
 		
  		<script>
 			function addSchedule(){
 				/* window.open("${ contextPath }/volunteer_ej/addScheduleForm.jsp","스케줄 등록","width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes") */
-				window.open("addSchForm.vo","스케줄등록","width=10, height=10","scrollbars=no");
+				window.open("addSchForm.vo","스케줄등록","width=500, height=200, left=500,top=200","scrollbars=no");
 			}
 		</script>
 		
