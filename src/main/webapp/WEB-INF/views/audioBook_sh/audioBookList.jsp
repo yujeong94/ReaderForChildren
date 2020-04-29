@@ -45,30 +45,13 @@
 
 			<div class="search">
 				<select class="selectbox" id="searchCondition" name="searchCondition">
-				<c:if test="${ searchCondition eq null }">
 					<option selected disabled>-------</option>
-					<option value="title" id="title">제목</option>
-					<option value="writer" id="writer">저자</option>
-					<option value="publisher" id="publisher">출판사</option>
-				</c:if>
-				<c:if test="${ searchCondition eq 'title' }">
-					<option disabled>-------</option>
-					<option selected value="title" id="title">제목</option>
-					<option value="writer" id="writer">저자</option>
-					<option value="publisher" id="publisher">출판사</option>
-				</c:if>
-				<c:if test="${ searchCondition eq 'writer' }">
-					<option disabled>-------</option>
-					<option value="title" id="title">제목</option>
-					<option selected value="writer" id="writer">저자</option>
-					<option value="publisher" id="publisher">출판사</option>
-				</c:if>
-				<c:if test="${ searchCondition eq 'publisher' }">
-					<option disabled>-------</option>
-					<option value="title" id="title">제목</option>
-					<option value="writer" id="writer">저자</option>
-					<option selected value="publisher" id="publisher">출판사</option>
-				</c:if>
+					<option value="title" id="title"
+						<c:if test="${searchCondition == 'title'}">selected</c:if>>제목</option>
+					<option value="writer" id="writer"
+						<c:if test="${searchCondition == 'writer'}">selected</c:if>>저자</option>
+					<option value="publisher" id="publisher"
+						<c:if test="${searchCondition == 'publisher'}">selected</c:if>>출판사
 				</select>
 				
 				<c:if test="${ searchValue ne ''}">
