@@ -33,14 +33,14 @@
 
 .listTable{
 	margin: auto;
-	font-size: 18px;
+	font-size: 13px;
 	text-align: center;
 	background: #E9EDE4;
 }
 
 .tableDiv{
 	height: 420px;
-	width: 760px;
+	width: 820px;
 	margin: auto;
 	margin-bottom: 40px;
 	overflow: auto;
@@ -54,11 +54,13 @@ table > thead > tr > th {
 	background: #233C0B;
 	color: white;
 	padding: 5px;
-	font-size: 20px;
+	font-size: 17px;
+	vertical-align: middle;
 }
 
 table > tbody > tr > td {
 	padding: 4px;
+	vertical-align: middle;
 }
 
 /* .tableDiv::-webkit-scrollbar-thumb { background-color: pink; } */
@@ -69,30 +71,57 @@ table > tbody > tr > td {
 }
 
 .NOtd{
-	width: 150px;
+	width: 90px;
 }
 
 .IDtd{
-	width: 150px;
+	width: 80px;
 }
 
 .ORDERtd{
-	width: 250px;
+	width: 20px;
+	
+}
+
+.BOOKtd{
+	width: 220px;
+}
+
+.DETAILtd{
+	width: 230px;
+}
+
+.PRICEtd{
+	width: 60px;
 }
 
 .STATUStd{
-	width: 200px;
+	width: 100px;
 }
 
-.statusBtn {
+/* 버튼 css */
+button{
 	padding: 5px 10px; 
     box-shadow: none; 
     border: none; 
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.statusBtn {
     background: #85E82F;
     color: #0A1D6F;
+}
+
+.deleteBtn{
+	background: black;
+	color: white;
+}
+
+.successBtn{
+	background: #707171;
+	color: white;
 }
 
 .blinking{
@@ -113,33 +142,20 @@ table > tbody > tr > td {
     100% {opacity:1;}
 }
 
-/* 검색창 */
+/* 카테고리 */
 .search{
-	height: 35px;
-	width: 260px;
+	width: 160px;
+    margin-bottom: 10px;
+    position: relative;
+    left: 655px;
+}
+
+#category{
+	width: 160px;
+	padding: .5em .5em;
 	border: 1px solid #C6C618;
-	margin-bottom: 10px;
-	position: relative;
-	left: 520px;
-}
-
-.searchInput{
-	font-size: 12px;
-	width: 180px;
-	padding: 10px;
-	border: 0px;
-	outline: none;
-	float: left;
-}
-
-.searchBtn{
-	width: 45px;
-	height: 100%;
-	border: 0px;
-	background: #C6C618;
-	outline: none;
-	float: right;
-	color: white;
+	font-family: inherit;
+	border-radius: 0px;
 }
 
 </style>
@@ -153,30 +169,60 @@ table > tbody > tr > td {
 		<div class="ap_content">
 			<div id="title">구매자 리스트</div>
 			<div class="search">
-				<input type="text" class="searchInput" placeholder="아이디 입력">
-				<button class="searchBtn"><img src="${ contextPath }/resources/images/search2.png" width="22px"></button>
-			</div>
+            <select size=1 id="category" name="event_status">
+            	<option value="전체" <c:if test="${ selectbox == '전체' }">selected</c:if>>전체</option>
+				<option value="오래된" <c:if test="${ selectbox == '오래된' }">selected</c:if>>날짜 오름차순</option>
+				<option value="최근" <c:if test="${ selectbox == '최근' }">selected</c:if>>날짜 내림차순</option>
+				<option value="배송준비" <c:if test="${ selectbox == '배송준비' }">selected</c:if>>배송 접수 대기</option>
+			</select>
+         </div>
 			<div class="tableDiv">
 				<table class="listTable">
 					<thead>
 					<tr id="listTitle">
-						<th class="NOtd fixedHeader">DATE</th>
+						<th class="NOtd fixedHeader">Date</th>
 						<th class="IDtd fixedHeader">ID</th>
-						<th class="ORDERtd fixedHeader">ORDER</th>
-						<th class="STATUStd fixedHeader">STATUS</th>
+						<th class="ORDERtd fixedHeader">Order</th>
+						<th class="BOOKtd fixedHeader">Book</th>
+						<th class="DETAILtd fixedHeader">Detail</th>
+						<th class="PRICEtd fixedHeader">Price</th>
+						<th class="STATUStd fixedHeader">Status</th>
 					</tr>
 					</thead>
 					<tbody>
-					<c:forEach begin="1" end="30" step="1" var="i">
+					<c:if test="${ !empty list }">
+						<c:forEach var="b" items="${ list }">
+							<tr>
+								<td>${ b.or_date }</td>
+								<td>${ b.user_id }</td>
+								<td>${ b.or_no }</td>
+								<td>${ b.bk_name }</td>
+								<td>옵션:<br>오디오북 (
+									<c:choose>
+										<c:when test="${ b.aud_code_f > 0 && b.aud_code_m == 0 }">여자</c:when>
+										<c:when test="${ b.aud_code_m > 0 && b.aud_code_f == 0 }">남자</c:when>
+										<c:otherwise>남자, 여자</c:otherwise>
+									</c:choose>
+									)
+									<c:if test="${ b.contain_bk == 'Y' }">+ 도서</c:if>
+								</td>
+								<td>${ b.or_price }</td>
+								<td>
+									<c:choose>
+										<c:when test="${ b.or_status == 'N' }"><button class="deleteBtn">주문취소</button></c:when>
+										<c:when test="${ b.del_status == 2 }"><button class="successBtn">접수완료</button></c:when>
+										<c:otherwise><button class="statusBtn blinking readyBtn">배송접수</button></c:otherwise>
+									</c:choose>
+									
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${ empty list }">
 						<tr>
-							<td class="NOtd">2020-04-03</td>
-							<td class="IDtd">user<c:out value="${ i }"/></td>
-							<td class="ORDERtd">OR00<c:out value="${ i }"/></td>
-							<td class="STATUStd">
-								<button class="statusBtn blinking">배송접수</button>
-							</td>
+							<td colspan="5" class="noneEvent">주문 내역이 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -197,7 +243,7 @@ table > tbody > tr > td {
 		
 			
 			
-			$('.statusBtn').click(function(){
+			/* $('.statusBtn').click(function(){
 				var status = $(this).parent().children(".statusBtn").text();
 				console.log(status);
 				
@@ -210,7 +256,7 @@ table > tbody > tr > td {
 					}
 				}
 				
-			});
+			}); */
 		
 	</script>
 	
