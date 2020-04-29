@@ -18,23 +18,24 @@ public class listDAO {
 		return sqlSession.selectOne("mypageMapper.getListCount");
 	}
 
-	public ArrayList<Rec> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Rec> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("mypageMapper.selectList",null,rowBounds);
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectList",userId,rowBounds);
 	}
 
 	public int getshListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("mypageMapper.getshListCount");
 	}
 
-	public ArrayList<Shipping> selectshList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Shipping> selectshList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("mypageMapper.selectshList", null, rowBounds);
+		
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectshList", userId, rowBounds);
 	}
 
 	public int insertBoard(SqlSessionTemplate sqlSession, Shipping s) {
@@ -57,10 +58,10 @@ public class listDAO {
 		return sqlSession.selectOne("mypageMapper.getorListCount");
 	}
 
-	public ArrayList<OrderDetail> selectorList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<OrderDetail> selectorList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectorList", userId, rowBounds);
 		/*ArrayList<OrderDetail> list =  (ArrayList)sqlSession.selectList("mypageMapper.selectorList", null, rowBounds);
 		return list;*/
 	}
@@ -73,10 +74,10 @@ public class listDAO {
 		return sqlSession.selectOne("mypageMapper.getcartListCount");
 	}
 
-	public ArrayList<OrderDetail> selectcartList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<OrderDetail> selectcartList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("mypageMapper.selectcartList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectcartList", userId, rowBounds);
 	}
 
 	public int deletecart(SqlSessionTemplate sqlSession, int cNo) {
@@ -86,5 +87,16 @@ public class listDAO {
 	public int updaterL(SqlSessionTemplate sqlSession, int sNo) {
 		return sqlSession.update("mypageMapper.updaterL", sNo);
 	}
+
+	public int updateLL(SqlSessionTemplate sqlSession, int sNo) {
+		return sqlSession.update("mypageMapper.updateLL", sNo);
+	}
+
+	public ArrayList<OrderDetail> selectOrderDetail(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectOrderDetail", userId, rowBounds);
+	}
+
 
 }

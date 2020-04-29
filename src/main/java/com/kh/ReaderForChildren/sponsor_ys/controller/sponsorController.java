@@ -34,6 +34,8 @@ public class sponsorController {
 	@RequestMapping("splist.sp")
 public ModelAndView sponsorList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 		
+		
+		
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -89,8 +91,12 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 	}*/
 	
 	@RequestMapping("sllist.sp")
-	public ModelAndView supportList(@RequestParam(value="page", required=false) Integer page,ModelAndView mv) {
+	public ModelAndView supportList(@RequestParam(value="page", required=false) Integer page,ModelAndView mv, HttpSession session) {
 			
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			String userId = loginUser.getUserId();	
+		
+		
 			int currentPage = 1;
 			if(page != null) {
 				currentPage = page;
@@ -100,7 +106,7 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 			int listCount = spService.getSponserListCount();
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
-			ArrayList<Support> list = spService.selectslList(pi);
+			ArrayList<Support> list = spService.selectslList(pi, userId);
 			
 			if(list != null) {
 				mv.addObject("pi", pi);
@@ -126,10 +132,11 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 		support.setSpName(spName);
 		support.setUserId(userId);
 		support.setSupdate(supdate);
-		
+
 		int result = spService.insertSupport(support);
+		int result2 = spService.updateMember(support);
 		
-		if(result > 0) {
+		if(result > 0 && result2 > 0) {
 			return "sponser3";
 		}else {
 			throw new sponsorException("실패");

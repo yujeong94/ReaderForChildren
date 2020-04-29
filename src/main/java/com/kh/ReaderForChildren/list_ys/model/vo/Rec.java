@@ -5,9 +5,7 @@ import java.sql.Date;
 public class Rec {
 
 	private int rid;
-	private int lat;
-	private int lon;
-	private String city;
+	private String recCompany;
 	private String address;
 	private Date rdate;
 	private String rtime;
@@ -16,13 +14,10 @@ public class Rec {
 	
 	public Rec() {}
 
-	public Rec(int rid, int lat, int lon, String city, String address, Date rdate, String rtime, String userId,
-			String restatus) {
+	public Rec(int rid, String recCompany, String address, Date rdate, String rtime, String userId, String restatus) {
 		super();
 		this.rid = rid;
-		this.lat = lat;
-		this.lon = lon;
-		this.city = city;
+		this.recCompany = recCompany;
 		this.address = address;
 		this.rdate = rdate;
 		this.rtime = rtime;
@@ -38,28 +33,12 @@ public class Rec {
 		this.rid = rid;
 	}
 
-	public int getLat() {
-		return lat;
+	public String getRecCompany() {
+		return recCompany;
 	}
 
-	public void setLat(int lat) {
-		this.lat = lat;
-	}
-
-	public int getLon() {
-		return lon;
-	}
-
-	public void setLon(int lon) {
-		this.lon = lon;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
+	public void setRecCompany(String recCompany) {
+		this.recCompany = recCompany;
 	}
 
 	public String getAddress() {
@@ -104,8 +83,8 @@ public class Rec {
 
 	@Override
 	public String toString() {
-		return "Rec [rid=" + rid + ", lat=" + lat + ", lon=" + lon + ", city=" + city + ", address=" + address
-				+ ", rdate=" + rdate + ", rtime=" + rtime + ", userId=" + userId + ", restatus=" + restatus + "]";
+		return "Rec [rid=" + rid + ", recCompany=" + recCompany + ", address=" + address + ", rdate=" + rdate
+				+ ", rtime=" + rtime + ", userId=" + userId + ", restatus=" + restatus + "]";
 	}
 
 	

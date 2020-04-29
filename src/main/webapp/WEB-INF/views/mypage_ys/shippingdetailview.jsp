@@ -77,8 +77,9 @@
       margin-left : 440px; margin-top:30px; cursor:pointer} */
       .upBtn{width:80px;height:35px;  color: white;  box-shadow: none; 
     border: none; border-radius: 5px; margin-top:30px; }
-    #updateBtn{margin-right:10px;margin-left:180px;}
+    #updateBtn{margin-right:10px;margin-left:10px;}
     #cancle{margin-left:10px;}
+   #rLvel{margin-left:150px;}
    
 </style>
 </head>
@@ -134,12 +135,15 @@
 		 <c:url var="shlist" value="shlist.li">
 			<c:param name="page" value="${ page }"/>
 		</c:url> 
-
+<c:url var="rLUpdate" value="rLupdate.li">
+						<c:param name="sNo" value="${ shipping.sNo }"/>
+					</c:url> 
 
 
    <table>
  <%--   <c:if test="${ loginUser.userId eq Shipping.userId }"> --%>
    <tr> 
+   				<td><button onclick="location.href='${rLUpdate}'" id="rLvel" class="upBtn">기본배송지 설정</button></td>
    				<td><button onclick="location.href='${ shupView }'" id="updateBtn" class="upBtn">수정</button></td> 
 				<td><button type="button" id="cancle" class="upBtn" onclick="deleteShipping()">삭제</button></td>
    </tr>
@@ -158,7 +162,19 @@
 		}
 	</script>
    
-   
+   <script>
+    function rLevelchange(){
+    	var rLevel = confirm("기본배송지로 변경하시겠습니까?");
+    	
+    	if( rLevel ){
+    		var sNo = $('#sNo').val();
+    		location.href='${rLUpdate}';
+    	location.href="rLupdate.li?sNo="+sNo; 
+    		
+    		
+    	}
+    }
+   </script>
    
    
    

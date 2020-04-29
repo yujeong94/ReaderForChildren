@@ -11,15 +11,13 @@
 	<select id="selectList" resultMap="recResultSet">
 		select *
 		from rec_booth
-		where re_status='Y'
+		where re_status='Y' and user_id=#{userId}
 		order by rid desc
 	</select>
 	
 	<resultMap type="Rec" id="recResultSet">
       <id property="rid" column="RID"/>
-      <result property="lat" column="LAT"/>
-      <result property="lon" column="LON"/>
-      <result property="city" column="CITY"/>
+      <result property="recCompany" column="RECCOMPANY"/>
       <result property="address" column="ADDRESS"/>
       <result property="rdate" column="RDATE"/>
       <result property="rtime" column="RTIME"/>
@@ -40,11 +38,7 @@
 		where s_status='Y' and user_id=#{userId}
 		order by s_no desc
 	</select> 
-	 <select id="selectShipping" parameterType="_int" resultMap="ShippingResultSet">
-		select *
-		from shipping
-		where user_id=#{userId} and s_status='Y'
-	</select> 
+	 
 	
 	<resultMap type="Shipping" id="ShippingResultSet">
       <id property="sNo" column="S_NO"/>
@@ -58,6 +52,11 @@
       <result property="userId" column="USER_ID"/>
        <result property="rLevel" column="R_LEVEL"/>
    </resultMap>
+   <select id="selectShipping" parameterType="_int" resultMap="ShippingResultSet">
+		select *
+		from shipping
+		where s_no=#{sNo} and s_status='Y'
+	</select> 
    
    <insert id="insertBoard" parameterType="Shipping">
 		insert into shipping values(
@@ -78,16 +77,24 @@
 			r_zipcode=#{rZipcode}, r_basicadd=#{rBasicadd}, r_detailadd=#{rDetailadd}
 		where s_no=#{sNo}
 	</update>
-	<update id="updaterLL" parameterType="Shipping">
+	
+	
+	<update id="updateLL" parameterType="Shipping">
 		update shipping
 		set r_Level='1'
 		where r_level='0'
+		
+		
 	</update>
+	
 	<update id="updaterL" parameterType="Shipping">	
 		 update shipping
 		set r_Level='0'
 		where s_no=#{sNo}
 	</update>
+	
+	
+	
 	
 
 	
@@ -108,8 +115,13 @@
 	<select id="selectorList" resultMap="OrlistResultSet">
 		select or_no, or_date, or_status, decode(del_status,'1','배송준비중','2','배송완료') as del_status, bk_name, change_name, IMA
 		from order_list
-		where or_status = 'Y'
-			
+		where or_status = 'Y' and user_id=#{userId}
+	</select>
+	
+	<select id="selectOrderDetail" resultMap="OrderdetailResultSet">
+		select *
+		from order_detail
+		where or_status = 'Y' and user_id=#{userId}
 	</select>
 	
 	<resultMap type="Orlist" id="OrlistResultSet">
@@ -120,7 +132,23 @@
 		<result property="delStatus" column="DEL_STATUS"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="ima" column="IMA"/>
+		<result property="userId" column="USER_ID"/>
 		
+	</resultMap>
+	
+	<resultMap type="Orderdetail" id="OrderdetailResultSet">
+		<id property="orNo" column="OR_NO"/>
+		<result property="bkCode" column="BK_CODE"/>
+		<result property="audCodeF" column="AUD_CODE_F"/>
+		<result property="audCodeM" column="AUD_CODE_M"/>
+		<result property="orPrice" column="OR_PRICE"/>
+		<result property="orDate" column="OR_DATE"/>
+		<result property="delRequest" column="DEL_REQUEST"/>
+		<result property="delStatus" column="DEL_STATUS"/>
+		<result property="orStatus" column="OR_STATUS"/>
+		<result property="containBk" column="CONTAIN_BK"/>
+		<result property="sNo" column="S_NO"/>
+		<result property="userId" column="USER_ID"/>
 	</resultMap>
 	<!-- <select>
 	SELECT change_name
@@ -160,7 +188,7 @@ WHERE AUD_CODE = (SELECT AUD_CODE_F
 	<select id="selectcartList" resultMap="cartListResultSet">
 		select c_no, bk_name, bk_code, aud_code_f, aud_code_m, status, or_price, change_name
 		from cart_list
-		where status = 'Y'
+		where status = 'Y' and user_id=#{userId}
 	
 	</select>
 	

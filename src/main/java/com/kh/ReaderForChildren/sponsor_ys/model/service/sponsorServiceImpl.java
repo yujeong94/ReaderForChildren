@@ -48,13 +48,18 @@ public class sponsorServiceImpl implements sponsorService {
 	}
 
 	@Override
-	public ArrayList<Support> selectslList(PageInfo pi) {
-		return spDAO.selectslList(sqlSession, pi);
+	public ArrayList<Support> selectslList(PageInfo pi,String userId) {
+		return spDAO.selectslList(sqlSession, pi, userId);
 	}
 
 	@Override
 	public int insertSupport(Support support) {
 		return spDAO.insertSupport(sqlSession, support);
+	}
+
+	@Override
+	public int updateMember(Support support) {
+		return spDAO.updateMember(sqlSession, support);
 	}
 
 

@@ -18,11 +18,13 @@ public interface sponsorService {
 
 	int getSponserListCount();
 
-	ArrayList<Support> selectslList(PageInfo pi);
+	ArrayList<Support> selectslList(PageInfo pi, String userId);
 
 	int suupdateMember(Support s);
 
 	int insertSupport(Support support);
+
+	int updateMember(Support support);
 
 
 	

@@ -2,6 +2,7 @@ package com.kh.ReaderForChildren.sponsor_ys.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -34,8 +35,12 @@ public class sponsorDAO {
 		return sqlSession.selectOne("sponsorMapper.getSponserListCount");
 	}
 
-	public ArrayList<Support> selectslList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		return  (ArrayList)sqlSession.selectList("supportMapper.selectslList", null);
+	public ArrayList<Support> selectslList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return  (ArrayList)sqlSession.selectList("supportMapper.selectslList", userId, rowBounds);
+	
 	}
 
 	public int suupdateMember(SqlSessionTemplate sqlSession, Support s) {
@@ -44,6 +49,10 @@ public class sponsorDAO {
 
 	public int insertSupport(SqlSessionTemplate sqlSession, Support support) {
 		return sqlSession.insert("supportMapper.insertSupport", support);
+	}
+
+	public int updateMember(SqlSessionTemplate sqlSession, Support support) {
+		return sqlSession.update("supportMapper.updateMember", support);
 	}
 
 
