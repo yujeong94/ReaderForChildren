@@ -166,4 +166,17 @@ public class VolunteerController {
 		}
 	}
 	
+	@RequestMapping("updateStatus.vo")
+	public void updateStatus(HttpServletResponse response) throws IOException {
+		
+		int result = vService.updateStatus();
+		
+		if(result > 0) {
+			response.getWriter().print(true);
+		}else {
+			response.getWriter().print(false);
+		}
+		
+	}
+	
 }

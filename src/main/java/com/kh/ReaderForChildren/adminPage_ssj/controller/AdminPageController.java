@@ -18,8 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.ReaderForChildren.adminPage_ssj.model.exception.AdminPageException;
 import com.kh.ReaderForChildren.adminPage_ssj.model.service.AdminPageService;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
+import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
+import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
+import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
+import com.kh.ReaderForChildren.sponsor_ys.model.vo.Support;
 
 @SessionAttributes("adminUser")
 @Controller
@@ -50,8 +54,17 @@ public class AdminPageController {
 	}
 	
 	@RequestMapping("sponsorList.ad")
-	public String sponsorListView() {
-		return "sponsorList";
+	public ModelAndView sponsorListView(ModelAndView mv) {
+		
+		ArrayList<Support> list = aService.selectSponsorList();
+		
+		if(list != null) {
+			mv.addObject("list", list).setViewName("sponsorList");
+		} else {
+			throw new AdminPageException("후원자 리스트 조회 실패");
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping("revenue.ad")
@@ -59,9 +72,34 @@ public class AdminPageController {
 		return "revenueStatus";
 	}
 	
+	// 오디션 리스트
 	@RequestMapping("auditionList.ad")
-	public String auditionListView() {
-		return "auditionList";
+	public ModelAndView auditionListView(ModelAndView mv) {
+		
+		ArrayList<Reader> list = aService.selectAuditionList();
+		
+		if(list != null) {
+			mv.addObject("list", list).setViewName("auditionList");
+		} else {
+			throw new AdminPageException("오디션 리스트 조회 실패");
+		}
+		
+		return mv;
+	}
+	
+	// 오디션 카테고리
+	@RequestMapping("auditionListSelect.ad")
+	public ModelAndView auditionListSelectView(ModelAndView mv, @RequestParam("selectbox") String selectbox) {
+		
+		ArrayList<Reader> list = aService.selectCategoryAuditionList(selectbox);
+		
+		if(list != null) {
+			mv.addObject("list", list).addObject("selectbox", selectbox).setViewName("auditionList");
+		} else {
+			throw new AdminPageException("카테고리별 오디션 리스트 조회 실패");
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping("eventWinner.ad")
@@ -122,9 +160,10 @@ public class AdminPageController {
 	public ModelAndView userInfoDetail(@RequestParam("userId") String userId, ModelAndView mv) {
 		
 		Member member = aService.selectUserInfo(userId);
+		ArrayList<Support> support = aService.selectUserSupport(userId);
 		
 		if(member != null) {
-			mv.addObject("member", member).setViewName("userInfoForm");
+			mv.addObject("member", member).addObject("support", support).setViewName("userInfoForm");
 		} else {
 			throw new AdminPageException("회원 상세 정보 조회에 실패하였습니다.");
 		}
@@ -162,5 +201,83 @@ public class AdminPageController {
 		
 		return "redirect:home.do";
 	}
+	
+	// sponsor 검색기능
+	@RequestMapping("sponsorSearch.ad")
+	public ModelAndView sponsorSearch(ModelAndView mv, @RequestParam("spName") String spName) {
+		
+		ArrayList<Support> list = aService.sponsorSearch(spName);
+		
+		if(list != null) {
+			mv.addObject("list", list).setViewName("sponsorList");
+		} else {
+			throw new AdminPageException("후원명 검색 실패");
+		}
+		
+		return mv;
+	}
+	
+	// auditionForm 상세보기
+	@RequestMapping("auditionForm.ad")
+	public ModelAndView auditionDetailView(ModelAndView mv, @RequestParam("userId") String userId) {
+		Member m = aService.selectUser(userId);
+		Reader r = aService.selectReader(userId);
+		ArrayList<Career> c = aService.selectCareer(userId);
+		Audition a = aService.selectAudition(r.getaNum());
+		
+		if(r != null && c != null) {
+			mv.addObject("r", r).addObject("c", c).addObject("a", a).addObject("m", m).setViewName("auditionForm");
+		} else {
+			throw new AdminPageException("지원서 상세페이지 실패");
+		}
+		
+		return mv;
+	}
+	
+	// audition 결과
+	// 합격
+	@RequestMapping("passReader.ad")
+	public String resultPassReader(@RequestParam("userId") String userId) {
+		
+		int result1 = aService.resultPassReaderTable(userId);
+		int result2 = aService.resultPassMemberTable(userId);
+		
+		if(result1 > 0 && result2 > 0) {
+			return "redirect:auditionList.ad";
+		} else {
+			throw new AdminPageException("합격 결과 등록 실패");
+		}
+	}
+	
+	// 불합격
+	@RequestMapping("failReader.ad")
+	public String resultFailReader(@RequestParam("userId") String userId) {
+		
+		int result1 = aService.resultFailReaderTable(userId);
+		
+		if(result1 > 0) {
+			return "redirect:auditionList.ad";
+		} else {
+			throw new AdminPageException("뷸합격 결과 등록 실패");
+		}
+	}
+	
+	// 영구정지
+	@RequestMapping("banReader.ad")
+	public String resultBanReader(@RequestParam("userId") String userId) {
+		
+		int result1 = aService.resultBanReaderTable(userId);
+		int result2 = aService.resultBanMemberTable(userId);
+		
+		if(result1 > 0 && result2 > 0) {
+			return "redirect:auditionList.ad";
+		} else {
+			throw new AdminPageException("영구정지 결과 등록 실패");
+		}
+	}
+	
+	
+	
+	
 	
 }

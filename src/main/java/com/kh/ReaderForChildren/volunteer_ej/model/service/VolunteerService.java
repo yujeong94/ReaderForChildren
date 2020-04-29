@@ -26,4 +26,6 @@ public interface VolunteerService {
 
 	int checkDate(VolunteerSchedule vs);
 
+	int updateStatus();
+
 }

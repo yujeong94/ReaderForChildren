@@ -154,12 +154,6 @@ table > tbody > tr > td {
 						<td class="firstTD">주소</td>
 						<td class="thirdTD" colspan="3">(${ member.postalCode }) ${ member.bAddress } ${member.lAddress }</td>
 					</tr>
-					<tr>
-						<td class="firstTD">포인트</td>
-						<td class="secondTD">500 point</td>
-						<td class="firstTD">후원 금액</td>
-						<td class="secondTD">${ member.donation } 원</td>
-					</tr>
 				</table>
 				<c:if test="${ member.division == 2 }">
 				<div class="readerTableDiv">
@@ -195,14 +189,21 @@ table > tbody > tr > td {
 						</tr>
 						</thead>
 						<tbody>
-						<c:forEach begin="1" end="10" step="1" var="i">
+						<c:if test="${ !empty support }">
+							<c:forEach var="s" items="${ support }" varStatus="c">
+								<tr>
+									<td class="NOtd">${ c.count }</td>
+									<td class="IDtd">${ s.spName }</td>
+									<td class="DATEtd">${ s.supdate }</td>
+									<td class="STATUStd stuTd">${ s.donation }</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty support }">
 							<tr>
-								<td class="NOtd"><c:out value="${ i }"/></td>
-								<td class="IDtd">유니세프</td>
-								<td class="DATEtd">2020-04-03</td>
-								<td class="STATUStd stuTd">50,000</td>
+								<td colspan=4>후원 기록이 존재하지 않습니다.</td>
 							</tr>
-						</c:forEach>
+						</c:if>
 						</tbody>
 					</table>
 				</div>
@@ -219,14 +220,21 @@ table > tbody > tr > td {
 						</tr>
 						</thead>
 						<tbody>
-						<c:forEach begin="1" end="15" step="1" var="i">
+						<c:if test="${ !empty support }">
+							<c:forEach var="s" items="${ support }" varStatus="c">
+								<tr>
+									<td class="NOtd">${ c.count }</td>
+									<td class="IDtd">${ s.spName }</td>
+									<td class="DATEtd">${ s.supdate }</td>
+									<td class="STATUStd stuTd">${ s.donation }</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty support }">
 							<tr>
-								<td class="NOtd"><c:out value="${ i }"/></td>
-								<td class="IDtd">유니세프</td>
-								<td class="DATEtd">2020-04-03</td>
-								<td class="STATUStd stuTd">50,000</td>
+								<td colspan=4>후원 기록이 존재하지 않습니다.</td>
 							</tr>
-						</c:forEach>
+						</c:if>
 						</tbody>
 					</table>
 				</div>

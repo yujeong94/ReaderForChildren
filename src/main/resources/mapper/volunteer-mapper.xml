@@ -47,6 +47,7 @@
 		select USER_ID, VL_STATUS, VOL_START, VOL_END, VOL_STATUS, VOL_CONTENT, VL_NUM2
 		from myvol_list
 		where vl_status ='Y'
+		order by vol_start
 	</select>
 	
 	<resultMap type="MyVolunteerActivity" id="myVolResultSet">
@@ -79,10 +80,18 @@
 	
 	<select id="checkDate" resultType="_int">
 		<![CDATA[
-		select count(*)
-		from volunteer_add
-		where vol_add_num = #{volAddNum} and vol_start <= SYSDATE
+			select count(*)
+			from volunteer_add
+			where vol_add_num = #{volAddNum} and vol_start <= SYSDATE
 		]]>
 	</select>
+	
+	<update id="updateStatus">
+		<![CDATA[
+			UPDATE VOLUNTEER_ADD
+			SET VOL_STATUS = 'N'
+			WHERE VOL_START <= SYSDATE
+		]]>
+	</update>
 	
 </mapper>

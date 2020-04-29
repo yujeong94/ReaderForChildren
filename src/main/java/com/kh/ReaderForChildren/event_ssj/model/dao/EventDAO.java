@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Event;
 import com.kh.ReaderForChildren.event_ssj.model.vo.Reply;
+import com.kh.ReaderForChildren.event_ssj.model.vo.Winner;
+import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Repository("evDAO")
 public class EventDAO {
@@ -58,6 +60,32 @@ public class EventDAO {
 
 	public int updateEvent(SqlSessionTemplate sqlSession, Event e) {
 		return sqlSession.update("eventMapper.updateEvent", e);
+	}
+
+	public ArrayList<Winner> selectEventWinner(SqlSessionTemplate sqlSession, int eNum) {
+		return (ArrayList)sqlSession.selectList("eventMapper.selectEventWinner", eNum);
+	}
+
+	public ArrayList<Member> selectEventWinnerMember(SqlSessionTemplate sqlSession, ArrayList<Winner> winner) {
+		return (ArrayList)sqlSession.selectList("eventMapper.selectEventWinnerMember", winner);
+	}
+
+	public int countReply(SqlSessionTemplate sqlSession, int eNum) {
+		return sqlSession.selectOne("eventMapper.countReply", eNum);
+	}
+
+	public int insertEventRandom(SqlSessionTemplate sqlSession, ArrayList<Reply> rList) {
+		int result = 0;
+		
+		for(int i = 0; i < rList.size(); i++) {
+			result = sqlSession.insert("eventMapper.insertEventRandom", rList.get(i));
+		}
+		
+		return result;
+	}
+
+	public int updateWinnerEvent(SqlSessionTemplate sqlSession, int eNum) {
+		return sqlSession.update("eventMapper.updateWinnerEvent", eNum);
 	}
 
 }

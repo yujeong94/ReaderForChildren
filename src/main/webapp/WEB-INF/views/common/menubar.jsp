@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>menubar</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	.menulist {
 		height: 100%;
@@ -35,9 +36,68 @@
 	    font-size: 36px;
 	    margin-left: 50px;
 	}
-	#menuBtn {
+#menuBtn {
 		cursor : pointer;
-	}
+	} 
+	
+	/*  */
+/* #menuBtn {
+  visibility: hidden;
+}
+
+label {
+  width: 40px;
+  height: 5px;
+  border-radius: 5px;
+  background: #191818;
+  cursor: pointer;
+  transition: .6s;
+  position: fixed;
+  top: 5%;
+  right: 1%;
+  /* margin-left: -50px;
+  margin-top: -7.5px; */
+}/*
+
+/* label:before {
+  content: "";
+  width: 40px;
+  height: 5px;
+  background: #191818;
+  position: absolute;
+  transform: translateY(-12px);
+  -webkit-transform: translateY(-12px);
+  border-radius: 5px;
+  -webkit-transition: .6s;
+  transition: .6s;
+}
+
+label:after {
+  content: "";
+  width: 40px;
+  height: 5px;
+  background: #191818;
+  position: absolute;
+  transform: translateY(12px);
+  -webkit-transform: translateY(12px);
+  border-radius: 5px;
+  transition: .6s;
+  -webkit-transition: .6s;
+}
+
+#menuBtn:checked + label {
+  width: 0;
+}
+
+#menuBtn:checked + label:before {
+  transform: rotate(45deg) translate(0px);
+  -webkit-transform: rotate(45deg) translate(0px);
+}
+
+#menuBtn:checked + label:after {
+  transform: rotate(-45deg) translate(0px);
+  -webkit-transform: rotate(-45deg) translate(0px);
+} */
 </style>
 </head>
 <body>
@@ -49,6 +109,10 @@
          </h2>
          <ul class='util'>
          	<li><a href="${ contextPath }/calist.li"><img src = "${ contextPath }/resources/images/cart.png" width = 40px height = 40px ></a></li>
+         	<!-- <li>
+         		<input id="menuBtn" type="checkbox" onclick="openMenu();">
+				<label for="menuBtn"></label>
+			</li> -->
          	<li><img src = "${ contextPath }/resources/images/open-menu.png" width = 40px height = 40px id = "menuBtn" onclick="openMenu();"></li>
          </ul>
       </div>
@@ -63,7 +127,8 @@
 			<a href="${ splist }">아동 후원</a>
 			<a href="${ contextPath }/volView.vo">봉사 일정</a>
 			<a href="${ aulist }">Reader 오디션 지원</a>
-			<a href="${ contextPath }/recordView.re">녹음부스 예약</a>
+			<a href="javascript:void(0)" id="recBtn">녹음부스 예약</a>
+			<%-- <a href="${ contextPath }/recordView.re" id="recBtn">녹음부스 예약</a> --%>
 			<a href="${ contextPath }/eventList.ev">진행 중인 이벤트</a>
 			<a href="#">공지사항</a>
 			<a href="${ contextPath }/chatView.ch">Q&A</a>
@@ -76,6 +141,24 @@
 	   function closeMenu() {
 		    document.getElementById("menuShow").style.width = "0";
 		}
+	   
+	   $(function(){
+		  console.log("${ loginUser.division }") 
+	   });
+	   
+	   $("#recBtn").click(function(){
+		  	var userId = "${ loginUser.userId }";
+			var division = "${ loginUser.division }";
+			
+			if(userId == "") {
+				swal("로그인 후 이용해주세요.");
+				location.href="home.do";
+			} else if(division == "1") {
+				swal("리더 회원만 예약할 수 있습니다.");
+			} else {
+				location.href="recordView.re";
+			}
+	   });
    </script>
 </body>
 </html>

@@ -144,14 +144,21 @@ table > tbody > tr > td {
 					</tr>
 					</thead>
 					<tbody>
-					<c:forEach begin="1" end="30" step="1" var="i">
+					<c:if test="${ !empty list }">
+						<c:forEach var="s" items="${ list }" varStatus="c">
+							<tr>
+								<td class="NOtd">${ c.count }</td>
+								<td class="IDtd">${ s.userId }</td>
+								<td class="DATEtd">${ s.spName }</td>
+								<td class="STATUStd stuTd">${ s.donation }</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${ empty list }">
 						<tr>
-							<td class="NOtd"><c:out value="${ i }"/></td>
-							<td class="IDtd">user<c:out value="${ i }"/></td>
-							<td class="DATEtd">유니세프</td>
-							<td class="STATUStd stuTd">50,000</td>
+							<td colspan="4">검색 결과가 없습니다.</td>
 						</tr>
-					</c:forEach>
+					</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -170,20 +177,12 @@ table > tbody > tr > td {
 			});
 		});
 		
-		/* $('.statusBtn').click(function(){
-			var status = $(this).parent().children(".statusBtn").text();
-			console.log(status);
+		$('.searchBtn').click(function(){
+			$(this).css('background','green');
+			var spName = $('.searchInput').val().trim();
 			
-			if(status == '배송접수'){
-				var check = confirm("접수하시겠습니까?");
-				
-				if(check){
-					$(this).text("접수완료").css({'background':'#707171', 'color':'white'});
-					$(this).parent().children(".statusBtn").removeClass('blinking');
-				}
-			}
-			
-		}); */
+			location.href="sponsorSearch.ad?spName="+spName;
+		});
 		
 	</script>
 	

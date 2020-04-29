@@ -98,31 +98,16 @@ table > tbody > tr > td {
 	left: 625px;
 }
 
-.searchInput{
-	font-size: 12px;
-	width: 180px;
-	padding: 10px;
-	border: 0px;
-	outline: none;
-	float: left;
-}
-
-.searchBtn{
-	width: 45px;
-	height: 100%;
-	border: 0px;
-	background: #C6C618;
-	outline: none;
-	float: right;
-	color: white;
-}
-
 #category{
 	width: 160px;
 	padding: .5em .5em;
 	border: 1px solid #A73232;
 	font-family: inherit;
 	border-radius: 0px;
+}
+
+.noneEvent{
+	text-align: center;
 }
 
 </style>
@@ -167,7 +152,7 @@ table > tbody > tr > td {
 								<td>
 									<fmt:formatDate value="${ w.eAnno }" pattern="yy.MM.dd"/>
 								</td>
-								<td>
+								<td class="status">
 									<jsp:useBean id="now" class="java.util.Date"/>
 									<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate"/>
 									<fmt:formatDate value="${ w.eEnd }" pattern="yyyyMMdd" var="closeDate"/>
@@ -182,7 +167,7 @@ table > tbody > tr > td {
 					</c:if>
 					<c:if test="${ empty list }">
 						<tr>
-							<td colspan="4">등록된 이벤트가 없습니다.</td>
+							<td colspan="5" class="noneEvent">등록된 이벤트가 없습니다.</td>
 						</tr>
 					</c:if>
 					
@@ -203,15 +188,15 @@ table > tbody > tr > td {
 				$(this).parent().css({'color':'black','font-weight':'normal'});
 			}).click(function(){
 				var eNum = $(this).parent().children().eq(0).text();
-				var status = $(this).parent().children().eq(4).text();
-				console.log("eNum:" + eNum + ", status:" + status);
+				var status = $(this).parent().children('.status').text();
+				var trimStatus = status.trim();
 				
-				if(status == "진행중"){
+				if(trimStatus == "진행중"){
 					location.href="eventDetail.ev?eNum=" + eNum;
-				} else if(status == "완료"){
-					/* location.href="eventEndDetail.ev?eNum=" + eNum; */
+				} else if(trimStatus == "완료"){
+					location.href="eventEndDetail.ev?eNum=" + eNum;
 				} else{
-					
+					window.open("eventRandom.ev?eNum=" + eNum, "eventRandom", "width=600, height=500");
 				}
 			});
 			
