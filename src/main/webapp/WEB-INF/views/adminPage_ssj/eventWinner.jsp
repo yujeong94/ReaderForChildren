@@ -98,25 +98,6 @@ table > tbody > tr > td {
 	left: 625px;
 }
 
-.searchInput{
-	font-size: 12px;
-	width: 180px;
-	padding: 10px;
-	border: 0px;
-	outline: none;
-	float: left;
-}
-
-.searchBtn{
-	width: 45px;
-	height: 100%;
-	border: 0px;
-	background: #C6C618;
-	outline: none;
-	float: right;
-	color: white;
-}
-
 #category{
 	width: 160px;
 	padding: .5em .5em;
