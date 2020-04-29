@@ -13,8 +13,12 @@
 	#uploadBtn{float: right; background: rgb(231, 76, 60); color: white;
 			border: none; width: 100px; height: 40px; border-radius: 5px;
 			font-weight: bold; font-size: 17.5px; margin: 0 5px 20px 5px; cursor: pointer;}
-	.search{text-align: center; margin-bottom: 80px;}
+	.search{text-align: center; margin-bottom: 60px;}
 	.selectbox{width: 80px; height: 32px; border-radius: 5px; margin-right: 10px;}
+	.best{margin: 0 auto 50px; width: 860px; height: 300px; border: 1px solid gray;}
+	.bestTitle{font-size: 28px; font-weight: 500; color: #444; text-align: center;}
+	.bestText{font-size: 12px; font-weight: 500; color: #444; text-align: center; margin-bottom: 10px;}
+	.bestBook{border: 1px solid red; height: 230px; width: 230px;}
 	.frame{text-align: center; margin-bottom: 30px;}
 	.searchline{border: 0; border-bottom: 2px solid darkgray; outline: none; width: 500px; height: 40px;}
 	.sBtn{border: none; background:none;} .sBtn:hover {cursor: pointer;}
@@ -74,11 +78,20 @@
 				<button class="sBtn" onclick="searchBoard();"><img src="${ contextPath }/resources/images/search.PNG" width="30px" height="30px"></button>
 			</div>
 			
+			
+			<div class="best">
+				<div class="bestTitle">BEST SELLERS</div>
+				<div class="bestText">가장 사랑받은 오디오북</div>
+				<div class="bestBook">
+					
+				</div>
+			</div>
+			
+			
 			<div class="frame">
 				<c:forEach var="b" items="${ blist }">
 				<div class="product">
 					<div class="bookImg">
-						<%-- <input type="hidden" value="${ b.bkCode }"> --%>
 						<c:url var="abdetail" value="abdetail.ab">
 							<c:param name="bkCode" value="${ b.bkCode }"/>
 							<c:param name="page" value="${ pi.currentPage }"/>

@@ -8,10 +8,12 @@ public class Cart {
 	private int audCodeM;
 	private String containBk;
 	private String status;
+	private int cPrice;
 	
 	public Cart() {}
 
-	public Cart(int cNo, String userId, int bkCode, int audCodeF, int audCodeM, String containBk, String status) {
+	public Cart(int cNo, String userId, int bkCode, int audCodeF, int audCodeM, String containBk, String status,
+			int cPrice) {
 		super();
 		this.cNo = cNo;
 		this.userId = userId;
@@ -20,6 +22,7 @@ public class Cart {
 		this.audCodeM = audCodeM;
 		this.containBk = containBk;
 		this.status = status;
+		this.cPrice = cPrice;
 	}
 
 	public int getcNo() {
@@ -78,10 +81,19 @@ public class Cart {
 		this.status = status;
 	}
 
+	public int getcPrice() {
+		return cPrice;
+	}
+
+	public void setcPrice(int cPrice) {
+		this.cPrice = cPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "Cart [cNo=" + cNo + ", userId=" + userId + ", bkCode=" + bkCode + ", audCodeF=" + audCodeF
-				+ ", audCodeM=" + audCodeM + ", containBk=" + containBk + ", status=" + status + "]";
+				+ ", audCodeM=" + audCodeM + ", containBk=" + containBk + ", status=" + status + ", cPrice=" + cPrice
+				+ "]";
 	}
 
 }

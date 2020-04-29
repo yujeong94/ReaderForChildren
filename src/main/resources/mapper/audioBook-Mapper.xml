@@ -209,7 +209,7 @@
 	
 	<insert id="cartInsert">
 		insert into cart
-		values(seq_cart.nextval, #{userId}, #{bkCode}, #{audCodeF}, #{audCodeM}, #{containBk}, default)
+		values(seq_cart.nextval, #{userId}, #{bkCode}, #{audCodeF}, #{audCodeM}, #{containBk}, default, #{cPrice})
 	</insert>
 	
 	
