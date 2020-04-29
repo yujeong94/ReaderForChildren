@@ -98,6 +98,7 @@ label:after {
   transform: rotate(-45deg) translate(0px);
   -webkit-transform: rotate(-45deg) translate(0px);
 } */
+
 </style>
 </head>
 <body>
@@ -108,7 +109,7 @@ label:after {
             <a href="${ contextPath }/index.jsp"><img src="${ contextPath }/resources/images/logo2.png" width = 130px height = 130px/></a>
          </h2>
          <ul class='util'>
-         	<li><a href="${ contextPath }/calist.li"><img src = "${ contextPath }/resources/images/cart.png" width = 40px height = 40px ></a></li>
+         	<li><a href="${ contextPath }/userList.ad"><img src = "${ contextPath }/resources/images/cart.png" width = 40px height = 40px></a></li>
          	<!-- <li>
          		<input id="menuBtn" type="checkbox" onclick="openMenu();">
 				<label for="menuBtn"></label>
@@ -116,11 +117,11 @@ label:after {
          	<li><img src = "${ contextPath }/resources/images/open-menu.png" width = 40px height = 40px id = "menuBtn" onclick="openMenu();"></li>
          </ul>
       </div>
-     
+      
       <c:url var="ablist" value="ablist.ab"/>
       <c:url var="splist" value="splist.sp"/>
       <c:url var="aulist" value="aulist.au"/>
-       <c:url var="calist" value="calist.li"/>
+      
       <div id="menuShow" class="menulist">
 			<a href="#" class="closeBtn" onclick="closeMenu();">X</a>
 			<a href="${ ablist }">오디오북 shop</a>
@@ -130,7 +131,7 @@ label:after {
 			<a href="javascript:void(0)" id="recBtn">녹음부스 예약</a>
 			<%-- <a href="${ contextPath }/recordView.re" id="recBtn">녹음부스 예약</a> --%>
 			<a href="${ contextPath }/eventList.ev">진행 중인 이벤트</a>
-			<a href="${ contextPath }/noList.no">공지사항</a>
+			<a href="#">공지사항</a>
 			<a href="${ contextPath }/chatView.ch">Q&A</a>
 		</div>
    </header>
@@ -159,6 +160,8 @@ label:after {
 				location.href="recordView.re";
 			}
 	   });
+	   
    </script>
+   
 </body>
 </html>

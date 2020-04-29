@@ -15,6 +15,7 @@
 <body>
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
+	<c:import url="auMenubar.jsp"/>
 	<div class="contents">
 		<h1>내 지원서</h1>
 		
@@ -75,7 +76,7 @@
 			
 			<div id="recordArea">
 				<span id="recordSpan"> 녹음 파일 </span><input type="hidden" accept="audio/*">
-				<a href="${ contextPath }/resources/uploadFiles/${ r.recName }">${ r.recName }</a>
+				<a href="${ contextPath }/resources/uploadFiles/${ r.recName }">${ oldRec }</a>
 			</div>
 			
 			<div class="btnBox">

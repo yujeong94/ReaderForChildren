@@ -228,8 +228,9 @@ public class AuditionController {
 		// 녹음파일
 		if(recordFile != null && !recordFile.isEmpty()) {
 			ArrayList<String> renameRecord = saveFile(recordFile, request);
+			String origin = recordFile.getOriginalFilename();
 			if(renameRecord != null) {
-				r.setRecName(renameRecord.get(0));
+				r.setRecName(origin + "/" + renameRecord.get(0));
 				r.setRecPath(renameRecord.get(1));
 			}
 		}
@@ -252,8 +253,12 @@ public class AuditionController {
 		ArrayList<Career> c = auService.selectCareer(userId);
 		Audition a = auService.selectAudition(r.getaNum());
 		
+		String[] recArr = r.getRecName().split("/");
+		String oldRec = recArr[0];
+		r.setRecName(recArr[1]);
+		
 		if(r != null && c != null) {
-			mv.addObject("r", r).addObject("c", c).addObject("a", a).setViewName("auditionApplyDetail");
+			mv.addObject("r", r).addObject("c", c).addObject("a", a).addObject("oldRec", oldRec).setViewName("auditionApplyDetail");
 		} else {
 			throw new AuditionException("게시글 조회 실패!");
 		}
@@ -285,7 +290,10 @@ public class AuditionController {
 		ArrayList<Career> c = auService.selectCareer(userId);
 		Audition a = auService.selectAudition(r.getaNum());
 		
-		mv.addObject("r", r).addObject("c", c).addObject("a", a).setViewName("auditionApplyUpdate");
+		String[] recArr = r.getRecName().split("/");
+		String oldRec = recArr[0];
+		r.setRecName(recArr[1]);
+		mv.addObject("r", r).addObject("c", c).addObject("a", a).addObject("oldRec", oldRec).setViewName("auditionApplyUpdate");
 		
 		return mv;
 	}
@@ -333,7 +341,8 @@ public class AuditionController {
 			
 			ArrayList<String> renameRecord = saveFile(recordFile, request);
 			if(renameRecord != null) {
-				r.setRecName(renameRecord.get(0));
+				String origin = recordFile.getOriginalFilename();
+				r.setRecName(origin + "/" +renameRecord.get(0));
 				r.setRecPath(renameRecord.get(1));
 			}
 		} else {
@@ -359,12 +368,18 @@ public class AuditionController {
 		Reader r = auService.selectReader(userId);
 		int result = auService.deleteApply(userId);
 		if(result > 0) {
+			String[] recArr = r.getRecName().split("/");
 			deleteFile(r.getImgChange(), request);
-			deleteFile(r.getRecName(), request);
+			deleteFile(recArr[1], request);
 			return "redirect:aulist.au";
 		} else {
 			throw new AuditionException("게시글 삭제 실패");
 		}
+	}
+	
+	@RequestMapping("testSlider.au")
+	public String test() {
+		return "slider";
 	}
 	
 }

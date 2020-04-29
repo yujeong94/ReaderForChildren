@@ -435,7 +435,7 @@ label:after {
 	    			
 	    			var today = ${ today };
 	    			var clickD = info.dateStr;
-	    			var newD = clickD.replace(/-/gi, "");
+	    			var newD = clickD.replace(/-/g, "");
 	    			 
 	    			if(newD < today) {
 	    				swal("지난 날짜입니다. 날짜를 다시 선택해주세요!");
