@@ -12,12 +12,13 @@
 	h1{margin-bottom: 60px;}
 	.search{text-align: center; margin-bottom: 10px; display: inline-block; padding: 0 40px; float: right;}
 	.selectbox{width: 120px; height: 35px; border-radius: 5px; margin-right: 10px;}
-	.sBtn{border: none; background:none;} .sBtn:hover {cursor: pointer;}
 	.tb{margin: 0 auto 30px; width: 90%; text-align: center; border-collapse: collapse;
-		border-spacing: 0;}
+		border-spacing: 0; background: rgb(254, 249, 248);}
 	td{vertical-align: middle;}
-	.titleTr{background: #D8D8D8; height: 50px; font-size: 17px; font-weight: bold; border-bottom: 2px solid grey;}
+	.titleTr{background: rgb(235, 130, 118); color: white; height: 50px; font-size: 17px; font-weight: bold; border-bottom: 2px solid grey;}
 	.contentTr{height: 45px; font-size: 15px; border-bottom: 1px solid grey;}
+	.defaultBtn{display: inline-block; float: right; margin-right: 50px;}
+	.upBtn{background: rgb(231, 76, 60);}
 </style>
 </head>
 <body>
@@ -28,51 +29,54 @@
 		<div id="title"><h1>공지사항</h1></div>
 		
 		<div class="search">
-				<select class="selectbox" id="searchCondition" name="searchCondition" onchange="searchAjax();">
-				<c:if test="${ searchCondition eq null }">
-					<option selected disabled>카테고리 선택</option>
-					<option value="delivery" id="delivery">결제/배송</option>
-					<option value="audition" id="audition">리더 오디션</option>
-					<option value="sponsor" id="sponsor">아동 후원</option>
-					<option value="volunteer" id="volunteer">봉사활동</option>
-					<option value="record" id="record">녹음부스 예약</option>
-					<option value="event" id="event">이벤트</option>
-				</c:if>
-				<c:if test="${ searchCondition eq 'delivery' }">
-					<option disabled>카테고리 선택</option>
-					<option selected value="delivery" id="delivery">결제/배송</option>
-					<option value="audition" id="audition">리더 오디션</option>
-					<option value="sponsor" id="sponsor">아동 후원</option>
-					<option value="volunteer" id="volunteer">봉사활동</option>
-					<option value="record" id="record">녹음부스 예약</option>
-					<option value="event" id="event">이벤트</option>
-				</c:if>
-				</select>
-				
-				<button class="sBtn"><img src="${ contextPath }/resources/images/search.PNG" width="30px" height="30px"></button>
-			</div>
+			<select class="selectbox" id="searchCondition" name="searchCondition" onchange="searchAjax();">
+				<option selected disabled>카테고리 선택</option>
+				<option value="delivery" id="delivery"
+					<c:if test="${ searchCondition == 'delivery' }">selected</c:if>>결제/배송</option>
+				<option value="audition" id="audition"
+					<c:if test="${ searchCondition == 'audition' }">selected</c:if>>리더 오디션</option>
+				<option value="sponsor" id="sponsor"
+					<c:if test="${ searchCondition == 'sponsor' }">selected</c:if>>아동 후원</option>
+				<option value="volunteer" id="volunteer"
+					<c:if test="${ searchCondition == 'volunteer' }">selected</c:if>>봉사활동</option>
+				<option value="record" id="record"
+					<c:if test="${ searchCondition == 'record' }">selected</c:if>>녹음부스 예약</option>
+				<option value="event" id="event"
+					<c:if test="${ searchCondition == 'event' }">selected</c:if>>이벤트</option>
+			</select>
+		</div>
 		
-		<table class="tb">
-			<tr class="titleTr">
-				<td width="30">No</td>
-				<td width="120">카테고리</td>
-				<td width="230">제목</td>
-				<td width="80">작성자</td>
-				<td width="80">작성일</td>
-				<td width="30">조회</td>
-			</tr>
+		<table class="tb" id="tb">
+			<thead>
+				<tr class="titleTr">
+					<td width="30">No</td>
+					<td width="120">카테고리</td>
+					<td width="230">제목</td>
+					<td width="80">작성자</td>
+					<td width="80">작성일</td>
+					<td width="30">조회</td>
+				</tr>
+			</thead>
 			
-			<c:forEach var="n" items="${list}">
-			<tr class="contentTr">
-				<td>${ n.noCode }</td>
-				<td>${ n.category }</td>
-				<td>${ n.noContent }</td>
-				<td>${ n.adId }</td>
-				<td>${ n.noDate }</td>
-				<td>${ n.noHit }</td>
-			</tr>
-			</c:forEach>
+			<tbody>
+				<c:forEach var="n" items="${list}">
+				<tr class="contentTr">
+					<td>${ n.noCode }</td>
+					<td>${ n.category }</td>
+					<td>${ n.noTitle }</td>
+					<td>${ n.adId }</td>
+					<td>${ n.noDate }</td>
+					<td>${ n.noHit }</td>
+				</tr>
+				</c:forEach>
+			</tbody>
 		</table>
+		
+		<c:if test="${ adminUser ne null }">
+		<input type="button" class="defaultBtn upBtn" value="글작성">	
+		</c:if>
+		
+		<br clear="all">
 		
 			<div class="pagingArea">
 					
@@ -80,9 +84,9 @@
 				<c:if test="${ searchCondition eq null }">
 					<c:set var="loc" value="noList.no" scope="page"/>
 				</c:if>
-				<%-- <c:if test="${ searchCondition ne null }">
+				<c:if test="${ searchCondition ne null }">
 					<c:set var="loc" value="search.no" scope="page"/>
-				</c:if> --%>
+				</c:if>
 				
 				
 				<!--	<<	-->
@@ -141,24 +145,17 @@
 	</div>
 	
 	<script>
-	/* function searchBoard(){
-		var searchCondition = $("#searchCondition").val();
-		
-		location.href="search.no?searchCondition="+searchCondition;
-	} */
 	
 	function searchAjax(){
 		var searchCondition = $("#searchCondition").val();
 		
-		$.ajax({
-			url: 'search.no',
-			data: {searchCondition:searchCondition},
-			dataType: 'json',
-			success: function(data){
-				console.log('성공?');
-			}
-		});
+		location.href="search.no?searchCondition="+searchCondition;
 	}
+	
+	
+	$('.upBtn').click(function(){
+		location.href="noInsert.no";
+	});
 	</script>
 </body>
 </html>

@@ -1,9 +1,6 @@
 package com.kh.ReaderForChildren.notice_sh.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.kh.ReaderForChildren.notice_sh.model.exception.noticeException;
 import com.kh.ReaderForChildren.notice_sh.model.service.noticeService;
 import com.kh.ReaderForChildren.notice_sh.model.vo.Notice;
@@ -55,8 +49,8 @@ public class noticeController {
 	
 	// 공지사항 카테고리 검색 결과 리스트
 	@RequestMapping("search.no")
-	public void searchNotice(@RequestParam("searchCondition") String searchCondition,
-								@RequestParam(value="page", required=false) Integer page, HttpServletResponse response) throws JsonIOException, IOException {
+	public ModelAndView searchNotice(@RequestParam("searchCondition") String searchCondition,
+								@RequestParam(value="page", required=false) Integer page, ModelAndView mv){
 		
 		SearchCondition sc = new SearchCondition();
 		if(searchCondition.equals("delivery")) {
@@ -84,10 +78,22 @@ public class noticeController {
 		
 		ArrayList<Notice> list = nService.selectSearchList(pi, sc);
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(list, response.getWriter());
-		gson.toJson(pi, response.getWriter());
-		gson.toJson(searchCondition, response.getWriter());
+		if(list != null) {
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.addObject("searchCondition", searchCondition);
+			mv.setViewName("noticeList");
+		} else {
+			throw new noticeException("공지사항 검색 결과 조회에 실패하였습니다.");
+		}
 		
+		return mv;
+	}
+	
+	
+	// 공지사항 글 작성
+	@RequestMapping("noInsert.no")
+	public String noticeInsert() {
+		return "noticeInsert";
 	}
 }
