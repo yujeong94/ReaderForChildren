@@ -132,7 +132,7 @@
 					</tr> -->
 							<tr id="contentTr">
 						<td class = "list_line2" id="td1"  > ${ re.rid }</td>
-							<td class = "list_line2" id="td2" >${re.city} ${ re.address }</td>
+							<td class = "list_line2" id="td2" >${re.recCompany} ${ re.address }</td>
 							<td class="list_line2" id="td3"> ${ re.rdate }</td>
 							<td class="list_line2" id="td4"> ${ re.rtime }</td>
 						</tr>

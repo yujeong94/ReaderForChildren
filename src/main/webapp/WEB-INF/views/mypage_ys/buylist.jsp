@@ -64,8 +64,8 @@
 		
 		
 		#th1{ width:110px; height:50px; border-radius : 10px 0px 0px 10px;}
-		#th2{ width:320px;  }
-		#th3{ width:10px; }
+		#th2{ width:340px;  }
+		/* #th3{ width:10px; } */
 		#th4{ width:190px;  }
 		#th5{ width:140px;}
 		#th6{ width:80px; border-radius : 0px 10px 10px 0px; }
@@ -87,9 +87,9 @@
 		}
 		 #list_table td { border-bottom : 2px solid gray; vertical-align: middle; } 
 	 	#noList{text-align:center; width:2000px; height:300px;}
-		#td1{ width:150px; height:100px; }
-		#td2{ width:150px;} 
-		#td3{ width:250px;}
+		#td1{ width:110px; height:100px; }
+		#td2{ width:180px;} 
+		#td3{ width:140px;}
 		#td4{ width:140px; }
 		#td5{ width:80px; }
 		.list_line2{
@@ -137,32 +137,27 @@
 					<table id = "list_table">
 					
 					<c:forEach var="o" items="${ list }">
+					<c:forEach var="oo" items="${ orList }">
 						<!-- 게시글 불러오는곳 -->
 					<!-- <tr>
 						<td id="noList">존재하는 게시글이 없습니다.</td>
 					</tr> -->
 							<tr id="contentTr">
 							
-							<td align="center"></td>
+							<td rowspan="2" align="center" id="td1">${ o.orNo }</td>
 							
-					 <td align="left">
-						<%-- 	<c:if test="${ !empty loginUser }">
-					<c:url var="ordetail" value="ordetail.li">
-						<c:param name="orNo" value="${ o.orNo }"/>
-						<c:param name="page" value="${ pi.currentPage }"/>
-					</c:url>
-					
-							</c:if> --%>
+					<!--  <td align="left">
+					ㄴㄴㄴㄴ
 				
-			</td>  
+			</td>   -->
 							
-						<td rowspan="2" class = "list_line2" id="td1"  >${ o.orNo } </td>
+						
 							<td rowspan="2" class = "list_line2" id="td2" ><img src="${ contextPath }/resources/bookUploadImages/${o.ima }" width="140px" height="110px"/>	</td>
-							<td class = "list_line2" id="td3"> ${ o.bkName }</td>
+							<td> ${ o.bkName }</td>
 							
-							<td rowspan="2" class="list_line2" id="td4">${o.orDate }</td>
-							<td rowspan="2" class="list_line2" id="td5" >  ${ o.delStatus }<button type="button" onclick="deleteBuy()">주문취소</button>
-							<br>
+							<td rowspan="2" class="list_line2" id="td3">${o.orDate }</td>
+							<td rowspan="2" class="list_line2" id="td4" >  ${ o.delStatus }<button type="button" onclick="deleteBuy()">주문취소</button>
+							
 							<%-- <c:if test="">
 								
 							</c:if> --%>
@@ -170,23 +165,18 @@
 							<td  rowspan="2" class="list_line2" id="td5">
 							<%--  ${o.changeName} --%>
 							<a href="${ contextPath }/resources/audioFileUpload/${o.changeName}" download="${o.changeName}"><img src="${ contextPath }/resources/images/download.png" width=30px height= 30px/></a>
-								<%--  <c:if test="${ ! empty b.originalFileName }">    
-								 <a href="${ contextPath }/resources/buploadFiles/${ board.originName }" download="${ board.originalFileName }" >${ board.originalFileName }
-							
-								<img src="${ contextPath }/resources/images/logo2.png" width = 30px height = 30px/>
-								  </a> 
-								  </c:if> --%>
+								
 							</td> 
 						</tr>
-						<!-- <tr>
-							<td>옵션: 오디오북 + 음성</td>
-						</tr> -->
+						 <tr>
+							<td>옵션: 오디오북 여자 + 도서</td>
+						</tr> 
 						
 						<c:url var="ordelete" value="ordelete.li">
 						<c:param name="orNo" value="${ o.orNo }"/>
 						</c:url>
 							</c:forEach>
-							
+							</c:forEach>
 							
 					</table>
 					

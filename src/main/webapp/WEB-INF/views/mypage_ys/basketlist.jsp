@@ -114,7 +114,7 @@
      <div id="listarea">
     <table id="sponserlist">
     	<tr>
-    		<th class="list_title" id="th1">목록번호<input type="checkbox" id="chk_list" name="chk_list" value="list1" /></th>
+    		<th class="list_title" id="th1">목록번호<input type="checkbox" id="allCheck" onclick="allChk(this);"  /></th>
     		<th colspan="2" class="list_title" id="th2">상품명</th>
     		<th class="list_title" id="th3"></th>
     		<th class="list_title" id="th4">가격</th>
@@ -147,7 +147,7 @@
 						</c:url>
 			</td>  
 			
-						<td class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" class="basketCheck" name="chk_all" /></td>
+						<td class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" class="basketCheck" name="RowCheck" /></td>
 							<td class = "list_line2" id="td3" ><img src="${ contextPath }/resources/bookUploadImages/${ca.changeName}" width="140px" height="110px"/></td>
 							<td  class = "list_line2" id="td2">${ ca.bkName }</td>
 							

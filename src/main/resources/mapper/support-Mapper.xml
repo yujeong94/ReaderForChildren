@@ -13,6 +13,7 @@
 	<select id="selectslList" resultMap="supportResultSet">
 		select *
 		from support
+		where user_id=#{userId}
 		order by snum desc
 	</select>
 	
@@ -35,11 +36,17 @@
 		where snum=#{snum}
 	</update> -->
 	
-	<insert id="insertSupport" >
+	<insert id="insertSupport" parameterType="Support" >
 		insert into support values(
 			seq_snum.nextval, #{donation}, sysdate, #{userId}, #{spName} 
 			
 		)
 	</insert>
+	<update id="updateMember" parameterType="Support">
+	update member
+	set donation=donation + #{donation}
+	where user_id=#{userId}
+	
+	</update>
 	
 </mapper>

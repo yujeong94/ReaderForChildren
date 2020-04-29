@@ -31,7 +31,10 @@ public class listController {
 	
 	//예약부스
 	@RequestMapping("relist.li")
-	public ModelAndView boardList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
+	public ModelAndView boardList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
 		int currentPage = 1;
 		if(page != null) {
@@ -42,7 +45,7 @@ public class listController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Rec> list = liService.selectList(pi);
+		ArrayList<Rec> list = liService.selectList(pi, userId);
 		
 		if(list != null) {
 			mv.addObject("list",list);
@@ -86,7 +89,10 @@ public class listController {
 	
 	//주문목록
 	@RequestMapping("orlist.li")
-	public ModelAndView orderList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
+	public ModelAndView orderList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
 		int currentPage = 1;
 		if(page != null) {
@@ -98,10 +104,12 @@ public class listController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<OrderDetail> list = liService.selectorList(pi);
-
-		if(list != null) {
+		ArrayList<OrderDetail> list = liService.selectorList(pi, userId);
+		ArrayList<OrderDetail> orList = liService.selectOrderDetail(pi, userId);
+	
+		if(list != null && orList != null) {
 			mv.addObject("list",list);
+			mv.addObject("orList",orList);
 			mv.addObject("pi", pi);
 			mv.setViewName("buylist");
 			
@@ -126,7 +134,10 @@ public class listController {
 	
 	//장바구니 목록
 	@RequestMapping("calist.li")
-	public ModelAndView cartList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
+	public ModelAndView cartList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
 		int currentPage = 1;
 		if(page != null) {
@@ -138,7 +149,7 @@ public class listController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<OrderDetail> list = liService.selectcartList(pi);
+		ArrayList<OrderDetail> list = liService.selectcartList(pi, userId);
 
 		if(list != null) {
 			mv.addObject("list",list);

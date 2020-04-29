@@ -27,8 +27,8 @@ public class listServiceImpl implements listService {
 	}
 
 	@Override
-	public ArrayList<Rec> selectList(PageInfo pi) {
-		return liDAO.selectList(sqlSession, pi);
+	public ArrayList<Rec> selectList(PageInfo pi, String userId) {
+		return liDAO.selectList(sqlSession, pi, userId);
 	}
 
 	@Override
@@ -69,8 +69,8 @@ public class listServiceImpl implements listService {
 	}
 
 	@Override
-	public ArrayList<OrderDetail> selectorList(PageInfo pi) {
-		return liDAO.selectorList(sqlSession, pi);
+	public ArrayList<OrderDetail> selectorList(PageInfo pi, String userId) {
+		return liDAO.selectorList(sqlSession, pi, userId);
 	}
 
 	@Override
@@ -84,8 +84,8 @@ public class listServiceImpl implements listService {
 	}
 
 	@Override
-	public ArrayList<OrderDetail> selectcartList(PageInfo pi) {
-		return liDAO.selectcartList(sqlSession, pi);
+	public ArrayList<OrderDetail> selectcartList(PageInfo pi, String userId) {
+		return liDAO.selectcartList(sqlSession, pi, userId);
 	}
 
 	@Override
@@ -104,6 +104,11 @@ public class listServiceImpl implements listService {
 			sum = -1;
 		}
 		return sum;
+	}
+
+	@Override
+	public ArrayList<OrderDetail> selectOrderDetail(PageInfo pi, String userId) {
+		return liDAO.selectOrderDetail(sqlSession, pi, userId);
 	}
 
 	

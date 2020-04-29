@@ -11,7 +11,7 @@ public interface listService {
 
 	int getListCount();
 
-	ArrayList<Rec> selectList(PageInfo pi);
+	ArrayList<Rec> selectList(PageInfo pi, String userId);
 
 	int getshListCount();
 
@@ -27,17 +27,19 @@ public interface listService {
 
 	int getorListCount();
 
-	ArrayList<OrderDetail> selectorList(PageInfo pi);
+	ArrayList<OrderDetail> selectorList(PageInfo pi, String userId);
 
 	int deleteBuy(int orNo);
 
 	int getcartListCount();
 
-	ArrayList<OrderDetail> selectcartList(PageInfo pi);
+	ArrayList<OrderDetail> selectcartList(PageInfo pi, String userId);
 
 	int deletecart(int cNo);
 
 	int updaterL(int sNo);
+
+	ArrayList<OrderDetail> selectOrderDetail(PageInfo pi, String userId);
 
 
 }
