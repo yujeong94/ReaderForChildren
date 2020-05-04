@@ -9,7 +9,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
-	.menulist {
+	#menuShow {
 		height: 100%;
 	    width: 0;
 	    position: fixed;
@@ -21,13 +21,17 @@
 	    transition: 0.5s;
 	    padding-top: 60px;
 	}
-	.menulist a {
+	#menuShow a {
 	    padding: 8px 8px 8px 30px;
 	    text-decoration: none;
 	    font-size: 20px;
 	    color: #1C1C1C;
 	    display: block;
 	    transition: 0.3s;
+	}
+	
+	#menuShow a:hover {
+		color: orange;
 	}
 	/* .menulist  */.closeBtn {
 	    position: absolute;
@@ -40,64 +44,65 @@
 		cursor : pointer;
 	} 
 	
-	/*  */
-/* #menuBtn {
-  visibility: hidden;
+#util2 {
+	position: relative;
+	z-index: 2;
+    width: 50px;
+	height: 50px;
+}
+/*  */
+.menu-trigger {
+   margin-right: 70px;
+   margin-bottom: 50px;
+}
+.menu-trigger,
+.menu-trigger span {
+    display: inline-block;
+    transition: all .4s;
+    box-sizing: border-box;
 }
 
-label {
-  width: 40px;
-  height: 5px;
-  border-radius: 5px;
-  background: #191818;
-  cursor: pointer;
-  transition: .6s;
-  position: fixed;
-  top: 5%;
-  right: 1%;
-  /* margin-left: -50px;
-  margin-top: -7.5px; */
-}/*
-
-/* label:before {
-  content: "";
-  width: 40px;
-  height: 5px;
-  background: #191818;
-  position: absolute;
-  transform: translateY(-12px);
-  -webkit-transform: translateY(-12px);
-  border-radius: 5px;
-  -webkit-transition: .6s;
-  transition: .6s;
+.menu-trigger {
+    position: relative;
+    width: 45px;
+    height: 30px;
+    top: 5px;
 }
 
-label:after {
-  content: "";
-  width: 40px;
-  height: 5px;
-  background: #191818;
-  position: absolute;
-  transform: translateY(12px);
-  -webkit-transform: translateY(12px);
-  border-radius: 5px;
-  transition: .6s;
-  -webkit-transition: .6s;
+.menu-trigger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #2E2E2E;
+    border-radius: 50px;
 }
 
-#menuBtn:checked + label {
-  width: 0;
+.menu-trigger span:nth-of-type(1) {
+    top: 0;
 }
 
-#menuBtn:checked + label:before {
-  transform: rotate(45deg) translate(0px);
-  -webkit-transform: rotate(45deg) translate(0px);
+.menu-trigger span:nth-of-type(2) {
+    top: 12px;
 }
 
-#menuBtn:checked + label:after {
-  transform: rotate(-45deg) translate(0px);
-  -webkit-transform: rotate(-45deg) translate(0px);
-} */
+.menu-trigger span:nth-of-type(3) {
+    bottom: 0;
+}
+	
+.menu-trigger.active-1 span:nth-of-type(1) {
+    -webkit-transform: translateY (14px) rotate (-45deg);
+    transform: translateY(14px) rotate(-45deg);
+}
+
+.menu-trigger.active-1 span:nth-of-type(2) {
+    opacity: 0;
+}
+
+.menu-trigger.active-1 span:nth-of-type(3) {
+    -webkit-transform: translateY(-14px) rotate(45deg);
+    transform: translateY(-14px) rotate(45deg);
+}
 
 </style>
 </head>
@@ -110,11 +115,14 @@ label:after {
          </h2>
          <ul class='util'>
          	<li><a href="${ contextPath }/userList.ad"><img src = "${ contextPath }/resources/images/cart.png" width = 40px height = 40px></a></li>
-         	<!-- <li>
-         		<input id="menuBtn" type="checkbox" onclick="openMenu();">
-				<label for="menuBtn"></label>
-			</li> -->
-         	<li><img src = "${ contextPath }/resources/images/open-menu.png" width = 40px height = 40px id = "menuBtn" onclick="openMenu();"></li>
+         	<li id="util2">
+         		<a class="menu-trigger" href="#">
+					<span></span>
+					<span></span>
+					<span></span>
+				</a>	
+			</li>
+         	<%-- <li><img src = "${ contextPath }/resources/images/open-menu.png" width = 40px height = 40px id = "menuBtn" onclick="openMenu();"></li> --%>
          </ul>
       </div>
       
@@ -122,8 +130,8 @@ label:after {
       <c:url var="splist" value="splist.sp"/>
       <c:url var="aulist" value="aulist.au"/>
       
-      <div id="menuShow" class="menulist">
-			<a href="#" class="closeBtn" onclick="closeMenu();">X</a>
+      <div id="menuShow">
+			<!-- <a href="#" class="closeBtn" onclick="closeMenu();">X</a> -->
 			<a href="${ ablist }">오디오북 shop</a>
 			<a href="${ splist }">아동 후원</a>
 			<a href="${ contextPath }/volView.vo">봉사 일정</a>
@@ -136,22 +144,38 @@ label:after {
 		</div>
    </header>
    <script>
+   var burger = $('.menu-trigger');
+
+   burger.each(function(index){
+       var $this = $(this);
+       
+       $this.on('click', function(e){
+           e.preventDefault();
+           $(this).toggleClass('active-' + (index+1));
+           console.log($(this).attr("class"));
+           if($(this).attr("class") == "menu-trigger active-1") {
+        	   openMenu();
+           } else {
+        	   closeMenu();
+           }
+       })
+   });
+   </script>
+   <script>
 	   function openMenu() {
 		    document.getElementById("menuShow").style.width = "230px";
+		    $("#menuShow").css("z-index","1");
 		}
 	   function closeMenu() {
 		    document.getElementById("menuShow").style.width = "0";
 		}
 	   
-	   $(function(){
-		  console.log("${ loginUser.division }") 
-	   });
-	   
 	   $("#recBtn").click(function(){
 		  	var userId = "${ loginUser.userId }";
 			var division = "${ loginUser.division }";
+			var admin = "${ adminUser.userId }";
 			
-			if(userId == "") {
+			if(userId == "" && admin == "") {
 				swal("로그인 후 이용해주세요.");
 				location.href="home.do";
 			} else if(division == "1") {
@@ -162,6 +186,5 @@ label:after {
 	   });
 	   
    </script>
-   
 </body>
 </html>

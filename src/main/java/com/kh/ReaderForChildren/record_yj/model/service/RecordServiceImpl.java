@@ -24,7 +24,8 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
-	public ArrayList<RecBooth> selectRecBooth() {
-		return reDAO.selectRecBooth(sqlSession);
+	public ArrayList<RecBooth> selectRecBooth(RecBooth r) {
+		return reDAO.selectRecBooth(sqlSession, r);
 	}
+
 }

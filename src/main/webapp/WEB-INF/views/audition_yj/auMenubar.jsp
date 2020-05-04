@@ -7,28 +7,29 @@
 <meta charset="UTF-8">
 <title>서브메뉴</title>
 <style>
-/* 서브메뉴 */
-.quick_menu {
+	.quick_menu {
 	 position:absolute; 
 	 margin-top: 100px; 
-	 margin-left: 145px;
+	 margin-left: 123px;
 	}
 	.quick_menu table {
 		display: inline-table;
-		text-align: center;
-		/* border-top: 2px solid black;
-		border-bottom: 2px solid black; */
 		margin-bottom: 20px;
-		width: 100px;
-		height: 100px;
+		width: 138px;
+		height: 170px;
 	}
 	.quick_menu td {
 		cursor: pointer; 
 		vertical-align: middle;
 		font-weight: 800;
+		font-size: 1.2rem;
+		padding-left: 10px;
 	}
 	.quick_menu td:hover {
 		color: white;
+	}
+	#no1_1 {
+		background: #5583A6;
 	} 
 </style>
 </head>
@@ -37,13 +38,13 @@
 	<c:if test="${ loginUser != null }">
 	<div class="quick_menu">
 		<table>
-			<tr class="boardTr" style="background: #5583A6;">
-				<td id="no1">오디션  리스트
-				</td>
+			<tr>
+				<td id="no1" style="background: #5583A6;">오디션  리스트</td>
+				<td id="no1_1">1</td>
 			</tr>
-			<tr class="boardTr" style="background: #EFA885;">
-				<td id="no2">지원서보기
-				</td>
+			<tr>
+				<td id="no2" style="background: #EFA885;">지원서보기</td>
+				<td id="no2_1">2</td>
 			</tr>
 			<tr>	
 				<td onclick="location.href='testSlider.au'">testSlider</td>
@@ -56,10 +57,10 @@
 	<c:if test="${ adminUser != null }">
 	<div class="quick_menu">
 		<table>
-			<tr class="boardTr">
+			<tr>
 				<td id="no10" onclick="location.href='aulist.au'">오디션  리스트</td>
 			</tr>
-			<tr class="boardTr">
+			<tr>
 				<td id="no20" onclick="location.href='auListInsertView.au'">오디션등록</td>
 			</tr>
 			<tr>	
@@ -71,8 +72,10 @@
 	
 	<script>
 	$("#no2").click(function(){
+		$("#no2_1").css("background","#EFA885");
 		var userId = "${ loginUser.userId }";
-		if(userId != ""){
+	
+		if(userId != "" && division == 1){
 			$.ajax({
 				url: "readerCheck.au",
 				type: 'post',
@@ -80,8 +83,10 @@
 				success: function(data) {
 					if(data == 'no'){
 						alert("지원한 지원서가 없습니다!");
+						$("#no2_1").css("background","none");
 					} else {
 						location.href="apDetail.au";
+						$("#no2_1").css("background","#EFA885");
 					}
 				},
 				error: function(data) {
@@ -90,7 +95,7 @@
 			});
 		} 
 	});
-	
+
 	</script>
 </body>
 </html>
