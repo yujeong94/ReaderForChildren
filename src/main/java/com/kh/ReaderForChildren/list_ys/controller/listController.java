@@ -213,7 +213,6 @@ public class listController {
 	
 	@RequestMapping("cadelete.li")
 	public String cartDelete(@RequestParam("cNo") int cNo) {
-		
 		int result = liService.deletecart(cNo);
 		
 		if(result > 0) {

@@ -127,8 +127,10 @@ public class MemberController {
 														 @RequestParam("month")String month,
 														 @RequestParam("day") String day,
 														@RequestParam("selectEmail") String selectEmail, 
-														@RequestParam("email1")String email1, Model model) {
+														@RequestParam("email1")String email1,
+														@RequestParam("donation")int donation, Model model) {
 	
+		m.setDonation(donation);
 		m.setBirth(year + "년" + month + "월" + day + "일");
 		m.setEmail(email1 + "@" + selectEmail );
 		int result = mService.updateMember(m);

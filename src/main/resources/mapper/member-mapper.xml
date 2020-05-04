@@ -28,7 +28,7 @@
 	<update id="updateMember" parameterType="Member">
 		update member
 		set user_Name=#{userName}, birth=#{birth}, postal_code=#{postalCode}, b_address=#{bAddress},
-		 	l_address=#{lAddress}, email=#{email}, phone=#{phone}
+		 	l_address=#{lAddress}, email=#{email}, phone=#{phone}, donation=#{donation}
 		where user_id=#{userId} and user_pwd=#{userPwd}
 	</update>
 	
