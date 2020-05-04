@@ -73,5 +73,11 @@
 		</when>
 		</choose>
 	</select>
+	
+	
+	<insert id="insertNotice">
+		insert into notice
+		values(seq_no.nextval, #{noTitle}, #{noContent}, sysdate, default, #{adId}, default, #{category})
+	</insert>
 
 </mapper>

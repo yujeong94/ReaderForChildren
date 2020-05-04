@@ -35,4 +35,8 @@ public class noticeDAO {
 		return (ArrayList)session.selectList("noticeMapper.selectSearchList", sc, rowBounds);
 	}
 
+	public int insertNotice(SqlSessionTemplate session, Notice n) {
+		return session.insert("noticeMapper.insertNotice", n);
+	}
+
 }

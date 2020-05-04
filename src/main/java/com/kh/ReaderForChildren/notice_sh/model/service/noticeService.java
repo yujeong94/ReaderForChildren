@@ -16,4 +16,6 @@ public interface noticeService {
 
 	ArrayList<Notice> selectSearchList(PageInfo pi, SearchCondition sc);
 
+	int insertNotice(Notice n);
+
 }
