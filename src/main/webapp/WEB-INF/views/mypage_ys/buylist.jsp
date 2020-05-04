@@ -137,7 +137,7 @@
 					<table id = "list_table">
 					
 					<c:forEach var="o" items="${ list }">
-					<c:forEach var="oo" items="${ orList }">
+					
 						<!-- 게시글 불러오는곳 -->
 					<!-- <tr>
 						<td id="noList">존재하는 게시글이 없습니다.</td>
@@ -152,7 +152,7 @@
 			</td>   -->
 							
 						
-							<td rowspan="2" class = "list_line2" id="td2" ><img src="${ contextPath }/resources/bookUploadImages/${o.ima }" width="140px" height="110px"/>	</td>
+							<td rowspan="2" class = "list_line2" id="td2" ><img src="${ contextPath }/resources/bookUploadImages/${o.img }" width="140px" height="110px"/>	</td>
 							<td> ${ o.bkName }</td>
 							
 							<td rowspan="2" class="list_line2" id="td3">${o.orDate }</td>
@@ -162,21 +162,37 @@
 								
 							</c:if> --%>
 							</td>
-							<td  rowspan="2" class="list_line2" id="td5">
-							<%--  ${o.changeName} --%>
-							<a href="${ contextPath }/resources/audioFileUpload/${o.changeName}" download="${o.changeName}"><img src="${ contextPath }/resources/images/download.png" width=30px height= 30px/></a>
-								
+							<td  rowspan="2" class="list_line2" id="td5">		
+							<c:if test="${ o.aud_code_m !='' && o.aud_code_m ne null }">
+								[남자]
+								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_m}" download="${o.aud_code_m}">
+								<img src="${ contextPath }/resources/images/download.png" width=30px height= 30px/></a>
+							</c:if>
+							<c:if test="${ o.aud_code_f !='' && o.aud_code_f ne null }">
+								[여자]	
+								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_f}" download="${o.aud_code_f}">
+								<img src="${ contextPath }/resources/images/download.png" width=30px height= 30px/></a>
+							</c:if>
+						
 							</td> 
 						</tr>
+						
 						 <tr>
-							<td>옵션: 오디오북 여자 + 도서</td>
+							<td>
+							<c:if test="${ o.containBk != 'N' && o.aud_code_m !='' && o.aud_code_m ne null }">
+							 옵션: 오디오북 남자  ${ o.containBk } 
+							 </c:if>
+							 <c:if test="${o.aud_code_f !='' && o.aud_code_f ne null }">
+							 옵션: 오디오북 여자 ${ o.containBk } 
+							 </c:if>
+							</td>
 						</tr> 
 						
 						<c:url var="ordelete" value="ordelete.li">
 						<c:param name="orNo" value="${ o.orNo }"/>
 						</c:url>
 							</c:forEach>
-							</c:forEach>
+							
 							
 					</table>
 					
@@ -235,9 +251,6 @@
 		}
 		</script>
    			
-					
-					
-				</div>
     
       <button onclick = "location.href = '../../index.jsp'" id = "gomain" class="defaultBtn">메인으로</button>
     

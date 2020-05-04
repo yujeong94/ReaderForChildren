@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>Insert title here</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 
@@ -91,6 +92,8 @@
 		margin-left:260px;   margin-top:35px;    font-size: 18px; line-height: 40px; border: none; border-radius: 5px;}
 #checkdelete{margin-left:140px; margin-top:15px;}
 #buttonTab{margin-left:480px; margin-top:25px;}
+#total{margin-left:860px; font-size: 18px;  }
+
 </style>
 
 </head>
@@ -98,7 +101,7 @@
    <!-- 로고, 장바구니, 메뉴바 -->
 <div class="outer">
    <c:import url="../common/menubar.jsp"/>
-   
+  	<form name="frm" method="post" onsubmit="return check();">
    <div class = "contents">
   <div id="title"><h1>장바구니</h1></div>
 
@@ -114,7 +117,7 @@
      <div id="listarea">
     <table id="sponserlist">
     	<tr>
-    		<th class="list_title" id="th1">목록번호<input type="checkbox" id="allCheck" onclick="allChk(this);"  /></th>
+    		<th class="list_title" id="th1">목록번호<input type="checkbox" name="select" id="allCheck" onclick="selectAll();" /></th>
     		<th colspan="2" class="list_title" id="th2">상품명</th>
     		<th class="list_title" id="th3"></th>
     		<th class="list_title" id="th4">가격</th>
@@ -125,7 +128,7 @@
     
     <div id = "tablearea2">
 					<table id = "list_table">
-					
+					<c:set var="gum" value="0"/>
 					<c:forEach var="ca" items="${ list }">
 						<!-- 게시글 불러오는곳 -->
 					<!-- <tr>
@@ -147,21 +150,25 @@
 						</c:url>
 			</td>  
 			
-						<td class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" class="basketCheck" name="RowCheck" /></td>
+						<td class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" class="chBox" name="select" value="${ca.cNo }"/>
+																		<input type="hidden" name="cNo" id="cNo" value="${ca.cNo }"></td>
 							<td class = "list_line2" id="td3" ><img src="${ contextPath }/resources/bookUploadImages/${ca.changeName}" width="140px" height="110px"/></td>
 							<td  class = "list_line2" id="td2">${ ca.bkName }</td>
 							
-							<td class="list_line2" id="td4">${ca.orPrice }</td>
+							<td class="list_line2" id="td4">${ca.cPrice }</td>
 							<td  class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" onclick="deletecart()">삭제하기</button>
-						
+						     <input type = "hidden" class = "input_info" name="userId" value="${loginUser.userId }">
 						<!-- <td>
 								
 							</td> -->
-						
+						<c:set var="gum" value="${ca.cPrice}"/>
+						<c:set var="total" value="${total+gum}"/>
 						</tr>
 							</c:forEach>
 					</table>
-					
+					 <span id="total" class="total">
+					<input type="hidden" name="tatal" value="${total}"> 총금액: ${total }
+					</span>
 					<table id="buttonTab">
 						<tr align="center" height="20" id="buttonTab">
 			<td colspan="6">
@@ -210,46 +217,113 @@
 	<table>
   		<tr>
   			<td>
-  	 			<button onclick="checkdeleteValue();" id="checkdelete">선택삭제</button>
+  	 			<button type="button" class="selectDelete_btn" id="checkdelete" onclick="deletecart()">선택삭제</button>
 			</td>
 			<td>
-				 <button onclick = "location.href = ''" id = "golist" >주문하기</button>
+				<input type="button" class="payBtn" value="주문하기"  onclick="goPurchase();">
 			</td>
+			
 		</tr>  
     </table>
-    
+   
+   
      <script>
-		function deletecart(){
+     function selectAll() {
+			var check = document.getElementsByName("select");
+
+			for (var i = 0; i < check.length; i++) {
+				if (check[0].checked) {
+					check[i].checked = true;
+				} else {
+					check[i].checked = false;
+				}
+			}
+		}
+     
+     var checkMessage = "";
+     function deletecart(){
 			var bool = confirm("삭제하시겠습니까?");
 			
 			if( bool ){
+				var check = document.getElementsByName("select");
+				
+				for(var i = 1; i < check.length; i++) {
+					if (check[i].checked == true) {
+						checkMessage += check[i].value + ",";
+					}
+				}
+				
 				location.href='${cadelete}';
-			}
-		}
+			};
+		};
+     
+     
 		</script>
+		 
 		
 		<script >
 		$(function(){
-			$('#td2').mouseenter(function(){
+			$('#td3').mouseenter(function(){
 				$(this).css({'color':'yellowgreen', 'font-weight':'bole', 'cursor':'pointer'});
 			}).mouseout(function(){
 				$(this).css({'color':'black', 'font-weight':'normal'});
 			}).click(function(){
 			
-				 var bkCode = $('#bkCode').val();
+			 var bkCode = $('#bkCode').val();
 				var page = $('#page').val(); 
-				/* var bkCode = $(this).children('td #td2').eq(0).text(); */
+				/* var bkCode = $(this).parent().children('input').val(); */
 				
 				location.href="abdetail.ab?bkCode="+bkCode+"&page="+${pi.currentPage};
 				
 			});						
 		});
 	</script>
+<script>
+
+function check(){
+	var chk_all = $("input:checkbox[id='chk_all']").is(":checked");
+	
+	if('${loginUser}' != ''){	
 		
+		if(chk_all==false){
+			alert("주문하실 상품을 체크해주세요");
+			return false;
+		}else{
+			return true;
+		}
+		
+	} else{
+		alert("로그인 후 이용해주세요.");
+		return false;
+	}
+}
+
+function goPurchase(){
+	
+	var ch = check(); 
+	
+
+	if(ch){
+		var f = document.frm;
+		f.action = "purchase.ab";
+		f.submit();
+	}
+}
+	
+
+</script>
+	
+
+		<script>
+ $(".chBox").click(function(){
+  $("#allCheck").prop("checked", false);
+ });
+</script>
     </div>
     
     
    </div>
+   </form>
    	<c:import url="../common/footer.jsp"/> 
    </div>
    

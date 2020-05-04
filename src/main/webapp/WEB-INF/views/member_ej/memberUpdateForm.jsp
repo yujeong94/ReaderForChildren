@@ -265,7 +265,8 @@
           <td class = "info_title2">생년월일</td>
           <td class = "right" >
          <input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)" value="${year }" name="year" >년 <input type = "text" value="${month }" name="month" class = "input_info birth" id = "month">월 <input type = "text" value="${day }" name="day"  class = "input_info birth" id = "day">일
-       		<input type="hidden" name="birth" id="realBirth" value="${loginUser.birth }"></td>
+       		<input type="hidden" name="birth" id="realBirth" value="${loginUser.birth }">
+       		<input type="hidden" name="donation" value="${ loginUser.donation }"/></td>
        </tr>
        <%-- <tr>
           <td class = "info_title2">수익현황</td>
