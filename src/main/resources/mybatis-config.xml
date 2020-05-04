@@ -31,6 +31,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList" alias="cartList"/> 
 		<typeAlias type="com.kh.ReaderForChildren.record_yj.model.vo.RecBooth" alias="RecBooth"/>
 		<typeAlias type="com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList" alias="AdminOrderList"/>
+		<typeAlias type="com.kh.ReaderForChildren.chat_ej.model.vo.Chat" alias="Chat"/>
 		<typeAlias type="com.kh.ReaderForChildren.adminPage_ssj.model.vo.ReaderAudio" alias="ReaderAudio"/>
 		
 	</typeAliases>
@@ -47,5 +48,6 @@
 		<mapper resource="mapper/event-mapper.xml"/>
 		<mapper resource="mapper/volunteer-mapper.xml"/>
 		<mapper resource="mapper/record-mapper.xml"/>
+		<mapper resource="mapper/chat-mapper.xml"/>
 	</mappers>
 </configuration>

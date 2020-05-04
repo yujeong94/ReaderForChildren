@@ -2,6 +2,7 @@ package com.kh.ReaderForChildren.volunteer_ej.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.ReaderForChildren.chat_ej.model.vo.Chat;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.MyVolunteerActivity;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.Volunteer;
 import com.kh.ReaderForChildren.volunteer_ej.model.vo.VolunteerSchedule;
