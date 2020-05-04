@@ -79,5 +79,31 @@
 		insert into notice
 		values(seq_no.nextval, #{noTitle}, #{noContent}, sysdate, default, #{adId}, default, #{category})
 	</insert>
-
+	
+	
+	<update id="addReadCount">
+		update notice
+		set no_hit = no_hit + 1
+		where no_status='Y' and no_code=#{noCode}
+	</update>
+	
+	<select id="selectNotice" resultMap="noticeResultSet">
+		select *
+		from notice
+		where no_status='Y' and no_code=#{noCode}
+	</select>
+	
+	
+	<update id="updateNotice">
+		update notice
+		set no_title=#{noTitle}, no_content=#{noContent}, category=#{category}
+		where no_status='Y' and no_code=#{noCode}
+	</update>
+	
+	
+	<update id="deleteNotice">
+		update notice
+		set no_status='N'
+		where no_status='Y' and no_code=#{noCode}
+	</update>
 </mapper>

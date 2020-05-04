@@ -38,7 +38,8 @@
 	.upload{background: rgb(231, 76, 60); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
 		font-weight: bold; font-size: 20px; text-align: center; margin-right: 8px;} .upload:hover {cursor: pointer;}
 	.delBtn{color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
-		font-weight: bold; font-size: 20px; text-align: center;} .delBtn:hover {cursor: pointer;}
+		font-weight: bold; font-size: 20px; text-align: center; background: rgb(190, 190, 190);}
+	.delBtn:hover {cursor: pointer;}
 	.recordSpan {font-weight:bold; background:lightgray; border-radius: 4px; margin-right: 5px; height: 10px;}
 </style>
 </head>
