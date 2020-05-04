@@ -3,6 +3,10 @@ package com.kh.ReaderForChildren.adminPage_ssj.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +24,7 @@ import com.kh.ReaderForChildren.adminPage_ssj.model.exception.AdminPageException
 import com.kh.ReaderForChildren.adminPage_ssj.model.service.AdminPageService;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.ReaderAudio;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
@@ -74,8 +80,13 @@ public class AdminPageController {
 	}
 	
 	@RequestMapping("revenue.ad")
-	public String revenueStatusView() {
-		return "revenueStatus";
+	public ModelAndView revenueStatusView(ModelAndView mv) {
+		
+		Integer r = aService.revenueView();
+		
+		mv.addObject("r", r).setViewName("revenueStatus");
+		
+		return mv;
 	}
 	
 	// 오디션 리스트
@@ -167,9 +178,10 @@ public class AdminPageController {
 		
 		Member member = aService.selectUserInfo(userId);
 		ArrayList<Support> support = aService.selectUserSupport(userId);
+		ArrayList<ReaderAudio> audio = aService.selectUserReaderAudio(userId);
 		
 		if(member != null) {
-			mv.addObject("member", member).addObject("support", support).setViewName("userInfoForm");
+			mv.addObject("member", member).addObject("support", support).addObject("audio", audio).setViewName("userInfoForm");
 		} else {
 			throw new AdminPageException("회원 상세 정보 조회에 실패하였습니다.");
 		}
@@ -282,6 +294,68 @@ public class AdminPageController {
 		}
 	}
 	
+	// buyerList 배송접수
+	@RequestMapping("orderReceipt.ad")
+	@ResponseBody
+	public String orderReceipt(@RequestParam("userId") String userId, @RequestParam("orNum") int orNum) {
+		
+		AdminOrderList ao = new AdminOrderList();
+		ao.setUser_id(userId);
+		ao.setOr_no(orNum);
+		
+		int result = aService.orderReceipt(ao);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	// buyerList 카테고리
+	@RequestMapping("buyerListCategory.ad")
+	public ModelAndView buyerListCategory(ModelAndView mv, @RequestParam("selectbox") String selectbox) {
+		
+		ArrayList<AdminOrderList> list = aService.buyerListCategory(selectbox);
+		
+		if(list != null) {
+			mv.addObject("list", list).addObject("selectbox", selectbox).setViewName("buyerList");
+		} else {
+			throw new AdminPageException("카테고리별 구매자 리스트 조회 실패");
+		}
+		
+		return mv;
+	}
+	
+	// 전체수익 달별
+	@RequestMapping("revenueSearch.ad")
+	@ResponseBody
+	public int revenueSearch(@RequestParam("dateYear") String dateYear, @RequestParam("dateMonth") String dateMonth) {
+		
+		int dateMonth1 = Integer.parseInt(dateMonth) + 1;
+		String dateMonth2 = Integer.toString(dateMonth1);
+		
+		if(dateMonth.length() == 1) {
+			dateMonth = "0" + dateMonth;
+		}
+		if(dateMonth2.length() == 1) {
+			dateMonth2 = "0" + dateMonth2;
+		}
+		
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("year", dateYear);
+		map.put("month", dateMonth);
+		map.put("month2", dateMonth2);
+		
+		int r = aService.revenueSearch(map);
+		System.out.println("Controller r : " + r);
+		if(r > 0) {
+			return r;
+		} else {
+			return 0;
+		}
+	}
 	
 	
 	

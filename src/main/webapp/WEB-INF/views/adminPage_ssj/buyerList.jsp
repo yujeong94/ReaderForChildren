@@ -35,7 +35,6 @@
 	margin: auto;
 	font-size: 13px;
 	text-align: center;
-	background: #E9EDE4;
 }
 
 .tableDiv{
@@ -97,6 +96,10 @@ table > tbody > tr > td {
 
 .STATUStd{
 	width: 100px;
+}
+
+.borderTd{
+	border-bottom: 1px solid #89978A;
 }
 
 /* 버튼 css */
@@ -170,9 +173,8 @@ button{
 			<div id="title">구매자 리스트</div>
 			<div class="search">
             <select size=1 id="category" name="event_status">
-            	<option value="전체" <c:if test="${ selectbox == '전체' }">selected</c:if>>전체</option>
-				<option value="오래된" <c:if test="${ selectbox == '오래된' }">selected</c:if>>날짜 오름차순</option>
-				<option value="최근" <c:if test="${ selectbox == '최근' }">selected</c:if>>날짜 내림차순</option>
+				<option value="최근" <c:if test="${ selectbox == '최근' }">selected</c:if>>최신순</option>
+				<option value="오래된" <c:if test="${ selectbox == '오래된' }">selected</c:if>>오래된순</option>
 				<option value="배송준비" <c:if test="${ selectbox == '배송준비' }">selected</c:if>>배송 접수 대기</option>
 			</select>
          </div>
@@ -193,11 +195,11 @@ button{
 					<c:if test="${ !empty list }">
 						<c:forEach var="b" items="${ list }">
 							<tr>
-								<td>${ b.or_date }</td>
-								<td>${ b.user_id }</td>
-								<td>${ b.or_no }</td>
-								<td>${ b.bk_name }</td>
-								<td>옵션:<br>오디오북 (
+								<td class="borderTd">${ b.or_date }</td>
+								<td class="borderTd">${ b.user_id }</td>
+								<td class="borderTd">${ b.or_no }</td>
+								<td class="borderTd">${ b.bk_name }</td>
+								<td class="borderTd">옵션:<br>오디오북 (
 									<c:choose>
 										<c:when test="${ b.aud_code_f > 0 && b.aud_code_m == 0 }">여자</c:when>
 										<c:when test="${ b.aud_code_m > 0 && b.aud_code_f == 0 }">남자</c:when>
@@ -206,9 +208,10 @@ button{
 									)
 									<c:if test="${ b.contain_bk == 'Y' }">+ 도서</c:if>
 								</td>
-								<td>${ b.or_price }</td>
-								<td>
+								<td class="borderTd">${ b.or_price }</td>
+								<td class="borderTd">
 									<c:choose>
+										<c:when test="${ b.contain_bk == 'N' && b.or_status == 'Y' }">책 구매X</c:when>
 										<c:when test="${ b.or_status == 'N' }"><button class="deleteBtn">주문취소</button></c:when>
 										<c:when test="${ b.del_status == 2 }"><button class="successBtn">접수완료</button></c:when>
 										<c:otherwise><button class="statusBtn blinking readyBtn">배송접수</button></c:otherwise>
@@ -233,30 +236,52 @@ button{
 	<%@ include file="../common/footer.jsp" %>
 	
 	<script>
-		/* $(function(){
+		$(function(){
 			$('.listTable td').mouseover(function(){
-				$(this).parent().css({'color':'#0FB07A', 'cursor':'pointer', 'font-weight':'bold'});
+				$(this).parent().css({'color':'#233C0B', 'background':'#E9EDE4', 'cursor':'pointer', 'font-weight':'bold'});
 			}).mouseout(function(){
-				$(this).parent().css({'color':'black','font-weight':'normal'});
+				$(this).parent().css({'color':'black', 'background':'none', 'font-weight':'normal'});
 			});
-		}); */
+			
+			$('#category').change(function(){
+				var selectbox = $(this).val();
+				
+				location.href="buyerListCategory.ad?selectbox=" + selectbox;
+			});
+		});
 		
 			
 			
-			/* $('.statusBtn').click(function(){
-				var status = $(this).parent().children(".statusBtn").text();
-				console.log(status);
-				
-				if(status == '배송접수'){
-					var check = confirm("접수하시겠습니까?");
-					
-					if(check){
-						$(this).text("접수완료").css({'background':'#707171', 'color':'white'});
-						$(this).parent().children(".statusBtn").removeClass('blinking');
+		$('.statusBtn').click(function(){
+			var userId = $(this).parent().parent().children().eq(1).text();
+			var orNum = $(this).parent().parent().children().eq(2).text();
+			var selectbox = $('#category').val();
+			var thisbtn = $(this);
+			
+			var check = confirm("접수하시겠습니까?");
+			
+			if(check){
+				$.ajax({
+					url: "orderReceipt.ad",
+					data: {userId:userId, orNum:orNum},
+					success: function(data){
+						console.log("data : " + data);
+						if(data == "success"){
+							thisbtn.removeClass("statusBtn").removeClass("blinking").removeClass("readyBtn").addClass("successBtn");
+							thisbtn.text("접수완료").css({'background':'#707171', 'color':'white'});
+							thisbtn.parent().children(".statusBtn").removeClass('blinking');
+							
+							if(selectbox == "배송준비"){
+								window.location.reload();
+							}
+						} else {
+							alert("배송 접수가 실패되었습니다.");
+						}
 					}
-				}
-				
-			}); */
+				});
+			}
+			
+		});
 		
 	</script>
 	

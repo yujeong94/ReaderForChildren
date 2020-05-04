@@ -37,7 +37,6 @@
 	margin: auto;
 	font-size: 15px;
 	text-align: center;
-	background: #F6E3E3;
 }
 
 .tableDiv{
@@ -53,7 +52,7 @@
 }
 
 table > thead > tr > th {
-	background: #A73232;
+	background: #BCB492;
 	color: white;
 	padding: 5px;
 	font-size: 18px;
@@ -61,6 +60,7 @@ table > thead > tr > th {
 
 table > tbody > tr > td {
 	padding: 4px;
+	border-bottom: 1px solid #958D77;
 }
 
 /* .tableDiv::-webkit-scrollbar-thumb { background-color: pink; } */
@@ -101,7 +101,7 @@ table > tbody > tr > td {
 #category{
 	width: 160px;
 	padding: .5em .5em;
-	border: 1px solid #A73232;
+	border: 1px solid #BCB492;
 	font-family: inherit;
 	border-radius: 0px;
 }
@@ -183,9 +183,9 @@ table > tbody > tr > td {
 	<script>
 		$(function(){
 			$('.listTable td').mouseover(function(){
-				$(this).parent().css({'color':'#390609', 'cursor':'pointer', 'font-weight':'bold'});
+				$(this).parent().css({'color':'#956D09', 'background':'#F1EBDC', 'cursor':'pointer', 'font-weight':'bold'});
 			}).mouseout(function(){
-				$(this).parent().css({'color':'black','font-weight':'normal'});
+				$(this).parent().css({'color':'black', 'background':'none','font-weight':'normal'});
 			}).click(function(){
 				var eNum = $(this).parent().children().eq(0).text();
 				var status = $(this).parent().children('.status').text();

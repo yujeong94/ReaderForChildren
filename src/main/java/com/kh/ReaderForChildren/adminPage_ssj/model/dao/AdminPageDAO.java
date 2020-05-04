@@ -1,12 +1,14 @@
 package com.kh.ReaderForChildren.adminPage_ssj.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.ReaderAudio;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
@@ -103,6 +105,34 @@ public class AdminPageDAO {
 
 	public ArrayList<AdminOrderList> buyerListView(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminPageMapper.buyerListView");
+	}
+
+	public int orderReceipt(SqlSessionTemplate sqlSession, AdminOrderList ao) {
+		return sqlSession.update("adminPageMapper.orderReceipt", ao);
+	}
+
+	public ArrayList<AdminOrderList> buyerListCategory(SqlSessionTemplate sqlSession, String selectbox) {
+		return (ArrayList)sqlSession.selectList("adminPageMapper.buyerListCategory", selectbox);
+	}
+
+	public Integer revenueView(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminPageMapper.revenueView");
+	}
+
+	public int revenueSearch(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		int count = sqlSession.selectOne("adminPageMapper.revenueConfirm", map);
+		System.out.println("DAO count : " + count);
+		
+		if(count > 0) {
+			return sqlSession.selectOne("adminPageMapper.revenueSearch", map);
+		} else {
+			return 0;
+		}
+		
+	}
+
+	public ArrayList<ReaderAudio> selectUserReaderAudio(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("adminPageMapper.selectUserReaderAudio", userId);
 	}
 
 }

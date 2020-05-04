@@ -109,7 +109,7 @@ table > tbody > tr > td {
 }
 
 .borderTd{
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #89978A;
 }
 
 </style>
