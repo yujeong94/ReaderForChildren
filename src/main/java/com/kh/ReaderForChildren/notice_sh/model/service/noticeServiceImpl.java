@@ -39,4 +39,9 @@ public class noticeServiceImpl implements noticeService {
 	public ArrayList<Notice> selectSearchList(PageInfo pi, SearchCondition sc) {
 		return nDAO.selectSearchList(session, pi, sc);
 	}
+
+	@Override
+	public int insertNotice(Notice n) {
+		return nDAO.insertNotice(session, n);
+	}
 }
