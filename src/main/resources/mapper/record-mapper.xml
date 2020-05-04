@@ -10,7 +10,7 @@
 	<select id="selectRecord" resultMap="recResultSet">
 		select *
 		from rec_booth
-		where re_status='Y'
+		where recCompany = #{recCompany} and address = #{address} and rdate = #{rDate} and re_status='Y'
 	</select>
 	
 	<resultMap type="RecBooth" id="recResultSet">

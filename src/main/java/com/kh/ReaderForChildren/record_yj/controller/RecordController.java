@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 import com.kh.ReaderForChildren.record_yj.model.exception.RecordException;
@@ -31,6 +32,7 @@ public class RecordController {
 	
 	@RequestMapping("recordView.re")
 	public String recordView() {
+		
 		return "recordForm";
 	}
 	
@@ -68,17 +70,35 @@ public class RecordController {
 	}
 	
 	@RequestMapping("recInfo.re")
-	public void recInfo(HttpServletResponse response) throws JsonIOException, IOException {
-		ArrayList<RecBooth> recList = reService.selectRecBooth();
+	public void recInfo(@RequestParam("inputRecCompany") String recCompany, @RequestParam("inputAddress") String address, 
+			@RequestParam("inputRdate") String rDate, HttpServletResponse response) throws JsonIOException, IOException {
 		
-		System.out.println("recList? " + recList.get(0));
+		System.out.println("받아오나 : " + recCompany + " , " + address + " , " + rDate);
+		RecBooth r = new RecBooth();
+		r.setRecCompany(recCompany);
+		r.setAddress(address);
+		
+		String[] dateArr = rDate.split("-");
+		int year = Integer.parseInt(dateArr[0]);
+		int month = Integer.parseInt(dateArr[1]);
+		int day = Integer.parseInt(dateArr[2]);
+		Date sqlDate = new Date(new GregorianCalendar(year, month-1, day).getTimeInMillis());
+		r.setrDate(sqlDate);
+		
+		System.out.println(sqlDate);
+		
+		ArrayList<RecBooth> recList = reService.selectRecBooth(r);
+		
+		System.out.println("dao 갔다오나? : " + recList.size());
 		
 		for(RecBooth rb : recList) {
 			rb.setRecCompany(URLEncoder.encode(rb.getRecCompany(),"UTF-8"));
 			rb.setAddress(URLEncoder.encode(rb.getAddress(), "UTF-8"));
 		}
 		
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(recList, response.getWriter());
 	}
+	
+	
 }

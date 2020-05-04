@@ -8,6 +8,6 @@ public interface RecordService {
 
 	int insertRecord(RecBooth rb);
 
-	ArrayList<RecBooth> selectRecBooth();
+	ArrayList<RecBooth> selectRecBooth(RecBooth r);
 
 }
