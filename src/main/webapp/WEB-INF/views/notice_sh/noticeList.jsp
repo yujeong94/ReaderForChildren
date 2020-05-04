@@ -156,6 +156,19 @@
 	$('.upBtn').click(function(){
 		location.href="noInsertView.no";
 	});
+	
+	
+	$(function(){
+		$('.contentTr').mouseenter(function(){
+			$(this).css({'color':'rgb(235, 130, 118)', 'font-weight':'bold', 'cursor':'pointer'});
+		}).mouseout(function(){
+			$(this).css({'color':'black', 'font-weight':'normal'});
+		}).click(function(){
+			var noCode = $(this).children('td').eq(0).text();
+			
+			location.href="noDetail.no?noCode="+noCode+"&page="+${pi.currentPage};
+		});
+	});
 	</script>
 </body>
 </html>

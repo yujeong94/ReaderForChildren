@@ -18,4 +18,10 @@ public interface noticeService {
 
 	int insertNotice(Notice n);
 
+	Notice selectNotice(int noCode);
+
+	int updateNotice(Notice n);
+
+	int deleteNotice(int noCode);
+
 }

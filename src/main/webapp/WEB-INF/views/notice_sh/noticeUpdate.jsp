@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>noticeInsert</title>
+<title>noticeUpdate</title>
 <style>
 	.frame{width: 80%; margin: 0 auto 30px; border-top: 1px solid grey; border-bottom: 1px solid lightgrey;}
 	.titleLine{background: rgb(254, 249, 248); height: 50px; font-size: 17px; font-weight: bold; padding-top: 25px;}
@@ -26,24 +26,26 @@
 	<div class="outer">
 	<c:import url="../common/menubar.jsp"/>	
 	
-		<form method="post" action="noInsert.no">
+		<form method="post" action="noUpdate.no">
 			<div class="contents">
 				<div id="title"><h1>공지사항</h1></div>
 				
 				<div class="frame">
 					<div class="titleLine">
 						<span class="titleSpan">제목</span>
-						<input type="text" class="titleInput" name="noTitle">
+						<input type="hidden" name="noCode" id="noCode" value="${ n.noCode }">
+						<input type="hidden" name="page" id="page" value="${ page }">
+						<input type="text" class="titleInput" name="noTitle" value="${ n.noTitle }">
 						
 						<span class="titleSpan">카테고리</span>
 						<select class="selbox" name="category">
-							<option selected disabled>카테고리 선택</option>
-							<option value="결제/배송">결제/배송</option>
-							<option value="리더 오디션">리더 오디션</option>
-							<option value="아동 후원">아동 후원</option>
-							<option value="봉사활동">봉사활동</option>
-							<option value="녹음부스 예약">녹음부스 예약</option>
-							<option value="이벤트">이벤트</option>
+							<c:set var="category" value="${ n.category }"/>
+							<option value="결제/배송"<c:if test="${ category == '결제/배송' }">selected</c:if>>결제/배송</option>
+							<option value="리더 오디션"<c:if test="${ category == '리더 오디션' }">selected</c:if>>리더 오디션</option>
+							<option value="아동 후원"<c:if test="${ category == '아동 후원' }">selected</c:if>>아동 후원</option>
+							<option value="봉사활동"<c:if test="${ category == '봉사활동' }">selected</c:if>>봉사활동</option>
+							<option value="녹음부스 예약"<c:if test="${ category == '녹음부스 예약' }">selected</c:if>>녹음부스 예약</option>
+							<option value="이벤트"<c:if test="${ category == '이벤트' }">selected</c:if>>이벤트</option>
 						</select>
 					</div>
 					
@@ -51,18 +53,27 @@
 					
 					<div class="contentArea">
 						<div class="contentDiv">내용</div>
-						<textarea rows="23" cols="100" name="noContent"></textarea>
+						<textarea rows="23" cols="100" name="noContent">${ n.noContent }</textarea>
 					</div>
 				</div>
 				
 				<div class="btnBox">
-					<input type="submit" class="defaultBtn upBtn" value="등록하기">
-					<button type="reset" class="defaultBtn delBtn" onclick="location.href='noList.no'">작성취소</button>
+					<input type="submit" class="defaultBtn upBtn" value="수정하기">
+					<button type="reset" class="defaultBtn delBtn" id="delBtn">취소하기</button>
 				</div>
 			</div>
 		</form>	
 	
 	<c:import url="../common/footer.jsp"/>	
-	</div>	
+	</div>
+	
+	<script>
+	$('#delBtn').click(function(){
+		var noCode = $('#noCode').val();
+		var page = $('#page').val();
+		
+		location.href="noDetail.no?noCode="+noCode+"&page="+page;
+	});
+	</script>
 </body>
 </html>

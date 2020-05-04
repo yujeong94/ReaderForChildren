@@ -44,4 +44,28 @@ public class noticeServiceImpl implements noticeService {
 	public int insertNotice(Notice n) {
 		return nDAO.insertNotice(session, n);
 	}
+
+	@Override
+	public Notice selectNotice(int noCode) {
+		
+		Notice n = null;
+		
+		int result = nDAO.addReadCount(session, noCode);
+		
+		if(result > 0) {
+			return nDAO.selectNotice(session, noCode);
+		}
+		
+		return n;
+	}
+
+	@Override
+	public int updateNotice(Notice n) {
+		return nDAO.updateNotice(session, n);
+	}
+
+	@Override
+	public int deleteNotice(int noCode) {
+		return nDAO.deleteNotice(session, noCode);
+	}
 }
