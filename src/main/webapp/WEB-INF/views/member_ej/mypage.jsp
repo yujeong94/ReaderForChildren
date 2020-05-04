@@ -207,10 +207,7 @@
 						<td class="td" onclick="location.href = 'sllist.sp'" id="infoTd">후원내역 조회
 						</td>
 					</tr>
-					<tr class="boardTr">
-						<td class="td" onclick="location.href = 'calist.li'" id="infoTd">장바구니 조회
-						</td>
-					</tr>
+					
 					<tr class="boardTr">
 						<td class="td" onclick="location.href = 'relist.li'" id="infoTd">예약부스 내역 조회
 						</td>

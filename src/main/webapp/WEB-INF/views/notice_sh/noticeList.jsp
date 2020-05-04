@@ -154,7 +154,7 @@
 	
 	
 	$('.upBtn').click(function(){
-		location.href="noInsert.no";
+		location.href="noInsertView.no";
 	});
 	</script>
 </body>

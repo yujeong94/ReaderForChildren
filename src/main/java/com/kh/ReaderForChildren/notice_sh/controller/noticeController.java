@@ -2,12 +2,16 @@ package com.kh.ReaderForChildren.notice_sh.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.notice_sh.model.exception.noticeException;
 import com.kh.ReaderForChildren.notice_sh.model.service.noticeService;
 import com.kh.ReaderForChildren.notice_sh.model.vo.Notice;
@@ -91,9 +95,28 @@ public class noticeController {
 	}
 	
 	
+	// 공지사항 글 작성 페이지로 이동
+	@RequestMapping("noInsertView.no")
+	public String noticeInsertView() {
+		return "noticeInsert";
+	}
+	
 	// 공지사항 글 작성
 	@RequestMapping("noInsert.no")
-	public String noticeInsert() {
-		return "noticeInsert";
+	public ModelAndView noticeInsert(@ModelAttribute Notice n, HttpSession session, ModelAndView mv) {
+		
+		String adId = ((Admin)session.getAttribute("adminUser")).getUserId();
+		n.setAdId(adId);
+		
+		int result = nService.insertNotice(n);
+		
+		if(result > 0) {
+			mv.addObject("n", n);
+			mv.setViewName("noticeDetail");
+		} else {
+			throw new noticeException("공지사항 글 작성에 실패하였습니다.");
+		}
+		
+		return mv;
 	}
 }

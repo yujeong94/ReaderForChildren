@@ -14,8 +14,8 @@ public class RecordDAO {
 		return sqlSession.insert("recordMapper.insertRecord", rb);
 	}
 
-	public ArrayList<RecBooth> selectRecBooth(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("recordMapper.selectRecord");
+	public ArrayList<RecBooth> selectRecBooth(SqlSessionTemplate sqlSession, RecBooth r) {
+		return (ArrayList)sqlSession.selectList("recordMapper.selectRecord", r);
 	}
 
 }

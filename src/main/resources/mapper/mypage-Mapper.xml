@@ -113,7 +113,7 @@
 			
 	</select> -->
 	<select id="selectorList" resultMap="OrlistResultSet">
-		select or_no, or_date, or_status, decode(del_status,'1','배송준비중','2','배송완료') as del_status, bk_name, change_name, IMA
+		 select or_no, or_date,or_status,user_id, decode(del_status,'1','배송준비중','2','배송완료') as del_status, decode(contain_bk,'Y','+도서포함 ','N','')as contain_bk, bk_name, change_name,change_name1, img
 		from order_list
 		where or_status = 'Y' and user_id=#{userId}
 	</select>
@@ -130,9 +130,12 @@
 		<result property="orDate" column="OR_DATE"/>
 		<result property="orStatus" column="OR_STATUS"/>
 		<result property="delStatus" column="DEL_STATUS"/>
-		<result property="changeName" column="CHANGE_NAME"/>
-		<result property="ima" column="IMA"/>
+		<result property="aud_code_m" column="CHANGE_NAME"/>
+		<result property="aud_code_f" column="CHANGE_NAME1"/>
+		<result property="img" column="IMG"/>
+		<result property="containBk" column="CONTAIN_BK"/>
 		<result property="userId" column="USER_ID"/>
+		
 		
 	</resultMap>
 	
@@ -186,7 +189,7 @@ WHERE AUD_CODE = (SELECT AUD_CODE_F
 	</select>
 	
 	<select id="selectcartList" resultMap="cartListResultSet">
-		select c_no, bk_name, bk_code, aud_code_f, aud_code_m, status, or_price, change_name
+		select c_no, bk_name, bk_code, aud_code_f, aud_code_m, status, c_price, change_name
 		from cart_list
 		where status = 'Y' and user_id=#{userId}
 	
@@ -205,7 +208,7 @@ WHERE AUD_CODE = (SELECT AUD_CODE_F
 		<result property="bkCode" column="BK_CODE"/>
 		<result property="audCodeF" column="AUD_CODE_F"/>
 		<result property="audCodeM" column="AUD_CODE_M"/>
-		<result property="orPrice" column="OR_PRICE"/>
+		<result property="cPrice" column="C_PRICE"/>
 			<result property="userId" column="USER_ID"/>
 			<result property="changeName" column="CHANGE_NAME"/>
 	</resultMap>

@@ -109,6 +109,22 @@ table > tbody > tr > td {
 	width: 150px;
 }
 
+/* 돌아가기 css */
+.btncss{
+	font-size: 13px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	vertical-align: middle;
+	background: #C8C6C5;
+	color: black;
+}
+
+.btnDivCss{
+	margin-top: 10px;
+	margin-right: 40px;
+	text-align: right;
+}
+
 </style>
 </head>
 <body>
@@ -161,20 +177,27 @@ table > tbody > tr > td {
 						<thead>
 						<tr id="listTitle">
 							<th class="NOtd fixedHeader">No</th>
-							<th class="IDtd fixedHeader">오디오 북 코드</th>
-							<th class="DATEtd fixedHeader">날짜</th>
-							<th class="STATUStd fixedHeader">수익</th>
+							<th class="IDtd fixedHeader">도서 명</th>
+							<th class="DATEtd fixedHeader">녹음파일 이름</th>
+							<th class="STATUStd fixedHeader">날짜</th>
 						</tr>
 						</thead>
 						<tbody>
-						<c:forEach begin="1" end="10" step="1" var="i">
+						<c:if test="${ !empty audio }">
+							<c:forEach var="a" items="${ audio }" varStatus="c">
+								<tr>
+									<td class="NOtd">${ c.count }</td>
+									<td class="IDtd">${ a.bk_name }</td>
+									<td class="DATEtd">${ a.change_name }</td>
+									<td class="STATUStd stuTd">${ a.upload_date }</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty audio }">
 							<tr>
-								<td class="NOtd"><c:out value="${ i }"/></td>
-								<td class="IDtd">Reader for Children BOOK</td>
-								<td class="DATEtd">2020-04-03</td>
-								<td class="STATUStd stuTd">50,000</td>
+								<td colspan=4>오디오 북 녹음 기록이 존재하지 않습니다.</td>
 							</tr>
-						</c:forEach>
+						</c:if>
 						</tbody>
 					</table>
 				</div>
@@ -239,11 +262,20 @@ table > tbody > tr > td {
 					</table>
 				</div>
 				</c:if>
+				<div class="btnDivCss">
+					<button type="button" class="defaultBtn btncss">뒤로가기</button>
+				</div>
 			</div>
 		</div>
 	</div>
 	
 	<%@ include file="../common/footer.jsp" %>
+	
+	<script>
+		$('.defaultBtn').click(function(){
+			window.history.back();
+		});
+	</script>
 	
 </body>
 </html>

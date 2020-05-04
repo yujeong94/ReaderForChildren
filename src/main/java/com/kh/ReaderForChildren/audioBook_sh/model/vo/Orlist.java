@@ -10,14 +10,16 @@ public class Orlist {
 	private String orStatus;
 	private int bkCode;
 	private String delStatus;
-	private String changeName;
-	private String ima;
+	private String aud_code_f;
+	private String aud_code_m;
+	private String img;
 	private String userId;
+	private String containBk;
 	
 	public Orlist() {}
 
 	public Orlist(int orNo, String bkName, Date orDate, String orStatus, int bkCode, String delStatus,
-			String changeName, String ima, String userId) {
+			String aud_code_f, String aud_code_m, String img, String userId, String containBk) {
 		super();
 		this.orNo = orNo;
 		this.bkName = bkName;
@@ -25,9 +27,11 @@ public class Orlist {
 		this.orStatus = orStatus;
 		this.bkCode = bkCode;
 		this.delStatus = delStatus;
-		this.changeName = changeName;
-		this.ima = ima;
+		this.aud_code_f = aud_code_f;
+		this.aud_code_m = aud_code_m;
+		this.img = img;
 		this.userId = userId;
+		this.containBk = containBk;
 	}
 
 	public int getOrNo() {
@@ -78,20 +82,28 @@ public class Orlist {
 		this.delStatus = delStatus;
 	}
 
-	public String getChangeName() {
-		return changeName;
+	public String getAud_code_f() {
+		return aud_code_f;
 	}
 
-	public void setChangeName(String changeName) {
-		this.changeName = changeName;
+	public void setAud_code_f(String aud_code_f) {
+		this.aud_code_f = aud_code_f;
 	}
 
-	public String getIma() {
-		return ima;
+	public String getAud_code_m() {
+		return aud_code_m;
 	}
 
-	public void setIma(String ima) {
-		this.ima = ima;
+	public void setAud_code_m(String aud_code_m) {
+		this.aud_code_m = aud_code_m;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public String getUserId() {
@@ -102,17 +114,21 @@ public class Orlist {
 		this.userId = userId;
 	}
 
+	public String getContainBk() {
+		return containBk;
+	}
+
+	public void setContainBk(String containBk) {
+		this.containBk = containBk;
+	}
+
 	@Override
 	public String toString() {
 		return "Orlist [orNo=" + orNo + ", bkName=" + bkName + ", orDate=" + orDate + ", orStatus=" + orStatus
-				+ ", bkCode=" + bkCode + ", delStatus=" + delStatus + ", changeName=" + changeName + ", ima=" + ima
-				+ ", userId=" + userId + "]";
+				+ ", bkCode=" + bkCode + ", delStatus=" + delStatus + ", aud_code_f=" + aud_code_f + ", aud_code_m="
+				+ aud_code_m + ", img=" + img + ", userId=" + userId + ", containBk=" + containBk + "]";
 	}
 
-	
-	
-	
-	
 	
 	
 }

@@ -21,15 +21,26 @@
 	#map {
 		margin: auto;
 	}
+	#myAddr {
+		width: 455px;
+		height: 30px;
+	}
 	#searchAddr {
 		text-align: center;
-		vertical-align: middle;
 		font-size: 1.2rem;
+		margin: auto;
 		margin-top: 100px;
 		margin-bottom: 30px;
+		width: 500px;
+		heigth: 20px;
+		background: green;
 	}
-	#myAddr {
-		width: 300px;
+	#searchBtn {
+		vertical-align: middle;
+		height: 36px;
+		width: 40px;
+		background: white;
+		border: 1px solid #A4A4A4;
 	}
 	
 	#calendar{
@@ -50,18 +61,12 @@
 	
 	#timeTable td {
 		border: 1px solid black;
-		cursor: pointer;
 	}
 	
-	#searchBtn {
-		margin-left: 10px;
-		height: 30px;
-		vertical-align: middle;
-	}
 	
-/* 	#infoArea {
+ 	#infoArea {
 		display: none;
-	} */
+	} 
 	
 	#infoArea input {
 		border: none;
@@ -78,10 +83,6 @@
 	#infoTable th, #infoTable td {
 		border: 1px solid gray;
 		padding: 10px;
-	}
-	
-	.contents {
-		border-radius: 30px;
 	}
 	
 	/*  */
@@ -151,13 +152,13 @@ label:after {
 	<div class="contents">
 	<h1>녹음 부스 예약</h1>
 	
-		<!--  -->
+		<!--  
 		<input id="menu" type="checkbox">
 		<label for="menu"></label>
-		<!--  -->
+		-->
 	
 		<div id="searchAddr">
-			<span style="vertical-align: middle;">주소  </span><input type="text" id="myAddr" list="addrList"><button class="defaultBtn upBtn" id="searchBtn"> 검색</button><br>
+			<input type="text" id="myAddr" list="addrList" placeholder="   찾으실 녹음실명 또는 주소를 검색해보세요"><button id="searchBtn"><img src="${ contextPath }/resources/images/search2.png" width=22px></button><br>
 			<datalist id="addrList">
 				<option value="레벨나인 스튜디오">서울특별시 강남구 논현로 414 세일빌딩 9층</option>
 				<option value="모닝스타녹음실">서울특별시 강남구 논현로72길 29 리치노아빌 지하1층</option>
@@ -200,7 +201,7 @@ label:after {
 					<th width="100px">녹음실</th>
 					<td colspan="3">
 						<input type="text" id="recCompany" name="recCompany" readOnly><br>
-						<input type="text" id="address" name="address" size="50px" readOnly>
+						주소 : <input type="text" id="address" name="address" size="50px" readOnly>
 					</td>
 				</tr>
 				<tr>
@@ -217,7 +218,7 @@ label:after {
 				</tr> -->
 			</table>
 			
-			<div class=btnBox style="display: none;">
+			<div class=btnBox>
 				<button class="defaultBtn upBtn rBtn">예약</button>
 				<button type="button" onclick="location.href='testMap.re'">테스트</button>
 			</div>
@@ -226,156 +227,164 @@ label:after {
 		
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=398d38ff223ba6e4b87ae695ed9759f4&libraries=services,clusterer,drawing"></script>
 		<script>
-			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-			var options = { //지도를 생성할 때 필요한 기본 옵션
-				center: new kakao.maps.LatLng(37.498981, 127.032914), //지도의 중심좌표.
-				level: 3 //지도의 레벨(확대, 축소 정도)
-			};
-	
-			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-			
-			var zoomControl = new kakao.maps.ZoomControl();
-			map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-			
-			// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-			var positions = [
-			    {
-			        content: '레벨나인 스튜디오 | 서울특별시 강남구 논현로 414 세일빌딩 9층', 
-			        latlng: new kakao.maps.LatLng(37.4972385027886, 127.039064239457)
-			    },
-			    {
-			        content: '모닝스타녹음실 | 서울특별시 강남구 논현로72길 29 리치노아빌 지하1층',
-			        latlng: new kakao.maps.LatLng(37.4963568837854, 127.041654989761)
-			    },
-			    {
-			        content: '웨이브랩 | 서울특별시 마포구 양화로 73-1 이스턴빌딩 지하 1층',
-			        latlng: new kakao.maps.LatLng(37.5515565949487, 126.916106694815)
-			    },
-			    {
-			        content: 'IMCL | 서울특별시 서대문구 이화여대1길 15', 
-			        latlng: new kakao.maps.LatLng(37.5572104627807, 126.944919267804)
-			    },
-			    {
-			        content: '원더레코즈 | 서울특별시 강남구 역삼로9길 24', 
-			        latlng: new kakao.maps.LatLng(37.4956071073488, 127.033920262182)
-			    },
-			    {
-			        content: '온에어뮤직 | 서울 송파구 백제고분로42길 35',
-			        latlng: new kakao.maps.LatLng(37.5040249437866, 127.111685370422)
-			    },
-			    {
-			        content: '지니스튜디오 | 경기도 구리시 이문안로 138',
-			        latlng: new kakao.maps.LatLng(37.590948897369, 127.146640595875)
-			    },
-			    {
-			        content: '사운드유엑스 | 경기도 안양시 동안구 시민대로327번길 11-41 5층 517호',
-			        latlng: new kakao.maps.LatLng(37.3982031689559, 126.96314114623)
-			    },
-			    {
-			        content: '밴드하우스 | 인천광역시 미추홀구 주안중로 32-5 지하1층',
-			        latlng: new kakao.maps.LatLng(37.4615262731348, 126.683003154536)
-			    },
-			    {
-			        content: '뉴렉녹음실 | 충청북도 청주시 상당구 상당로115번길 51',
-			        latlng: new kakao.maps.LatLng(36.638347188937, 127.487124868381)
-			    },
-			    {
-			        content: '비커즈뮤직 | 대구광역시 중구 명덕로 127',
-			        latlng: new kakao.maps.LatLng(35.8566551633687, 128.584074220755)
-			    },
-			    {
-			        content: '보이스팩토리 | 광주광역시 남구 중앙로 90 2층',
-			        latlng: new kakao.maps.LatLng(35.1438728149344, 126.907874967636)
-			    }
-			];
-
-			for (var i = 0; i < positions.length; i ++) {
-			    // 마커를 생성합니다
-			    var marker = new kakao.maps.Marker({
-			        map: map, // 마커를 표시할 지도
-			        position: positions[i].latlng // 마커의 위치
-			    });
-
-			    // 마커에 표시할 인포윈도우를 생성합니다 
-			    var infowindow = new kakao.maps.InfoWindow({
-			        content: positions[i].content // 인포윈도우에 표시할 내용
-			    });
-
-			    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-			    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-			    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-			    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-			    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-			    
-			    var geocoder = new kakao.maps.services.Geocoder();
-			    kakao.maps.event.addListener(marker, 'click', clickMarker(marker, infowindow));
-			}
-
-			// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-			function makeOverListener(map, marker, infowindow) {
-			    return function() {
-			        infowindow.open(map, marker);
-			    };
-			}
-
-			// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-			function makeOutListener(infowindow) {
-			    return function() {
-			        infowindow.close();
-			    };
-			}
-			
-			// 클릭이벤트 클로저
-			function clickMarker(marker, infowindow) {
-				return function() {
-					$("#calendar").show();
-					var offset = $("#calendar").offset();
-					$('html').animate({scrollTop: offset.top},300);
-					
-					var info = infowindow.getContent();
-					var infoArr = info.split("|");
-					$("#recCompany").val(infoArr[0]);
-					$("#address").val("주소 : " + infoArr[1]);
-					$("#infoArea").css("display","block");
-				}
-			}
-			
-	        // 주소 입력시 마커로 이동
-			// 주소-좌표 변환 객체를 생성합니다
-			var geocoder = new kakao.maps.services.Geocoder();
-			
-			$("#searchBtn").click(function(){
-				var inputAddr = $("#myAddr").val();
-				var optionAddr = "";
-				
-				for(var i = 0; i < $("#addrList option").length; i++) {
-					if(inputAddr == $("#addrList option:eq("+ i +")").val()){
-						optionAddr = $("#addrList option:eq("+ i +")").text();
-						break;
-					} 
-				}
-				if(optionAddr == ""){
-					swal("입력한 주소로 등록된 녹음실이 없습니다ㅠㅠ 주소 목록을 확인해 주세요!");
-				}
-				
-				// 주소로 좌표를 검색합니다
-				geocoder.addressSearch(optionAddr, function(result, status) {
-	
-				    // 정상적으로 검색이 완료됐으면 
-				     if (status === kakao.maps.services.Status.OK) {
-	
-				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	
-				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-				        map.setCenter(coords);
-				  	}
-				});
-			});
-			
-		</script>
 		
-		<!-- 캘린더 script -->
-		<script>
+		// 달력, 시간표 숨기기
+		$(function(){
+			$("#calendar").hide();
+			$("#timeBox").hide();
+		});
+		
+		// 지도 부분
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(37.498981, 127.032914), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
+
+		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		
+		// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+		var positions = [
+		    {
+		        content: '레벨나인 스튜디오 | 서울특별시 강남구 논현로 414 세일빌딩 9층', 
+		        latlng: new kakao.maps.LatLng(37.4972385027886, 127.039064239457)
+		    },
+		    {
+		        content: '모닝스타녹음실 | 서울특별시 강남구 논현로72길 29 리치노아빌 지하1층',
+		        latlng: new kakao.maps.LatLng(37.4963568837854, 127.041654989761)
+		    },
+		    {
+		        content: '웨이브랩 | 서울특별시 마포구 양화로 73-1 이스턴빌딩 지하 1층',
+		        latlng: new kakao.maps.LatLng(37.5515565949487, 126.916106694815)
+		    },
+		    {
+		        content: 'IMCL | 서울특별시 서대문구 이화여대1길 15', 
+		        latlng: new kakao.maps.LatLng(37.5572104627807, 126.944919267804)
+		    },
+		    {
+		        content: '원더레코즈 | 서울특별시 강남구 역삼로9길 24', 
+		        latlng: new kakao.maps.LatLng(37.4956071073488, 127.033920262182)
+		    },
+		    {
+		        content: '온에어뮤직 | 서울 송파구 백제고분로42길 35',
+		        latlng: new kakao.maps.LatLng(37.5040249437866, 127.111685370422)
+		    },
+		    {
+		        content: '지니스튜디오 | 경기도 구리시 이문안로 138',
+		        latlng: new kakao.maps.LatLng(37.590948897369, 127.146640595875)
+		    },
+		    {
+		        content: '사운드유엑스 | 경기도 안양시 동안구 시민대로327번길 11-41 5층 517호',
+		        latlng: new kakao.maps.LatLng(37.3982031689559, 126.96314114623)
+		    },
+		    {
+		        content: '밴드하우스 | 인천광역시 미추홀구 주안중로 32-5 지하1층',
+		        latlng: new kakao.maps.LatLng(37.4615262731348, 126.683003154536)
+		    },
+		    {
+		        content: '뉴렉녹음실 | 충청북도 청주시 상당구 상당로115번길 51',
+		        latlng: new kakao.maps.LatLng(36.638347188937, 127.487124868381)
+		    },
+		    {
+		        content: '비커즈뮤직 | 대구광역시 중구 명덕로 127',
+		        latlng: new kakao.maps.LatLng(35.8566551633687, 128.584074220755)
+		    },
+		    {
+		        content: '보이스팩토리 | 광주광역시 남구 중앙로 90 2층',
+		        latlng: new kakao.maps.LatLng(35.1438728149344, 126.907874967636)
+		    }
+		];
+
+		for (var i = 0; i < positions.length; i ++) {
+		    // 마커를 생성합니다
+		    var marker = new kakao.maps.Marker({
+		        map: map, // 마커를 표시할 지도
+		        position: positions[i].latlng // 마커의 위치
+		    });
+
+		    // 마커에 표시할 인포윈도우를 생성합니다 
+		    var infowindow = new kakao.maps.InfoWindow({
+		        content: positions[i].content // 인포윈도우에 표시할 내용
+		    });
+
+		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+		    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+		    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+		    
+		    var geocoder = new kakao.maps.services.Geocoder();
+		    kakao.maps.event.addListener(marker, 'click', clickMarker(marker, infowindow));
+		}
+
+		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+		function makeOverListener(map, marker, infowindow) {
+		    return function() {
+		        infowindow.open(map, marker);
+		    };
+		}
+
+		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(infowindow) {
+		    return function() {
+		        infowindow.close();
+		    };
+		}
+		
+		// 클릭이벤트 클로저
+		function clickMarker(marker, infowindow) {
+			return function() {
+				$("#timeBox").hide();
+				$("#calendar").show();
+				var offset = $("#calendar").offset();
+				$('html').animate({scrollTop: offset.top},300);
+				
+				var info = infowindow.getContent();
+				var infoArr = info.split("|");
+				$("#recCompany").val(infoArr[0]);
+				$("#address").val(infoArr[1].trim());
+				$("#infoArea").css("display","block");
+				
+			}
+		}
+		
+        // 주소 입력시 마커로 이동
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		$("#searchBtn").click(function(){
+			var inputAddr = $("#myAddr").val();
+			var optionAddr = "";
+			
+			for(var i = 0; i < $("#addrList option").length; i++) {
+				if(inputAddr == $("#addrList option:eq("+ i +")").val()){
+					optionAddr = $("#addrList option:eq("+ i +")").text();
+					break;
+				} 
+			}
+			if(optionAddr == ""){
+				swal("입력한 주소로 등록된 녹음실이 없습니다ㅠㅠ 주소 목록을 확인해 주세요!");
+			}
+			
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(optionAddr, function(result, status) {
+
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			  	}
+			});
+		});
+			
+		
+		/* 캘린더  */
 	    document.addEventListener('DOMContentLoaded', function() {
 	    	var calendarEl = document.getElementById('calendar');
 	    
@@ -384,51 +393,6 @@ label:after {
 	        	selectable: true,
 	    		dateClick: function(info) {
 	    			
-	    			// 시작 
-	    			$.ajax({
-						url: "recInfo.re",
-						dataType: "json",
-						success: function(data) {
-							var userId = "${ loginUser.userId }";
-							var inputRecCompany = $("#recCompany").val();
-							var inputAddress = $("#address").val();
-							var inputRdate = $("#dateInfo").val();
-							var timeTd = $("#timeTable td").text();
-							console.log(inputRecCompany.replace(/(\s*)/g,""));
-							if(data.length > 0) {
-								for(var i in data) {
-									if(inputRecCompany.replace(/(\s*)/g,"") == decodeURIComponent(data[i].recCompany.replace(/\+/g,""))) {
-										if(inputAddress.replace(/(\s*)/g,"") == decodeURIComponent(data[i].address.replace(/\+/g,""))) {
-											if(inputRdate == data[i].rDate) {
-												if('$("#timeTable td").text()' == data[i].rTime) {
-													$("#timeTable td").css("background","gray");
-												} else {
-													$("#timeTable td").mouseover(function(){
-														$(this).css("background","lightgreen");
-													}).mouseout(function(){
-														$(this).css("background","white");
-													}).click(function(){
-														$("#rTime").val($(this).text());
-														$("#infoArea").css("display","block");
-													});
-												}
-											}
-										}
-									}
-								}
-							} else {
-								$("#timeTable td").mouseover(function(){
-									$(this).css("background","lightgreen");
-								}).mouseout(function(){
-									$(this).css("background","white");
-								}).click(function(){
-									$("#rTime").val($(this).text());
-									$("#infoArea").css("display","block");
-								});
-							}
-						}
-					});
-	    			// 끝
 	    			$("#timeBox").show();
 	    			var offset = $("#timeBox").offset();
 	    			$("html").animate({scrollTop: offset.top},300);
@@ -436,91 +400,100 @@ label:after {
 	    			var today = ${ today };
 	    			var clickD = info.dateStr;
 	    			var newD = clickD.replace(/-/g, "");
-	    			 
+	    			
 	    			if(newD < today) {
 	    				swal("지난 날짜입니다. 날짜를 다시 선택해주세요!");
 	    				var calOff = $("#calendar").offset();
 	    				$("html").animate({scrollTop: calOff.top},300);
 	    			} else {
-		    			$("#dateInfo").val(info.dateStr);	    				
+		    			$("#dateInfo").val(info.dateStr);
+		    			recInfo();
 	    			}
-	    			
 	    			$("#infoArea").css("display","block");
+	    			
 	    		}
 	        });
 	      
 	        calendar.render();
 	    });
-	    
-	    /* $("#calendar").fullCalendar({
-	        dayRender: function (date, cell) {
-	            cell.css("background-color", "red");
-	        }
-	    }); */
+		
+		$("#timeTable td").mouseover(function(){
+			$(this).css("background","lightgreen");
+		}).mouseout(function(){
+			$(this).css("background","white");
+		}).click(function(){
+			$("#rTime").val($(this).text());
+			$("#infoArea").css("display","block");
+		}); 
+		
+		function recInfo() {
+			var inputRecCompany = $("#recCompany").val();
+			var inputAddress = $("#address").val();
+			var inputRdate = $("#dateInfo").val();
+			if(inputRecCompany != "" && inputAddress != "" && inputRdate != ""){
+				console.log("입력된 녹음실 " + inputRecCompany);
+				console.log("2 " + inputAddress);
+				console.log("3 " + inputRdate);
+				$.ajax({
+					url: "recInfo.re",
+					type: "post",
+					dataType: "json",
+					data: {inputRecCompany:inputRecCompany, inputAddress:inputAddress, inputRdate:inputRdate},
+					success: function(data) {
+						if(data.length == 0) {
+							console.log("널이다");
+							$("#timeTable td").css({"cursor":"pointer","background":"white"});
+							$("#timeTable td").mouseover(function(){
+								$(this).css("background","lightgreen");
+							}).mouseout(function(){
+								$(this).css("background","white");
+							}).click(function(){
+								$("#rTime").val($(this).text());
+								$("#infoArea").css("display","block");
+							});
+						} else {
+							for(var i = 0; i < 6; i++) {
+								for(var j = 0; j < data.length; j++) {
+									if($("#timeTable td").eq(i).text() == data[j].rTime) {
+										console.log("td값 " + $("#timeTable td").eq(i).text());
+										console.log("예약된 시간" + data[j].rTime);
+										$("#timeTable td").eq(i).off();
+										$("#timeTable td").eq(i).css({"background":"gray","cursor":"default"});
+										break;
+									} else {
+										console.log("else로 들어옴");
+										console.log($("#timeTable td").eq(i).css("background-color"));
+										if($("#timeTable td").eq(i).css("background-color") != "#808080") {
+											$("#timeTable td").eq(i).css({"cursor":"pointer","background":"white"});
+											$("#timeTable td").eq(i).mouseover(function(){
+												$("#timeTable td").eq(i).css("background","lightgreen");
+											}).mouseout(function(){
+												$("#timeTable td").eq(i).css("background","white");
+											}).click(function(){
+												$("#rTime").val($(this).text());
+												$("#infoArea").css("display","block");
+											});
+										}
+									}
+								}
+							}
+							
+						}
+					}
+				});
+			}
+		}
+		
+		// 예약완료 알림창
+		var msg = "${ msg }";
+		if(msg != ""){
+			swal(msg);
+		}
+		
 		</script>
 		
 	</div>
 	<c:import url="../common/footer.jsp"/>
 </div>
-<script>
-
-	// 달력, 시간표 숨기기
-	$(function(){
-		/* $("#calendar").hide();
-		$("#timeBox").hide(); */
-	});
-	
-	// 예약완료 알림창
-	var msg = "${ msg }";
-	if(msg != ""){
-		swal(msg);
-	}
-	
-	/* $(function(){
-		$.ajax({
-			url: "recInfo.re",
-			dataType: "json",
-			success: function(data) {
-				var userId = "${ loginUser.userId }";
-				var inputRecCompany = $("#recCompany").val();
-				var inputAddress = $("#address").val();
-				var inputRdate = $("#dateInfo").val();
-				console.log()
-				if(data.length > 0) {
-					for(var i in data) {
-						if(inputRecCompany.trim() == decodeURIComponent(data[i].recCompany.replace(/\+/g,""))) {
-							if(inputAddress.trim() == decodeURIComponent(data[i].address.replace(/\+/g,""))) {
-								if(inputRdate == data[i].rDate) {
-									if(inputRtime == data[i].rTime) {
-										$("#timeTable td").css("background","gray");
-									} else {
-										$("#timeTable td").mouseover(function(){
-											$(this).css("background","lightgreen");
-										}).mouseout(function(){
-											$(this).css("background","white");
-										}).click(function(){
-											$("#rTime").val($(this).text());
-											$("#infoArea").css("display","block");
-										});
-									}
-								}
-							}
-						}
-					}
-				} else {
-					$("#timeTable td").mouseover(function(){
-						$(this).css("background","lightgreen");
-					}).mouseout(function(){
-						$(this).css("background","white");
-					}).click(function(){
-						$("#rTime").val($(this).text());
-						$("#infoArea").css("display","block");
-					});
-				}
-			}
-		});
-	});  */
-	
-</script>
 </body>
 </html>

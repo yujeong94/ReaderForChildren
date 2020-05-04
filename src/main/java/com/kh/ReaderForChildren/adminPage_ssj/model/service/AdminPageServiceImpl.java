@@ -1,6 +1,7 @@
 package com.kh.ReaderForChildren.adminPage_ssj.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.ReaderForChildren.adminPage_ssj.model.dao.AdminPageDAO;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.ReaderAudio;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
@@ -134,4 +136,30 @@ public class AdminPageServiceImpl implements AdminPageService {
 	public ArrayList<AdminOrderList> buyerListView() {
 		return aDAO.buyerListView(sqlSession);
 	}
+
+	@Override
+	public int orderReceipt(AdminOrderList ao) {
+		return aDAO.orderReceipt(sqlSession, ao);
+	}
+
+	@Override
+	public ArrayList<AdminOrderList> buyerListCategory(String selectbox) {
+		return aDAO.buyerListCategory(sqlSession, selectbox);
+	}
+
+	@Override
+	public Integer revenueView() {
+		return aDAO.revenueView(sqlSession);
+	}
+
+	@Override
+	public int revenueSearch(HashMap<String, String> map) {
+		return aDAO.revenueSearch(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<ReaderAudio> selectUserReaderAudio(String userId) {
+		return aDAO.selectUserReaderAudio(sqlSession, userId);
+	}
+
 }

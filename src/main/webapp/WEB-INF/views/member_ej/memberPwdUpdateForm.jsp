@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>content</title>
+<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
 .contents {
@@ -95,7 +96,7 @@
    <!-- 내용 -->
    <div class="contents">
       <div id="title"><h1>비밀번호 변경</h1></div>
-   <form action="mPwdUpdate.me" method="post">
+   <form action="mPwdUpdate.me" method="post" id="updateForm">
   <table id = "content_table" style="margin-left: auto; margin-right: auto;">
 		<tr>
 			<td class = "content_title" id = "title2">비밀번호 변경
@@ -123,10 +124,14 @@
 		 			<input type="hidden" name="pwdCheck2" id="pwdCheck2" value="0">
 		 		</td>
        </tr>
+       
+   
+        
+       
    </table>
    
-   
    <script>
+   
  	 $('#newPwd1').blur(function(){
      	var str = $(this).val();
      	var passrule = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
@@ -138,12 +143,12 @@
      	}
      });
      
-     $('#newPwd1').blur(function(){
+     $('#newPwd2').blur(function(){
      	if($('#newPwd2').val() == ""){
      		$('.pwdinform.sm').hide();
      		$('.pwdinform.df').hide();
      		$('#pwdCheck2').val(0);
-     	}else if($('#newPwd1').val() == $('#newPwd2').val()){
+     	}else if($('#newPwd2').val() == $('#newPwd1').val()){
      		$('.pwdinform.sm').show();
      		$('.pwdinform.df').hide();
      		$('#pwdCheck2').val(1);
@@ -154,13 +159,32 @@
      	}
      });
     </script>
+   
+   
     
    <table>
 	   <tr> 
-   				<td><input id="updateBtn" type="submit" value="적용" class="upBtn"></td> 
+   				<td><input id="updateBtn" type="submit" id="update" value="적용" class="upBtn"></td> 
 				<td><button type="button" id="cancle" class="upBtn" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
  	  </tr>
     </table>
+   
+  
+   <script>
+   $('#update').click(function(){
+		   if($('#pwdCheck').val() == 0){
+				alert('비밀번호를 다시 입력해주세요.\n영문자/숫자/특수문자 포함 8~16자리')
+				$('#newPwd1').focus();
+	  			return false;
+			}else if($('#pwdCheck2').val() == 0){
+				alert('비밀번호가 일치하지 않습니다.')
+				$('#newPwd2').focus();
+	   			return false;
+			}else{
+				$('#updateForm').submit();
+				}
+			});
+   </script>
    
    </form>
    

@@ -102,7 +102,7 @@
 		}
 		#gomain{width: 125px;height: 40px; background-color: rgb(236, 158, 149); color: white; font-weight: bold; cursor:pointer;
 		margin-left:480px;   margin-top:15px;    font-size: 18px;  text-align: center; border: 0; border-radius: 5px;}
-
+#total{margin-left:720px; font-size: 18px;  }
 </style>
 
 </head>
@@ -156,6 +156,7 @@
     </div>
     
     
+    
     <div id="listarea">
     <table id="sponserlist">
     	<tr>
@@ -166,10 +167,10 @@
     	</tr>
     </table>
     </div>
-    
+    <c:set var="gum" value="0"/>
    <c:forEach var="sp" items="${ list }">
     <div id = "tablearea2">
-    
+     
 					<table id = "list_table">
 					
 						<!-- 게시글 불러오는곳 -->
@@ -194,13 +195,16 @@
 							<td class="list_line2" id="td3">${ sp.supdate }</td>
 							<td class="list_line2" id="td4" >${ sp.donation }</td>
 						</tr>
-						
+						<c:set var="gum" value="${sp.donation}"/>
+						<c:set var="total" value="${total+gum}"/>
 					</table>
 				</div>
+				
     </c:forEach>
     
-    
-    
+    <span id="total" class="total">
+					총 후원 금액: ${total }
+					</span>
     
     
     

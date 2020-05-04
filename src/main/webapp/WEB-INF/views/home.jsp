@@ -7,7 +7,7 @@
 <title>Reader For Children</title>
 <link rel="stylesheet" href="resources/css/common.css">
 <style>
-	table { margin-left : 50px; margin-bottom : 10px; }
+	table { margin-left : 50px; margin-bottom : 10px;}
 	th { width : 100px; height : 50px; font-weight : bold; font-size : 14px; }
 	#joinBtn,#loginBtn { float : right; font-size : 12px; }
 	#joinBtn { margin-left : 10px; background : #848484; }
@@ -26,11 +26,25 @@
 		text-align : right;
 		font-weight : bold;
 		color : brown;
+		padding-top: 10px;
 	}	
 a:link { color: yellowgreen; text-decoration: none;}
 a:visited { color: black; text-decoration: none;}
 a:hover { text-decoration: none; cursor : pointer;}
 #namehover:hover{color:yellowgreen;}
+
+#a123{
+	margin-top: 60px;
+}
+
+.home_contents{
+	height: 550px;
+	margin-top: 0px;
+}
+
+#homeDiv{
+	padding-top: 320px;
+}
 	
 	#logoutBtn{
       text-decoration: none;
@@ -45,12 +59,22 @@ a:hover { text-decoration: none; cursor : pointer;}
     
     
     /*  */
- 
+
+.arrowDiv{
+	display: inline-block;
+	margin: 10px;
+	margin-top: 300px;
+}
+
  #slider {
- 	/* position: relative; */
- 	width: 100px;
+ 	position: relative;
+ 	left: 300px;
+ 	height: 550px;
+ 	display: inline-block;
  }   
     .mySlides {display: none}
+    
+    
 .sImg {vertical-align: middle; width: 600px; height: 450px;}
 
 /* Slideshow container */
@@ -58,13 +82,14 @@ a:hover { text-decoration: none; cursor : pointer;}
   max-width: 600px;
   /* position: absolute; */
   margin-top: 10px;
+  display: inline-block;
 }
 
 /* Next & previous buttons */
 .prev, .next {
   cursor: pointer;
-  position: absolute;
-  top: 70%;
+  /* position: absolute;
+  top: 70%; */
   width: auto;
   padding: 16px;
   margin-top: -22px;
@@ -109,7 +134,7 @@ a:hover { text-decoration: none; cursor : pointer;}
   color: #f2f2f2;
   font-size: 12px;
   padding: 8px 12px;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
 }
 
@@ -123,6 +148,11 @@ a:hover { text-decoration: none; cursor : pointer;}
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
+}
+
+.dotDiv{
+	text-align:center;
+	margin-top: 10px;
 }
 
 .active, .dot:hover {
@@ -169,7 +199,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 		</c:if>
 		
 		<c:if test="${ !empty sessionScope.loginUser || !empty sessionScope.adminUser }">
-			<table id = "123">
+			<table id = "a123">
 				<tr>
 					<c:if test = "${ !empty sessionScope.loginUser }">
 					<td colspan = '2'><label id = "welcome"><a href = "myinfo.me" id = "logincu"><span id = "namehover">${ sessionScope.loginUser.userName }</span></a>님 환영합니다.</label></td>
@@ -190,7 +220,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 		
 		<div id="slider">
 		
-		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<div class="arrowDiv"><a class="prev" onclick="plusSlides(-1)">&#10094;</a></div>
 <div class="slideshow-container">
 
 	<div class="mySlides fade">
@@ -210,10 +240,10 @@ a:hover { text-decoration: none; cursor : pointer;}
 	</div>
 
 </div>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
+<div class="arrowDiv"><a class="next" onclick="plusSlides(1)">&#10095;</a></div>
 <br>
 
-<div style="text-align:center">
+<div class="dotDiv">
   <span class="dot" onclick="currentSlide(1)"></span> 
   <span class="dot" onclick="currentSlide(2)"></span> 
   <span class="dot" onclick="currentSlide(3)"></span> 
