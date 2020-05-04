@@ -35,7 +35,6 @@
 	margin: auto;
 	font-size: 18px;
 	text-align: center;
-	background: #E9EDE4;
 }
 
 .tableDiv{
@@ -93,7 +92,7 @@ table > tbody > tr > td {
 .search{
 	height: 35px;
 	width: 260px;
-	border: 1px solid #C6C618;
+	border: 1px solid #77A687;
 	margin-bottom: 10px;
 	position: relative;
 	left: 520px;
@@ -112,12 +111,15 @@ table > tbody > tr > td {
 	width: 45px;
 	height: 100%;
 	border: 0px;
-	background: #C6C618;
+	background: #77A687;
 	outline: none;
 	float: right;
 	color: white;
 }
 
+.borderTd{
+	border-bottom: 1px solid #89978A;
+}
 
 </style>
 </head>
@@ -147,10 +149,10 @@ table > tbody > tr > td {
 					<c:if test="${ !empty list }">
 						<c:forEach var="s" items="${ list }" varStatus="c">
 							<tr>
-								<td class="NOtd">${ c.count }</td>
-								<td class="IDtd">${ s.userId }</td>
-								<td class="DATEtd">${ s.spName }</td>
-								<td class="STATUStd stuTd">${ s.donation }</td>
+								<td class="NOtd borderTd">${ c.count }</td>
+								<td class="IDtd borderTd">${ s.userId }</td>
+								<td class="DATEtd borderTd">${ s.spName }</td>
+								<td class="STATUStd stuTd borderTd">${ s.donation }</td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -169,14 +171,6 @@ table > tbody > tr > td {
 	<%@ include file="../common/footer.jsp" %>
 	
 	<script>
-		$(function(){
-			$('.listTable td').mouseover(function(){
-				$(this).parent().css({'color':'#0FB07A', 'cursor':'pointer', 'font-weight':'bold'});
-			}).mouseout(function(){
-				$(this).parent().css({'color':'black','font-weight':'normal'});
-			});
-		});
-		
 		$('.searchBtn').click(function(){
 			$(this).css('background','green');
 			var spName = $('.searchInput').val().trim();

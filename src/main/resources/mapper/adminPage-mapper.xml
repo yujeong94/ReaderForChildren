@@ -92,6 +92,21 @@
 		<result property="userName" column="ad_name"/>
 	</resultMap>
 	
+	<resultMap type="Orderdetail" id="OrderdetailResultSet">
+		<id property="orNo" column="OR_NO"/>
+		<result property="bkCode" column="BK_CODE"/>
+		<result property="audCodeF" column="AUD_CODE_F"/>
+		<result property="audCodeM" column="AUD_CODE_M"/>
+		<result property="orPrice" column="OR_PRICE"/>
+		<result property="orDate" column="OR_DATE"/>
+		<result property="delRequest" column="DEL_REQUEST"/>
+		<result property="delStatus" column="DEL_STATUS"/>
+		<result property="orStatus" column="OR_STATUS"/>
+		<result property="containBk" column="CONTAIN_BK"/>
+		<result property="sNo" column="S_NO"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
+	
 	<select id="selectUserList" resultMap="MemberResultSet">
 		select *
 		from member
@@ -235,6 +250,55 @@
 		select *
 		from admin_orderlist
 		order by or_no desc
+	</select>
+	
+	<update id="orderReceipt">
+		update order_detail
+		set del_status = '2'
+		where user_id=#{user_id} and or_no=#{or_no}
+	</update>
+	
+	<select id="buyerListCategory" resultType="AdminOrderList">
+		select *
+		from admin_orderlist
+		<where>
+			<if test="selectbox == '배송준비'">contain_bk='Y' and del_status='1' and or_status='Y'</if>
+		</where>
+		order by
+		<choose>
+			<when test="selectbox == '오래된'">or_no asc</when>
+			<otherwise>or_no desc</otherwise>
+		</choose>
+	</select>
+	
+	<select id="revenueView" resultType="_int">
+		select sum(or_price)
+		from order_detail
+		where or_status = 'Y'
+	</select>
+	
+	<select id="revenueConfirm" parameterType="java.util.HashMap" resultType="_int">
+		select count(*)
+		from order_detail
+		where or_status = 'Y'
+			and to_date(or_date,'YY/MM/dd') between to_date(#{year, jdbcType=VARCHAR}||#{month, jdbcType=VARCHAR},'yyyyMM') 
+			and to_date(#{year, jdbcType=VARCHAR}||#{month2, jdbcType=VARCHAR},'yyyyMM')
+	</select>
+	
+	<select id="revenueSearch" parameterType="java.util.HashMap" resultType="_int">
+		select sum(or_price)
+		from order_detail
+		where or_status = 'Y'
+			and to_date(or_date,'YY/MM/dd') between to_date(#{year, jdbcType=VARCHAR}||#{month, jdbcType=VARCHAR},'yyyyMM') 
+			and to_date(#{year, jdbcType=VARCHAR}||#{month2, jdbcType=VARCHAR},'yyyyMM')
+	</select>
+	
+	<select id="selectUserReaderAudio" resultType="ReaderAudio">
+		select af_code, change_name, upload_date, bk_name
+		from audio_file
+			join audio_book using(aud_code)
+			join book using(bk_code)
+		where user_id = #{userId} and status = 'Y'
 	</select>
 	
 	

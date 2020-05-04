@@ -1,9 +1,11 @@
 package com.kh.ReaderForChildren.adminPage_ssj.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.Admin;
 import com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList;
+import com.kh.ReaderForChildren.adminPage_ssj.model.vo.ReaderAudio;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
@@ -56,5 +58,16 @@ public interface AdminPageService {
 	ArrayList<Support> selectUserSupport(String userId);
 
 	ArrayList<AdminOrderList> buyerListView();
+
+	int orderReceipt(AdminOrderList ao);
+
+	ArrayList<AdminOrderList> buyerListCategory(String selectbox);
+
+	Integer revenueView();
+
+	int revenueSearch(HashMap<String, String> map);
+
+	ArrayList<ReaderAudio> selectUserReaderAudio(String userId);
+
 
 }

@@ -31,6 +31,7 @@
 		<typeAlias type="com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList" alias="cartList"/> 
 		<typeAlias type="com.kh.ReaderForChildren.record_yj.model.vo.RecBooth" alias="RecBooth"/>
 		<typeAlias type="com.kh.ReaderForChildren.adminPage_ssj.model.vo.AdminOrderList" alias="AdminOrderList"/>
+		<typeAlias type="com.kh.ReaderForChildren.adminPage_ssj.model.vo.ReaderAudio" alias="ReaderAudio"/>
 		
 	</typeAliases>
 	
