@@ -27,8 +27,8 @@
 }
 
 	.info{
-		border-top : 1px solid #E44E6C;
-		border-bottom : 2px solid #E44E6C;
+		border-top : 1px solid #F9A654;
+		border-bottom : 2px solid lightgray;
 		width : 80%;
 		margin-right : auto;
 		margin-left : auto;
@@ -39,7 +39,7 @@
 	
 	#info_title{
 		height : 50px;
-		background : #E44E6C;
+		background : #F9A654;
 		font-size : 25px;
 		
 	}
@@ -53,7 +53,7 @@
 	.info_title2{
 		width : 25%;
 		height : 44px;
-		border-top : 2px solid #E44E6C;
+		border-top : 2px solid lightgray;
 		font-size:18px;
 		vertical-align: middle;
 		color : gray;
@@ -67,12 +67,12 @@
 	#address{
 		width : 25%;
 		height : 105px;
-		border-top : 2px solid #E44E6C;
+		border-top : 2px solid lightgray;
 	}
 	
 	.right{
 		width: 75%;
-		border-top : 2px solid #E44E6C;
+		border-top : 2px solid lightgray;
 		padding-top : 8px;
 		
 	}
@@ -114,7 +114,7 @@
 		font-size : 12px;
 		color : white;
 		margin-left : 5px;
-		background : #E44E6C;
+		background : lightgray;
 		border-radius : 3px;
 		border : 1px lightgray solid;
 		cursor : pointer;
@@ -193,7 +193,7 @@
 	.rightgender{
 		vertical-align :middle;
 	}
-
+	
 </style>
 </head>
 <body>
