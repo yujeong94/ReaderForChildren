@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
+import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Repository("auDAO")
 public class AuditionDAO {
@@ -87,6 +88,10 @@ public class AuditionDAO {
 			result = sqlSession.delete("auditionMapper.deleteApply", userId);
 		}
 		return result;
+	}
+
+	public int selectPwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("auditionMapper.selectPwd", m);
 	}
 
 }

@@ -120,5 +120,11 @@
 		where user_id=#{userId}
 	</delete>
 	
+	<select id="selectPwd" parameterType="Member" resultType="_int">
+		select count(*)
+		from member
+		where user_id = #{userId} and user_pwd = #{userPwd}
+	</select>
+	
 </mapper>
 

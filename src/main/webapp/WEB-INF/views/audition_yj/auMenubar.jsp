@@ -74,7 +74,7 @@
 	$("#no2").click(function(){
 		$("#no2_1").css("background","#EFA885");
 		var userId = "${ loginUser.userId }";
-	
+		var division = "${ loginUser.division }";
 		if(userId != "" && division == 1){
 			$.ajax({
 				url: "readerCheck.au",
