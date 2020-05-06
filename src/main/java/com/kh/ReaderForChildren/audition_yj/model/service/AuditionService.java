@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
+import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 public interface AuditionService {
 
@@ -28,6 +29,8 @@ public interface AuditionService {
 
 	int updateApply(Reader r, ArrayList<Career> cArr);
 
-	int deleteApply(String userId); 
+	int deleteApply(String userId);
+
+	int selectPwd(Member m); 
 
 }

@@ -66,6 +66,7 @@
 	
  	#infoArea {
 		display: none;
+		margin-bottom: 100px;
 	} 
 	
 	#infoArea input {
@@ -81,7 +82,7 @@
 	}
 	
 	#infoTable th, #infoTable td {
-		border: 1px solid gray;
+		border: 1px solid lightgray;
 		padding: 10px;
 	}
 	
@@ -143,7 +144,7 @@ label:after {
   transform: rotate(-45deg) translate(0px);
   -webkit-transform: rotate(-45deg) translate(0px);
 }
-	
+
 </style>
 </head>
 <body>
@@ -200,19 +201,19 @@ label:after {
 				<tr>
 					<th width="100px">녹음실</th>
 					<td colspan="3">
-						<input type="text" id="recCompany" name="recCompany" readOnly><br>
-						주소 : <input type="text" id="address" name="address" size="50px" readOnly>
+						<input type="text" id="recCompany" name="recCompany" readOnly required><br>
+						주소 : <input type="text" id="address" name="address" size="50px" readOnly required>
 					</td>
 				</tr>
 				<tr>
 					<th>날짜</th>
 					<td>
-						<input type="text" id="dateInfo" name="dateInfo" readOnly>
+						<input type="text" id="dateInfo" name="dateInfo" readOnly required>
 						<jsp:useBean id="now" class="java.util.Date"/>
 						<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="today"/>
 					</td>
 					<th width="90px">시간</th>
-					<td><input type="text" id="rTime" name="rTime" readOnly></td>
+					<td><input type="text" id="rTime" name="rTime" readOnly required></td>
 				</tr>
 				<!-- <tr>
 				</tr> -->
@@ -444,7 +445,7 @@ label:after {
 							console.log("널이다");
 							$("#timeTable td").css({"cursor":"pointer","background":"white"});
 							$("#timeTable td").mouseover(function(){
-								$(this).css("background","lightgreen");
+								$(this).css("background","#ffe478");
 							}).mouseout(function(){
 								$(this).css("background","white");
 							}).click(function(){
@@ -458,15 +459,15 @@ label:after {
 										console.log("td값 " + $("#timeTable td").eq(i).text());
 										console.log("예약된 시간" + data[j].rTime);
 										$("#timeTable td").eq(i).off();
-										$("#timeTable td").eq(i).css({"background":"gray","cursor":"default"});
+										$("#timeTable td").eq(i).css({"background":"lightgray","cursor":"default"});
 										break;
 									} else {
 										console.log("else로 들어옴");
 										console.log($("#timeTable td").eq(i).css("background-color"));
-										if($("#timeTable td").eq(i).css("background-color") != "#808080") {
+										if($("#timeTable td").eq(i).css("background-color") != "lightgray") {
 											$("#timeTable td").eq(i).css({"cursor":"pointer","background":"white"});
 											$("#timeTable td").eq(i).mouseover(function(){
-												$("#timeTable td").eq(i).css("background","lightgreen");
+												$("#timeTable td").eq(i).css("background","#ffe478");
 											}).mouseout(function(){
 												$("#timeTable td").eq(i).css("background","white");
 											}).click(function(){
@@ -477,7 +478,6 @@ label:after {
 									}
 								}
 							}
-							
 						}
 					}
 				});
@@ -487,7 +487,12 @@ label:after {
 		// 예약완료 알림창
 		var msg = "${ msg }";
 		if(msg != ""){
-			swal(msg);
+			swal({
+				  title: "예약완료!",
+				  text: msg,
+				  icon: "success",
+				  button: "확인"
+				});
 		}
 		
 		</script>
