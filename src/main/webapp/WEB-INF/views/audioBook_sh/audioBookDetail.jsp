@@ -1,7 +1,34 @@
+<%@ page import="com.kh.ReaderForChildren.audioBook_sh.model.vo.BookImage" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	BookImage i = (BookImage)request.getAttribute("i");
+	String changeName = "";
+	if(i != null){
+		changeName = i.getChangeName();
+	}
+	
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+	
+	// 쿠키에 데이터를 저장(쿠키이름, 쿠키값)
+	Cookie coo1 = new Cookie("item", changeName);
+	Cookie coo2 = new Cookie("product", changeName);
+	Cookie coo3 = new Cookie("item", changeName);
+
+	// 유효 시간 설정
+	coo1.setMaxAge(60*60*24);
+	coo2.setMaxAge(60*60*24);
+	coo3.setMaxAge(60*60*24);
+	
+	// 서버에서 클라이언트에게 쿠키를 전달하므로 response 
+	response.addCookie(coo1);
+	response.addCookie(coo2);
+	response.addCookie(coo3);
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,17 +55,17 @@
 	.Btn{color: white; border: none; width: 120px; height: 45px; border-radius: 5px;
 		font-weight: bold; font-size: 17.5px; margin: 0 5px 20px 5px;}
 	.purchaseBtn{background: rgb(231, 76, 60);} .purchaseBtn:hover {cursor: pointer;}
-	.cartBtn{background: rgb(190, 190, 190)} .cartBtn:hover {cursor: pointer;}
+	.cartBtn{background: rgb(190, 190, 190);} .cartBtn:hover {cursor: pointer;}
 	
 	.info{margin: 0 auto 50px; width: 840px; height: 100%;}
 	.IT{font-weight: bold; font-size: 19px; margin: 10px 0 20px 0;}
-	.line{width: 730px; border-bottom: 2px solid rgb(136, 136, 136); margin-bottom: 20px;}
+	.line{width: 830px; border-bottom: 2px solid rgb(136, 136, 136); margin-bottom: 20px;}
 	.simpleInfo span{color: grey; margin-right: 7px;} .simpleInfo b{font-weight: bold; margin-right: 20px;}
 	.simpleInfo{font-size: 16px; margin-bottom: 30px;}
 	.intro span{font-size: 16px; font-weight: bold;}
 	.intro2{margin: 8px 0 100px 0; height: 30px; font-size: 14px;}
 	.IT2{display: inline-block;}
-	.tab{display: inline-block; padding: 28px 0 0 465px;}
+	.tab{display: inline-block; padding: 28px 0 0 564px;}
 	.Ftab{height: 30px; border: none; background: rgb(243, 156, 18); color: white; font-weight: bold; outline: none;} .Ftab:hover {cursor: pointer;}
 	.Mtab{height: 30px; border: none; background: darkgrey; color: white; font-weight: bold; outline: none;} .Mtab:hover {cursor: pointer;}
 	.intro3{margin: 8px 0 70px 0; height: 30px; font-size: 14px;}

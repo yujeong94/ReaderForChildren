@@ -9,14 +9,14 @@
 <title>agreeForInformationProvision</title>
 <style>
 	html, body{margin: 0; padding: 0;}
-	.bigTitle{background: rgb(59, 59, 59); color: rgb(239, 84, 77); font-size: 25px; font-weight: bold; text-align: center;
-			height: 53px;} .bigTitle span{color: white;}
+	.bigTitle{background: rgb(59, 59, 59); color: white; font-size: 25px; font-weight: bold; text-align: center;
+			height: 53px;}
 	.outer{width: 460px; height: 100%; margin: 0 auto;}
 </style>
 </head>
 <body>
 	<div class="bigTitle">
-		<div style="display: inline-block; margin-top: 8px;">개인정보 제3자 제공 동의 <span>이용약관</span></div>
+		<div style="display: inline-block; margin-top: 8px;">개인정보 제3자 제공 동의 이용약관</div>
 	</div>
 	
 	<br><br>
