@@ -7,9 +7,6 @@
 <meta charset="UTF-8">
 <title>auditionList</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
 <style>
 .contents {
    width: 1100px;
@@ -53,7 +50,7 @@
 }
 
 table > thead > tr > th {
-   background: #233C0B;
+   background: #6E6E6E;
    color: white;
    padding: 5px;
    font-size: 20px;
@@ -88,6 +85,7 @@ table > tbody > tr > td {
 
 .stuTd{
    font-size: 15px;
+   font-weight: 600;
    vertical-align: middle;
 }
 
@@ -96,7 +94,7 @@ table > tbody > tr > td {
    width: 160px;
    margin-bottom: 10px;
    position: relative;
-   left: 635px;
+   left: 630px;
 }
 
 .borderTd{
@@ -106,16 +104,10 @@ table > tbody > tr > td {
 #category{
 	width: 160px;
 	padding: .5em .5em;
-	border: 1px solid #C6C618;
+	border: 1px solid #6E6E6E;
 	font-family: inherit;
 	border-radius: 0px;
 }
-
-/* modal css */
-/* .modalCSS{
-	max-width: 1000px;
-} */
-
 
 </style>
 </head>
@@ -154,10 +146,10 @@ table > tbody > tr > td {
 	                     <td class="IDtd borderTd">${ a.userId }</td>
 	                     <td class="DATEtd borderTd">${ a.enrollDate }</td>
                      	<c:choose>
-                     		<c:when test="${ a.status == 0 }"><td class="STATUStd stuTd borderTd" style="color:#E6C716;">미응답</c:when>
-                     		<c:when test="${ a.status == 1 }"><td class="STATUStd stuTd borderTd" style="color:#1D149F;">합격</c:when>
-                     		<c:when test="${ a.status == 2 }"><td class="STATUStd stuTd borderTd" style="color:#6D6B6A;">불합격</c:when>
-                     		<c:otherwise><td class="STATUStd stuTd borderTd" style="color:#D41113;">영구정지</c:otherwise>
+                     		<c:when test="${ a.status == 0 }"><td class="STATUStd stuTd borderTd" style="color:#D41113;">미응답</c:when>
+                     		<c:when test="${ a.status == 1 }"><td class="STATUStd stuTd borderTd">합격</c:when>
+                     		<c:when test="${ a.status == 2 }"><td class="STATUStd stuTd borderTd">불합격</c:when>
+                     		<c:otherwise><td class="STATUStd stuTd borderTd">영구정지</c:otherwise>
                      	</c:choose>
 	                     </td>
 	                  </tr>
@@ -170,11 +162,6 @@ table > tbody > tr > td {
                </c:if>
                </tbody>
             </table>
-            <!-- <div id="ex1" class="modal modalCSS">
-				 test
-			</div>
-			 
-			<p><a href="#ex1" rel="modal:open">모달창띄우기</a></p> -->
          </div>
       </div>
    
@@ -185,7 +172,12 @@ table > tbody > tr > td {
    <script>
       $(function(){
          $('.listTable td').mouseover(function(){
-            $(this).parent().css({'color':'#0FB07A', 'background':'#E9EDE4', 'cursor':'pointer', 'font-weight':'bold'});
+            $(this).parent().css({'color':'#4D4A3A', 'background':'#D8D8D8', 'cursor':'pointer', 'font-weight':'bold'});
+            
+            var statustext = $(this).parent().children().eq(3);
+            if(statustext.text().trim() != '미응답'){
+            	statustext.css('color','black');
+            }
          }).mouseout(function(){
             $(this).parent().css({'color':'black', 'background':'none','font-weight':'normal'});
          }).click(function(){
@@ -193,23 +185,6 @@ table > tbody > tr > td {
         	 
         	location.href="auditionForm.ad?userId="+userId;
          });
-         
-         /* .ready(function(){
-	        
-	         #C8C80D, #DE720D
-	         var status = $(this).parent().children('.stuTd').text();
-	         var trimStatus = status.trim();
-	         console.log("status : " + trimStatus);
-	         if(trimStatus == "미응답"){
-	        	 $('.stuTd').css('color','#D8D16F');
-	         } else if(trimStatus == "합격"){
-	        	 $('.stuTd').css('color','#1D149F');
-	         } else if(trimStatus == "불합격"){
-	        	 $('.stuTd').css('color','#6D6B6A');
-	         } else {
-	        	 $('.stuTd').css('color','#D41113');
-	         }
-         }) */
          
          $('#category').change(function(){
         	var selectbox = $(this).val();

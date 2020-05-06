@@ -145,7 +145,7 @@
 	
 	<!-- 내용 -->
 	<div class="contents">
-		<div id="title"><h1>EVENT WINNER</h1></div>
+		<div id="title"><h1>이벤트 당첨자</h1></div>
 		<form action="#">
 			<table class="tableStyle">
 				<tr>

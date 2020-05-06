@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>eventDetail</title>
-<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
 .contents {
@@ -62,8 +61,8 @@
 	padding: 0.5rem 0.6rem; font-size: 0.8rem; width: 113px;
 }
 
-.btn_file {display:inline-block;width:100px;height:27px;font-size:0.8em;line-height:27px;text-align:center;vertical-align:middle;
-			background-color: lightgray; padding: 5px 7px; font-weight: 600; font-size: 0.9rem; border-radius: 0.25rem;}
+.btn_file {display:inline-block;width:100px;height:26px;font-size:0.8em;line-height:27px;text-align:center;vertical-align:middle;
+			background-color: lightgray; font-weight: 600; font-size: 0.9rem; border-radius: 0.25rem;padding: 2px;}
 			
 input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 					margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
@@ -75,7 +74,7 @@ input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 	
 	<!-- 내용 -->
 	<div class="contents">
-		<div id="title"><h1>EVENT ENROLL</h1></div>
+		<div id="title"><h1>이벤트 등록</h1></div>
 		<form action="eventDataInsert.ev" method="post" enctype="Multipart/form-data" onsubmit="return submitForm();">
 			<table class="tableStyle">
 				<tr>

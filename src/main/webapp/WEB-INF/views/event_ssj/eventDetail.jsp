@@ -162,7 +162,7 @@
 	
 	<!-- 내용 -->
 	<div class="contents">
-		<div id="title"><h1>EVENT</h1></div>
+		<div id="title"><h1>이벤트</h1></div>
 		<table class="tableStyle" id="tableId">
 			<thead>
 				<tr>

@@ -132,7 +132,7 @@ table > tbody > tr > td {
 		<div class="ap_content">
 			<div id="title">후원자 리스트</div>
 			<div class="search">
-				<input type="text" class="searchInput" placeholder="후원단체 입력">
+				<input type="text" class="searchInput" placeholder="후원단체 입력" <c:if test="${ spName != null }">value=${ spName }</c:if>>
 				<button class="searchBtn"><img src="${ contextPath }/resources/images/search2.png" width="22px"></button>
 			</div>
 			<div class="tableDiv">

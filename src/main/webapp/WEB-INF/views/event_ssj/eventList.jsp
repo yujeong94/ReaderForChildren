@@ -48,8 +48,10 @@
 .eventBox {
 	display: inline-block;
 	width: 270px;
-	height: 340px;
+	height: 330px;
 	margin: 9px;
+	margin-top: 2px;
+	padding-top: 10px;
 	text-align: center;
 }
 .eventContent{
