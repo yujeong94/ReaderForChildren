@@ -31,13 +31,13 @@
 				
 				<table id="profileCon">
 					<tr>
-						<th width="120px">오디오북 명</th>
+						<th width="80px">도서 명</th>
 						<td width="120px">${ a.bkName }
 							<%-- <input type="hidden" value="${ r.aNum }" name="aNum"> --%>
 						</td>
-						<th width="80px">이름</th>
+						<th width="60px">이름</th>
 						<td>${ loginUser.userName }</td>
-						<th width="80px">성별</th>
+						<th width="60px">성별</th>
 						<td>${ loginUser.gender }</td>
 					</tr>
 					<tr>

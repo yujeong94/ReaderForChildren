@@ -111,7 +111,7 @@
 	<header>
       <div class = "mainheader clear-fix">
          <h2 class = "logo">
-            <a href="${ contextPath }/index.jsp"><img src="${ contextPath }/resources/images/logo2.png" width = 130px height = 130px/></a>
+            <a href="${ contextPath }/index.jsp"><img src="${ contextPath }/resources/images/logo2.png" width = 120px height = 120px/></a>
          </h2>
          <ul class='util'>
          	<li><a href="${ contextPath }/userList.ad"><img src = "${ contextPath }/resources/images/cart.png" width = 40px height = 40px></a></li>

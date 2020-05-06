@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -211,8 +212,10 @@ public class AuditionController {
 		// 경력사항 데이터 담기
 		ArrayList<Career> cArr = new ArrayList<Career>();
 		for(int i = 0; i < cDateArr.length; i++) {
-			Career c = new Career(0, userId, cDateArr[i], cContentArr[i], cComArr[i]);
-			cArr.add(c);
+			if(!cDateArr[i].isEmpty() && !cContentArr[i].isEmpty() && !cComArr[i].isEmpty()) {
+				Career c = new Career(0, userId, cDateArr[i], cContentArr[i], cComArr[i]);
+				cArr.add(c);
+			}
 		}
 		
 		// 지원서사진
@@ -235,7 +238,10 @@ public class AuditionController {
 			}
 		}
 		
-		int result = auService.insertApply(r,cArr);
+		int result = 0;
+		if(!cArr.isEmpty() && cArr != null) {
+			result = auService.insertApply(r,cArr);
+		}
 		
 		if(result > 0) {
 			return "applyResult";			
@@ -309,13 +315,13 @@ public class AuditionController {
 		
 		r.setUserId(userId);
 		
-		System.out.println("사진 바뀐거 들어가? " + profileImg + " , 녹음파일은???? " + recordFile);
-		
 		// 경력사항 데이터 담기
 		ArrayList<Career> cArr = new ArrayList<Career>();
 		for(int i = 0; i < cDateArr.length; i++) {
-			Career c = new Career(0, userId, cDateArr[i], cContentArr[i], cComArr[i]);
-			cArr.add(c);
+			if(!cDateArr[i].isEmpty() && !cContentArr[i].isEmpty() && !cComArr[i].isEmpty()) {
+				Career c = new Career(0, userId, cDateArr[i], cContentArr[i], cComArr[i]);
+				cArr.add(c);
+			}
 		}
 		
 		// 지원서사진
@@ -350,9 +356,11 @@ public class AuditionController {
 			r.setRecPath(oldr.getRecPath());
 		}
 		
-		System.out.println("사진 들어가? " + r.getImgOrigin() + "레코드는? " + r.getRecName());
 		
-		int result = auService.updateApply(r, cArr);
+		int result = 0;
+		if(!cArr.isEmpty() && cArr != null) {
+			result = auService.updateApply(r, cArr);
+		}
 		
 		if(result > 0) {
 			return "redirect:apDetail.au";
@@ -382,4 +390,22 @@ public class AuditionController {
 		return "slider";
 	}
 	
+	@RequestMapping("passView.au")
+	public String passView() {
+		return "passAudition";
+	}
+	
+	@RequestMapping("passCheckInfo.au")
+	public String passCheckInfo(@ModelAttribute Member m, HttpSession session, ModelAndView mv) {
+		
+		String userId =((Member)session.getAttribute("loginUser")).getUserId();
+		m.setUserId(userId);
+		int result = auService.selectPwd(m);
+		
+		if(result > 0) {
+			return "auditionResult"; 
+		} else {
+			throw new AuditionException("오디션 결과 조회 실패");
+		}
+	}
 }

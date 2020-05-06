@@ -93,12 +93,11 @@ a:hover { text-decoration: none; cursor : pointer;}
   width: auto;
   padding: 16px;
   margin-top: -22px;
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
-  background: red;
 }
 
 /* Position the "next button" to the right */
@@ -130,13 +129,9 @@ a:hover { text-decoration: none; cursor : pointer;}
 } 
 
 /* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  /* position: absolute; */
-  top: 0;
-}
+.numbertext { 
+  
+ } 
 
 /* The dots/bullets/indicators */
 .dot {
@@ -156,7 +151,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 }
 
 .active, .dot:hover {
-  background-color: #717171;
+  background-color: white;
 }
     
 
@@ -224,7 +219,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 <div class="slideshow-container">
 
 	<div class="mySlides fade">
-	  <div class="numbertext">1 / 3</div>
+	  <!-- <div class="numbertext">1 / 3</div> -->
 	  <img src="${ contextPath }/resources/images/slide1.jpg" class="sImg">
 	  <!-- <div class="text">Caption Text</div> -->
 	</div>
@@ -232,11 +227,15 @@ a:hover { text-decoration: none; cursor : pointer;}
 	<div class="mySlides fade">
 	  <div class="numbertext">2 / 3</div>
 	  <img src="${ contextPath }/resources/uploadFiles/20200421223319.png" onclick="location.href='eventDetail.ev?eNum=4'" class="sImg">
+
 	</div>
 	
 	<div class="mySlides fade">
-	  <div class="numbertext">3 / 3</div>
-	  <img src="http://placehold.it/300x100" class="sImg">
+	  <!-- <div class="numbertext">3 / 3</div> -->
+	  <!-- <img src="http://placehold.it/300x100" class="sImg"> -->
+	  <div class="sImg" style="background: white;">
+	  	합격자를 발표합니다!!!!!!! gogo!!! <button onclick="location.href='passView.au'">눌러주세요</button>
+	  </div>
 	</div>
 
 </div>

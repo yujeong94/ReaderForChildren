@@ -60,7 +60,7 @@ public class RecordController {
 		int result = reService.insertRecord(rb);
 		
 		if(result > 0) {
-			String msg = "예약이 완료되었습니다. 마이페이지에서 예약 내역을 확인하세요 :)";
+			String msg = "마이페이지에서 예약 내역을 확인하세요 :)";
 			mv.addObject("msg", msg).setViewName("recordForm");
 		} else {
 			throw new RecordException("예약 실패");

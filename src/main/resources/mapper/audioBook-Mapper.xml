@@ -43,6 +43,13 @@
 		<result property="bkCode" column="BK_CODE"/>
 	</resultMap>
 	
+	<select id="selectabList" resultMap="audioBookResultSet">
+		select *
+		from audio_book
+		where aud_status='Y' and mod(aud_code,2)=1
+		order by aud_code desc
+	</select>
+	
 	<select id="getSearchListCount" resultType="_int">
 		select count(*)
 		from book
@@ -237,5 +244,17 @@
 		set origin_name=#{originName}, change_name=#{changeName}, upload_date=sysdate
 		where af_code=#{afCode}
 	</update>
+	
+	
+	<select id="selectBestList" resultMap="bookImageResultSet">
+		<![CDATA[
+			select bi_no, origin_name, change_name, bi_path, upload_date, bi_status, bk_code
+			from(select *
+    			from book_image
+        			join bestview using(bk_code)
+    			order by sales desc)
+			where rownum < 4
+		]]>	
+	</select>
 	
 </mapper>

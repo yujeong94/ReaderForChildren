@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.ReaderForChildren.audioBook_sh.model.exception.audioBookException;
 import com.kh.ReaderForChildren.audioBook_sh.model.service.audioBookService;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.AudioBook;
@@ -57,11 +60,13 @@ public class audioBookController {
 		
 		ArrayList<Book> blist = abService.selectbList(pi);
 		ArrayList<BookImage> bilist = abService.selectbiList();
+		ArrayList<AudioBook> ablist = abService.selectabList();
 		
 		if(blist != null) {
 			mv.addObject("blist", blist);
 			mv.addObject("pi", pi);
 			mv.addObject("bilist", bilist);
+			mv.addObject("ablist", ablist);
 			mv.setViewName("audioBookList");
 		} else {
 			throw new audioBookException("게시글 전체 조회에 실패하였습니다.");
@@ -708,6 +713,17 @@ public class audioBookController {
 		if(f.exists()) {
 			f.delete();
 		}
+	}
+	
+	
+	// 베스트 셀러
+	@RequestMapping("bestList.ab")
+	public void bestList(HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<BookImage> biList = abService.selectBestList();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(biList, response.getWriter());
+		
 	}
 	
 }

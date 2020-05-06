@@ -10,6 +10,7 @@ import com.kh.ReaderForChildren.audition_yj.model.dao.AuditionDAO;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Career;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Reader;
+import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Service("auService")
 public class AuditionServiceImpl implements AuditionService {
@@ -81,5 +82,10 @@ public class AuditionServiceImpl implements AuditionService {
 	@Override
 	public int deleteApply(String userId) {
 		return auDAO.deleteApply(sqlSession, userId);
+	}
+
+	@Override
+	public int selectPwd(Member m) {
+		return auDAO.selectPwd(sqlSession, m);
 	}
 }
