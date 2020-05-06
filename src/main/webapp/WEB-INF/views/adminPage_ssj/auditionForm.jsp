@@ -9,15 +9,33 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/audition/apply.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <style>
+.passBtn{
+	background: #8D97BA;
+}
+
 .failBtn{
-	background: red;
+	background: #C79691;
 }
 
 .banBtn{
-	background: black;
+	background: #A0A4A5;
+}
+
+.defaultBtn{
+	width: 100px;
+}
+
+.box2{
+	text-align: right;
+}
+
+.delBtn{
+	margin-right: 100px;
+	font-size: 13px;
+	padding: 5px 7px;
+	width: 70px;
+	vertical-align: middle;
 }
 </style>
 </head>
@@ -25,8 +43,8 @@
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
 	<div class="contents">
-		<h1>내 지원서</h1>
-			
+		<h1>지원서</h1>
+		<div id="applyForm" class="divblank">
 			<h2>Profile</h2>
 			
 			<div id="profileArea" class="divblank">
@@ -85,27 +103,18 @@
 				<a href="${ contextPath }/resources/uploadFiles/${ r.recName }">${ r.recName }</a>
 			</div>
 			
-			<div id="ex1" class="modal modalCSS">
-				 <label><input type="radio" name="resultValue" value="합격">합격</label>
-				 <label><input type="radio" name="resultValue" value="불합격">불합격</label>
-				 <label><input type="radio" name="resultValue" value="영구정지">영구정지</label>
-				 
-			</div>
 			 
 			<c:if test="${ r.status == 0 }">
-			<p><a href="#ex1" rel="modal:open">결과</a></p>
-			
 			<div class="btnBox">
-				<button type="button" class="defaultBtn upBtn">합격</button>
+				<button type="button" class="defaultBtn passBtn">합격</button>
 				<button type="button" class="defaultBtn failBtn">불합격</button>
+				<button type="button" class="defaultBtn banBtn">영구정지</button>
 			</div>
 			</c:if>
-			<div class="btnBox">
-				<c:if test="${ r.status == 0 }">
-					<button type="button" class="defaultBtn banBtn">영구정지</button>
-				</c:if>
-				<button type="button" class="defaultBtn delBtn">뒤로가기</button>
+			<div class="btnBox box2">
+				<button type="button" class="defaultBtn delBtn">back</button>
 			</div>
+		</div>
 	</div>
 	<c:import url="../common/footer.jsp"/>
 </div>
@@ -124,7 +133,7 @@
 		location.href="failReader.ad?userId="+userId;
 	});
 	
-	$('.upBtn').click(function(){
+	$('.passBtn').click(function(){
 		location.href="passReader.ad?userId="+userId;
 	});
 </script>

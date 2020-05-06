@@ -163,7 +163,7 @@ public class AdminPageController {
 		ArrayList<Member> list = aService.selectUserSearch(userId);
 		
 		if(list != null) {
-			mv.addObject("list", list);
+			mv.addObject("list", list).addObject("userId", userId);
 			mv.setViewName("allUserList");
 		} else {
 			throw new AdminPageException("검색 실패");
@@ -227,7 +227,7 @@ public class AdminPageController {
 		ArrayList<Support> list = aService.sponsorSearch(spName);
 		
 		if(list != null) {
-			mv.addObject("list", list).setViewName("sponsorList");
+			mv.addObject("list", list).addObject("spName", spName).setViewName("sponsorList");
 		} else {
 			throw new AdminPageException("후원명 검색 실패");
 		}

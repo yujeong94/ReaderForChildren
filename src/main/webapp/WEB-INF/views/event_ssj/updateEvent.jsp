@@ -75,7 +75,7 @@ input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 	
 	<!-- 내용 -->
 	<div class="contents">
-		<div id="title"><h1>EVENT UPDATE</h1></div>
+		<div id="title"><h1>이벤트 등록</h1></div>
 		<form action="updateEvent.ev" method="post" enctype="Multipart/form-data" onsubmit="return submitForm();">
 			<input type="hidden" name="eNum" value="${ event.eNum }">
 			<input type="hidden" name="originName" value="${ event.originName }">

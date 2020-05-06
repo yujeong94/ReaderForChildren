@@ -113,8 +113,8 @@ button{
 }
 
 .statusBtn {
-    background: #85E82F;
-    color: #0A1D6F;
+    background: #5D3D80;
+    color: white;
 }
 
 .deleteBtn{
@@ -156,7 +156,7 @@ button{
 #category{
 	width: 160px;
 	padding: .5em .5em;
-	border: 1px solid #C6C618;
+	border: 1px solid #77A687;
 	font-family: inherit;
 	border-radius: 0px;
 }
@@ -211,7 +211,7 @@ button{
 								<td class="borderTd">${ b.or_price }</td>
 								<td class="borderTd">
 									<c:choose>
-										<c:when test="${ b.contain_bk == 'N' && b.or_status == 'Y' }">책 구매X</c:when>
+										<c:when test="${ b.contain_bk == 'N' && b.or_status == 'Y' }"></c:when>
 										<c:when test="${ b.or_status == 'N' }"><button class="deleteBtn">주문취소</button></c:when>
 										<c:when test="${ b.del_status == 2 }"><button class="successBtn">접수완료</button></c:when>
 										<c:otherwise><button class="statusBtn blinking readyBtn">배송접수</button></c:otherwise>

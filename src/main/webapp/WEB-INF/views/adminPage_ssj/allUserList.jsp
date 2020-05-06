@@ -83,7 +83,7 @@ table > tbody > tr > td {
 .search{
 	height: 35px;
 	width: 260px;
-	border: 1px solid #C6C618;
+	border: 1px solid #77A687;
 	margin-bottom: 10px;
 	position: relative;
 	left: 520px;
@@ -102,7 +102,7 @@ table > tbody > tr > td {
 	width: 45px;
 	height: 100%;
 	border: 0px;
-	background: #C6C618;
+	background: #77A687;
 	outline: none;
 	float: right;
 	color: white;
@@ -123,7 +123,7 @@ table > tbody > tr > td {
 		<div class="ap_content">
 			<div id="title">전체 회원 리스트</div>
 			<div class="search">
-				<input type="text" class="searchInput" placeholder="아이디 입력">
+				<input type="text" class="searchInput" placeholder="아이디 입력" <c:if test="${ userId != null }">value=${ userId }</c:if>>
 				<button class="searchBtn"><img src="${ contextPath }/resources/images/search2.png" width="22px"></button>
 			</div>
 			<div class="tableDiv">
