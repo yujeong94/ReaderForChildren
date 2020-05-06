@@ -19,6 +19,8 @@ public interface audioBookService {
 	ArrayList<Book> selectbList(PageInfo pi);
 
 	ArrayList<BookImage> selectbiList();
+
+	ArrayList<AudioBook> selectabList();
 	
 	int getSearchListCount(SearchCondition sc);
 
@@ -47,5 +49,7 @@ public interface audioBookService {
 	int cartInsert(Cart c);
 
 	int updateProduct(Book b, BookImage bi, AudioBook abF, AudioBook abM, AudioFile afF, AudioFile afM);
+
+	ArrayList<BookImage> selectBestList();
 
 }

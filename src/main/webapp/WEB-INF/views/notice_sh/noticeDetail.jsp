@@ -11,13 +11,13 @@
 <title>noticeDetail</title>
 <style>
    .frame{width: 80%; margin: 0 auto 30px; border-top: 1px solid grey; border-bottom: 1px solid lightgrey;}
-   .titleLine{background: rgb(254, 249, 248); height: 75px; font-size: 17px;}
+   .titleLine{background: rgb(254, 249, 248); height: 75px; font-size: 17px; border-bottom: 1px solid lightgrey; padding: 5px 0 5px;}
    #titleDiv{width: 79.5%; display: inline-block; padding-top: 25px;}
    #titleSpan{padding-left: 20px; font-weight: bold;}
    #infoDiv{width: 19.7%; height: 100%; display: inline-block;}
    #infoTable{margin-left: auto; margin-right: 18px; margin-top: 16px; text-align: center; color: grey; font-size: 13px;}
    #date{border-bottom: 1px solid lightgrey;}
-   .contentDiv{width: 97.5%; height: 400px; font-size: 15px; padding-top: 20px; padding-left: 20px; background: rgb(254, 249, 248);}
+   .contentDiv{height: 400px; font-size: 15px; padding: 30px 20px 20px 20px; background: rgb(254, 249, 248);}
    .btnBox{margin-bottom: 30px;}
    .UpdateBtn{background: rgb(231, 76, 60);}
    .delBtn{background: rgb(190, 190, 190); margin: 0 8px 0;}
@@ -47,8 +47,6 @@
 				</div>
 			</div>
             
-            <br>
-            
 			<div class = "contentDiv">
 				<% pageContext.setAttribute("newLineChar", "\r\n"); %>
 				${ fn:replace(n.noContent, newLineChar, "<br>") }
@@ -65,9 +63,15 @@
 		</c:url>
          
 		<div class="btnBox">
-			<button class="defaultBtn UpdateBtn" onclick="location.href='${ update }'">수정하기</button>
+			<c:if test="${ adminUser ne null }">
+				<button class="defaultBtn UpdateBtn" onclick="location.href='${ update }'">수정하기</button>
+			</c:if>
+			
 			<button class="defaultBtn delBtn" onclick = "location.href='noList.no'">목록으로</button>
-			<button class="defaultBtn UpdateBtn" onclick="deleteNotice();">삭제하기</button>
+			
+			<c:if test="${ adminUser ne null }">
+				<button class="defaultBtn UpdateBtn" onclick="deleteNotice();">삭제하기</button>
+			</c:if>	
 		</div>
 	</div>
       

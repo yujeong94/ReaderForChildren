@@ -42,6 +42,11 @@ public class audioBookServiceImpl implements audioBookService{
 	}
 	
 	@Override
+	public ArrayList<AudioBook> selectabList() {
+		return abDAO.selectabList(sqlSession);
+	}
+	
+	@Override
 	public int getSearchListCount(SearchCondition sc) {
 		return abDAO.getSearchListCount(sqlSession, sc);
 	}
@@ -128,6 +133,11 @@ public class audioBookServiceImpl implements audioBookService{
 		int result6 = abDAO.updateAudioFileM(sqlSession, afM);
 		
 		return result1 + result2 + result3 + result4 + result5 + result6;
+	}
+
+	@Override
+	public ArrayList<BookImage> selectBestList() {
+		return abDAO.selectBestList(sqlSession);
 	}
 
 }

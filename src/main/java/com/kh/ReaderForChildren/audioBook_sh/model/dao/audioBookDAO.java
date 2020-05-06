@@ -34,6 +34,10 @@ public class audioBookDAO {
 		return (ArrayList)sqlSession.selectList("audioBookMapper.selectbiList");
 	}
 	
+	public ArrayList<AudioBook> selectabList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("audioBookMapper.selectabList");
+	}
+	
 	public int getSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
 		return sqlSession.selectOne("audioBookMapper.getSearchListCount", sc);
 	}
@@ -145,5 +149,8 @@ public class audioBookDAO {
 		return sqlSession.update("audioBookMapper.updateAudioFile", afM);
 	}
 
+	public ArrayList<BookImage> selectBestList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("audioBookMapper.selectBestList");
+	}
 
 }
