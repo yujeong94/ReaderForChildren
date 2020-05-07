@@ -349,7 +349,6 @@ public class AdminPageController {
 		map.put("month2", dateMonth2);
 		
 		int r = aService.revenueSearch(map);
-		System.out.println("Controller r : " + r);
 		if(r > 0) {
 			return r;
 		} else {

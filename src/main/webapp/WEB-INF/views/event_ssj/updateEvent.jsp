@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,6 +78,8 @@ input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 	<div class="contents">
 		<div id="title"><h1>이벤트 등록</h1></div>
 		<form action="updateEvent.ev" method="post" enctype="Multipart/form-data" onsubmit="return submitForm();">
+			<jsp:useBean id="now" class="java.util.Date"/>
+			<fmt:formatDate value="${ now }" pattern="yyyy-MM-dd" var="nowDate"/>
 			<input type="hidden" name="eNum" value="${ event.eNum }">
 			<input type="hidden" name="originName" value="${ event.originName }">
 			<input type="hidden" name="changeName" value="${ event.changeName }">
@@ -91,15 +94,15 @@ input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 				<tr>
 					<td class="label" id="labelTd">기간</td>
 					<td>
-						<input type="date" class="inputStyle" name="eStart" id="startDate" value="${ event.eStart }" required>
+						<input type="date" class="inputStyle" min="${ nowDate }" name="eStart" id="startDate" value="${ event.eStart }" required>
 						~
-						<input type="date" class="inputStyle" name="eEnd" id="endDate" value="${ event.eEnd }" required>
+						<input type="date" class="inputStyle" min="${ nowDate }" name="eEnd" id="endDate" value="${ event.eEnd }" required>
 					</td>
 				</tr>
 				<tr>
 					<td class="label" id="labelTd">발표 날짜</td>
 					<td>
-						<input type="date" class="inputStyle" name="eAnno" id="announDate" value="${ event.eAnno }" required>
+						<input type="date" class="inputStyle" min="${ nowDate }" name="eAnno" id="announDate" value="${ event.eAnno }" required>
 					</td>
 				</tr>
 				<tr>
@@ -174,7 +177,10 @@ input[type="file"] {position:absolute;width:1px;height:1px;padding:0;
 	    	var annouDay = $('#announDate').val();
 	    	
 	    	if(annouDay < endDay){
-	    		alert("발표 날짜를 다시 등록해주세요.");
+	    		swal("발표 날짜를 다시 등록해주세요.");
+	    		return false;
+	    	} else if(endDay <= startDay){
+	    		swal("종료 날짜를 다시 등록해주세요.");
 	    		return false;
 	    	} else{
 	    		return true;

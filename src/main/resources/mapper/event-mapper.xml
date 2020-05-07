@@ -84,14 +84,14 @@
 		select *
 		from event
 		where e_status = 'Y' and e_division = 1
-		order by e_end
+		order by e_date desc
 	</select>
 	
 	<select id="selectEndList" resultMap="eventResultSet">
 		select *
 		from event
 		where e_status = 'Y' and e_division = 2
-		order by e_anno
+		order by e_anno desc
 	</select>
 	
 	<select id="selectEvent" resultMap="eventResultSet">
