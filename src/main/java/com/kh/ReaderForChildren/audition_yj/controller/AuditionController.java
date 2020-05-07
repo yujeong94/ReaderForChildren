@@ -1,14 +1,15 @@
 package com.kh.ReaderForChildren.audition_yj.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.ReaderForChildren.audition_yj.model.exception.AuditionException;
 import com.kh.ReaderForChildren.audition_yj.model.service.AuditionService;
 import com.kh.ReaderForChildren.audition_yj.model.vo.Audition;
@@ -396,16 +400,34 @@ public class AuditionController {
 	}
 	
 	@RequestMapping("passCheckInfo.au")
-	public String passCheckInfo(@ModelAttribute Member m, HttpSession session, ModelAndView mv) {
+	public ModelAndView passCheckInfo(@ModelAttribute Member m, HttpSession session, ModelAndView mv) {
 		
 		String userId =((Member)session.getAttribute("loginUser")).getUserId();
 		m.setUserId(userId);
 		int result = auService.selectPwd(m);
 		
+		String msg = "비밀번호를 다시 입력해주세요.";
 		if(result > 0) {
-			return "auditionResult"; 
+			int status = auService.selectStatus(userId);
+			mv.addObject("status", status).setViewName("auditionResult");
 		} else {
-			throw new AuditionException("오디션 결과 조회 실패");
+			mv.addObject("msg",msg).setViewName("passAudition");
 		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("endDateCheck.au")
+	public void endDateCheck(HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Audition> aList = auService.selectList();
+		ArrayList<Date> dateArr = new ArrayList<Date>();
+		
+		for(int i = 0; i < aList.size(); i++) {
+			dateArr.add(aList.get(i).getEndDate());
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(dateArr, response.getWriter());
 	}
 }

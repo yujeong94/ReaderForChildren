@@ -153,7 +153,24 @@ a:hover { text-decoration: none; cursor : pointer;}
 .active, .dot:hover {
   background-color: white;
 }
-    
+
+#passImg {
+	width: 200px;
+	height: 200px;
+}
+
+.passDiv {
+	/* background: #89d0be;  */
+	background: #E0F8EC;
+	text-align: center;
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+.passBtn {
+	font-size: 1.3rem;
+	vertical-align: middle;
+	cursor: pointer;
+}
 
 </style>
 </head>
@@ -179,7 +196,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 					<button class="defaultBtn" id="loginBtn">Login</button>
 					<br clear="all">
 					<span id="findPwd" onclick="location.href='pwdView.me'">Find Password</span>
-					<span type="button" id="findId" onclick="location.href='idView.me'">Find ID</span>
+					<span id="findId" onclick="location.href='idView.me'">Find ID</span>
 				</div>
 			</form>
 			<script>
@@ -225,7 +242,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 	</div>
 	
 	<div class="mySlides fade">
-	  <div class="numbertext">2 / 3</div>
+	  <!-- <div class="numbertext">2 / 3</div> -->
 	  <img src="${ contextPath }/resources/uploadFiles/20200421223319.png" onclick="location.href='eventDetail.ev?eNum=4'" class="sImg">
 
 	</div>
@@ -233,8 +250,15 @@ a:hover { text-decoration: none; cursor : pointer;}
 	<div class="mySlides fade">
 	  <!-- <div class="numbertext">3 / 3</div> -->
 	  <!-- <img src="http://placehold.it/300x100" class="sImg"> -->
-	  <div class="sImg" style="background: white;">
-	  	합격자를 발표합니다!!!!!!! gogo!!! <button onclick="location.href='passView.au'">눌러주세요</button>
+	  <div class="sImg passDiv">
+	  	<div>
+	  		<br><br>
+	  		2020년 제 3회 Reader 오디션 결과 발표!<br>
+	  		<label id="changeColor">진행중</label>
+	  	</div>
+	  	<img src="${ contextPath }/resources/images/mic2.png" id="passImg"><br>
+	  	ON AIR<br>
+	  	<span class="passBtn">확인하러 가기</span> <img src="${ contextPath }/resources/images/go.png" class="passBtn" width=20px height=20px style="vertical-align: middle; cursor: pointer;">
 	  </div>
 	</div>
 
@@ -282,6 +306,23 @@ a:hover { text-decoration: none; cursor : pointer;}
 			})
 		}
 	});
+	
+	$(".passBtn").click(function(){
+		if("${ loginUser.userId }" != "") {
+			location.href="passView.au";
+		} else {
+			swal("로그인 후 이용해주세요.");
+		}
+	});
+	
+	$(function(){
+        setInterval(function(){
+            var color = Math.random()*0xffffff;     // 0~ffffff 사이의 랜덤 색 만든다 이때 결과는 10진수
+            color = parseInt(color);          // 실수를 정수로 형변환
+            color = color.toString(16);    // 정수를 16진수 문자로 변경
+            $("#changeColor").css("color", "#"+color);  // 문자로 된 색상으로 최종 배경색 변경
+        },300);
+    });
 
 </script>
 
@@ -314,6 +355,13 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 }
+
+function autoPlay() {
+	auto = setInterval(function(){
+		nextClick();
+	},2000);
+}
+
 </script>
 
 </body>

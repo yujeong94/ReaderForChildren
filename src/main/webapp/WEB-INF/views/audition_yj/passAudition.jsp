@@ -48,12 +48,12 @@
 		<form action="passCheckInfo.au" style="margin-bottom: 100px; margin-top: 100px;">
 			<table id="pwdCheckTable">
 				<tr>
-					<th width="150px">비밀번호</td>
+					<th width="150px">비밀번호</th>
 					<td><input type="password" name="userPwd" id="pwd1"></td>
 					<td></td>
 				</tr>
 				<tr>
-					<th>비밀번호 확인</td>
+					<th>비밀번호 확인</th>
 					<td><input type="password" id="pwd2"></td>
 					<td id="checkPwd"></td>
 				</tr>
@@ -80,6 +80,7 @@
 	 });
 	
 	$(".upBtn").click(function(){
+		
 		if(check == false) {
 			$(".upBtn").attr("type","button");
 			swal("비밀번호가 일치하지 않습니다.");
@@ -88,6 +89,12 @@
 			console.log("submit");
 		}
 	});
+	
+	var msg = "${ msg }";
+	if(msg != "") {
+		swal(msg);
+		$("#pwd1").focus();
+	}
 	
 </script>
 </html>

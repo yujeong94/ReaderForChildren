@@ -61,7 +61,7 @@
 						</td>
 						<th width="60px">이름</th>
 						<td>${ loginUser.userName }</td>
-						<th width="60px">성별</th>
+						<th width="50px">성별</th>
 						<td>${ loginUser.gender }</td>
 					</tr>
 					<tr>

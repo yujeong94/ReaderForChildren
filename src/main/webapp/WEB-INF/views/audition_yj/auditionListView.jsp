@@ -103,7 +103,7 @@
 				<tr class="conTitle conBg"><td>요청사항</td></tr>
 				<tr class="aCon conBg"><td height="10%">${ a.request }</td></tr>
 				<tr class="conTitle conBg"><td>마감날짜 </td></tr>
-				<tr class="aCon conBg"><td>${ a.endDate }</td></tr>
+				<tr class="aCon conBg endDate"><td>${ a.endDate }</td></tr>
 					
 					<c:url var="upView" value="auListUpView.au">
 						<c:param name="aNum" value="${ a.aNum }"/>
@@ -143,18 +143,38 @@
 		var userId = "${ loginUser.userId }";
 		var anum = $("#anum").val();
 		var bkname = $("#bkname").val();
-		$.ajax({
-			url: "readerCheck.au",
-			type: "post",
-			data: {userId:userId},
-			success: function(data) {
-				if(data == "ok") {
-					swal("이미 지원하셨습니다. 오디션은 한번만 지원가능합니다.");
-				} else {
-					location.href="applyInsert.au?aNum=" + anum + "&bkName=" + bkname;
+		
+		var today = new Date();
+		var day = today.getDate();
+		var month = today.getMonth() + 1;
+		var year = today.getFullYear();
+		
+		if(day < 10) {
+			day = '0' + day;
+		}
+		if(month < 10) {
+			month = '0' + month;
+		}
+		
+		today = Number(year+month+day);
+		var endDate = Number($(this).parents().children(".endDate").children().text().replace(/-/g,""));
+		
+		if(today > endDate) {
+			swal("이미 마감된 공고입니다.");
+		} else {
+			$.ajax({
+				url: "readerCheck.au",
+				type: "post",
+				data: {userId:userId},
+				success: function(data) {
+					if(data == "ok") {
+						swal("이미 지원하셨습니다. 오디션은 한번만 지원가능합니다.");
+					} else {
+						location.href="applyInsert.au?aNum=" + anum + "&bkName=" + bkname;
+					}
 				}
-			}
-		});
+			});
+		} 
 	});
 </script>
 </body>
