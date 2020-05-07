@@ -85,7 +85,7 @@
 </head>
 <body>
  <div class="outer">
-  <%--  <c:import url="../common/menubar.jsp"/> --%>
+    <c:import url="../common/menubar.jsp"/> 
    
    <!-- 내용 -->
    <div class="contents">
@@ -192,7 +192,7 @@
    
    
    </div>
-   
+   	<c:import url="../common/footer.jsp"/> 
    </div>
    
    

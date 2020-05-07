@@ -52,10 +52,10 @@
 		}
 		
 
-  #Box{float:left;height:488px; width:400px; margin-left:65px; margin-top:40px;   border:1px solid #dfdfdf;   font-size: 15px;} 
+  #Box{float:left;height:488px; width:400px; margin-left:65px; margin-top:40px; background-color:rgb(255, 245, 245);  font-size: 15px;} 
 .inBox{height:488px; width:400px;font-size: 15px; margin-top:30px; }
-.name{width:400px; font-size: 25px; text-align:center;}
-.intro{font-size:13pt; text-align:left; color:rgb(231, 127, 53);}
+.name{width:400px; font-size: 25px; text-align:center; color:rgb(231, 127, 53);}
+.intro{font-size:13pt; text-align:left; }
 
  #updateBtn{width: 100px;height: 40px; background-color: rgb(236, 158, 149); color: white; font-weight: bold; cursor:pointer;
 		margin-left:830px; margin-bottom:25px;  margin-top:20px;  font-size: 17px; text-align: center; border: 0; border-radius: 5px;}
@@ -73,7 +73,7 @@
    <div class = "contents">
 	  <div id="title"><h1>아동 후원</h1></div>
 	
-		<table id = "content_table" style="margin-left: auto; margin-right: auto;">
+		<table style="margin-left: 65px;">
 			<tr>
 				<td class = "content_title" id = "title2">후원기관</td>
 			</tr>

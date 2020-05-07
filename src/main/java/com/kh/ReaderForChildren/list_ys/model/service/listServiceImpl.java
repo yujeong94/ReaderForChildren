@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 import com.kh.ReaderForChildren.list_ys.model.dao.listDAO;
 import com.kh.ReaderForChildren.list_ys.model.vo.Rec;
 import com.kh.ReaderForChildren.sponsor_ys.model.vo.PageInfo;
@@ -84,7 +85,7 @@ public class listServiceImpl implements listService {
 	}
 
 	@Override
-	public ArrayList<OrderDetail> selectcartList(PageInfo pi, String userId) {
+	public ArrayList<cartList> selectcartList(PageInfo pi, String userId) {
 		return liDAO.selectcartList(sqlSession, pi, userId);
 	}
 

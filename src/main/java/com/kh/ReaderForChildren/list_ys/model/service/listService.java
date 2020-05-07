@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 import com.kh.ReaderForChildren.list_ys.model.vo.Rec;
 import com.kh.ReaderForChildren.sponsor_ys.model.vo.PageInfo;
 
@@ -33,7 +34,7 @@ public interface listService {
 
 	int getcartListCount();
 
-	ArrayList<OrderDetail> selectcartList(PageInfo pi, String userId);
+	ArrayList<cartList> selectcartList(PageInfo pi, String userId);
 
 	int deletecart(int cNo);
 

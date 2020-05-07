@@ -11,11 +11,12 @@ public class cartList {
 	private int cPrice;
 	private String userId;
 	private String changeName;
+	private String containBk;
 	
 	public cartList() {}
 
 	public cartList(int cNo, int bkCode, String status, String bkName, int audCodeF, int audCodeM, int cPrice,
-			String userId, String changeName) {
+			String userId, String changeName, String containBk) {
 		super();
 		this.cNo = cNo;
 		this.bkCode = bkCode;
@@ -26,6 +27,7 @@ public class cartList {
 		this.cPrice = cPrice;
 		this.userId = userId;
 		this.changeName = changeName;
+		this.containBk = containBk;
 	}
 
 	public int getcNo() {
@@ -100,19 +102,12 @@ public class cartList {
 		this.changeName = changeName;
 	}
 
-	@Override
-	public String toString() {
-		return "cartList [cNo=" + cNo + ", bkCode=" + bkCode + ", status=" + status + ", bkName=" + bkName
-				+ ", audCodeF=" + audCodeF + ", audCodeM=" + audCodeM + ", cPrice=" + cPrice + ", userId=" + userId
-				+ ", changeName=" + changeName + "]";
+	public String getContainBk() {
+		return containBk;
 	}
 
-	
+	public void setContainBk(String containBk) {
+		this.containBk = containBk;
+	}
 
-
-	
-
-	
-	
-	
 }

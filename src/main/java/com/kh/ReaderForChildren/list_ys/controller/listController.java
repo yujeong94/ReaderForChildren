@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 import com.kh.ReaderForChildren.list_ys.model.exception.listException;
 import com.kh.ReaderForChildren.list_ys.model.service.listService;
 import com.kh.ReaderForChildren.list_ys.model.vo.Rec;
@@ -149,7 +150,8 @@ public class listController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<OrderDetail> list = liService.selectcartList(pi, userId);
+		ArrayList<cartList> list = liService.selectcartList(pi, userId);
+		
 
 		if(list != null) {
 			mv.addObject("list",list);

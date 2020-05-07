@@ -36,7 +36,7 @@
 		select *
 		from shipping
 		where s_status='Y' and user_id=#{userId}
-		order by s_no desc
+		order by r_level asc, s_no desc
 	</select> 
 	 
 	
@@ -189,9 +189,10 @@ WHERE AUD_CODE = (SELECT AUD_CODE_F
 	</select>
 	
 	<select id="selectcartList" resultMap="cartListResultSet">
-		select c_no, bk_name, bk_code, aud_code_f, aud_code_m, status, c_price, change_name
+		select *
 		from cart_list
 		where status = 'Y' and user_id=#{userId}
+		order by c_no desc
 	
 	</select>
 	
@@ -209,8 +210,9 @@ WHERE AUD_CODE = (SELECT AUD_CODE_F
 		<result property="audCodeF" column="AUD_CODE_F"/>
 		<result property="audCodeM" column="AUD_CODE_M"/>
 		<result property="cPrice" column="C_PRICE"/>
-			<result property="userId" column="USER_ID"/>
-			<result property="changeName" column="CHANGE_NAME"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="containBk" column="CONTAIN_BK"/>
 	</resultMap>
 	
 	

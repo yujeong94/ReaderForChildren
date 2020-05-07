@@ -161,7 +161,8 @@
 	.td {
 		border-bottom: 1px solid gray;
 	}
-	.tabletd td{ vertical-align: middle;}
+	#tabletd {border-left-style:none; border-right-style:none;}
+	#tabletd td{ vertical-align: middle;}
 #btn{margin-left:370px; margin-top:30px;}
 .upBtn{width:80px;height:35px;  color: white;  box-shadow: none; 
     border: none; border-radius: 5px; font-size:13pt; font-weight: bold; }
@@ -235,31 +236,26 @@
        </tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right">${ loginUser.phone }</td>
+          <td class = "right">${ newPhone }</td>
        </tr>
        <tr>
           <td class = "info_title2">이메일</td>
-          <td class = "right">
-            ${ loginUser.email }
-            
+          <td class = "right" >
+          ${ loginUser.email }
           </td>
        </tr>
        <tr>
           <td class = "info_title2">생년월일</td>
           <td class = "right" >${ loginUser.birth }</td>
        </tr>
-       <tr>
-          <td class = "info_title2">수익현황</td>
-          <td class = "right">${ loginUser.revenue }</td>
-       </tr>
         <tr>
           <td class = "info_title2">후원금액</td>
-          <td class = "right" name="donation">${ loginUser.donation }</td>
+          <td class = "right" id="donation" >${ loginUser.donation }원</td>
        </tr> 
     </table>
     <div id="btn">
     <table>
-   
+  
    <tr> 
    <td><button type="button" onclick="location.href='mupdateView.me'" class="upBtn" id="updateBtn">정보수정</button></td> 
 					

@@ -111,10 +111,8 @@
   <div id="title"><h1>주문 내역</h1></div>
   
   
-	<table id = "content_table" style="margin-left: auto; margin-right: auto;">
+	<table style="margin-left: 150px;">
 		<tr>
-			<td class = "content_title" id = "title2">주문 내역 조회
-			</td>
 			<td class = "content_title" id = "title3" onclick="location.href = 'shlist.li'" > 배송지 관리</td>
 		</tr>
 		
@@ -156,7 +154,7 @@
 							<td> ${ o.bkName }</td>
 							
 							<td rowspan="2" class="list_line2" id="td3">${o.orDate }</td>
-							<td rowspan="2" class="list_line2" id="td4" >  ${ o.delStatus }<button type="button" onclick="deleteBuy()">주문취소</button>
+							<td rowspan="2" class="list_line2" id="td4" >  ${ o.delStatus }<button id="button" type="button" onclick="deleteBuy()">주문취소</button>
 							
 							<%-- <c:if test="">
 								
@@ -165,12 +163,12 @@
 							<td  rowspan="2" class="list_line2" id="td5">		
 							<c:if test="${ o.aud_code_m !='' && o.aud_code_m ne null }">
 								[남자]
-								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_m}" download="${o.aud_code_m}">
-								<img src="${ contextPath }/resources/images/download.png" width=30px height= 30px/></a>
+								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_m}"  download="${o.aud_code_m}">
+								<img src="${ contextPath }/resources/images/download.png"  width=30px height= 30px/></a>
 							</c:if>
 							<c:if test="${ o.aud_code_f !='' && o.aud_code_f ne null }">
 								[여자]	
-								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_f}" download="${o.aud_code_f}">
+								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_f}"  download="${o.aud_code_f}">
 								<img src="${ contextPath }/resources/images/download.png" width=30px height= 30px/></a>
 							</c:if>
 						
@@ -251,12 +249,13 @@
 		}
 		</script>
    			
-    
+        
       <button onclick = "location.href = '../../index.jsp'" id = "gomain" class="defaultBtn">메인으로</button>
     
    </div>
  
    	<c:import url="../common/footer.jsp"/> 
+   </div>
    </div>
 </body>
 </html>

@@ -58,21 +58,21 @@
 			
 		}
   #list_table{
-			margin-top : 30px;
+			
 			margin-left : 140px;
 			border-collapse: collapse;
 			border-spacing: 0;
-			border-top : 2px solid gray;
-			border-bottom : 2px solid gray;
+			border-top : 1px solid gray;
+			border-bottom : 1px solid gray;
 				
 		}
-		 #list_table td { border-bottom : 2px solid gray;  vertical-align: middle; text-align: center;  } 
+		 #list_table td { border-bottom : 1px solid gray;  vertical-align: middle; text-align: center;  } 
 	 	#noList{text-align:center; width:2000px; height:300px; font-size: 18px; vertical-align: middle;  }
 		#td1{ width:60px; height:50px; }
 		#td2{ width:60px;}
 		#td3{ width:190px; }
 		#td4{ width:140px; }
-		#td5{ width:190px; }
+		#td5{ width:200px; }
 		#td6{ width:140px;  }
 		.list_line2{
 			font-size : 15px; 
@@ -95,12 +95,7 @@
    <!-- 내용 -->
    <div class="contents">
       <div id="title"><h1>배송지 관리</h1></div>
-   			<table id = "content_table" style="margin-left: auto; margin-right: auto;">
-				<tr>
-					<td class = "content_title" id = "title2">배송지 목록 
-					</td>
-				</tr>
-			</table>
+   			
    
    	<div id="listarea">
 		    <table id="sponserlist">
