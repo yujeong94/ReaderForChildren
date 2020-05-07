@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 import com.kh.ReaderForChildren.list_ys.model.vo.Rec;
 import com.kh.ReaderForChildren.sponsor_ys.model.vo.PageInfo;
 
@@ -74,7 +75,7 @@ public class listDAO {
 		return sqlSession.selectOne("mypageMapper.getcartListCount");
 	}
 
-	public ArrayList<OrderDetail> selectcartList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+	public ArrayList<cartList> selectcartList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("mypageMapper.selectcartList", userId, rowBounds);

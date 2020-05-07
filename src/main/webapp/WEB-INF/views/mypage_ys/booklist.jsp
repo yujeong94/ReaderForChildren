@@ -71,17 +71,17 @@
 			
 		}
   #list_table{
-			margin-top : 30px;
+			
 			margin-left : 140px;
 			border-collapse: collapse;
 			border-spacing: 0;
-		/* 	border-top : 2px solid gray;
-			border-bottom : 2px solid gray; */
+			border-top : 1px solid gray;
+			border-bottom : 1px solid gray; 
 			 text-align: center;
 				
 		}
-		 #list_table td { height:40px;  } 
-	 	#noList{text-align:center; width:2000px; height:300px; font-size: 18px; vertical-align: middle;  }
+		 #list_table td { height:40px; border-bottom : 1px solid gray; vertical-align: middle; height:50px;   } 
+	 	#noList{text-align:center; width:2000px; height:300px; font-size: 18px;  vertical-align: middle;  }
 		#td1{ width:190px; height:30px; }
 		#td2{ width:190px;}
 		#td3{ width:190px; }
@@ -102,13 +102,7 @@
    
    <div class = "contents">
   <div id="title"><h1>예약 조회</h1></div>
-    	<table id = "content_table" style="margin-left: auto; margin-right: auto;">
-			<tr>
-				<td class = "content_title" id = "title2">예약 부스 내역 조회<%-- - 총 게시글 갯수 : ${ pi.listCount } --%>
-				</td>
-			</tr>
-			
-		</table>
+    	
 		
 		 <div id="listarea">
 		    <table id="sponserlist">

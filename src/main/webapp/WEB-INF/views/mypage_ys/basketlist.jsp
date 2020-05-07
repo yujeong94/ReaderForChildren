@@ -1,14 +1,11 @@
- 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>Insert title here</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 
@@ -134,30 +131,39 @@
 					<!-- <tr>
 						<td id="noList">존재하는 게시글이 없습니다.</td>
 					</tr> -->
-							<tr class="contentTr">
-							
-							<!-- <td align="center"></td> -->
-							<td align="center"></td>
-					 <td align="left">
-					<input type="hidden" id="bkCode" value="${ ca.bkCode }">
-					<input type="hidden" id="page" value="${ pi.currentPage }">
 					<c:url var="abdetail" value="abdetail.ab">
 							<c:param name="bkCode" value="${ ca.bkCode }"/>
 							<c:param name="page" value="${ pi.currentPage }"/>
-						</c:url>
-						<c:url var="cadelete" value="cadelete.li">
-						<c:param name="cNo" value="${ ca.cNo }"/>
-						</c:url>
-			</td>  
-			
-						<td class = "list_line2" id="td1"  > ${ca.cNo } <input type="checkbox" id="chk_all" class="chBox" name="select" value="${ca.cNo }"/>
-																		<input type="hidden" name="cNo" id="cNo" value="${ca.cNo }"></td>
+					</c:url>
+					<c:url var="cadelete" value="cadelete.li">
+					<c:param name="cNo" value="${ ca.cNo }"/>
+					</c:url>
+					<tr class="contentTr">
+							<!-- <td align="center"></td> -->
+						<td align="center"></td>
+						<td align="left">
+							<%-- <input type="hidden" id="bkCode" value="${ ca.bkCode }"> --%>
+							<input type="hidden" id="page" value="${ pi.currentPage }">
+						</td>  
+						<td class = "list_line2 listTd1" id="td1"> ${ca.cNo } <input type="checkbox" id="cNo" class="chBox" name="select" value="${ca.cNo }"/>
+																		<input type="hidden" name="bkCode" id="bkCode" class="bkCode2" value="${ ca.bkCode }">
+																		<input type="hidden" name="hidden2" id="hidden2" class="hidden22" value="${ ca.audCodeF }">
+																		<input type="hidden" name="hidden3" id="hidden3" class="hidden33" value="${ ca.audCodeM }">  
+																		</td>
 							<td class = "list_line2" id="td3" ><img src="${ contextPath }/resources/bookUploadImages/${ca.changeName}" width="140px" height="110px"/></td>
-							<td  class = "list_line2" id="td2">${ ca.bkName }</td>
+							<td  class = "list_line2 bkNameClass" id="td2">${ ca.bkName }
+								<input type="hidden" name="bkName" value="${ ca.bkName }">
+							</td>
 							
-							<td class="list_line2" id="td4">${ca.cPrice }</td>
+							<td class="list_line2 priceClass" id="td4">
+							<fmt:formatNumber value="${ca.cPrice }" type="number"/>
+							<input type="hidden" name="sum" class="price" value="0">
+							<input type="hidden" id="hidden1" name="price" value="${ ca.cPrice }">
+							<input type="hidden" class="contain" value="${ ca.containBk }">
+							</td>
 							<td  class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" onclick="deletecart()">삭제하기</button>
 						     <input type = "hidden" class = "input_info" name="userId" value="${loginUser.userId }">
+						     </td>
 						<!-- <td>
 								
 							</td> -->
@@ -220,7 +226,7 @@
   	 			<button type="button" class="selectDelete_btn" id="checkdelete" onclick="deletecart()">선택삭제</button>
 			</td>
 			<td>
-				<input type="button" class="payBtn" value="주문하기"  onclick="goPurchase();">
+				<input type="button" class="payBtn" value="주문하기" >
 			</td>
 			
 		</tr>  
@@ -280,39 +286,139 @@
 	</script>
 <script>
 
+
+
 function check(){
-	var chk_all = $("input:checkbox[id='chk_all']").is(":checked");
+	var chk_all = $("input:checkbox[class='chBox']").is(":checked");
+
 	
 	if('${loginUser}' != ''){	
 		
 		if(chk_all==false){
 			alert("주문하실 상품을 체크해주세요");
 			return false;
-		}else{
+		}  else if(chk_all==true && codeF==true){
+			 
+			 $('#hidden2').val('(여자음성+남자음성)');
+			$('#hidden3').val('${ca.audCodeF},${ca.audCodeM}');
+			return true;
+		}  else{
+		
+			
 			return true;
 		}
-		
+	
 	} else{
 		alert("로그인 후 이용해주세요.");
 		return false;
 	}
 }
-
-function goPurchase(){
+var bkName = null;
+var bkCode = 0;
+var price = 0;
+var codeF = 0;
+var codeM = 0;
+var contain = null;
+var sum = 0;
+var hidden1 = null;
+var hidden2 = null;
+var hidden3 = null;
+$(".chBox").click(function(){
 	
-	var ch = check(); 
-	
+		bkName = $(this).parent().parent().children(".bkNameClass").text().trim();
+		bkCode = $(this).parent().parent().children(".listTd1").children(".bkCode2").val();
+		price = $(this).parent().parent().children(".priceClass").text();
+		codeF = $(this).parent().parent().children(".listTd1").children(".hidden22").val();
+		codeM = $(this).parent().parent().children(".listTd1").children(".hidden33").val();
+		/* contain = $(this).parents(".containTr").children(".priceClass").children(".contain").val(); */
+		contain = $(this).parent().parent().children(".priceClass").children(".contain").val();
+		
+		console.log("1 " + bkName +" 2 " +bkCode +" 3 "+ price + " 4 "+codeF +" 5 "+ codeM + " 6 " + contain);
+		
+		if(contain == 'Y') {
+			hidden1 = '도서+오디오북';
+		} else {
+			hidden1 = '오디오북';
+		}
+		
+		if(codeF != "0" && codeM != "0") {
+			hidden2 = '여자음성+남자음성';
+		} else if(codeF == "0" && codeM !="0") {
+			hidden2 = '남자음성';
+		} else if(codeF != "0" && codeM =="0") {
+			hidden2 = '여자음성';
+		} 
+		
+		if(codeF !="0" && codeM !="0") {
+			hidden3 = codeF + ", " + codeM;
+		} else if(codeF == "0" && codeM !="0") {
+			hidden3 = codeM;
+		} else if(codeF !="0" && codeM =="0") {
+			hidden3 = codeF;
+		}
+		
+		
+}); 
 
-	if(ch){
+$(".payBtn").click(function(){
+	var ch = check();
+	
+	var total = 0;
+	for(i=0; i<frm.select.length; i++){
+		if(frm.select[i].checked==true){
+			total = total + parseInt(frm.select[i].value);
+		}
+	}
+	frm.sum.value=comma(total);
+	
+	function comma(num){
+	    var len, point, str; 
+	       
+	    num = num + ""; 
+	    point = num.length % 3 ;
+	    len = num.length; 
+	   
+	    str = num.substring(0, point); 
+	    while (point < len) { 
+	        if (str != "") str += ","; 
+	        str += num.substring(point, point + 3); 
+	        point += 3; 
+	    } 
+	     
+	    return str;
+	 
+	}
+	
+	sum = 0;
+	if(price != "0"){
+		sum = price;
+	} else if(price == "0"){
+		sum = '0';
+	}
+	if(ch) {
+		
+		location.href="purchase.ab?bkName=" + bkName + "&bkCode=" + bkCode + "&hidden1=" + hidden1 + "&hidden2=" + hidden2 + "&hidden3=" + hidden3 + "&sum=" + sum;
+	}
+});
+	
+	/* if($(".chBox").prop("checked","true")){
+		console.log($(this).val());
+	} */
+
+/* function goPurchase(){
+	
+	 var ch = check();
+	 
+
+	 if(ch){
 		var f = document.frm;
 		f.action = "purchase.ab";
 		f.submit();
-	}
-}
+	} 
+} */
 	
 
 </script>
-	
 
 		<script>
  $(".chBox").click(function(){

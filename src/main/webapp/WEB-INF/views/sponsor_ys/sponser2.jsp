@@ -11,14 +11,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
    
-  .contents {
-	width: 1000px;
-/*    height: 900px;  */
-    background: white;
-    margin: auto;
-    margin-bottom: 100px;
-    padding: 20px;
-}
+  
    #subHeader{
 			width : 1170px;
 			height : 100px;
@@ -55,13 +48,13 @@
 		
 		}
 	#price{margin-left:60px; color: gray;  margin-bottom:-30px; font-size: 18px; }
-	#button{ width: 130px; height: 50px;  background-color: rgb(253, 236, 236); color: white;  font-weight: bold; cursor:pointer; font-size: 23px;
+	#button{ width: 130px; height: 50px;   background-color: rgb(137, 155, 246);    font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 150px; margin-top: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;}
-		#button2{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
+		#button2{width: 130px; height: 50px;  background-color: rgb(137, 155, 246);   font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;} 
-		#button3{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
+		#button3{width: 130px; height: 50px;  background-color: rgb(137, 155, 246);   font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;} 
-		#button4{width: 130px; height: 50px; background-color: rgb(253, 236, 236); color: white; font-weight: bold; cursor:pointer; font-size: 23px;
+		#button4{width: 130px; height: 50px;  background-color: rgb(137, 155, 246);  font-weight: bold; cursor:pointer; font-size: 23px;
 		margin-left: 50px; line-height: 40px;  text-align: center; border: 0; border-radius: 5px;} 
 	  #won{margin-left:50px;width : 100%; margin-top:-100px;
 		height : 70px;}   
@@ -143,14 +136,14 @@
       height : 24px;
       width : 30px;
       margin-top:50px; 
-      margin-left:150px;
+      margin-left:350px;
    }
    .input_info3{
      /*  border-radius: 5px;
       border : 1px lightgray solid; */
       height : 24px;
       width:30px;
-      margin-left:30px;
+      margin-left:60px;
       margin-top:50px; 
    }
    
@@ -246,7 +239,6 @@
 				<button type="button" id="button2" class="button" onclick="choosed(this);">30000</button>
 				<button type="button" id="button3" class="button" onclick="choosed(this);">50000</button>
 				<button type="button" id="button4" class="button" onclick="choosed(this);">70000</button> 
-				
 				<input type="hidden" id="donation" name="donation" value="">
 			</td>
 		</tr>	
@@ -303,7 +295,7 @@
        </tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right"><input type = "text" class = "input_info" name="phone" value="${ loginUser.phone }">
+          <td class = "right"><input type = "text" class = "input_info" name="phone" value="${ loginUser.phone }" required>
           <!-- <input type = "text" class = "input_info" id="donation" name="donation"> -->
           <input type = "hidden" class = "input_info" name="userId" value="${loginUser.userId }">
            </td>
@@ -311,7 +303,7 @@
        <tr>
           <td class = "info_title2">이메일</td>
           <td class = "right">
-             <input type = "text" class = "input_info infro_email" id = "email01" name="email1" value="${email1 }" name="email1" > @ <input type = "text"  value="${selectEmail }" name="selectEmail"  class = "input_info infro_email" id = "email02">
+             <input type = "text" class = "input_info infro_email" id = "email01" name="email1" value="${email1 }" name="email1" required > @ <input type = "text"  value="${selectEmail }" name="selectEmail"  class = "input_info infro_email" id = "email02" required>
             <input type="hidden" name="emailCkeck" id="emailCheck" value="${loginUser.email }">
              <select name="selectEmail" id="selectEmail">
                   <option value="1">직접입력</option>
@@ -330,7 +322,7 @@
        <tr>
           <td class = "info_title2">생년월일</td>
            <td class = "right" >
-         <input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)" value="${year }" name="year" >년 <input type = "text" value="${month }" name="month" class = "input_info birth" id = "month">월 <input type = "text" value="${day }" name="day"  class = "input_info birth" id = "day">일
+         <input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)" value="${year }" name="year" required >년 <input type = "text" value="${month }" name="month" class = "input_info birth" id = "month" required>월 <input type = "text" value="${day }" name="day"  class = "input_info birth" id = "day" required>일
        		<input type="hidden" name="birth" id="realBirth" value="${loginUser.birth }"></td>
        </tr>
       <%--  <tr>
@@ -404,6 +396,9 @@
 		$('#day').val(day);
 		$('#realBirth').val($('#year').val() + $('#month').val() + $('#day').val());
 	});
+	
+	
+	
  </script>
  
 
@@ -444,14 +439,29 @@
     	 </table>
   
   </div>
+  
+   
     
      <script>
      function choosed(obj){
 			var price = obj.innerHTML;
 			document.getElementById("donation").value = price;
 	
+			
+			
 		}
-
+     
+     clicked = true;
+     $(document).ready(function() {
+          $(".button").click(function() {
+        	  $(".button").css('background-color', 'rgb(137, 155, 246)');
+            if (clicked) {
+              $(this).css('background-color', 'rgb(151, 89, 243)');
+              clicked = true;
+            } 
+          });
+     });
+     
 		$('#payment').click(function(){
 			    var email = $('#email01').val()+$('#email02').val();
 		 		var donation = $('#donation').val();
