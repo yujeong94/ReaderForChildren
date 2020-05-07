@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
  pageEncoding="UTF-8"%>
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -247,7 +248,7 @@
        </tr>
         <tr>
           <td class = "info_title2">후원금액</td>
-          <td class = "right" id="donation" >${ loginUser.donation }원</td>
+          <td class = "right" id="donation" ><fmt:formatNumber value="${ loginUser.donation }" type="number"/>원</td>
        </tr> 
     </table>
     <div id="btn">

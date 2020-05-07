@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -155,7 +156,7 @@
 						<td class = "list_line2" id="td1"  >${ sp.snum }</td>
 						<td class = "list_line2" id="td2"> ${ sp.spName} </td> 
 							<td class="list_line2" id="td3">${ sp.supdate }</td>
-							<td class="list_line2" id="td4" >${ sp.donation }</td>
+							<td class="list_line2" id="td4" ><fmt:formatNumber value="${ sp.donation }" type="number"/></td>
 						</tr>
 						<c:set var="gum" value="${sp.donation}"/>
 						<c:set var="total" value="${total+gum}"/>
@@ -165,13 +166,13 @@
     </c:forEach>
     
     <span id="total" class="total">
-					총 후원 금액: ${total }
+					총 후원 금액: <fmt:formatNumber value="${ total }" type="number"/>
 					</span>
     
     
     
     
-      <button onclick = "location.href = 'index.jsp'" id = "gomain" class="defaultBtn">메인으로</button>
+      <button type="button" id = "gomain" class="defaultBtn">뒤로가기</button>
 
 
 
@@ -179,6 +180,12 @@
 
 	<c:import url="../common/footer.jsp"/> 
    </div>
+   
+   <script>
+   		$('.defaultBtn').click(function(){
+   			window.history.back();
+   		});
+   </script>
 
 </body>
 </html>

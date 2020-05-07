@@ -154,8 +154,10 @@
 							<td> ${ o.bkName }</td>
 							
 							<td rowspan="2" class="list_line2" id="td3">${o.orDate }</td>
-							<td rowspan="2" class="list_line2" id="td4" >  ${ o.delStatus }<button id="button" type="button" onclick="deleteBuy()">주문취소</button>
-							
+							<td rowspan="2" class="list_line2" id="td4" >  ${ o.delStatus }
+								<c:if test="${ o.delStatus == '배송준비중' }">
+									<button id="button" type="button" onclick="deleteBuy()">주문취소</button>
+								</c:if>
 							<%-- <c:if test="">
 								
 							</c:if> --%>
