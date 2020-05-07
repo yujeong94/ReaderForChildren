@@ -102,11 +102,13 @@ public class audioBookController {
 		
 		ArrayList<Book> blist = abService.selectSearchbList(pi, sc);
 		ArrayList<BookImage> bilist = abService.selectbiList();
+		ArrayList<AudioBook> ablist = abService.selectabList();
 		
 		if(bilist != null) {
 			mv.addObject("blist", blist);
 			mv.addObject("pi", pi);
 			mv.addObject("bilist", bilist);
+			mv.addObject("ablist", ablist);
 			mv.addObject("searchCondition", condition);
 			mv.addObject("searchValue", value);
 			mv.setViewName("audioBookList");

@@ -49,8 +49,6 @@
 						</select>
 					</div>
 					
-					<br>
-					
 					<div class="contentArea">
 						<div class="contentDiv">내용</div>
 						<textarea rows="23" cols="100" name="noContent">${ n.noContent }</textarea>
