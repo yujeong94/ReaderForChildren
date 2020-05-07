@@ -122,7 +122,7 @@
     <!-- <div id="listarea"> -->
     <table id="sponserlist">
     	<tr>
-    		<th class="list_title" id="th1">n0.</th>
+    		<th class="list_title" id="th1">no.</th>
     		<th class="list_title" id="th2">후원기관</th>
     		<th class="list_title" id="th3">후원일자</th>
     		<th class="list_title" id="th4">후원금액 </th>

@@ -1,9 +1,6 @@
- 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-  
+ pageEncoding="UTF-8"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -236,7 +233,7 @@
        </tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right">${ newPhone }</td>
+          <td class = "right">${ loginUser.phone }</td>
        </tr>
        <tr>
           <td class = "info_title2">이메일</td>

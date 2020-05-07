@@ -87,10 +87,10 @@ public class MemberController {
 	      String email = ((Member)session.getAttribute("loginUser")).getEmail();
 	      String birth = ((Member)session.getAttribute("loginUser")).getBirth();
 	      
-	      
+	   
 	      String bir1 = birth.substring(0,4);
-	      String bir2 = birth.substring(5,7);
-	      String bir3 = birth.substring(8,10);
+	      String bir2 = birth.substring(4,6);
+	      String bir3 = birth.substring(6,8);
 	      String newBirth = bir1+"년"+bir2+"월"+bir3+"일";
 	      
 	      String[] emailArr = email.split("@");
@@ -117,8 +117,8 @@ public class MemberController {
 	      String birth = ((Member)session.getAttribute("loginUser")).getBirth();
 	      
 	      String bir1 = birth.substring(0,4);
-	      String bir2 = birth.substring(5,7);
-	      String bir3 = birth.substring(8,10);
+	      String bir2 = birth.substring(4,6);
+	      String bir3 = birth.substring(6,8);
 	      String newBirth = bir1+"년"+bir2+"월"+bir3+"일";
 	      String[] emailArr = email.split("@");
 	      String email1 = emailArr[0];
@@ -173,7 +173,7 @@ public class MemberController {
 		String num3 = phone.substring(7,11);*/
 		
 		m.setDonation(donation);
-		m.setBirth(bir1+"년"+bir2+"월"+bir3+"일");
+		m.setBirth(bir1+bir2+bir3);
 		m.setEmail(email1 + "@" + email2 );
 		int result = mService.updateMember(m);
 

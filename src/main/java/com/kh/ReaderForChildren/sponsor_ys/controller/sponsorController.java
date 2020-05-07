@@ -3,19 +3,15 @@ package com.kh.ReaderForChildren.sponsor_ys.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.ReaderForChildren.member_ej.model.exception.MemberException;
+import com.kh.ReaderForChildren.member_ej.model.service.MemberService;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 import com.kh.ReaderForChildren.sponsor_ys.model.exception.sponsorException;
 import com.kh.ReaderForChildren.sponsor_ys.model.service.sponsorService;
@@ -30,6 +26,9 @@ public class sponsorController {
 
 	@Autowired
 	private sponsorService spService;
+	
+	@Autowired
+	private MemberService mService;
 	
 	@RequestMapping("splist.sp")
 public ModelAndView sponsorList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
@@ -135,6 +134,8 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 
 		int result = spService.insertSupport(support);
 		int result2 = spService.updateMember(support);
+		
+		/*Member loginUser = */
 		
 		if(result > 0 && result2 > 0) {
 			return "sponser3";
