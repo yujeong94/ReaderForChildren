@@ -18,6 +18,8 @@ public class ChatServiceImpl implements ChatService{
 
 	@Override
 	public int insertChat(Chat chatVo) {
+		ChatDAO cDAO = new ChatDAO();
+		System.out.println(sqlSession);
 		return cDAO.addVolSchedule(sqlSession, chatVo);
 	}
 

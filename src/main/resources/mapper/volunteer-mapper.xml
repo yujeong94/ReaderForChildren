@@ -94,4 +94,10 @@
 		]]>
 	</update>
 	
+	<!-- <select id="selectMax" resultMap ="ScheduleResultSet">
+		select vol_max, vol_cur
+		from volunteer_add
+		where vol_add_num = #{vlNum2}
+	</select> -->
+	
 </mapper>

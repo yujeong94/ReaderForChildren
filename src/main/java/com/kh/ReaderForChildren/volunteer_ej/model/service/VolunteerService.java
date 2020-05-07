@@ -29,4 +29,6 @@ public interface VolunteerService {
 
 	int updateStatus();
 
+//	ArrayList<VolunteerSchedule> selectMax(int vlNum2);
+
 }

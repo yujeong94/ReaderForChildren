@@ -7,7 +7,16 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 		
+	<bean id="chatHandler" class="com.kh.ReaderForChildren.chat_ej.controller.ChatWebSocketHandler" />
 	
+	<websocket:handlers>
+
+		<websocket:mapping handler="chatHandler" path="/chat.qq" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+
+	</websocket:handlers>
 
 
 </beans>

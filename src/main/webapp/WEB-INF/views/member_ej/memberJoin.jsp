@@ -179,14 +179,16 @@
 	}
 	
 	#join{
-		width : 100%;
+		width : 150px;
 		height : 45px;
-		background : black;
+		background : #F06250;
 		color : white;
 		font-weight : bold;
 		font-size : 20px;
 		margin-bottom : 50px;
-		border : 1px solid black;
+		margin-left : 360px;
+		border : 1px solid #F06250;
+		border-radius : 4px;
 		cursor : pointer;
 	}
 	

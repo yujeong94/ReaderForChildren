@@ -29,8 +29,9 @@ label{
 
 	#find_box{
 		border : 2px solid gray;
-		width : 79.5%;
+		width : 60%;
 		height : 100px;
+		margin-top : 120px;
 		margin-right : auto;
 		margin-left : auto;
 		margin-bottom : 20px;
@@ -41,78 +42,52 @@ label{
 		display : table-cell;
 		text-align : center;
 		vertical-align : middle;
-		color : rgb(106,172,228);
+		/* color : rgb(106,172,228); */
 		font-weight : bold;
 		font-size : 20px;
 	}
 	
-	.info{
-		border : 2px solid gray;
-		width : 80%;
-		margin-right : auto;
-		margin-left : auto;
-		border-collapse: collapse;
-		border-spacing: 0;
+	#un{
+		color : rgb(106,172,228);
+	}
+	
+	#fi{
+		color : red;
 	}
 
-	.info_title{
-		width : 20%;
-		height : 44px;
-		margin-left : 10px;
-		vertical-align : middle;
-	}
-	
-	.title_word{
-		margin-left : 20px;
-		color : gray;
-		font-size : 15px;
-	}
-	
-	.right{
-		width: 80%;
-		vertical-align : middle;
-	}
-	
-	#find_id{
-		border-top : 2px gray solid;
-		height : 50px;
-		vertical-align : middle;
-		text-align : center;
-	}
-	
-	#id{
-		font-weight : bold;
-	}
+
 	
 	.btn_box{
-		width : 80%;
+		width : 60%;
 		margin-right : auto;
-		margin-left : 10%;
+		margin-left : 360px;
 		margin-top : 40px;
 		margin-bottom : 400px;
 		display : inline-block;
 	}
 	
 	#ok_btn{
-		width : 49.5%;
+		width : 27%;
 		height : 45px;
-		background : black;
+		background : #F06250;
 		color : white;
 		font-weight : bold;
 		font-size : 20px;
 		margin-bottom : 50px;
-		border : 1px solid black;
+		border : 1px solid #F06250;
+		border-radius : 4px;
 		cursor : pointer;
 	}
 	
 	#pwd_btn{
-		width : 49.5%;
+		width : 27%;
 		height : 45px;
 		background : white;
 		color : black;
 		font-weight : bold;
 		font-size : 20px;
-		border : 1px solid gray;
+		border : 1px solid #F06250;
+		border-radius : 4px;
 		cursor : pointer;
 		margin-left : 3px;
 	}
@@ -126,29 +101,11 @@ label{
       <div id="title"><h1>아이디 찾기</h1></div>
    
 	 <div id = "find_box">
-		<label id = "find_guide">아이디 찾기가 완료되었습니다.</label>	 	
+		<label id = "find_guide">아이디 찾기가 완료되었습니다.<br>
+		<span id = "un">${ userName }</span>님의 아이디는 <span id = "fi">${ findId }</span>입니다.</label>	 	
 	 </div>
 	 
-	 <table class = "info">
-
-	 	<tr>
-	 		<td class = "info_title"><label class = "title_word">이름</label></td>
-	 		<td class = "right"><label>${ userName }</label></td>
-	 	</tr>
-
-	 	<tr>
-	 		<td class = "info_title"><label class = "title_word">이메일</label></td>
-	 		<td class = "right">
-	 			<label>${ email }</label>
-	 		</td>
-	 	</tr>
-	 	
-	 	<tr>
-	 		<td colspan ="2" id = "find_id">
-			 	<label id="id">${ findId }</label>
-	 		</td>
-	 	</tr>
-	 </table>
+	
 
 	 
 	 <div class = "btn_box">

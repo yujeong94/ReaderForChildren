@@ -16,10 +16,10 @@
 	    z-index: 1;
 	    top: 0;
 	    right: 0;
-	    background-color: rgb(253, 247, 222);
+	    background-color: white;
 	    overflow-y: hidden;
-	    transition: 0.2s;
-	    padding-top: 100px;
+	    transition: 0.5s;
+	    padding-top: 60px;
 	}
 	#menuShow a {
 	    padding: 8px 8px 8px 30px;
@@ -111,7 +111,7 @@
 	<header>
       <div class = "mainheader clear-fix">
          <h2 class = "logo">
-            <a href="${ contextPath }/index.jsp"><img src="${ contextPath }/resources/images/logo2.png" width = 120px height = 120px/></a>
+            <a href="${ contextPath }/index.jsp"><img src="${ contextPath }/resources/images/logo2.png" width = 130px height = 130px/></a>
          </h2>
          <ul class='util'>
          	<li><a href="${ contextPath }/userList.ad"><img src = "${ contextPath }/resources/images/cart.png" width = 40px height = 40px></a></li>
@@ -128,16 +128,19 @@
       
       <c:url var="ablist" value="ablist.ab"/>
       <c:url var="splist" value="splist.sp"/>
+      <c:url var="aulist" value="aulist.au"/>
       
       <div id="menuShow">
+			<!-- <a href="#" class="closeBtn" onclick="closeMenu();">X</a> -->
 			<a href="${ ablist }">오디오북 shop</a>
 			<a href="${ splist }">아동 후원</a>
 			<a href="${ contextPath }/volView.vo">봉사 일정</a>
-			<a href="javascript:void(0)" id="apply">Reader 오디션 지원</a>
+			<a href="${ aulist }">Reader 오디션 지원</a>
 			<a href="javascript:void(0)" id="recBtn">녹음부스 예약</a>
+			<%-- <a href="${ contextPath }/recordView.re" id="recBtn">녹음부스 예약</a> --%>
 			<a href="${ contextPath }/eventList.ev">진행 중인 이벤트</a>
 			<a href="${ contextPath }/noList.no">공지사항</a>
-			<a href="${ contextPath }/chatView.ch" id="qnaBtn">Q&A</a>
+			<a href="javascript:void(0);" onclick="qna();" >Q&A</a>
 		</div>
    </header>
    <script>
@@ -167,56 +170,11 @@
 		    document.getElementById("menuShow").style.width = "0";
 		}
 	   
-	   $("#apply").click(function(){
-		   var admin = "${ adminUser.userId }";
-		   if(admin == "") {
-			   $.ajax({
-					url: "endDateCheck.au",
-					dataType: "json",
-					success: function(data) {
-						var today = new Date();
-						var day = today.getDate();
-						var month = today.getMonth() + 1;
-						var year = today.getFullYear();
-						
-						if(day < 10) {
-							day = '0' + day;
-						} 
-						
-						if(month < 10) {
-							month = '0' + month;
-						}
-						
-						today = Number(year+month+day);
-						
-						var bool = false;
-						for(var i = 0; i < data.length; i++) {
-							data[i] = Number(data[i].replace(/-/g, ""));
-							if(today > data[i]) {
-								bool = true;
-							} else {
-								bool = false;
-								break;
-							}
-						}
-						
-						if(bool) {
-							swal("모든 오디션 공고가 종료되었습니다.");
-						} else {
-							location.href="aulist.au";
-						}
-					}
-				});
-		   } else {
-			   location.href="aulist.au";
-		   }
-	   });
-	   
 	   $("#recBtn").click(function(){
 		  	var userId = "${ loginUser.userId }";
 			var division = "${ loginUser.division }";
 			var admin = "${ adminUser.userId }";
-		
+			
 			if(userId == "" && admin == "") {
 				swal("로그인 후 이용해주세요.");
 				location.href="home.do";
@@ -227,5 +185,21 @@
 			}
 	   });
    </script>
+   
+
+	<script>
+    function qna() {
+    	var userId = "${ loginUser.userId }";
+		var admin = "${ adminUser.userId }";
+		
+    	if(userId != "" && admin == ""){
+	        window.open("${ contextPath }/chatView.ch","", "width = 500, height = 600,left=500,top=100");
+    	}else if(userId == "" && admin != ""){
+    		window.open("${ contextPath }/chatView2.ch","", "width = 500, height = 600,left=500,top=100");
+    	}
+    }
+	</script>
+	
+
 </body>
 </html>

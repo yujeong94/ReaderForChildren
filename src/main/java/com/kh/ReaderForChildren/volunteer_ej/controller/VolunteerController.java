@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.ReaderForChildren.member_ej.model.exception.MemberException;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 import com.kh.ReaderForChildren.volunteer_ej.model.exception.VolunteerException;
 import com.kh.ReaderForChildren.volunteer_ej.model.service.VolunteerService;
@@ -178,5 +178,17 @@ public class VolunteerController {
 		}
 		
 	}
+	
+//	@RequestMapping("selectMax.vo")
+//	public String selectMax(@RequestParam("vlNum2") int vlNum2) {
+//		
+//		JSONObject job = new JSONObject();
+//		
+//		ArrayList<VolunteerSchedule> vs = vService.selectMax(vlNum2);
+//		
+//		job.put("max", vs);
+//		
+//		return job.toJSONString();
+//	}
 	
 }

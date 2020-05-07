@@ -18,7 +18,7 @@
 }
 
 #title {
-   margin: 50px;
+   margin: 50px 50px 150px 50px;
    text-align: center;
 }
 
@@ -28,7 +28,7 @@
 
 	.info{
 		border : 1px solid black;
-		width : 80%;
+		width : 60%;
 		margin-right : auto;
 		margin-left : auto;
 		border-collapse: collapse;
@@ -85,14 +85,16 @@
 	}
 	
 	#ok_btn{
-		width : 100%;
+		width : 150px;
 		height : 45px;
-		background : black;
+		background : #F06250;
 		color : white;
 		font-weight : bold;
 		font-size : 20px;
 		margin-bottom : 50px;
-		border : 1px solid black;
+		margin-left : 360px;
+		border : 1px solid #F06250;
+		border-radius : 4px;
 		cursor : pointer;
 	}
 </style>
@@ -121,7 +123,7 @@
 		 	<tr>
 		 		<td class = "info_title"><label class = "title_word">이메일</label></td>
 		 		<td class = "right right2">
-		 			<input type="text" name="email" id="realEmail">
+		 			<input type="hidden" name="email" id="realEmail">
 		 			<input type = "text" class = "input_info infro_email" id = "email01"> <label>@</label> <input type = "text" class = "input_info infro_email" id = "email02">
 		 			<input type="hidden" name="emailCheck" id="emailCheck">
 		 			<select name="selectEmail" id="selectEmail">

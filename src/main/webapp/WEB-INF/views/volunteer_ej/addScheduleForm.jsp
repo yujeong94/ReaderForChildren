@@ -14,13 +14,44 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 <style>
 
-	#form1{
-		margin-right : auto;
-		margin-left : auto;
+	body{
+		background : #ffe478;
+	}
+	
+	#info{
+		
+		width : 525px;
+		margin-left : 20px;
+	}
+	
+	#calendar_title{
+		width : 400px;
 	}
 
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a { color: red; }
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a { color: blue; }
+	.ui-datepicker{ font-size: 12px; width: 160px; }
+	.ui-datepicker select.ui-datepicker-month{ width:30%; font-size: 11px; }
+	.ui-datepicker select.ui-datepicker-year{ width:40%; font-size: 11px; }
+	
+	#saveBtn{
+		border : 0px;
+		border-radius : 4px;
+		cursor : pointer;
+		width : 100px;
+		height : 30px;
+		background : #F06250;
+		color : white;
+		font-weight : bold;
+		margin-top : 20px;
+		margin-left : 420px;
+	}
+	
+	.right{
+		margin-left : 20px;
+		border-radius : 2px;
+		border : 1px solid gray;
+	}
 </style>
 </head>
 
@@ -28,30 +59,28 @@
 <body>
 	
 	<form action = "addVolSchedule.vo" method = "post">
-	<div id = form1">
-		<div style = 'width : 100%; height : 30px'>
-			<div style = 'width:30%; float:left; padding-left:30px'>일정 명칭</div>
-			<div style='width:60%; float:right'><input type ='text' id='calendar_title' name = "volContent"></div>
-		</div>
+	<div id = "form1">
 		
-		<div style = 'width : 100%; height : 30px'>
-			<div style = 'width:30%; float:left; padding-left:30px'>시작 날짜</div>
-			<div style='width:60%; float:right'><input type ='text' id='start_date' name = "volStart" style='width:80px'></div>
-		</div>
-		
-		<div style = 'width : 100%; height : 30px'>
-			<div style = 'width:30%; float:left; padding-left:30px'>마감 날짜</div>
-			<div style='width:60%; float:right'><input type ='text' id='end_date' name = "volEnd" style='width:80px'></div>
-		</div>
-		
-		<div>
-			<div style = 'width:30%; float:left; padding-left:30px'>모집 인원</div>
-			<div style='width:60%; float:right'><input type ='number' id='max' name = "volMax" style='width:80px'></div>
-		</div>
-		
-		<div style = 'width : 100%; text-align:center; height : 30px; margin-top:40px'>
-			<button onclick='saveSchedule();'>저장하기</button>
-		</div>
+			<table id = "info">
+				<tr>
+					<td id = "td1"><b>일정 명칭</b></td>
+					<td id = "td2"><input type ='text' class = "right" id='calendar_title' name = "volContent"></td>
+				</tr>
+				<tr>
+					<td><b>시작 날짜</b></td>
+					<td><input type ='text' class = "right" id='start_date' name = "volStart" style='width:80px'></td>
+				</tr>
+				<tr>
+					<td><b>마감 날짜</b></td>
+					<td><input type ='text' class = "right" id='end_date' name = "volEnd" style='width:80px'></td>
+				</tr>
+				<tr>
+					<td><b>모집 인원</b></td>
+					<td><input type ='number' class = "right" id='max' name = "volMax" style='width:80px'></td>
+				</tr>
+			</table>
+			
+			<button onclick='saveSchedule();' id = "saveBtn">저장하기</button>
 	</div>
 	</form>
 	
@@ -70,12 +99,16 @@
 	
 	
 	<script>
+	
+	
 		$(function(){
 			$("#start_date").datepicker({
 				monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 			    monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 			    showMonthAfterYear:true,
 			    yearSuffix: "년",
+			    showOn:'button',
+			    buttonImage : '${ contextPath }/resources/images/calendar.png',
 				dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
 				dayNamesMin : ['일','월','화','수','목','금','토'],
 				dateFormat : "yy-mm-dd",
@@ -94,6 +127,8 @@
 			    monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 			    showMonthAfterYear:true,
 			    yearSuffix: "년",
+			    showOn:'button',
+			    buttonImage : '${ contextPath }/resources/images/calendar.png',
 				dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
 				dayNamesMin : ['일','월','화','수','목','금','토'],
 				dateFormat : "yy-mm-dd",
