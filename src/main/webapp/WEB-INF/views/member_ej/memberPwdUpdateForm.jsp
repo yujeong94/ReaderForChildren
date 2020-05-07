@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>content</title>
-<script src="${ contextPath }/js/jquery-3.4.1.min.js"></script>
+
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
 .contents {
@@ -33,11 +33,7 @@
 		text-align: center;
 	}
 	
-	#content_table td{
-			border-bottom : 1pt solid gray;
-				width : 1140px;
-				
-		}
+	
 
 #title {
    margin: 50px;
@@ -49,12 +45,12 @@
       width : 55%;
       height : 45%;
       margin-right : auto;
-      margin-left : auto;
+      margin-left : 320px;
       border-collapse: collapse;
       border-spacing: 0;
-      margin-top:30px;
+      margin-top:120px;
       vertical-align: middle; 
-      background: rgb(253, 249, 249);
+      
    }
  
 #title2{ font-size: 18px; }
@@ -83,7 +79,7 @@
  /*   .upBtn{width:100px;height:30px; color:white; margin-right : -360px;
       margin-left : 440px; margin-top:30px; cursor:pointer} */
       .upBtn{width:80px;height:35px;  color: white;  box-shadow: none; 
-    border: none; border-radius: 5px; margin-top:30px; }
+    border: none; border-radius: 5px; margin-top:40px; }
     #updateBtn{margin-right:10px;margin-left:420px;}
     #cancle{margin-left:10px;}
    #tabletd{height:150px;}
@@ -97,12 +93,7 @@
    <div class="contents">
       <div id="title"><h1>비밀번호 변경</h1></div>
    <form action="mPwdUpdate.me" method="post" id="updateForm">
-  <table id = "content_table" style="margin-left: auto; margin-right: auto;">
-		<tr>
-			<td class = "content_title" id = "title2">비밀번호 변경
-			</td>
-		</tr>
-	</table> 
+  
    
    <table class = "info" id="tabletd" >
        <tr>
@@ -129,8 +120,7 @@
         
        
    </table>
-   
-   <script>
+   <script >
    
  	 $('#newPwd1').blur(function(){
      	var str = $(this).val();
@@ -164,14 +154,14 @@
     
    <table>
 	   <tr> 
-   				<td><input id="updateBtn" type="submit" id="update" value="적용" class="upBtn"></td> 
+   				<td><input id="updateBtn" type="submit"  value="적용" class="upBtn"></td> 
 				<td><button type="button" id="cancle" class="upBtn" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
  	  </tr>
     </table>
    
   
    <script>
-   $('#update').click(function(){
+   $('#updateBtn').click(function(){
 		   if($('#pwdCheck').val() == 0){
 				alert('비밀번호를 다시 입력해주세요.\n영문자/숫자/특수문자 포함 8~16자리')
 				$('#newPwd1').focus();

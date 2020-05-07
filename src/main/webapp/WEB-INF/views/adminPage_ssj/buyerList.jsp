@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,6 +68,7 @@ table > tbody > tr > td {
 .fixedHeader{
 	position: sticky;
 	top: 0;
+	z-index: 2;
 }
 
 .NOtd{
@@ -117,12 +119,7 @@ button{
     color: white;
 }
 
-.deleteBtn{
-	background: black;
-	color: white;
-}
-
-.successBtn{
+.btnbtn{
 	background: #707171;
 	color: white;
 }
@@ -131,6 +128,7 @@ button{
 	-webkit-animation:blink 0.4s ease-in-out infinite alternate;
     -moz-animation:blink 0.4s ease-in-out infinite alternate;
     animation:blink 0.4s ease-in-out infinite alternate;
+    z-index: 1;
 }
 @-webkit-keyframes blink{
     0% {opacity:0.6;}
@@ -208,12 +206,12 @@ button{
 									)
 									<c:if test="${ b.contain_bk == 'Y' }">+ 도서</c:if>
 								</td>
-								<td class="borderTd">${ b.or_price }</td>
+								<td class="borderTd"><fmt:formatNumber value="${ b.or_price }" type="number"/></td>
 								<td class="borderTd">
 									<c:choose>
 										<c:when test="${ b.contain_bk == 'N' && b.or_status == 'Y' }"></c:when>
-										<c:when test="${ b.or_status == 'N' }"><button class="deleteBtn">주문취소</button></c:when>
-										<c:when test="${ b.del_status == 2 }"><button class="successBtn">접수완료</button></c:when>
+										<c:when test="${ b.or_status == 'N' }"><button class="deleteBtn btnbtn">주문취소</button></c:when>
+										<c:when test="${ b.del_status == 2 }"><button class="successBtn btnbtn">접수완료</button></c:when>
 										<c:otherwise><button class="statusBtn blinking readyBtn">배송접수</button></c:otherwise>
 									</c:choose>
 									

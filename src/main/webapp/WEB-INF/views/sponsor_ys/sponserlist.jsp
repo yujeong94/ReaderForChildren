@@ -63,7 +63,7 @@
 			border-spacing: 0;
 			margin-left : 140px;
 			font-weight: bold;
-			height:45px;
+			/* height:45px; */
 			font-family: 'Nanum Gothic', sans-serif;
 			font-size: 20px;
 			display : inline-table;
@@ -82,17 +82,15 @@
 		}
 		
 		#list_table{
-			margin-top : 30px;
-			margin-left : 135px;
+			margin-left : 140px;
 			border-collapse: collapse;
 			border-spacing: 0;
-			border-top : 2px solid gray;
-			border-bottom : 2px solid gray;
+			border-top : 1px solid gray;
+			border-bottom : 1px solid gray;
 			text-align: center;
-				
+			height:60px;
 		}
-		 #list_table td { border-bottom : 2px solid gray;  } 
-	 	#noList{text-align:center; width:2000px;  height:300px; vertical-align: middle; font-size :18px;}
+		 #list_table td { vertical-align: middle; }  
 		#td1{ width:190px; height:30px; }
 		#td2{ width:190px;}
 		#td3{ width:190px; }
@@ -106,6 +104,7 @@
 </style>
 
 </head>
+
 <body>
    <!-- 로고, 장바구니, 메뉴바 -->
 <div class="outer">
@@ -114,50 +113,13 @@
   
    <div id="title"><h1>아동 후원</h1></div>
  
-	<table id = "content_table" style="margin-left: auto; margin-right: auto;">
-		<tr>
-			<td class = "content_title" id = "title2"> 후원금 납부 내역 조회
-			</td>
-			
-		</tr>
-		
-	</table>
-    
-   	 <%-- 	<table id="search">
-   	   		 <tr>
-				<td class = "content_title"  id="sponsername"  >${loginUser.userName }님의 후원금 납부내역입니다.</td>
-				<td id="searchYear">
-					납부연도
-				</td>
-				<td>
-					<select id="year" name="year" >
-						<option value="year" selected>2020</option>
-						<option value="year" >2019</option>
-						<option value="year" >2018</option>
-						<option value="year" >2017</option>
-						<option value="year" >2016</option>
-						<option value="year" >2015</option>
-						<option value="year" >2014</option>
-						<option value="year" >2013</option>
-						<option value="year" >2012</option>
-						<option value="year" >2011</option>
-						<option value="year" >2010</option>
-					</select>
-				</td>
-				<td>
-				<button id="searchBtn" type="button" class="defaultBtn" onclick="();" >조회</button>
-				</td>
-			</tr>
-		</table> --%>
-		 
-		<br><br>
     <div  id = "title3" >
   		
     </div>
     
     
     
-    <div id="listarea">
+    <!-- <div id="listarea"> -->
     <table id="sponserlist">
     	<tr>
     		<th class="list_title" id="th1">n0.</th>
@@ -166,10 +128,10 @@
     		<th class="list_title" id="th4">후원금액 </th>
     	</tr>
     </table>
-    </div>
+    <!-- </div> -->
     <c:set var="gum" value="0"/>
    <c:forEach var="sp" items="${ list }">
-    <div id = "tablearea2">
+  <!--   <div id = "tablearea2"> -->
      
 					<table id = "list_table">
 					
@@ -198,7 +160,7 @@
 						<c:set var="gum" value="${sp.donation}"/>
 						<c:set var="total" value="${total+gum}"/>
 					</table>
-				</div>
+			<!-- 	</div> -->
 				
     </c:forEach>
     

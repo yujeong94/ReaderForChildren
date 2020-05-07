@@ -172,6 +172,8 @@
   
     #changePwd{font-weight: 550; }
 	#changePwd:hover{color:rgb(225, 120, 110); cursor:pointer;}
+	#tabletd {border-left-style:none; border-right-style:none;}
+	#tabletd td{ vertical-align: middle;}
 </style>
 
 </head>
@@ -242,14 +244,18 @@
 		</tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right"><input type = "text" class = "input_info" name="phone" value="${ loginUser.phone }"></td>
+          <td class = "right"><input type = "text" class = "input_info" name="num1" value="${ num1 }${ num2 }${ num3 }"/>
+         <input type="hidden" name="num1"/>
+          <input type="hidden" name="num2"/>
+          <input type="hidden" name="num3"/>
+          </td>
        </tr>
        <tr>
           <td class = "info_title2">이메일</td>
           <td class = "right">
-             <input type = "text" class = "input_info infro_email" id = "email01" name="email1" value="${email1 }" name="email1" > @ <input type = "text"  value="${selectEmail }" name="selectEmail"  class = "input_info infro_email" id = "email02">
-            <input type="hidden" name="emailCkeck" id="emailCheck" value="${loginUser.email }">
-             <select name="selectEmail" id="selectEmail" value="${selectEmail }">
+             <input type = "text" class = "input_info infro_email" name="email1" value="${ email1 }" > @ <input type = "text"  value="${ email2 }" name="email2"  class = "input_info infro_email" id = "email02">
+           
+             <select name="selectEmail" id="selectEmail">
                   <option value="1">직접입력</option>
                   <option value="daum.net">daum.net</option>
                   <option value="empal.com" >empal.com</option>
@@ -264,18 +270,10 @@
        <tr>
           <td class = "info_title2">생년월일</td>
           <td class = "right" >
-         <input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)" value="${year }" name="year" >년 <input type = "text" value="${month }" name="month" class = "input_info birth" id = "month">월 <input type = "text" value="${day }" name="day"  class = "input_info birth" id = "day">일
-       		<input type="hidden" name="birth" id="realBirth" value="${loginUser.birth }">
+         <input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)" value="${ bir1 }" name="bir1" >년 <input type = "text" value="${bir2 }" name="bir2" class = "input_info birth" id = "month">월 <input type = "text" value="${bir3 }" name="bir3"  class = "input_info birth" id = "day">일
        		<input type="hidden" name="donation" value="${ loginUser.donation }"/></td>
        </tr>
-       <%-- <tr>
-          <td class = "info_title2">수익현황</td>
-          <td class = "right">${ loginUser.revenue }</td>
-       </tr>
-        <tr>
-          <td class = "info_title2">후원금액</td>
-          <td class = "right" name="donation">${ sp.donation }</td>
-       </tr>  --%>
+       
     </table>
     <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	        <script>
@@ -313,7 +311,7 @@
     
  	
  	
-		$('#phone').blur(function(){
+		/* $('#phone').blur(function(){
 	        var str = $(this).val();
 	        var regExp = /^[0-9]+$/;
 	        
@@ -322,7 +320,7 @@
 	        } else {
 	       	 $('#phoneCheck').val(0);
 	        }
-	    });
+	    }); */
 		
 		
 		$('#email01').blur(function(){
@@ -357,10 +355,10 @@
        	   $("#selectEmail option:selected").each(function () {
        		   if($('#selectEmail').val()== '1'){
        			   $("#email02").val('');
-       			   $("#email02").attr("disabled",false);
+       			  /*  $("#email02").attr("disabled",false); */
        			}else{
        				$("#email02").val(selectEmail.val());
-       				$("#email02").attr("disabled",true); 
+       				/* $("#email02").attr("disabled",true);  */
                    }
        		   });
        	$('#realEmail').val($("#email01").val() + "@" + $('#email02').val());

@@ -121,7 +121,6 @@ public class AdminPageDAO {
 
 	public int revenueSearch(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
 		int count = sqlSession.selectOne("adminPageMapper.revenueConfirm", map);
-		System.out.println("DAO count : " + count);
 		
 		if(count > 0) {
 			return sqlSession.selectOne("adminPageMapper.revenueSearch", map);

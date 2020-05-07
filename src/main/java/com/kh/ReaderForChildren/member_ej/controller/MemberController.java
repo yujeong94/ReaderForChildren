@@ -83,13 +83,59 @@ public class MemberController {
 	}
 	//여기부터 마이페이지 ys
 	@RequestMapping("myinfo.me")
-	public String myInfoView() {
-		return "mypage";
+	public ModelAndView myInfoView(ModelAndView mv, HttpSession session) {
+		String phone = ((Member)session.getAttribute("loginUser")).getPhone();
+		String email = ((Member)session.getAttribute("loginUser")).getEmail();
+		String birth = ((Member)session.getAttribute("loginUser")).getBirth();
+		
+		String num1 = phone.substring(0,3);
+		String num2 = phone.substring(3,7);
+		String num3 = phone.substring(7,11);
+		String newPhone = num1+"-"+num2+"-"+num3;
+		
+		String bir1 = birth.substring(0,4);
+		String bir2 = birth.substring(5,7);
+		String bir3 = birth.substring(8,10);
+		String newBirth = bir1+"년"+bir2+"월"+bir3+"일";
+		
+		String[] emailArr = email.split("@");
+		String email1 = emailArr[0];
+		String email2 = emailArr[1];
+
+		
+//		String[] birthArr = birth.split("년");
+//		String bir1 = birthArr[0];
+//		String bir2 = birthArr[1];
+//		String[] birth2Arr = birth.split("일");
+//		String bir3 = birth2Arr[0];
+		
+		
+		mv.addObject("newPhone",newPhone).addObject("num1",num1).addObject("num2",num2).addObject("num3",num3).addObject("email1",email1).addObject("email2",email2).addObject("bir1",bir1).addObject("bir2",bir2).addObject("bir3",bir3).addObject("newBirth",newBirth).setViewName("mypage");
+		
+		return mv;
 	}
 	
 	@RequestMapping("mupdateView.me")
-	public String updateFormView() {
-		return "memberUpdateForm";
+	public ModelAndView updateFormView(ModelAndView mv, HttpSession session) {
+		String phone = ((Member)session.getAttribute("loginUser")).getPhone();
+		String email = ((Member)session.getAttribute("loginUser")).getEmail();
+		String birth = ((Member)session.getAttribute("loginUser")).getBirth();
+		
+		String bir1 = birth.substring(0,4);
+		String bir2 = birth.substring(5,7);
+		String bir3 = birth.substring(8,10);
+		String newBirth = bir1+"년"+bir2+"월"+bir3+"일";
+		String num1 = phone.substring(0,3);
+		String num2 = phone.substring(3,7);
+		String num3 = phone.substring(7,11);
+		String newPhone = num1+"-"+num2+"-"+num3;
+		String[] emailArr = email.split("@");
+		String email1 = emailArr[0];
+		String email2 = emailArr[1];
+		
+		mv.addObject("newPhone",newPhone).addObject("num1",num1).addObject("num2",num2).addObject("num3",num3).addObject("email1",email1).addObject("email2",email2).addObject("bir1",bir1).addObject("bir2",bir2).addObject("bir3",bir3).addObject("newBirth",newBirth).setViewName("memberUpdateForm");
+		
+		return mv;
 	}
 	
 	@RequestMapping("mpwdUpdateView.me")
@@ -123,18 +169,29 @@ public class MemberController {
 	}
 	
 	@RequestMapping("mupdate.me")
-	public String memberUpdate(@ModelAttribute Member m, @RequestParam("year")String year,
-														 @RequestParam("month")String month,
-														 @RequestParam("day") String day,
-														@RequestParam("selectEmail") String selectEmail, 
-														@RequestParam("email1")String email1,
+	public String memberUpdate(@ModelAttribute Member m,  HttpSession session, 
+														 @RequestParam("bir1") String bir1,
+														 @RequestParam("bir2") String bir2,
+														 @RequestParam("bir3") String bir3,
+														 @RequestParam("num1") String num1,
+														 @RequestParam("num2") String num2,
+														 @RequestParam("num3") String num3,
+														@RequestParam("email1") String email1, 
+														@RequestParam("email2") String email2,
 														@RequestParam("donation")int donation, Model model) {
-	
+		
+		/*String num1 = phone.substring(0,3);
+		String num2 = phone.substring(3,7);
+		String num3 = phone.substring(7,11);*/
+		String newPhone = num1+"-"+num2+"-"+num3;
+		
 		m.setDonation(donation);
-		m.setBirth(year + "년" + month + "월" + day + "일");
-		m.setEmail(email1 + "@" + selectEmail );
+		m.setBirth(bir1+"년"+bir2+"월"+bir3+"일");
+		m.setEmail(email1 + "@" + email2 );
+		m.setPhone(num1+num2+num3);
 		int result = mService.updateMember(m);
-	
+
+
 		if(result > 0) {
 			
 			model.addAttribute("loginUser", m);

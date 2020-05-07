@@ -114,7 +114,7 @@
             <a href="${ contextPath }/index.jsp"><img src="${ contextPath }/resources/images/logo2.png" width = 130px height = 130px/></a>
          </h2>
          <ul class='util'>
-         	<li><a href="${ contextPath }/userList.ad"><img src = "${ contextPath }/resources/images/cart.png" width = 40px height = 40px></a></li>
+         	<li><a href="${ contextPath }/calist.li"><img src = "${ contextPath }/resources/images/cart.png" width = 40px height = 40px></a></li>
          	<li id="util2">
          		<a class="menu-trigger" href="#">
 					<span></span>
@@ -129,7 +129,8 @@
       <c:url var="ablist" value="ablist.ab"/>
       <c:url var="splist" value="splist.sp"/>
       <c:url var="aulist" value="aulist.au"/>
-      
+      <c:url var="calist" value="calist.li"/>
+
       <div id="menuShow">
 			<!-- <a href="#" class="closeBtn" onclick="closeMenu();">X</a> -->
 			<a href="${ ablist }">오디오북 shop</a>
