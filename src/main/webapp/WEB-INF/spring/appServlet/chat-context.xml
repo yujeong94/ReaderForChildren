@@ -23,15 +23,6 @@
    
    
    
-   	<beans:bean id="chatHandler" class="com.kh.ReaderForChildren.chat_ej.controller.ChatWebSocketHandler" />
-	
-	<websocket:handlers>
-
-		<websocket:mapping handler="chatHandler" path="/chat.qq" />
-		<websocket:handshake-interceptors>
-			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-		</websocket:handshake-interceptors>
-
-	</websocket:handlers>
+   	
    
 </beans:beans>

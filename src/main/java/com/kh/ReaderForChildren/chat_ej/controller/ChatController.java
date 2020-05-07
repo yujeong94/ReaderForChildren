@@ -22,6 +22,10 @@ public class ChatController {
 		  return "chat2"; 
 	  }
 	 
+	  @RequestMapping("chatView2.ch")
+	  public String chatView2() { 
+		  return "adminChat"; 
+	  }
 	
 	
 	

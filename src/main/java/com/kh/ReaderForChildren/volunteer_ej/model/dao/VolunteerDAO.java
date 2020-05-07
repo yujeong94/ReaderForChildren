@@ -51,6 +51,10 @@ public class VolunteerDAO {
 	public int updateStatus(SqlSessionTemplate sqlSession) {
 		return sqlSession.update("volunteerMapper.updateStatus");
 	}
+
+//	public ArrayList<VolunteerSchedule> selectMax(SqlSessionTemplate sqlSession, int vlNum2) {
+//		return (ArrayList)sqlSession.selectList("volunteerMapper.selectMax", vlNum2);
+//	}
 	
 	
 

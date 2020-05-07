@@ -27,9 +27,10 @@ label{
 }
 	.info{
 		border : 1px solid black;
-		width : 80%;
+		width : 60%;
 		margin-right : auto;
 		margin-left : auto;
+		margin-top : 100px;
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
@@ -79,18 +80,19 @@ label{
 		margin-right : auto;
 		margin-left : auto;
 		margin-top : 40px;
-		margin-bottom : 400px;
 	}
 	
 	#ok_btn{
-		width : 100%;
+		width : 250px;
 		height : 45px;
-		background : black;
+		background : #F06250;
 		color : white;
 		font-weight : bold;
 		font-size : 20px;
 		margin-bottom : 50px;
-		border : 1px solid black;
+		margin-left : 310px;
+		border : 1px solid #F06250;
+		border-radius : 4px;
 		cursor : pointer;
 	}
 </style>

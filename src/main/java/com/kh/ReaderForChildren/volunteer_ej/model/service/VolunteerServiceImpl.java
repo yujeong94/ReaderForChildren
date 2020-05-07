@@ -70,4 +70,9 @@ public class VolunteerServiceImpl implements VolunteerService{
 	public int updateStatus() {
 		return vDAO.updateStatus(sqlSession);
 	}
+
+//	@Override
+//	public ArrayList<VolunteerSchedule> selectMax(int vlNum2) {
+//		return vDAO.selectMax(sqlSession, vlNum2);
+//	}
 }

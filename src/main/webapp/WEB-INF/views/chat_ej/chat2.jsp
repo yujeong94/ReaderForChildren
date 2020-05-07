@@ -12,9 +12,8 @@
 <title>Insert title here</title>
 <style>
 	#chatArea{
-		width : 60%;
-		height : 500px;
-		overflow: auto;
+		width : 80%;
+		height : 300px;
 		margin-top : 100px;
 		margin-left: auto;
 		margin-right: auto;
@@ -23,15 +22,16 @@
 	}
 	
 	#chatMessageArea{
-		width : 97%;
-		height : 470px;
+		width : 94%;
+		height : 270px;
 		margin : 10px;
 		border: 1px solid #01D1FE;
 		border-radius:3px;
+		background : yellow;
 	}
 	
 	#inputMessage_form1{
-		width : 60%;
+		width : 80%;
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 20px; 
@@ -47,7 +47,7 @@
 	#message{
 		border: 1px solid #01D1FE;
 		height: 65px;
-		width: 80%;
+		width: 78%;
 	}
 	
 	#sendBtnForm{
@@ -69,9 +69,14 @@
 	#user{
 		border: 1px solid #01D1FE;
 	}
+	
+	.arrange {
+		text-align: right;
+	}
 </style>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 
 </head>
 <body>
@@ -81,7 +86,7 @@
  		<!-- 채팅 내용 -->
 	 		<div id = "chatArea">
 			
-				<textarea id="chatMessageArea"></textarea>
+				<textarea id="chatMessageArea" disabled="disabled"></textarea>
 	
 			</div>
 		
@@ -90,15 +95,10 @@
 			<form>
 			<div id = "inputMessage_form2">
 				<div id = "userDiv">
-					<c:if test="${ !empty loginUser }">
-						<input id="user" type="text" value="${ loginUser.userName }" readonly/>
-					</c:if>
-					<c:if test="${ !empty adminUser }">
-						<input id="user" type="text" value="${ adminUser.userName }" readonly/>
-					</c:if>
+						<input id="user" type="hidden" value="${ loginUser.userName }" readonly/>
+						<%-- <input id="realuser" type="hidden" value="${ loginUser.userId }" readonly/> --%>
 				</div>
-				<textarea class="form-control" id = "message" placeholder = "Enter..."></textarea>
-				
+				<input type="text" class="form-control" id = "message" placeholder = "Enter..." onkeydown="return enter()">
 				<input onclick="sendMessage()" value="전송" type="button" id ="sendBtnForm">
 			</div>
 			</form>
@@ -108,7 +108,7 @@
 
 <script>
 
-	var ws = new WebSocket("ws://localhost:9980/ReaderForChildren/chat");
+	var ws = new WebSocket("ws://localhost:9980/ReaderForChildren/broadsocket");
 	
 	var messageTextArea = document.getElementById("chatMessageArea");
 
@@ -137,29 +137,40 @@
 	function sendMessage() {
 		var user = document.getElementById("user");
 		var message = document.getElementById("message");
+		/* var realuser = document.getElementById("realuser"); */
 		
-		// 메시지를 출력
-		messageTextArea.value += user.value + "(me) : " + message.value + "\n";
+		console.log(user);
+		
+			messageTextArea.value += "[" +  user.value + "]" + " : " + message.value + "\n";
+
 
 		// WebSocket 서버에 메시지를 송신한다.
-		ws.send("{{" + user.value + "}}" + message.value);
+		ws.send("[" + user.value + "]:" + message.value);
 
 		message.value = "";
 	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 </script>	
 	
+<script type="text/javascript">
+
+	
+	
+	
+	function enter() {
+		if(event.keyCode === 13) {
+			sendMessage();
+			// form에 의해 자동 submit을 막는다.
+			return false;
+		}
+		return true;
+	}
+
+
+</script>
+
+
 
 </body>
 </html>

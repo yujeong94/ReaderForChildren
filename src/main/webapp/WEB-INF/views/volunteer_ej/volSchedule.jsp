@@ -122,26 +122,26 @@ label{
 
 .fc-event{
 	cursor : pointer;
-	background-color : skyblue;
+	background-color : green;
+	border : 2px solid green;
 }
 
 .fc-button{
-	background-color : skyblue;
+	background-color : #F06250;
 	border : 1px solid lightblue;
 }
 
 .fc-left{
 	font-size : 20px;
 	margin-left : 40%;
-	color : skyblue;
 }
 
 #insertSc{
-	background-color : #0101DF;
+	background-color : #F06250;
 	color : white;
 	font-weight : bold;
-	border-radius : 5px;
-	border : 1px solid #0101DF;
+	border-radius : 4px;
+	border : 1px solid #F06250;
 	width : 100px;
 	height : 30px;
 }
@@ -173,7 +173,7 @@ label{
  		<script>
 			function addSchedule(){
 				/* window.open("${ contextPath }/volunteer_ej/addScheduleForm.jsp","스케줄 등록","width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes") */
-				window.open("addSchForm.vo","스케줄등록","width=500, height=200, left=500,top=200","scrollbars=no");
+				window.open("addSchForm.vo","스케줄등록","width=550, height=280, left=500,top=200","scrollbars=no");
 			}
 		</script>
 		
@@ -281,7 +281,7 @@ label{
 	  	              title  : '${ vsS.volContent }',
 	  	              start  : '${ vsS.volStart }',
 	  	              end    : '${ vsS.volEnd }',
-	  	            }
+	        		}
 	        		</c:if>
 	        		<c:if test="${!vss.last}">
 	        			{
@@ -305,6 +305,16 @@ label{
 			   $("#schedule2").text($('#schedule').val());
 			   $('#tr2').removeAttr('style');	
 			   
+			   /* var vlNum2 = $('#eventNum').val();
+			   $.ajax({
+				   type : "POST",
+				   url : 'selectMax.vo',
+				   data : {vlNum2 : vlNum2},
+				   success : function(data){
+					   data = JSON.parse(data);
+					   console.log(data.max);
+				   }
+			   }) */
 			   
 		   },
 		   
@@ -349,7 +359,7 @@ label{
 <script>
 	$(function(){
 		$('.fc-event').click(function(){
-			$(this).css("background-color","green");
+			$(this).css("border-color","black");
 		});
 	})
 </script>

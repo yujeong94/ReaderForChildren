@@ -15,13 +15,12 @@
 	}
 	
 	#notice{
-		height : 70px;
-		background : lightgray;
+		height : 50px;
 		margin-bottom : 20px;
 	}
 	
 	#activityTable{
-		border : 2px solid rgb(84,12,211);
+		border : 2px solid green;
 		border-radius : 5px;
 		width : 90%;
 		margin-left : auto;
@@ -45,9 +44,9 @@
 	.cancelBtn{
 		width : 90px;
 		height : 30px;
-		border: solid 1px rgb(84,12,211);
+		border: solid 1px green;
 		border-radius: 12px;
-		background : rgb(84,12,211);
+		background : green;
 		color : white;
 		font-size : 12px;
 		font-weight : bold;
