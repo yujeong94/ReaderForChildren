@@ -88,9 +88,9 @@ public class MemberController {
 		String email = ((Member)session.getAttribute("loginUser")).getEmail();
 		String birth = ((Member)session.getAttribute("loginUser")).getBirth();
 		
-		String num1 = phone.substring(0,3);
-		String num2 = phone.substring(3,7);
-		String num3 = phone.substring(7,11);
+		String num1 = phone.substring(0,4);
+		String num2 = phone.substring(5,7);
+		String num3 = phone.substring(8,10);
 		String newPhone = num1+"-"+num2+"-"+num3;
 		
 		String bir1 = birth.substring(0,4);
