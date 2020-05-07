@@ -94,8 +94,8 @@ public class MemberController {
 		String newPhone = num1+"-"+num2+"-"+num3;
 		
 		String bir1 = birth.substring(0,4);
-		String bir2 = birth.substring(5,7);
-		String bir3 = birth.substring(8,10);
+		String bir2 = birth.substring(4,6);
+		String bir3 = birth.substring(6,8);
 		String newBirth = bir1+"년"+bir2+"월"+bir3+"일";
 		
 		String[] emailArr = email.split("@");
