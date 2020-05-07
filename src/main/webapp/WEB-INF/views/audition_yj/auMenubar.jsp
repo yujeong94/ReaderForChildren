@@ -40,11 +40,11 @@
 		<table>
 			<tr>
 				<td id="no1" style="background: #5583A6;">오디션  리스트</td>
-				<td id="no1_1">1</td>
+				<td id="no1_1"></td>
 			</tr>
 			<tr>
 				<td id="no2" style="background: #EFA885;">지원서보기</td>
-				<td id="no2_1">2</td>
+				<td id="no2_1"></td>
 			</tr>
 			<tr>	
 				<td onclick="location.href='testSlider.au'">testSlider</td>
@@ -58,10 +58,10 @@
 	<div class="quick_menu">
 		<table>
 			<tr>
-				<td id="no10" onclick="location.href='aulist.au'">오디션  리스트</td>
+				<td id="no10" style="background: #5583A6;" onclick="location.href='aulist.au'">오디션  리스트</td>
 			</tr>
 			<tr>
-				<td id="no20" onclick="location.href='auListInsertView.au'">오디션등록</td>
+				<td id="no20" style="background: #EFA885;" onclick="location.href='auListInsertView.au'">오디션등록</td>
 			</tr>
 			<tr>	
 				<td onclick="location.href='testSlider.au'">testSlider</td>
@@ -75,7 +75,7 @@
 		$("#no2_1").css("background","#EFA885");
 		var userId = "${ loginUser.userId }";
 		var division = "${ loginUser.division }";
-		if(userId != "" && division == 1){
+		if(userId != "" && division == 1) {
 			$.ajax({
 				url: "readerCheck.au",
 				type: 'post',

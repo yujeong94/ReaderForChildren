@@ -88,4 +88,9 @@ public class AuditionServiceImpl implements AuditionService {
 	public int selectPwd(Member m) {
 		return auDAO.selectPwd(sqlSession, m);
 	}
+
+	@Override
+	public int selectStatus(String userId) {
+		return auDAO.selectStatus(sqlSession, userId);
+	}
 }
