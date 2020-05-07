@@ -126,5 +126,11 @@
 		where user_id = #{userId} and user_pwd = #{userPwd}
 	</select>
 	
+	<select id="selectStatus" parameterType="string" resultType="_int">
+		select status
+		from reader
+		where user_id = #{userId}
+	</select>
+	
 </mapper>
 

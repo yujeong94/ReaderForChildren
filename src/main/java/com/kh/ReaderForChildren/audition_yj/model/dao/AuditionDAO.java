@@ -94,4 +94,8 @@ public class AuditionDAO {
 		return sqlSession.selectOne("auditionMapper.selectPwd", m);
 	}
 
+	public int selectStatus(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("auditionMapper.selectStatus", userId);
+	}
+
 }

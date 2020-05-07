@@ -31,6 +31,8 @@ public interface AuditionService {
 
 	int deleteApply(String userId);
 
-	int selectPwd(Member m); 
+	int selectPwd(Member m);
+
+	int selectStatus(String userId); 
 
 }

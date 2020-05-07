@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -218,7 +219,7 @@ table > tbody > tr > td {
 									<td class="NOtd">${ c.count }</td>
 									<td class="IDtd">${ s.spName }</td>
 									<td class="DATEtd">${ s.supdate }</td>
-									<td class="STATUStd stuTd">${ s.donation }</td>
+									<td class="STATUStd stuTd"><fmt:formatNumber value="${ s.donation }" type="number"/></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -249,7 +250,7 @@ table > tbody > tr > td {
 									<td class="NOtd">${ c.count }</td>
 									<td class="IDtd">${ s.spName }</td>
 									<td class="DATEtd">${ s.supdate }</td>
-									<td class="STATUStd stuTd">${ s.donation }</td>
+									<td class="STATUStd stuTd"><fmt:formatNumber value="${ s.donation }" type="number"/></td>
 								</tr>
 							</c:forEach>
 						</c:if>

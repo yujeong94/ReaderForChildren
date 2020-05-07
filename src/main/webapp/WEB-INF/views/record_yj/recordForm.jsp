@@ -16,7 +16,7 @@
 <script src='${ contextPath }/fullcalendar/packages/interaction/main.js'></script>
 <style>
 	.btnBox {
-		margin-bottom: 80px;
+		margin-top: 50px;
 	}
 	#map {
 		margin: auto;
@@ -60,13 +60,12 @@
 	}
 	
 	#timeTable td {
-		border: 1px solid black;
+		border: 1px solid lightgray;
 	}
 	
 	
  	#infoArea {
 		display: none;
-		margin-bottom: 100px;
 	} 
 	
 	#infoArea input {
@@ -76,6 +75,7 @@
 	#infoTable {
 		margin: auto;
 		border: 1px solid black;
+		border-radius: 5px;
 		margin-top: 50px;
 		width: 500px;
 		height: 100px;
@@ -84,6 +84,10 @@
 	#infoTable th, #infoTable td {
 		border: 1px solid lightgray;
 		padding: 10px;
+	}
+	
+	#infoTable input {
+		font-size: 11pt;
 	}
 	
 	/*  */
@@ -145,6 +149,23 @@ label:after {
   -webkit-transform: rotate(-45deg) translate(0px);
 }
 
+.contents { 
+	padding-bottom: 100px;
+}
+
+.fc-left {
+	color: orange;
+	font-size: 11pt;
+}
+
+.fc-button {
+	background-color: orange;
+}
+
+.fc-today-button {
+	background-color: orange;
+}
+
 </style>
 </head>
 <body>
@@ -199,10 +220,10 @@ label:after {
 		<form id="infoArea" action="insertRecord.re">
 			<table id="infoTable">
 				<tr>
-					<th width="100px">녹음실</th>
+					<th width="120px">녹음실</th>
 					<td colspan="3">
 						<input type="text" id="recCompany" name="recCompany" readOnly required><br>
-						주소 : <input type="text" id="address" name="address" size="50px" readOnly required>
+						주소 : <input type="text" id="address" name="address" size="50px" style="font-size: 8pt;" readOnly required>
 					</td>
 				</tr>
 				<tr>
@@ -419,7 +440,7 @@ label:after {
 	    });
 		
 		$("#timeTable td").mouseover(function(){
-			$(this).css("background","lightgreen");
+			$(this).css("background","#ffe478");
 		}).mouseout(function(){
 			$(this).css("background","white");
 		}).click(function(){
@@ -483,6 +504,22 @@ label:after {
 				});
 			}
 		}
+		
+		$(".rBtn").click(function(){
+			$(this).attr("type","button");
+			
+			if($("#dateInfo").val() == "") {
+				swal("날짜를 선택해주세요.");
+				var offset = $("#calendar").offset();
+				$('html').animate({scrollTop: offset.top},300);
+			} else if($("#rTime").val() == "") {
+				swal("시간을 선택해주세요.");
+				var offset = $("#timeBox").offset();
+				$('html').animate({scrollTop: offset.top},300);
+			} else {
+				$(this).attr("type","submit");
+			}
+		});
 		
 		// 예약완료 알림창
 		var msg = "${ msg }";

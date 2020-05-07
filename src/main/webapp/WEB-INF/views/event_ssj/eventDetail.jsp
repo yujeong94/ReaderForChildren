@@ -259,10 +259,14 @@
 						<jsp:useBean id="now" class="java.util.Date"/>
 						<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate"/>
 						<fmt:formatDate value="${ event.eEnd }" pattern="yyyyMMdd" var="closeDate"/>
+						<fmt:formatDate value="${ event.eStart }" pattern="yyyyMMdd" var="startDate"/>
 						<c:choose>
 							<c:when test="${ nowDate > closeDate }">
 								이벤트 기간이 종료되었습니다. 다음 이벤트에서 참여부탁드립니다.<br>
 								당첨자 발표를 기다려주세요.
+							</c:when>
+							<c:when test="${ startDate > nowDate }">
+								이벤트 기간이 아닙니다. 이벤트 기간에 댓글을 작성해주세요.
 							</c:when>
 							<c:otherwise>
 								<c:choose>
@@ -320,9 +324,7 @@
 						url: "replyCheck.ev",
 						data: {eNum:eNum, userId:userId},
 						success: function(data){
-							console.log("ajax data:" + data);
 							replyCheck = data;
-							console.log("댓글여부 replyCheck : " + replyCheck);
 							
 							if(replyCheck == 0){
 								$.ajax({
@@ -338,13 +340,13 @@
 									}
 								});
 							} else {
-								alert('댓글은 한 번만 등록하실 수 있습니다.');
+								swal('댓글은 한 번만 등록하실 수 있습니다.');
 								$('#reply').val("");
 							}
 						}
 					});
 				} else {
-					alert('댓글을 작성해주세요.');
+					swal('댓글을 작성해주세요.');
 				}
 				
 				
@@ -362,6 +364,7 @@
 			
 			if(loginId == userId || loginAdmin == 'admin' ){
 				var deleteCheck = confirm("정말로 삭제하시겠습니까?");
+				/* swal("정말로 삭제하시겠습니까?", {buttons: [true, false],}) */
 				if(deleteCheck){
 					$.ajax({
 						url: "deleteReply.ev",
@@ -370,13 +373,13 @@
 						success: function(data){
 							if(data != null){
 								getReplyList();
-								alert('댓글이 삭제되었습니다.');
+								swal('댓글이 삭제되었습니다.');
 							}
 						}
 					});
 				}
 			} else {
-				alert('회원의 댓글이 아닙니다.');
+				swal('회원의 댓글이 아닙니다.');
 			}
 			
 		}
