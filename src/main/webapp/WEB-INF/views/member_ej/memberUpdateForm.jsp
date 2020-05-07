@@ -244,7 +244,7 @@
 		</tr>
        <tr>
           <td class = "info_title2">휴대전화</td>
-          <td class = "right"><input type = "text" class = "input_info" name="num1" value="${ num1 }${ num2 }${ num3 }"/>
+          <td class = "right"><input type = "text" class = "input_info" name="phone" value="${ loginUser.phone }"/>
          <input type="hidden" name="num1"/>
           <input type="hidden" name="num2"/>
           <input type="hidden" name="num3"/>
