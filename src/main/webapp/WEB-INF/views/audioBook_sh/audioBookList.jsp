@@ -1,19 +1,16 @@
-<%@ page import="java.util.*" %>
 <%@ page import="java.net.URLDecoder" %>
 <%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.util.StringTokenizer"%>
-<%@ page import="java.util.List , java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%-- <%
+<%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 	
 	// 쿠키 읽기
-    Cookie[] cookies = request.getCookies();
-%> --%>
+    Cookie[] coo = request.getCookies();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -202,15 +199,15 @@
 			<div class="latestTitle">오늘 본 상품<br><span>1/3</span></div>
 			<div style="background: #ffe478; height: 8px;"></div>
 			<div class="cookieBox">
-			<%-- <%
+			<%
 				if(coo != null){
-					for(int i=coo.size-1; i >= 0; i--){
+					for(int i=coo.length-1; i >= 0; i--){
 						if(coo[i].getName().indexOf("item") != -1){
 							out.print("<img width='100' src='/ReaderForChildren/resources/bookUploadImages/"+URLDecoder.decode(coo[i].getValue(), "UTF-8")+"'/><br/>");
 						}
 					}
 				}
-			%> --%>
+			%>
 			</div>			
 		</div>
 		

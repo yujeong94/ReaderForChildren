@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- <%
+<%
 	BookImage i = (BookImage)request.getAttribute("i");
 	String changeName = "";
 	if(i != null){
@@ -14,11 +14,11 @@
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 	
-	Cookie[] cooArr = request.getCookies();
+	Cookie coo = new Cookie("item", changeName);
+	/* Cookie[] cooArr = request.getCookies();
 	
 	Cookie coo = null;
 	if(cooArr.length == 1){
-		// 쿠키에 데이터를 저장(쿠키이름, 쿠키값)
 		coo = new Cookie("item", changeName);
 	} else{
 		for(Cookie c : cooArr){
@@ -26,14 +26,14 @@
 				coo = new Cookie("item", c.getValue() + "/" + changeName);
 			}
 		}
-	}
+	} */
 
 	// 유효 시간 설정
 	coo.setMaxAge(60*60*24);
 	
 	// 서버에서 클라이언트에게 쿠키를 전달하므로 response 
 	response.addCookie(coo);
-%>  --%>
+%>
 <!DOCTYPE html>
 <html>
 <head>
