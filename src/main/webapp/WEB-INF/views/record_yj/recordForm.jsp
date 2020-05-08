@@ -242,7 +242,7 @@ label:after {
 			
 			<div class=btnBox>
 				<button class="defaultBtn upBtn rBtn">예약</button>
-				<button type="button" onclick="location.href='testMap.re'">테스트</button>
+				<!-- <button type="button" onclick="location.href='testMap.re'">테스트</button> -->
 			</div>
 			
 		</form>

@@ -39,7 +39,7 @@
 	<div class="quick_menu">
 		<table>
 			<tr>
-				<td id="no1" style="background: #5583A6;">오디션  리스트</td>
+				<td id="no1" style="background: #5583A6;" onclick="location.href='aulist.au'">오디션  리스트</td>
 				<!-- <td id="no1_1"></td> -->
 			</tr>
 			<tr>
