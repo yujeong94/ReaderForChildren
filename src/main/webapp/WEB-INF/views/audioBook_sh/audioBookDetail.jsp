@@ -15,19 +15,7 @@
 	String cp = request.getContextPath();
 	
 	Cookie coo = new Cookie("item", changeName);
-	/* Cookie[] cooArr = request.getCookies();
 	
-	Cookie coo = null;
-	if(cooArr.length == 1){
-		coo = new Cookie("item", changeName);
-	} else{
-		for(Cookie c : cooArr){
-			if(c.getName().equals("item")){
-				coo = new Cookie("item", c.getValue() + "/" + changeName);
-			}
-		}
-	} */
-
 	// 유효 시간 설정
 	coo.setMaxAge(60*60*24);
 	

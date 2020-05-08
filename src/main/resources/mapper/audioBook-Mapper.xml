@@ -256,11 +256,12 @@
 			where rownum < 4
 		]]>	
 	</select>
+	
+	
 	<select id="selectcartList" resultMap="cartListResultSet">
 	select *
 	from cart_list
 	where status = 'Y' and c_no = #{cNo}
-	
 	</select>
 	
 	<resultMap type="cartList" id="cartListResultSet">
