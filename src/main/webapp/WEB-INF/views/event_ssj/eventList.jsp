@@ -10,11 +10,7 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
 .contents {
-	width: 1100px;
 	background: white;
-	margin: auto;
-	margin-bottom: 100px;
-	padding: 20px;
 	padding-bottom: 50px;
 }
 
@@ -30,7 +26,7 @@
 .boxDiv2 {
 	width: 874px;
 	position: relative;
-	left : 115px;
+	left : 65px;
 }
 
 .selectBox {

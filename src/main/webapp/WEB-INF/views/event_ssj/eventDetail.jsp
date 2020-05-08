@@ -10,13 +10,6 @@
 <title>EventDetail</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
-.contents {
-	width: 1100px;
-	background: white;
-	margin: auto;
-	margin-bottom: 100px;
-	padding: 20px;
-}
 
 #title {
 	margin: 50px;
