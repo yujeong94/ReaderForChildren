@@ -40,7 +40,7 @@ public interface listService {
 
 	int updaterL(int sNo);
 
-	ArrayList<OrderDetail> selectOrderDetail(PageInfo pi, String userId);
+	/*ArrayList<OrderDetail> selectOrderDetail(PageInfo pi, String userId);*/
 
 
 }

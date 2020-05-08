@@ -87,11 +87,11 @@
 		}
 		 #list_table td { border-bottom : 2px solid gray; vertical-align: middle; } 
 	 	#noList{text-align:center; width:2000px; height:300px;}
-		#td1{ width:110px; height:100px; }
+		#td1{ width:90px; height:100px; }
 		#td2{ width:180px;} 
 		#td3{ width:140px;}
 		#td4{ width:140px; }
-		#td5{ width:80px; }
+		#td5{ width:90px; }
 		.list_line2{
 			font-size : 15px;
 		}
@@ -163,14 +163,19 @@
 							</c:if> --%>
 							</td>
 							<td  rowspan="2" class="list_line2" id="td5">		
-							<c:if test="${ o.aud_code_m !='' && o.aud_code_m ne null }">
+							<c:if test="${ o.aud_code_m !='0' }">
 								[남자]
-								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_m}"  download="${o.aud_code_m}">
+								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_m}"  download="${o.changeName}">
 								<img src="${ contextPath }/resources/images/download.png"  width=30px height= 30px/></a>
 							</c:if>
-							<c:if test="${ o.aud_code_f !='' && o.aud_code_f ne null }">
+							<c:if test="${ o.aud_code_f !='0'  }">
 								[여자]	
-								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_f}"  download="${o.aud_code_f}">
+								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_f}"  download="${o.changeName}">
+								<img src="${ contextPath }/resources/images/download.png" width=30px height= 30px/></a>
+							</c:if>
+							<c:if test="${ o.aud_code_f !='0' && o.aud_code_m !='0'   }">
+								[여자][남자]
+								<a href="${ contextPath }/resources/audioFileUpload/${o.aud_code_f}${o.aud_code_m}"  download="${o.changeName}">
 								<img src="${ contextPath }/resources/images/download.png" width=30px height= 30px/></a>
 							</c:if>
 						
@@ -179,10 +184,10 @@
 						
 						 <tr>
 							<td>
-							<c:if test="${ o.containBk != 'N' && o.aud_code_m !='' && o.aud_code_m ne null }">
+							<c:if test="${ o.containBk != '도서포함' && o.aud_code_m !='0' }">
 							 옵션: 오디오북 남자  ${ o.containBk } 
 							 </c:if>
-							 <c:if test="${o.aud_code_f !='' && o.aud_code_f ne null }">
+							 <c:if test="${o.containBk !='도서포함' && o.aud_code_f !='0' }">
 							 옵션: 오디오북 여자 ${ o.containBk } 
 							 </c:if>
 							</td>
@@ -252,11 +257,17 @@
 		</script>
    			
         
-      <button onclick = "location.href = '../../index.jsp'" id = "gomain" class="defaultBtn">메인으로</button>
+      <button type="button" id = "gomain" class="defaultBtn">뒤로가기</button>
     
    </div>
  
    	<c:import url="../common/footer.jsp"/> 
+   	
+   	<script>
+   		$('.defaultBtn').click(function(){
+   			window.history.back();
+   		});
+   </script>
    </div>
    </div>
 </body>

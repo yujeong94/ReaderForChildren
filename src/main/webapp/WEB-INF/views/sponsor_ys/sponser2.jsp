@@ -303,7 +303,7 @@
        <tr>
           <td class = "info_title2">이메일</td>
           <td class = "right">
-             <input type = "text" class = "input_info infro_email" id = "email01" name="email1" value="${email1 }" name="email1" required > @ <input type = "text"  value="${selectEmail }" name="selectEmail"  class = "input_info infro_email" id = "email02" required>
+             <input type = "text" class = "input_info infro_email" id = "email01" name="email1" value="${ email1 }" required > @ <input type = "text"  value="${ email2 }" name="email2"  class = "input_info infro_email" id = "email02" required>
             <input type="hidden" name="emailCkeck" id="emailCheck" value="${loginUser.email }">
              <select name="selectEmail" id="selectEmail">
                   <option value="1">직접입력</option>
@@ -322,7 +322,7 @@
        <tr>
           <td class = "info_title2">생년월일</td>
            <td class = "right" >
-         <input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)" value="${year }" name="year" required >년 <input type = "text" value="${month }" name="month" class = "input_info birth" id = "month" required>월 <input type = "text" value="${day }" name="day"  class = "input_info birth" id = "day" required>일
+         <input type = "text" class = "input_info birth" id= "year" placeholder = "년(4자)" value="${bir1 }" name="bir1" required >년 <input type = "text" value="${bir2 }" name="bir2" class = "input_info birth" id = "month" required>월 <input type = "text" value="${bir3 }" name="bir3"  class = "input_info birth" id = "day" required>일
        		<input type="hidden" name="birth" id="realBirth" value="${loginUser.birth }"></td>
        </tr>
       <%--  <tr>

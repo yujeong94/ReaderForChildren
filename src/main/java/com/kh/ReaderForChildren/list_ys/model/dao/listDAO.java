@@ -93,11 +93,11 @@ public class listDAO {
 		return sqlSession.update("mypageMapper.updateLL", sNo);
 	}
 
-	public ArrayList<OrderDetail> selectOrderDetail(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+	/*public ArrayList<OrderDetail> selectOrderDetail(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("mypageMapper.selectOrderDetail", userId, rowBounds);
 	}
-
+*/
 
 }

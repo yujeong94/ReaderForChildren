@@ -60,8 +60,22 @@ public ModelAndView sponsorList(@RequestParam(value="page", required=false) Inte
 	}
 	
 	@RequestMapping("suinsertView.sp")
-	public String suinsertFormView() {
-		return "sponser2";
+	public ModelAndView suinsertFormView(ModelAndView mv, HttpSession session) {
+		String email = ((Member)session.getAttribute("loginUser")).getEmail();
+	      String birth = ((Member)session.getAttribute("loginUser")).getBirth();
+	      
+	      String bir1 = birth.substring(0,4);
+	      String bir2 = birth.substring(4,6);
+	      String bir3 = birth.substring(6,8);
+	      String newBirth = bir1+"년"+bir2+"월"+bir3+"일";
+	      
+	      String[] emailArr = email.split("@");
+	      String email1 = emailArr[0];
+	      String email2 = emailArr[1];
+	      
+	      mv.addObject("email1",email1).addObject("email2",email2).addObject("bir1",bir1).addObject("bir2",bir2).addObject("bir3",bir3).addObject("newBirth",newBirth).setViewName("sponser2");
+	      
+		return mv;
 	}
 	
 	@RequestMapping("suupdateView.sp")

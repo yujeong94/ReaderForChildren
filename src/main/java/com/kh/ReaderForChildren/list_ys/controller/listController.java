@@ -106,13 +106,16 @@ public class listController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<OrderDetail> list = liService.selectorList(pi, userId);
-		ArrayList<OrderDetail> orList = liService.selectOrderDetail(pi, userId);
+	/*	ArrayList<OrderDetail> orList = liService.selectOrderDetail(pi, userId);*/
 	
-		if(list != null && orList != null) {
+		if(list != null /*&& orList != null*/) {
 			mv.addObject("list",list);
-			mv.addObject("orList",orList);
+			/*mv.addObject("orList",orList);*/
 			mv.addObject("pi", pi);
 			mv.setViewName("buylist");
+			
+			
+			System.out.println("이건리스트" + list);
 			
 		}else {
 			throw new listException("게시글 전체 조회에 실패하였습니다.");

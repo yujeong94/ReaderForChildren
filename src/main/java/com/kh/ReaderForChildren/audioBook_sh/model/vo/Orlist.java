@@ -15,11 +15,12 @@ public class Orlist {
 	private String img;
 	private String userId;
 	private String containBk;
+	private String changeName;
 	
 	public Orlist() {}
 
 	public Orlist(int orNo, String bkName, Date orDate, String orStatus, int bkCode, String delStatus,
-			String aud_code_f, String aud_code_m, String img, String userId, String containBk) {
+			String aud_code_f, String aud_code_m, String img, String userId, String containBk, String changeName) {
 		super();
 		this.orNo = orNo;
 		this.bkName = bkName;
@@ -32,6 +33,7 @@ public class Orlist {
 		this.img = img;
 		this.userId = userId;
 		this.containBk = containBk;
+		this.changeName = changeName;
 	}
 
 	public int getOrNo() {
@@ -122,12 +124,23 @@ public class Orlist {
 		this.containBk = containBk;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
 	@Override
 	public String toString() {
 		return "Orlist [orNo=" + orNo + ", bkName=" + bkName + ", orDate=" + orDate + ", orStatus=" + orStatus
 				+ ", bkCode=" + bkCode + ", delStatus=" + delStatus + ", aud_code_f=" + aud_code_f + ", aud_code_m="
-				+ aud_code_m + ", img=" + img + ", userId=" + userId + ", containBk=" + containBk + "]";
+				+ aud_code_m + ", img=" + img + ", userId=" + userId + ", containBk=" + containBk + ", changeName="
+				+ changeName + "]";
 	}
+
+	
 
 	
 	

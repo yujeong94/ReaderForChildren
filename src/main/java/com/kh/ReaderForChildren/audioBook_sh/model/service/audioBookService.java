@@ -11,6 +11,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 
 public interface audioBookService {
 
@@ -51,5 +52,7 @@ public interface audioBookService {
 	int updateProduct(Book b, BookImage bi, AudioBook abF, AudioBook abM, AudioFile afF, AudioFile afM);
 
 	ArrayList<BookImage> selectBestList();
+
+	ArrayList<cartList> selectcartList(String[] arr);
 
 }

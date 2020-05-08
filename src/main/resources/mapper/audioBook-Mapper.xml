@@ -256,5 +256,25 @@
 			where rownum < 4
 		]]>	
 	</select>
+	<select id="selectcartList" resultMap="cartListResultSet">
+	select *
+	from cart_list
+	where status = 'Y' and c_no = #{cNo}
+	
+	</select>
+	
+	<resultMap type="cartList" id="cartListResultSet">
+		<id property="cNo" column="C_NO"/>
+		<result property="bkName" column="BK_NAME"/>
+		<result property="status" column="STATUS"/>
+		<result property="bkCode" column="BK_CODE"/>
+		<result property="audCodeF" column="AUD_CODE_F"/>
+		<result property="audCodeM" column="AUD_CODE_M"/>
+		<result property="cPrice" column="C_PRICE"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="containBk" column="CONTAIN_BK"/>
+	</resultMap>
+	
 	
 </mapper>
