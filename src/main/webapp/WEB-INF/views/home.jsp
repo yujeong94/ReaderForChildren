@@ -243,7 +243,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 	
 	<div class="mySlides fade">
 	  <!-- <div class="numbertext">2 / 3</div> -->
-	  <img src="${ contextPath }/resources/uploadFiles/20200421223319.png" onclick="location.href='eventDetail.ev?eNum=4'" class="sImg">
+	  <img src="${ contextPath }/resources/uploadFiles/20200421223319.png" onclick="location.href='eventList.ev'" class="sImg">
 
 	</div>
 	

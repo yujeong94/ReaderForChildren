@@ -43,9 +43,8 @@
 		<id property="snum" column="SNUM"/>
 		<result property="donation" column="DONATION"/>
 		<result property="supdate" column="SUP_DATE"/>
-		<!-- <result property="userNAME" column="USER_NAME"/> -->
 		 <result property="userId" column="USER_ID"/> 
-		<result property="spName" column="SP_NAME"/>
+		<result property="spCode" column="SP_CODE"/>
 	</resultMap>
 	
 	<resultMap type="Reader" id="readerResultSet">
@@ -170,6 +169,7 @@
 	<select id="selectAuditionList" resultMap="readerResultSet">
 		select *
 		from reader
+		order by enroll_date desc
 	</select>
 	
 	<select id="selectCategoryAdutionList" resultMap="readerResultSet">
@@ -183,6 +183,7 @@
 				<when test="selectbox == '영구정지'">status = 3</when>
 			</choose>
 		</where>
+		order by enroll_date desc
 	</select>
 	
 	<select id="selectReader" resultMap="readerResultSet">

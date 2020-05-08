@@ -152,7 +152,12 @@ table > tbody > tr > td {
 							<tr>
 								<td class="NOtd borderTd">${ c.count }</td>
 								<td class="IDtd borderTd">${ s.userId }</td>
-								<td class="DATEtd borderTd">${ s.spName }</td>
+								<td class="DATEtd borderTd">
+									<c:choose>
+										<c:when test="${ s.spCode == 41 }">하트 재단</c:when>
+										<c:otherwise>사랑의 달팽이</c:otherwise>
+									</c:choose>
+								</td>
 								<td class="STATUStd stuTd borderTd"><fmt:formatNumber value="${ s.donation }" type="number"/></td>
 							</tr>
 						</c:forEach>
