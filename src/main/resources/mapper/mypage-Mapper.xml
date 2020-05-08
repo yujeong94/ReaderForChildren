@@ -113,7 +113,7 @@
 			
 	</select> -->
 	<select id="selectorList" resultMap="OrlistResultSet">
-		 select or_no, or_date,or_status,user_id, decode(del_status,'1','배송준비중','2','배송완료') as del_status, decode(contain_bk,'Y','+도서포함 ','N','')as contain_bk, bk_name, change_name,aud_code_m,aud_code_f, img
+		 select or_no, or_date,or_status,user_id, decode(del_status,'1','결제완료','2','배송준비중') as del_status, decode(contain_bk,'Y','+도서포함 ','N','')as contain_bk, bk_name, change_name,aud_code_m,aud_code_f, img
 		from order_list
 		where or_status = 'Y' and user_id=#{userId}
 		order by or_no desc

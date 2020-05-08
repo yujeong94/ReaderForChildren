@@ -9,14 +9,14 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
-   .contents{
+   /* .contents{
       width: 1100px;
   /*     height: 700px; */
       background: white;
       margin: auto;
       margin-bottom: 100px;
       padding: 20px;
-   }
+   } */
    #subHeader{
 		width : 1170px;
 		height : 100px;
@@ -52,7 +52,7 @@
 			border-collapse: collapse;
 			border-spacing: 0;
 			margin-top:10px;
-			margin-left : 140px;
+			margin-left : 80px;
 			font-weight: bold;
 			height:45px;
 			font-family: 'Nanum Gothic', sans-serif;
@@ -76,7 +76,7 @@
 		
 		#list_table{
 			margin-top : 30px;
-			margin-left : 140px;
+			margin-left : 80px;
 			border-collapse: collapse;
 			border-spacing: 0;
 			border-top : 2px solid gray;
@@ -261,7 +261,7 @@
     
    </div>
  
-   	<c:import url="../common/footer.jsp"/> 
+   	
    	
    	<script>
    		$('.defaultBtn').click(function(){
@@ -270,5 +270,6 @@
    </script>
    </div>
    </div>
+   <c:import url="../common/footer.jsp"/> 
 </body>
 </html>

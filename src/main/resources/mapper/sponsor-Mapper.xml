@@ -56,7 +56,7 @@
 	
 	<insert id="insertSupport" parameterType="Support">
 		insert into support values(
-			seq_snum.nextval, #{donation}, #{supdate}, #{userId}, #{spName}
+			seq_snum.nextval, #{donation}, #{supdate}, #{userId}, #{spCode}, #{spName}
 			
 		)
 	</insert> 

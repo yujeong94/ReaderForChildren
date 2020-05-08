@@ -255,8 +255,10 @@
 				</td>
 	 		</tr>
 	 		<tr>
-	 				<td><input type = "radio" class = "input_info2" name="spName" value="하트재단">하트재단</td>
-         		    <td><input type = "radio" class = "input_info3" name="spName" value="사랑의 달팽이">사랑의 달팽이</td>
+	 				<td><input type = "radio" class = "input_info2" name="spCode" value="41">하트 재단</td>
+         		    <td><input type = "radio" class = "input_info3" name="spCode" value="42">사랑의 달팽이</td>
+         		   <td> </td>
+         		   
 			</tr>
 			
 			

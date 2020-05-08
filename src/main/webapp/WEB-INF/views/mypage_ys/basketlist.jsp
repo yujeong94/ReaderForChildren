@@ -245,11 +245,6 @@
 			if( bool ){
 				var check = document.getElementsByName("select");
 				
-				for(var i = 1; i < check.length; i++) {
-					if (check[i].checked == true) {
-						checkMessage += check[i].value + ",";
-					}
-				}
 				
 				location.href='${cadelete}';
 			};
@@ -307,14 +302,16 @@ $(".payBtn").click(function(){
 	
 	for(i=0; i<frm.select1.length; i++){
 		if(frm.select1[i].checked==true){
-			arr[i] = frm.select1[i].value;
+			arr.push(frm.select1[i].value);	
 		}
 	}
-	console.log(arr);
+	
+	console.log("리스트페이지" + arr);
+	
 	if(ch) {
 		
-		location.href="purchase2.ab?arr=" + arr; 
-	} 
+		 location.href="purchase2.ab?arr=" + arr; 
+	}
 });
 	
 	/* if($(".chBox").prop("checked","true")){
