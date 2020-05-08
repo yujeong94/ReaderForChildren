@@ -11,15 +11,6 @@
  b{
  	font-weight : bold;
  }
-	
-.contents {
-   width: 1100px;
-   height: 1200px;
-   background: white;
-   margin: auto;
-   margin-bottom: 100px;
-   padding: 20px;
-}
 
 #title {
    margin: 50px;
@@ -186,7 +177,7 @@
 		font-weight : bold;
 		font-size : 20px;
 		margin-bottom : 50px;
-		margin-left : 360px;
+		margin-left : 330px;
 		border : 1px solid #F06250;
 		border-radius : 4px;
 		cursor : pointer;

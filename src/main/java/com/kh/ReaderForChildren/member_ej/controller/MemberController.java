@@ -211,13 +211,15 @@ public class MemberController {
 		
 		String result = mService.findMemberId(m);
 		
+		String msg = "정보와 일치하는 아이디가 없습니다.";
+		
 		if(result != null) {
 			mv.addObject("findId", result)
 			.addObject("userName", m.getUserName())
 			.addObject("email", m.getEmail())
 			.setViewName("findId2");
 		}else {
-			throw new MemberException("정보와 일치하는 아이디가 없습니다.");
+			mv.addObject("msg", msg).setViewName("findId");
 		}
 		return mv;
 	}
@@ -231,6 +233,8 @@ public class MemberController {
 	public ModelAndView findMemberPwd(@ModelAttribute Member m, ModelAndView mv ) {
 		
 		int result = mService.finMemberPwd(m);
+		
+		String msg = "정확한 정보를 입력해주세요.";
 		
 		if(result > 0) {
 			
@@ -315,7 +319,7 @@ public class MemberController {
 			.addObject("email", m.getEmail())
 			.setViewName("findPwd2");
 		}else {
-			throw new MemberException("정보와 일치하는 계정이 없습니다.");
+			mv.addObject("msg", msg).setViewName("findPwd");
 		}
 		return mv;
 	}
@@ -325,4 +329,5 @@ public class MemberController {
 	public String addScheduleForm() {
 		return "addScheduleForm";
 	}
+	
 }

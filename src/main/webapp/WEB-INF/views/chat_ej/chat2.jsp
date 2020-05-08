@@ -11,23 +11,38 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+	
+	body{
+		background : #ffe478;
+	}
+	
+	#headDiv{
+		width : 210px;
+		margin-right : auto;
+		margin-left : auto;
+		margin-top : 30px;
+		font-size : 25px;
+		font-weight : bold;
+	}
+	
+	#chatUN{
+		color : rgb(105,52,52);
+	}
+	
 	#chatArea{
 		width : 80%;
 		height : 300px;
-		margin-top : 100px;
+		margin-top : 40px;
 		margin-left: auto;
 		margin-right: auto;
-		border: 2px solid #01D1FE;
-		border-radius: 10px;
 	}
 	
 	#chatMessageArea{
-		width : 94%;
-		height : 270px;
-		margin : 10px;
-		border: 1px solid #01D1FE;
+		width : 100%;
+		height : 100%;
+		border: 1px solid rgb(182,205,221);
 		border-radius:3px;
-		background : yellow;
+		background : rgb(182,205,221);
 	}
 	
 	#inputMessage_form1{
@@ -45,7 +60,7 @@
 	}
 	
 	#message{
-		border: 1px solid #01D1FE;
+		border: 1px solid rgb(182,205,221);
 		height: 65px;
 		width: 78%;
 	}
@@ -55,7 +70,7 @@
 		width: 18%; 
 		height: 65px; 
 		text-align: center; 
-		background-color: #01D1FE; 
+		background-color: rgb(182,205,221); 
 		border-radius: 5px;
 		border : 0px;
 		font-weight: bold;
@@ -83,12 +98,16 @@
  
  	<div id = "content">
  		
+ 		<div id = "headDiv">
+ 			<label><span id = "chatUN">${ loginUser.userName }</span>님의 대화창</label>
+ 		</div>
+ 		
  		<!-- 채팅 내용 -->
-	 		<div id = "chatArea">
 			
-				<textarea id="chatMessageArea" disabled="disabled"></textarea>
+				<div id= "chatArea">
+					<textarea id="chatMessageArea" disabled="disabled"></textarea>
+				</div>
 	
-			</div>
 		
 		<!-- 채팅 입력창 -->
 		<div id = "inputMessage_form1">
@@ -108,7 +127,7 @@
 
 <script>
 
-	var ws = new WebSocket("ws://localhost:9980/ReaderForChildren/broadsocket");
+	var ws = new WebSocket("ws://localhost:9980/ReaderForChildren/usersocket");
 	
 	var messageTextArea = document.getElementById("chatMessageArea");
 
@@ -118,7 +137,7 @@
 	
 	ws.onmessage = function(event){
 		console.log(event.data + '\n');
-		messageTextArea.value += event.data+"\n";
+		messageTextArea.value += "[운영자] : " + event.data+"\n";
 	};
 	
 	ws.oncloese = function(event){

@@ -8,14 +8,7 @@
 <title>content</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
-.contents {
-   width: 1100px;
-   height: 600px;
-   background: white;
-   margin: auto;
-   margin-bottom: 100px;
-   padding: 20px;
-}
+
 
 #title {
    margin: 50px;
@@ -30,7 +23,7 @@ label{
 		width : 60%;
 		margin-right : auto;
 		margin-left : auto;
-		margin-top : 100px;
+		margin-top : 80px;
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
@@ -90,7 +83,7 @@ label{
 		font-weight : bold;
 		font-size : 20px;
 		margin-bottom : 50px;
-		margin-left : 310px;
+		margin-left : 270px;
 		border : 1px solid #F06250;
 		border-radius : 4px;
 		cursor : pointer;
@@ -229,6 +222,15 @@ label{
 				$('#findForm').submit();
 			}
 		});
+	   
+	   
+	   
+	   var msg = "${ msg }";
+		if(msg != "") {
+			swal(msg);
+			$("#pwd1").focus();
+		}
+	   
    </script>
 	  
 	    
