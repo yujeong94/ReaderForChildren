@@ -61,29 +61,16 @@
 				<div class="frame1">
 					<div class="title2">주문 상품</div>
 					<div class="smallFrame1">
-					<c:forEach items="${ hidden1 }" var="h1">
-						<c:out value="h1"></c:out>
-					</c:forEach>
-						<div class="yellowbox">
-						<c:if test="${ list ne null } ">
-						<c:forEach items="${ list }" var="li">
-							&nbsp;&nbsp;<b>${ li.bkCode }</b> &nbsp;${ li.bkName }&nbsp;${ li.cPrice }
-						</c:forEach>
-						</c:if>
-						</div>
-						<c:if test="${ list eq null }">
-						<c:forEach items="${ list }" var="li">
-						<input type="hidden" name="bkCode" value="${ li.bkCode }">
-						<input type="hidden" name="hidden3" value="${ li.hidden3 }">
+						<div class="yellowbox">&nbsp;&nbsp;<b>${ hidden1 }</b> &nbsp;${ bkName }&nbsp;${ hidden2 }</div>
+						<input type="hidden" name="bkCode" value="${ bkCode }">
+						<input type="hidden" name="hidden3" value="${ hidden3 }">
 						
-						<c:set var="hidden1" value="${ li.hidden1 }"/>
-						<c:if test="${li.hidden1 eq '[도서+오디오북]' || li.hidden1 eq '도서 오디오북'}">
+						<c:set var="hidden1" value="${ hidden1 }"/>
+						<c:if test="${hidden1 eq '[도서+오디오북]' || hidden1 eq '도서 오디오북'}">
 							<input type="hidden" name="containBk" value="Y">
 						</c:if>
-						<c:if test="${li.hidden1 eq '[오디오북]' || li.hidden1 eq '오디오북'}">
+						<c:if test="${hidden1 eq '[오디오북]' || hidden1 eq '오디오북'}">
 							<input type="hidden" name="containBk" value="N">
-						</c:if>
-						</c:forEach>
 						</c:if>
 					</div>
 				</div>

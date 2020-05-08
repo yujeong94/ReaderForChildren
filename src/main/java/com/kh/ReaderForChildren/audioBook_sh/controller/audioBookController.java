@@ -368,16 +368,22 @@ public class audioBookController {
 		return mv;
 	}
 	
-	@RequestMapping("purchase2.ab")
+	/*@RequestMapping("purchase2.ab")
 	public ModelAndView audioBookPurchase(@RequestParam ("arr") String cNo, HttpSession session, ModelAndView mv) {
 		String[] arr = cNo.split(",");
-		
+		System.out.println("dkdkdk" + arr[0]);
 		ArrayList<cartList> list = abService.selectcartList(arr);
-		mv.addObject(list);
+		
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getBkName());
+		}
+		mv.addObject("list",list);
+		
 		mv.setViewName("audioBookPurchase");
+		
 		return mv;
 	}
-	
+	*/
 	
 	// 개인정보 제공 동의 페이지 이동
 	@RequestMapping("agreeInform.ab")

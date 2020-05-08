@@ -153,13 +153,22 @@
 						<td id="noList">존재하는 게시글이 없습니다.</td>
 					</tr> -->
 							<tr id="contentTr">
+							
 						<td class = "list_line2" id="td1"  >${ sp.snum }</td>
-						<td class = "list_line2" id="td2"> ${ sp.spName} </td> 
+						<td class = "list_line2" id="td2">
+						<c:if test="${ sp.spCode == '41' }">
+						하트 재단 
+						</c:if>
+						<c:if test="${ sp.spCode != '41' }">
+						사랑의달팽이
+						</c:if>
+						<%--  ${ sp.spName} --%> </td> 
 							<td class="list_line2" id="td3">${ sp.supdate }</td>
 							<td class="list_line2" id="td4" ><fmt:formatNumber value="${ sp.donation }" type="number"/></td>
 						</tr>
 						<c:set var="gum" value="${sp.donation}"/>
 						<c:set var="total" value="${total+gum}"/>
+						
 					</table>
 			<!-- 	</div> -->
 				

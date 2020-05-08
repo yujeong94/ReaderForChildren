@@ -24,23 +24,14 @@
 		<!-- <result property="userNAME" column="USER_NAME"/> -->
 		 <result property="userId" column="USER_ID"/> 
 		<result property="spCode" column="SP_CODE"/>
-		<result property="spName" column="SP_NAME"/>
+		<!-- <result property="spName" column="SP_NAME"/> -->
 		
 		
 	</resultMap>
 	
-	
-	
-	<!-- <update id="suupdateMember" parameterType="Support">
-		update support
-		set snum=#{snum}, donation=#{donation},sup_date=sysdate, user_id=#{userid},
-		 	sp_name=#{spName}
-		where snum=#{snum}
-	</update> -->
-	
 	<insert id="insertSupport" parameterType="Support" >
 		insert into support values(
-			seq_snum.nextval, #{donation}, sysdate, #{userId}, #{spName} 
+			seq_snum.nextval, #{donation}, sysdate, #{userId}, #{spCode}
 			
 		)
 	</insert>

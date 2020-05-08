@@ -115,7 +115,6 @@ public class listController {
 			mv.setViewName("buylist");
 			
 			
-			System.out.println("이건리스트" + list);
 			
 		}else {
 			throw new listException("게시글 전체 조회에 실패하였습니다.");
