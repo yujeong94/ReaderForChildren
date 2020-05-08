@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -255,7 +253,7 @@ public class AdminPageController {
 	// audition 결과
 	// 합격
 	@RequestMapping("passReader.ad")
-	public String resultPassReader(@RequestParam("userId") String userId) {
+	public String resultPassReader(@RequestParam("userId") String userId, HttpSession session) {
 		
 		int result1 = aService.resultPassReaderTable(userId);
 		int result2 = aService.resultPassMemberTable(userId);
