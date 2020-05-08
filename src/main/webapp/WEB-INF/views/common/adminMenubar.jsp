@@ -51,7 +51,7 @@
 				<br>
 				<a href="#" class="bigCategory">이벤트</a>
 				<a href="${ contextPath }/eventInsert.ev" class="smallCategory">이벤트 등록</a>
-				<a href="${ contextPath }/eventWinner.ad" class="smallCategory">당첨자 추천</a>
+				<a href="${ contextPath }/eventWinner.ad" class="smallCategory">당첨자 추첨</a>
 			</div>
 		</div>
 </body>

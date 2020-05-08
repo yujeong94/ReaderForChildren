@@ -11,9 +11,6 @@
 .contents {
 	width: 1100px;
 	height: 600px;
-	background: white;
-	margin: auto;
-	margin-bottom: 100px;
 }
 
 .ap_content{
