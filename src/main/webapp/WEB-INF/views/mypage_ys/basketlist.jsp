@@ -295,41 +295,71 @@ function check(){
 }
 
 
-var arr = new Array();
-
-$(".payBtn").click(function(){
-	var ch = check();
+var bkName = null;
+var bkCode = 0;
+var price = 0;
+var codeF = 0;
+var codeM = 0;
+var contain = null;
+var sum = 0;
+var hidden1 = null;
+var hidden2 = null;
+var hidden3 = null;
+$(".chBox").click(function(){
 	
-	for(i=0; i<frm.select1.length; i++){
-		if(frm.select1[i].checked==true){
-			arr.push(frm.select1[i].value);	
-		}
-	}
-	
-	console.log("리스트페이지" + arr);
-	
-	if(ch) {
+		bkName = $(this).parent().parent().children(".bkNameClass").text().trim();
+		bkCode = $(this).parent().parent().children(".listTd1").children(".bkCode2").val();
+		price = $(this).parent().parent().children(".priceClass").text();
+		codeF = $(this).parent().parent().children(".listTd1").children(".hidden22").val();
+		codeM = $(this).parent().parent().children(".listTd1").children(".hidden33").val();
+		/* contain = $(this).parents(".containTr").children(".priceClass").children(".contain").val(); */
+		contain = $(this).parent().parent().children(".priceClass").children(".contain").val();
 		
-		 location.href="purchase2.ab?arr=" + arr; 
-	}
-});
-	
-	/* if($(".chBox").prop("checked","true")){
-		console.log($(this).val());
-	} */
+		console.log("1 " + bkName +" 2 " +bkCode +" 3 "+ price + " 4 "+codeF +" 5 "+ codeM + " 6 " + contain);
+		
+		if(contain == 'Y') {
+			hidden1 = '도서+오디오북';
+		} else {
+			hidden1 = '오디오북';
+		}
+		
+		if(codeF != "0" && codeM != "0") {
+			hidden2 = '여자음성+남자음성';
+		} else if(codeF == "0" && codeM !="0") {
+			hidden2 = '남자음성';
+		} else if(codeF != "0" && codeM =="0") {
+			hidden2 = '여자음성';
+		} 
+		
+		if(codeF !="0" && codeM !="0") {
+			hidden3 = codeF + ", " + codeM;
+		} else if(codeF == "0" && codeM !="0") {
+			hidden3 = codeM;
+		} else if(codeF !="0" && codeM =="0") {
+			hidden3 = codeF;
+		}
+		
+		
+}); 
 
-/* function goPurchase(){
+	$(".payBtn").click(function(){
+		var ch = check();
+		
+		sum = 0;
+		if(price != "0"){
+			sum = price;
+		} else if(price == "0"){
+			sum = '0';
+		}
+		if(ch) {
+			
+			location.href="purchase.ab?bkName=" + bkName + "&bkCode=" + bkCode + "&hidden1=" + hidden1 + "&hidden2=" + hidden2 + "&hidden3=" + hidden3 + "&sum=" + sum;
+		}
+	});
 	
-	 var ch = check();
-	 
+	
+		
 
-	 if(ch){
-		var f = document.frm;
-		f.action = "purchase.ab";
-		f.submit();
-	} 
-} */
-	
 
 </script>
 
