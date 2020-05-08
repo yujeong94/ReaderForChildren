@@ -16,14 +16,7 @@
 
 
 <style>
-.contents {
-   width: 1100px;
-   height: 1100px;
-   background: white;
-   margin: auto;
-   margin-bottom: 100px;
-   padding: 20px;
-}
+
 
 #title {
    margin: 50px;
@@ -103,21 +96,21 @@ label{
 	background : rgb(26,36,154);
 	cursor : pointer;
 	color:white;
-	
 }
 
 #btn_div{
 	margin-top : 40px;
 	margin-left :auto;
 	margin-right :auto;
+	margin-bottom : 40px;
 	width : 160px;
 	height : 35px;
 }
 
 #detail{
 	position : absolute;
-	right : 14%;
-	top : 30%;
+	right : 20%;
+	top : 32%;
 }
 
 .fc-event{

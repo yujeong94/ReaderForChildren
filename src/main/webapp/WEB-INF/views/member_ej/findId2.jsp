@@ -8,14 +8,7 @@
 <title>content</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 <style>
-.contents {
-   width: 1100px;
-   height: 600px;
-   background: white;
-   margin: auto;
-   margin-bottom: 100px;
-   padding: 20px;
-}
+
 
 #title {
    margin: 50px;
@@ -31,7 +24,7 @@ label{
 		border : 2px solid gray;
 		width : 60%;
 		height : 100px;
-		margin-top : 120px;
+		margin-top : 80px;
 		margin-right : auto;
 		margin-left : auto;
 		margin-bottom : 20px;
@@ -60,9 +53,8 @@ label{
 	.btn_box{
 		width : 60%;
 		margin-right : auto;
-		margin-left : 360px;
+		margin-left : 330px;
 		margin-top : 40px;
-		margin-bottom : 400px;
 		display : inline-block;
 	}
 	

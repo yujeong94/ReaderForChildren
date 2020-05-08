@@ -14,8 +14,8 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 
-@ServerEndpoint("/broadsocket")
-public class BroadSocket {
+@ServerEndpoint("/usersocket")
+public class UserSocket {
 	private interface SearchExpression{
 		boolean expression(User user);
 	}
@@ -50,7 +50,7 @@ public class BroadSocket {
 		user.key = UUID.randomUUID().toString().replace("-", "");
 		user.session = userSession;
 		sessionUsers.add(user);
-		Admin.visit(user.key);
+		AdminSocket.visit(user.key);
 	}
 	
 	@OnMessage
@@ -58,7 +58,7 @@ public class BroadSocket {
 		User user = getUser(userSession);
 		
 		if(user != null) {
-			Admin.sendMessage(user.key, message);
+			AdminSocket.sendMessage(user.key, message);
 		}
 	}
 	
@@ -78,7 +78,7 @@ public class BroadSocket {
 	public void handleColse(Session userSession) {
 		User user = getUser(userSession);
 		if(user != null) {
-			Admin.bye(user.key);
+			AdminSocket.bye(user.key);
 			sessionUsers.remove(user);
 		}
 	}

@@ -8,17 +8,10 @@
 <title>content</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
-.contents {
-   width: 1100px;
-   height: 600px;
-   background: white;
-   margin: auto;
-   margin-bottom: 100px;
-   padding: 20px;
-}
+
 
 #title {
-   margin: 50px 50px 150px 50px;
+   margin: 50px 50px 80px 50px;
    text-align: center;
 }
 
@@ -81,7 +74,6 @@
 		margin-right : auto;
 		margin-left : auto;
 		margin-top : 40px;
-		margin-bottom : 400px;
 	}
 	
 	#ok_btn{
@@ -92,7 +84,7 @@
 		font-weight : bold;
 		font-size : 20px;
 		margin-bottom : 50px;
-		margin-left : 360px;
+		margin-left : 330px;
 		border : 1px solid #F06250;
 		border-radius : 4px;
 		cursor : pointer;
@@ -202,6 +194,13 @@
 				$('#findForm').submit();
 			}
 		});
+	   
+	   
+	   
+	   var msg = "${ msg }";
+		if(msg != "") {
+			swal(msg);
+		}
    </script>
    
    <%@ include file="../common/footer.jsp" %>

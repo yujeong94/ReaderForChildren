@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
+	body{
+		background : #ffe478;
+	}
+	
 	.float-left{
 		float:left;
 		margin: 5px;
@@ -21,9 +26,9 @@
 		width : 370px;
 		height : 150px;
 		margin : 10px;
-		border: 1px solid #01D1FE;
+		border: 1px solid rgb(182,205,221);
 		border-radius:3px;
-		background : yellow;
+		background : rgb(182,205,221);
 	}
 	
 	#sendDiv{
@@ -32,7 +37,7 @@
 	}
 	
 	.message{
-		border: 1px solid #01D1FE;
+		border: 1px solid rgb(182,205,221);
 		height: 30px;
 		width: 79%;
 	}
@@ -42,7 +47,7 @@
 		width: 60px; 
 		height: 30px; 
 		text-align: center; 
-		background-color: #01D1FE; 
+		background-color: rgb(182,205,221); 
 		border-radius: 5px;
 		border : 0px;
 		font-weight: bold;
@@ -72,7 +77,7 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 	// 서버의 admin의 서블릿으로 웹 소켓을 한다.
-	var webSocket = new WebSocket("ws://localhost:9980/ReaderForChildren/admin");
+	var webSocket = new WebSocket("ws://localhost:9980/ReaderForChildren/adminsocket");
 	// 운영자에서의 open, close, error는 의미가 없어서 형태만 선언
 	webSocket.onopen = function(message) { };
 	webSocket.onclose = function(message) { };
@@ -98,7 +103,7 @@
 	// console영역을 찾는다.
 	let log = $div.find(".console").val();
 	// 아래에 메시지를 추가한다.
-	$div.find(".console").val(log +  "=> " +node.message + "\n");
+	$div.find(".console").val(log + node.message + "\n");
 	// bye는 유저가 접속을 끊었을 때 알려주는 메시지이다.
 	} else if(node.status === "bye") {
 	// 해당 키로 div를 찾아서 dom을 제거한다.
@@ -116,7 +121,7 @@
 	// console영역을 찾는다.
 	let log = $div.find(".console").val();
 	// 아래에 메시지를 추가한다.
-	$div.find(".console").val(log + "(me) => " + message + "\n");
+	$div.find(".console").val(log + "[운영자] : " + message + "\n");
 	// 텍스트 박스의 값을 초기화 한다.
 	$div.find(".message").val("");
 	// 웹소켓으로 메시지를 보낸다.

@@ -8,14 +8,6 @@
 <title>content</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common.css">
 <style>
-.contents {
-   width: 1100px;
-   height: 600px;
-   background: white;
-   margin: auto;
-   margin-bottom: 100px;
-   padding: 20px;
-}
 
 #title {
    margin: 50px;
@@ -28,11 +20,11 @@ label{
 
 	#find_box{
 		border : 2px solid gray;
-		width : 60%;
+		width : 62%;
 		height : 120px;
 		margin-right : auto;
 		margin-left : auto;
-		margin-top : 120px;
+		margin-top : 80px;
 		margin-bottom : 20px;
 		display : table;
 	}
@@ -74,7 +66,7 @@ label{
 		font-weight : bold;
 		font-size : 20px;
 		margin-bottom : 50px;
-		margin-left : 360px;
+		margin-left : 330px;
 		border : 1px solid #F06250;
 		border-radius : 4px;
 		cursor : pointer;
