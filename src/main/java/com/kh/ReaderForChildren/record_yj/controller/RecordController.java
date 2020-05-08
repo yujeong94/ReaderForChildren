@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -100,5 +101,14 @@ public class RecordController {
 		gson.toJson(recList, response.getWriter());
 	}
 	
-	
+	@RequestMapping("divisionFind.re")
+	@ResponseBody
+	public String selectDivision(@RequestParam("userId") String userId) {
+		
+		int division = reService.selectDivision(userId);
+		String status = Integer.toString(division);
+		
+		return status;
+	}
+
 }

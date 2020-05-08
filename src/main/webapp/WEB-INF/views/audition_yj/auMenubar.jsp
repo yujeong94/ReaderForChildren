@@ -10,13 +10,13 @@
 	.quick_menu {
 	 position:absolute; 
 	 margin-top: 100px; 
-	 margin-left: 123px;
+	 margin-left: 105px;
 	}
 	.quick_menu table {
 		display: inline-table;
 		margin-bottom: 20px;
 		width: 138px;
-		height: 170px;
+		height: 150px;
 	}
 	.quick_menu td {
 		cursor: pointer; 
@@ -40,15 +40,15 @@
 		<table>
 			<tr>
 				<td id="no1" style="background: #5583A6;">오디션  리스트</td>
-				<td id="no1_1"></td>
+				<!-- <td id="no1_1"></td> -->
 			</tr>
 			<tr>
 				<td id="no2" style="background: #EFA885;">지원서보기</td>
-				<td id="no2_1"></td>
+				<!-- <td id="no2_1"></td> -->
 			</tr>
-			<tr>	
+			<!-- <tr>	
 				<td onclick="location.href='testSlider.au'">testSlider</td>
-			</tr>
+			</tr> -->
 		</table>
 	</div>
 	</c:if>
@@ -63,16 +63,16 @@
 			<tr>
 				<td id="no20" style="background: #EFA885;" onclick="location.href='auListInsertView.au'">오디션등록</td>
 			</tr>
-			<tr>	
+			<!-- <tr>	
 				<td onclick="location.href='testSlider.au'">testSlider</td>
-			</tr>
+			</tr> -->
 		</table>
 	</div>
 	</c:if>
 	
 	<script>
 	$("#no2").click(function(){
-		$("#no2_1").css("background","#EFA885");
+		/* $("#no2_1").css("background","#EFA885"); */
 		var userId = "${ loginUser.userId }";
 		var division = "${ loginUser.division }";
 		if(userId != "" && division == 1) {
@@ -83,10 +83,10 @@
 				success: function(data) {
 					if(data == 'no'){
 						alert("지원한 지원서가 없습니다!");
-						$("#no2_1").css("background","none");
+						/* $("#no2_1").css("background","none"); */
 					} else {
 						location.href="apDetail.au";
-						$("#no2_1").css("background","#EFA885");
+						/* $("#no2_1").css("background","#EFA885"); */
 					}
 				},
 				error: function(data) {

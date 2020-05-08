@@ -47,8 +47,9 @@
 		background: #EF8F0E;
 	} 
 	.imgTr {
-		border: 1px solid black;
-		height: 200px;
+		border: none;
+		width: 184px;
+		height: 220px;
 	}
 	.aCon {
 		font-size: 1.1rem;
@@ -79,7 +80,7 @@
 	<div class="contents clear-fix">
 		<h1>Reader 오디션 지원</h1>
 		<h2>이 달의 판매 예정 오디오북</h2>
-		<h3>※ 오디션 지원에 관한 자세한 사항은 공지사항을 참고하세요 <a href="#" style="color:navy; text-decoration: none;"> >> 바로가기</a></h3>
+		<h3>※ 오디션 지원에 관한 자세한 사항은 공지사항을 참고하세요 <a href="noList.no" style="color:navy; text-decoration: none;"> >> 바로가기</a></h3>
 		
 		<c:if test="${ adminUser != null && aulist == null}">
 			<div id="nullInfo">
@@ -90,9 +91,8 @@
 		<c:forEach var="a" items="${ aulist }">
 			<table class="aListTable">
 				<tr>
-					<td class="imgTr"><img src="${ contextPath }/resources/uploadFiles/${ a.biName }"></td>
+					<td class="imgTr"><img src="${ contextPath }/resources/uploadFiles/${ a.biName }" width="184px" height="220px" ></td>
 				</tr>
-				<tr style="display: none;"><td class="aId"><c:out value="${ a.aNum }"/></td></tr>
 				<tr class="conBg"><td style="font-size: 1.2rem;">"${ a.bkName }"</td></tr>  
 				<tr class="conTitle conBg"><td>테스트 구절</td></tr>
 				<tr class="conBg"><td><a href="${ contextPath }/resources/uploadFiles/${ a.teName }" download="${ a.teName }"><button class="downBtn">다운로드</button></a></td></tr>
@@ -108,21 +108,22 @@
 					<c:url var="upView" value="auListUpView.au">
 						<c:param name="aNum" value="${ a.aNum }"/>
 					</c:url>
-					<c:url var="delete" value="auListDelete.au">
+					<%-- <c:url var="delete" value="auListDelete.au">
 						<c:param name="aNum" value="${ a.aNum }"/>
-					</c:url>
+					</c:url> --%>
 					
 				<tr class="conBg">
 				    <c:if test="${ loginUser != null && loginUser.division == 1 }">
-						<td class="btnTd"><button class="defaultBtn applyBtn">Apply</button>
-						<input type="hidden" value="${ a.aNum }" id="anum">
-						<input type="hidden" value="${ a.bkName }" id="bkname">
+						<td class="btnTd btnTd1"><button class="defaultBtn applyBtn">Apply</button>
+						<input type="hidden" value="${ a.aNum }" class="anum">
+						<input type="hidden" value="${ a.bkName }" class="bkname">
 						</td>
 					</c:if>
 					<c:if test="${ adminUser != null }">
 						<td class="btnTd">
 							<button class="defaultBtn upBtn" onclick="location.href='${ upView }'">Edit</button>
-							<button class="defaultBtn delBtn" onclick="delCheck();">Delete</button>
+							<button class="defaultBtn delBtn">Delete</button>
+							<input type="hidden" value="${ a.aNum }" class="anum">
 						</td>
 					</c:if>
 				</tr>
@@ -132,17 +133,29 @@
 	<c:import url="../common/footer.jsp"/>
 </div>
 <script>
-	function delCheck(){
-		if(confirm("정말 삭제하시겠습니까?")){
-			location.href="${ delete }";
-		}
-	}
+	$(".delBtn").click(function(){
+		var anum = $(this).parent().children(".anum").val();
+		
+		swal({
+			  title: "정말 삭제하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				location.href="auListDelete.au?aNum=" + anum;
+			  } else {
+			    swal("삭제가 취소되었습니다.");
+			  }
+			});
+	});
 	
 	// 오디션 한번만 지원가능
 	$(".applyBtn").click(function(){
 		var userId = "${ loginUser.userId }";
-		var anum = $("#anum").val();
-		var bkname = $("#bkname").val();
+		var anum = $(this).parent().children(".anum").val();
+		var bkname = $(this).parent().children(".bkname").val();
 		
 		var today = new Date();
 		var day = today.getDate();

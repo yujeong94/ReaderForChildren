@@ -6,7 +6,7 @@
 		select *
 		from audition
 		where status='Y'
-		order by aNum
+		order by anum
 	</select>
 	
 	<resultMap type="Audition" id="auditionResultSet">
@@ -126,11 +126,18 @@
 		where user_id = #{userId} and user_pwd = #{userPwd}
 	</select>
 	
+	<select id="selectReader" parameterType="string" resultType="_int">
+		select count(*)
+		from reader
+		where user_id = #{userId}
+	</select>
+	
 	<select id="selectStatus" parameterType="string" resultType="_int">
 		select status
 		from reader
 		where user_id = #{userId}
 	</select>
+	
 	
 </mapper>
 

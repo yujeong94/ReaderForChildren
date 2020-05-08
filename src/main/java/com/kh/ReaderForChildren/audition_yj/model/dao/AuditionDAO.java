@@ -95,7 +95,19 @@ public class AuditionDAO {
 	}
 
 	public int selectStatus(SqlSessionTemplate sqlSession, String userId) {
-		return sqlSession.selectOne("auditionMapper.selectStatus", userId);
+		
+		int result = 0;
+		
+		int check = sqlSession.selectOne("auditionMapper.selectReader", userId);
+		
+		if(check > 0) {
+			result = sqlSession.selectOne("auditionMapper.selectStatus", userId);
+		} else {
+			result = 4; 
+			// 4면 오디션 지원한 사람이 아닌 것
+		}
+		
+		return result;
 	}
 
 }

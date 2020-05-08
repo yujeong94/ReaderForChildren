@@ -83,10 +83,8 @@
 		다음엔 좋은 결과로 함께할 수 있기를 바라겠습니다.<br>
 		감사합니다.
 		</c:if>
-		<c:if test="${ status == 3 }">
-		<label>${ loginUser.userName }님(${ loginUser.userId })</label>은 Reader 오디션에 <label style="red;">불합격</label>하셨습니다.<br>
-		또한, 불성실한 태도로 인해 영구 정지 당하셨습니다. <br><br>
-		문의사항은 고객센터로 문의하시길 바랍니다.
+		<c:if test="${ status == 4 }">
+	 	<label>${ loginUser.userName }님(${ loginUser.userId })</label>의 Reader 오디션 지원 내역이 존재하지 않습니다.
 		</c:if>
 	</div>
 	 

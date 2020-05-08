@@ -22,4 +22,10 @@
 		<result property="userId" column="user_id"/>
 		<result property="reStatus" column="re_status"/>
 	</resultMap>
+	
+	<select id="selectDivision" resultType="_int">
+		select division
+		from member
+		where user_id = #{userId}
+	</select>
 </mapper>

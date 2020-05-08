@@ -91,7 +91,7 @@
 		<form id="auListUpdateForm" action="auListUpdate.au" method="post" enctype="Multipart/form-data">
 		
 			<div id="imgDiv">
-				<img id="bookImg" src="${ contextPath }/resources/uploadFiles/${ audition.biName }">
+				<img id="bookImg" src="${ contextPath }/resources/uploadFiles/${ audition.biName }" width="160px" height="200px">
 				<input type="hidden" name="biName" value="${ audition.biName }">
 			</div>
 			
@@ -103,7 +103,7 @@
 				<tr class="conBg">
 					<td style="padding-top:10px;">
 						<label id="bookName">책 이름</label>
-						<input type="text" name="bkName" value="${ audition.bkName }">
+						<input type="text" name="bkName" value="${ audition.bkName }" required>
 						<input type="hidden" name="aNum" value="${ audition.aNum }">
 					</td>
 				</tr>
@@ -157,11 +157,11 @@
 				</tr>
 				<tr class="aCon conBg">
 					<td>
-						<label>요청사항</label><textarea rows="10" name="request">${ audition.request }</textarea>
+						<label>요청사항</label><textarea rows="10" name="request" required>${ audition.request }</textarea>
 					</td>
 				</tr>
 				<tr class="aCon conBg">
-					<td><label>마감날짜 </label><input type="date" name="endDate" id="endDate" value="${ audition.endDate }"></td>
+					<td><label>마감날짜 </label><input type="date" name="endDate" id="endDate" value="${ audition.endDate }" required></td>
 					<jsp:useBean id="now" class="java.util.Date"/>
 					<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="today"/>
 				</tr>
