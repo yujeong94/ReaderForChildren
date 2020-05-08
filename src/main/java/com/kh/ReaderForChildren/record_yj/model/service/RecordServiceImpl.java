@@ -28,4 +28,9 @@ public class RecordServiceImpl implements RecordService {
 		return reDAO.selectRecBooth(sqlSession, r);
 	}
 
+	@Override
+	public int selectDivision(String userId) {
+		return reDAO.selectDivision(sqlSession, userId);
+	}
+
 }

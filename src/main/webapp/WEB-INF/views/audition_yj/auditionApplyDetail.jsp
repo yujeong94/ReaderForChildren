@@ -89,9 +89,20 @@
 </div>
 <script>
 	$('.delBtn').click(function(){
-		if(confirm("정말 삭제하시겠습니까?")){
-			location.href="apDelete.au";
-		}
+		
+		swal({
+			  title: "정말 삭제하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				location.href="apDelete.au";
+			  } else {
+			    swal("삭제가 취소되었습니다.");
+			  }
+			});
 	});
 </script>
 </body>

@@ -18,4 +18,8 @@ public class RecordDAO {
 		return (ArrayList)sqlSession.selectList("recordMapper.selectRecord", r);
 	}
 
+	public int selectDivision(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("recordMapper.selectDivision", userId);
+	}
+
 }

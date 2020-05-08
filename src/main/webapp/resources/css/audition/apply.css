@@ -38,9 +38,9 @@ th {
 	position: relative;
 }
 
-#imgCon {
+/* #imgCon {
 	font-size: 12px;
-}
+} */
 
 #proImgArea {
 	border: 1px solid black;
@@ -54,8 +54,9 @@ th {
 }
 
 #proImg {
-	max-width: 100%;
-	height: 100%;
+	cursor: pointer;
+	width: 150px;
+	height: 150px;
 }
 
 #profileCon {

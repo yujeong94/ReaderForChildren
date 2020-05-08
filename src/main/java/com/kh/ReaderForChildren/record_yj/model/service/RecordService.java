@@ -10,4 +10,6 @@ public interface RecordService {
 
 	ArrayList<RecBooth> selectRecBooth(RecBooth r);
 
+	int selectDivision(String userId);
+
 }

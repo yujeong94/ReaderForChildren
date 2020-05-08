@@ -25,7 +25,7 @@
 			
 			<div id="profileArea" class="divblank">
 				<div id="proImgArea">
-				 	<span id="imgCon">click!!</span>
+				 	<!-- <span id="imgCon">click!!</span> -->
 					<img id="proImg">
 				</div>
 				<div id="fileArea">

@@ -43,8 +43,7 @@
 	
 	#imgDiv {
 		border: 1px dashed black;
-		width: 170px;
-		height: 200px;
+		width: 160px;
 		overflow: hidden;
 		margin: auto;
 	}
@@ -88,31 +87,31 @@
 		<h2>- 오디오북 리스트 등록 -</h2>
 		<form id="auListInsertForm" action="auListInsert.au" method="post" enctype="Multipart/form-data">
 			<div id="imgDiv">
-				<img id="bookImg">
+				<img id="bookImg" width="160px" height="200px">
 			</div>
 			<div id="imgUpBtn">
 				<button type="button" id="imgCon" class="defaultBtn">사진 업로드</button>
 			</div>
 			<table class="aListTable">
 				<!-- <tr><td class="aId">게시글번호 <input type="number" min="1" max="5" name="aNum"></td></tr> -->
-				<tr class="conBg"><td style="padding-top:10px;"><label id="bookName">책 이름</label><input type="text" name="bkName"></td></tr>
+				<tr class="conBg"><td style="padding-top:10px;"><label id="bookName">책 이름</label><input type="text" name="bkName" required></td></tr>
 				<tr class="conBg"><td class="conTitle">테스트 구절</td></tr>
 				<tr class="conBg"><td>
 				<!-- <button type="button" id="testBtn">업로드</button> -->
-					<input type="file" accept=".txt" name="testFile" style="padding-left: 50px">
+					<input type="file" accept=".txt" name="testFile" style="padding-left: 50px" required>
 				</td></tr>
 				<tr class="conBg"><td class="conTitle">모집조건</td></tr>
 				<tr class="aCon conBg">
 				<td>
 					<label>성별</label><select style="width: 80px;" name="qGender">
-											<option value="무관">무관</option>
+											<option value="무관" selected>무관</option>
 											<option value="남자">남자</option>
 											<option value="여자">여자</option>
 									  </select>
 				</td>
 				<tr class="aCon conBg"><td>
 					<label>나이</label><select multiple="multiple" style="width: 80px;" name="qAge">
-											<option value="무관">무관</option>
+											<option value="무관" selected>무관</option>
 											<option value="20대">20대</option>
 											<option value="30대">30대</option>
 											<option value="40대">40대</option>
@@ -123,10 +122,10 @@
 									  <input type="radio" value="무" name="qCareer"><span>무</span>
 				</td></tr>
 				<tr class="aCon conBg"><td>
-					<label>요청사항</label><textarea rows="10" name="request"></textarea>
+					<label>요청사항</label><textarea rows="10" name="request" required></textarea>
 				</td></tr>
 				<tr class="aCon conBg">
-					<td id="dateCheck"><label>마감날짜 </label><input type="date" name="endDate" id="endDate"></td>
+					<td id="dateCheck"><label>마감날짜 </label><input type="date" name="endDate" id="endDate" required></td>
 					<jsp:useBean id="now" class="java.util.Date"/>
 					<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="today"/>
 				</tr>
@@ -135,7 +134,7 @@
 				</tr>
 			</table>
 			<div id="fileArea">
-				<input type="file" accept="image/*" id="bookBtn" name="bookFile" onchange="Load(this,1)">
+				<input type="file" accept="image/*" id="bookBtn" name="bookFile" onchange="Load(this,1)" required>
 				<!-- <input type="file" accept="text/plain" id="testImg" name="testBtn" onchange="Load(this,2)"> -->
 			</div>
 		</form>
@@ -167,10 +166,13 @@
 			}
 			
 			$(".upBtn").click(function(){
+				if($("#bookBtn").val() == "") {
+					swal("사진을 넣어주세요!");
+				}
 				var endDate = $("#endDate").val().replace(/-/g,"");
 				var today = ${ today };
 				
-				if(endDate < today) {
+				if(endDate != "" && endDate < today) {
 					swal("지난 날짜입니다. 날짜를 확인해주세요");
 					$(this).attr("type","button");
 				} else {

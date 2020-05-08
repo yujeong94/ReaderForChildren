@@ -167,23 +167,34 @@
 		    document.getElementById("menuShow").style.width = "230px";
 		    $("#menuShow").css("z-index","1");
 		}
+	   
 	   function closeMenu() {
 		    document.getElementById("menuShow").style.width = "0";
 		}
 	   
 	   $("#recBtn").click(function(){
 		  	var userId = "${ loginUser.userId }";
-			var division = "${ loginUser.division }";
 			var admin = "${ adminUser.userId }";
 			
+			
+			$.ajax({
+				url: "divisionFind.re",
+				type: "post",
+				data: {userId:userId},
+				success: function(data){
+					console.log(data);
+					if(data == "1") {
+						swal("리더회원만 예약할 수 있습니다.");
+					} else {
+						location.href="recordView.re";
+					}
+				}
+			});
 			if(userId == "" && admin == "") {
 				swal("로그인 후 이용해주세요.");
-				location.href="home.do";
-			} else if(division == "1") {
-				swal("리더 회원만 예약할 수 있습니다.");
-			} else {
+			} /* else {
 				location.href="recordView.re";
-			}
+			} */
 	   });
    </script>
    
