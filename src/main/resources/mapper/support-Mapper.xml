@@ -23,7 +23,9 @@
 		<result property="supdate" column="SUP_DATE"/>
 		<!-- <result property="userNAME" column="USER_NAME"/> -->
 		 <result property="userId" column="USER_ID"/> 
+		<result property="spCode" column="SP_CODE"/>
 		<result property="spName" column="SP_NAME"/>
+		
 		
 	</resultMap>
 	

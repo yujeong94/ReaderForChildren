@@ -113,16 +113,17 @@
 			
 	</select> -->
 	<select id="selectorList" resultMap="OrlistResultSet">
-		 select or_no, or_date,or_status,user_id, decode(del_status,'1','배송준비중','2','배송완료') as del_status, decode(contain_bk,'Y','+도서포함 ','N','')as contain_bk, bk_name, change_name,change_name1, img
+		 select or_no, or_date,or_status,user_id, decode(del_status,'1','배송준비중','2','배송완료') as del_status, decode(contain_bk,'Y','+도서포함 ','N','')as contain_bk, bk_name, change_name,aud_code_m,aud_code_f, img
 		from order_list
 		where or_status = 'Y' and user_id=#{userId}
+		order by or_no desc
 	</select>
 	
-	<select id="selectOrderDetail" resultMap="OrderdetailResultSet">
+	<!-- <select id="selectOrderDetail" resultMap="OrderdetailResultSet">
 		select *
 		from order_detail
 		where or_status = 'Y' and user_id=#{userId}
-	</select>
+	</select> -->
 	
 	<resultMap type="Orlist" id="OrlistResultSet">
 		<result property="orNo" column="OR_NO"/>
@@ -130,8 +131,9 @@
 		<result property="orDate" column="OR_DATE"/>
 		<result property="orStatus" column="OR_STATUS"/>
 		<result property="delStatus" column="DEL_STATUS"/>
-		<result property="aud_code_m" column="CHANGE_NAME"/>
-		<result property="aud_code_f" column="CHANGE_NAME1"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="aud_code_m" column="AUD_CODE_M"/>
+		<result property="aud_code_f" column="AUD_CODE_F"/>
 		<result property="img" column="IMG"/>
 		<result property="containBk" column="CONTAIN_BK"/>
 		<result property="userId" column="USER_ID"/>
@@ -153,13 +155,7 @@
 		<result property="sNo" column="S_NO"/>
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
-	<!-- <select>
-	SELECT change_name
-FROM AUDIO_FILE
-WHERE AUD_CODE = (SELECT AUD_CODE_F
-                FROM ORDER_DETAIL
-                WHERE OR_NO = '2' AND USER_ID = 'user04');
-	</select> -->
+
 	
 	 <resultMap type="OrderDetail" id="OrderDetailResultSet">
 		<id property="orNo" column="OR_NO"/>

@@ -148,6 +148,18 @@
      		$('#pwdCheck2').val(0);
      	}
      });
+     var check = false;
+     
+     $(".upBtn").click(function(){
+ 		
+ 		if(check == false) {
+ 			$(".upBtn").attr("type","button");
+ 			swal("비밀번호가 일치하지 않습니다.");
+ 		} else {
+ 			$(".upBtn").attr("type","submit");
+ 			console.log("submit");
+ 		}
+ 	});
     </script>
    
    

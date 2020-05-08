@@ -16,6 +16,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 
 @Service("abService")
 public class audioBookServiceImpl implements audioBookService{
@@ -138,6 +139,11 @@ public class audioBookServiceImpl implements audioBookService{
 	@Override
 	public ArrayList<BookImage> selectBestList() {
 		return abDAO.selectBestList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<cartList> selectcartList(String[] arr) {
+		return abDAO.selectcartList(sqlSession, arr);
 	}
 
 }

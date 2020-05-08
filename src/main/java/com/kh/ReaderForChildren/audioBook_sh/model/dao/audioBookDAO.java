@@ -15,6 +15,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.OrderDetail;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 
 @Repository("abDAO")
 public class audioBookDAO {
@@ -152,5 +153,16 @@ public class audioBookDAO {
 	public ArrayList<BookImage> selectBestList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("audioBookMapper.selectBestList");
 	}
+
+	public ArrayList<cartList> selectcartList(SqlSessionTemplate sqlSession, String[] arr) {
+		ArrayList<cartList> ca = new ArrayList<cartList>();
+		
+		for(int i = 0; i < arr.length; i++) {
+			cartList cl = sqlSession.selectOne("audioBookMapper.selectcartList", arr[i]);
+			ca.add(cl);
+		}
+		return ca;
+	}
+
 
 }

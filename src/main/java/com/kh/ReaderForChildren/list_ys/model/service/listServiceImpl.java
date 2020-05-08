@@ -107,10 +107,10 @@ public class listServiceImpl implements listService {
 		return sum;
 	}
 
-	@Override
+	/*@Override
 	public ArrayList<OrderDetail> selectOrderDetail(PageInfo pi, String userId) {
 		return liDAO.selectOrderDetail(sqlSession, pi, userId);
-	}
+	}*/
 
 	
 	

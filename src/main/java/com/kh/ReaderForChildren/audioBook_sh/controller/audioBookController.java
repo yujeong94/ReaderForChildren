@@ -36,6 +36,7 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Pagination;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
+import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Controller
@@ -364,6 +365,16 @@ public class audioBookController {
 		mv.addObject("sNo", sNo);
 		mv.setViewName("audioBookPurchase");
 		
+		return mv;
+	}
+	
+	@RequestMapping("purchase2.ab")
+	public ModelAndView audioBookPurchase(@RequestParam ("arr") String cNo, HttpSession session, ModelAndView mv) {
+		String[] arr = cNo.split(",");
+		
+		ArrayList<cartList> list = abService.selectcartList(arr);
+		mv.addObject(list);
+		mv.setViewName("audioBookPurchase");
 		return mv;
 	}
 	

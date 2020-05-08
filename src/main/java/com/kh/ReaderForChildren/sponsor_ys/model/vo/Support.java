@@ -10,16 +10,18 @@ public class Support {
 	private Date supdate;
 	private String userId;
 	private String spName;
+	private String spCode;
 	
 	public Support () {}
 
-	public Support(int snum, int donation, Date supdate, String userId, String spName) {
+	public Support(int snum, int donation, Date supdate, String userId, String spName, String spCode) {
 		super();
 		this.snum = snum;
 		this.donation = donation;
 		this.supdate = supdate;
 		this.userId = userId;
 		this.spName = spName;
+		this.spCode = spCode;
 	}
 
 	public int getSnum() {
@@ -62,12 +64,21 @@ public class Support {
 		this.spName = spName;
 	}
 
+	public String getSpCode() {
+		return spCode;
+	}
+
+	public void setSpCode(String spCode) {
+		this.spCode = spCode;
+	}
+
 	@Override
 	public String toString() {
 		return "Support [snum=" + snum + ", donation=" + donation + ", supdate=" + supdate + ", userId=" + userId
-				+ ", spName=" + spName + "]";
+				+ ", spName=" + spName + ", spCode=" + spCode + "]";
 	}
 
+	
 
 	
 	
