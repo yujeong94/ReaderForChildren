@@ -162,7 +162,7 @@
 	#tabletd {border-left-style:none; border-right-style:none;}
 	#tabletd td{ vertical-align: middle;}
 #btn{margin-left:370px; margin-top:30px;}
-.upBtn{width:80px;height:35px;  color: white;  box-shadow: none; 
+.upBtn{width:90px;height:35px;  color: white;  box-shadow: none; 
     border: none; border-radius: 5px; font-size:13pt; font-weight: bold; }
     .delBtn{width:90px;height:35px;  color: white;  box-shadow: none; 
     border: none; border-radius: 5px; font-size:13pt; font-weight: bold; }
@@ -257,7 +257,7 @@
    <tr> 
    <td><button type="button" onclick="location.href='mupdateView.me'" class="upBtn" id="updateBtn">정보수정</button></td> 
 					
-				<td><button type="button" id="cancels" class="upBtn" onclick="location.href='javascript:history.go(-1)'">취소</button></td>
+				<td><button type="button" id="cancels" class="upBtn" onclick="location.href = 'index.jsp'">메인으로</button></td>
 				
 				<c:url var="mdelete" value="mdelete.me">
 						<c:param name="userId" value="${ loginUser.userId }"/>

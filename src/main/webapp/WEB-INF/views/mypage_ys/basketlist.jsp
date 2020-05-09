@@ -91,7 +91,8 @@
 #checkdelete{margin-left:140px; margin-top:15px;}
 #buttonTab{margin-left:480px; margin-top:25px;}
 #total{margin-left:860px; font-size: 18px;  }
-
+.upBtn{color: white;  box-shadow: none; 
+    border: none; border-radius: 5px; font-size:13pt; font-weight: bold; }
 </style>
 
 </head>
@@ -111,7 +112,7 @@
     		<th colspan="2" class="list_title" id="th2">상품명</th>
     		<th class="list_title" id="th3"></th>
     		<th class="list_title" id="th4">가격</th>
-    		<th class="list_title" id="th5">주문관리</th>
+    		<th class="list_title" id="th5"></th>
     	</tr>
     </table>
     </div>
@@ -131,14 +132,14 @@
 					<c:url var="cadelete" value="cadelete.li">
 					<c:param name="cNo" value="${ ca.cNo }"/>
 					</c:url>
-					<tr class="contentTr">
+					<tr class="contentTr" data-tr_value="${ca.cNo }">
 							<!-- <td align="center"></td> -->
 						<td align="center"></td>
 						<td align="left">
 							<%-- <input type="hidden" id="bkCode" value="${ ca.bkCode }"> --%>
 							<input type="hidden" id="page" value="${ pi.currentPage }">
 						</td>  
-						<td class = "list_line2 listTd1" id="td1"> ${ca.cNo } <input type="checkbox" id="cNo" class="chBox" name="select1" value="${ca.cNo }"/>
+						<td class = "list_line2 listTd1" id="td1"> ${ca.cNo } <input type="checkbox" id="cNo" class="chBox" name="cNo" value="${ca.cNo }"/>
 																		<input type="hidden" name="bkCode" id="bkCode" class="bkCode2" value="${ ca.bkCode }">
 																		<input type="hidden" name="hidden2" id="hidden2" class="hidden22" value="${ ca.audCodeF }">
 																		<input type="hidden" name="hidden3" id="hidden3" class="hidden33" value="${ ca.audCodeM }">  
@@ -154,7 +155,7 @@
 							<input type="hidden" id="hidden1" name="price" value="${ ca.cPrice }">
 							<input type="hidden" class="contain" name="containBk" value="${ ca.containBk }">
 							</td>
-							<td  class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" onclick="deletecart()">삭제하기</button>
+							<td  class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" id="delete" class="upBtn" onclick="deletecart()">삭제</button>
 						     <input type = "hidden" class = "input_info" name="userId" value="${loginUser.userId }">
 						     </td>
 						<!-- <td>
@@ -227,7 +228,7 @@
      <script>
      function selectAll() {
     	 	var all = document.getElementById("allCheck");
-			var check = document.getElementsByName("select1");
+			var check = document.getElementsByName("cNo");
 
 			for (var i = 0; i < check.length; i++) {
 				if (all.checked) {
@@ -239,19 +240,36 @@
 		}
      
      var checkMessage = "";
-     function deletecart(){
+     /* function deletecart(){
 			var bool = confirm("삭제하시겠습니까?");
 			
 			if( bool ){
-				var check = document.getElementsByName("select");
 				
 				
 				location.href='${cadelete}';
+				
 			};
 		};
-     
+      */
      
 		</script>
+		
+		<script>
+		 $('.upBtn').click(function(){
+        if(confirm("삭제하시겠습니까?")){
+            $("input[class='chBox']:checked").each(function(){
+                var tr_value =$(this).val();
+                var tr=$("tr[data-tr_value='"+tr_value+"']");
+                tr.remove();
+            });
+        }else{
+            return false;
+        }
+    });
+ 
+
+		</script>
+		 
 		 
 		
 		<script >
@@ -315,7 +333,7 @@ $(".chBox").click(function(){
 		/* contain = $(this).parents(".containTr").children(".priceClass").children(".contain").val(); */
 		contain = $(this).parent().parent().children(".priceClass").children(".contain").val();
 		
-		console.log("1 " + bkName +" 2 " +bkCode +" 3 "+ price + " 4 "+codeF +" 5 "+ codeM + " 6 " + contain);
+		/* console.log("1 " + bkName +" 2 " +bkCode +" 3 "+ price + " 4 "+codeF +" 5 "+ codeM + " 6 " + contain); */
 		
 		if(contain == 'Y') {
 			hidden1 = '도서+오디오북';

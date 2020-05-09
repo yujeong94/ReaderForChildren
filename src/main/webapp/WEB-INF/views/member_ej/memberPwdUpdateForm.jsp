@@ -76,6 +76,7 @@
       height : 27px;
       width : 95%;
    }
+   .pwdinform{ margin-left:30px;}
  /*   .upBtn{width:100px;height:30px; color:white; margin-right : -360px;
       margin-left : 440px; margin-top:30px; cursor:pointer} */
       .upBtn{width:80px;height:35px;  color: white;  box-shadow: none; 
