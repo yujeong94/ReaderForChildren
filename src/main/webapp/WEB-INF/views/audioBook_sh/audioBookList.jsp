@@ -26,13 +26,14 @@
 	.search{text-align: center; margin-bottom: 30px;}
 	.selectbox{width: 80px; height: 32px; border-radius: 5px; margin-right: 10px;}
 	.bestbox{margin-bottom: 50px; background: rgb(255, 248, 242); padding: 20px 0 20px;}
-	.best{margin: 0 auto 30px; width: 840px; height: 330px;}
+	.best{margin: 0 auto 30px; width: 930px; height: 330px;}
 	.bestTitle{font-size: 28px; font-weight: 500; color: #444; text-align: center;}
 	.bestText{font-size: 12px; font-weight: 500; color: #444; text-align: center; margin-bottom: 30px;}
-	#tb img{width: 230px; height: 250px; margin: 0 10px 0;}
-	#tb img{margin-right: 40px;}
+	.bestBk{width: 230px; height: 250px; margin: 0 10px 0;}
+	.bestBk{margin-right: 40px;}
+	.medal{width: 35px; height: 45px;}
 	#tb td{font-size: 20px; font-weight: bold; color: rgb(109, 109, 109);}
-	#tb img:hover{cursor: pointer;}
+	.bestBk:hover{cursor: pointer;}
 	.frame{text-align: center; margin-bottom: 30px;}
 	.searchline{border: 0; border-bottom: 2px solid darkgray; outline: none; width: 500px; height: 40px;}
 	.sBtn{border: none; background:none;} .sBtn:hover {cursor: pointer;}
@@ -41,13 +42,13 @@
 	.text1{font-weight: bold; font-size: 18px; margin-bottom: 10px;}
 	.text2{color: gray; margin-bottom: 10px;}
 	.contents{display: inline-block; margin-left: 215px; margin-right: 10px;}
-	.latest{display: inline-block; width: 110px; height: 500px; position: fixed;
+	.latest{display: inline-block; width: 110px; position: fixed;
 			background: white;}
-	.latestTitle{text-align: center; background: rgb(190, 190, 190); color: white; font-weight: bold; font-size: 17px; 
+	.latestTitle{text-align: center; background: orange; color: white; font-weight: bold; font-size: 16px; 
 				vertical-align: middle; padding: 10px 0;}
 	.latestTitle span{font-weight: normal; font-size: 14px;}
-	.cookieBox{width: 110px; height: 420px;}
-	.cookieBox img{margin: 6px 0 0 5px;}
+	.cookieBox{width: 110px;}
+	.cookieBox img{margin: 5px;}
 </style>
 </head>
 <body>
@@ -196,7 +197,7 @@
 		</div>
 		
 		<div class="latest">
-			<div class="latestTitle">오늘 본 상품<br><span>1/3</span></div>
+			<div class="latestTitle">방금 본 상품<br></div>
 			<div style="background: #ffe478; height: 8px;"></div>
 			<div class="cookieBox">
 			<%
@@ -244,25 +245,28 @@
 					var $td5 = $("<td>");
 					var $td6 = $("<td>");
 					
-					var $num1 = $td0.text('1');
+					/* var $num1 = $td0.text('1');
 					var $num2 = $td2.text('2');
-					var $num3 = $td4.text('3');
-					var $img0 = $("<img onclick='move(this);'>").attr('src',"${ contextPath }/resources/bookUploadImages/"+data[0].changeName);
-					var $img1 = $("<img onclick='move(this);'>").attr('src',"${ contextPath }/resources/bookUploadImages/"+data[1].changeName);
-					var $img2 = $("<img onclick='move(this);'>").attr('src',"${ contextPath }/resources/bookUploadImages/"+data[2].changeName);
+					var $num3 = $td4.text('3'); */
+					var $img0 = $("<img class='medal'>").attr('src',"${ contextPath }/resources/images/gold.png");
+					var $img1 = $("<img class='medal'>").attr('src',"${ contextPath }/resources/images/silver.png");
+					var $img2 = $("<img class='medal'>").attr('src',"${ contextPath }/resources/images/bronze.png");
+					var $img3 = $("<img class='bestBk' onclick='move(this);'>").attr('src',"${ contextPath }/resources/bookUploadImages/"+data[0].changeName);
+					var $img4 = $("<img class='bestBk' onclick='move(this);'>").attr('src',"${ contextPath }/resources/bookUploadImages/"+data[1].changeName);
+					var $img5 = $("<img class='bestBk' onclick='move(this);'>").attr('src',"${ contextPath }/resources/bookUploadImages/"+data[2].changeName);
 					
 					var $hidden1 = $("<input type='hidden' class='bestBkCode'>").attr('value', data[0].bkCode);
 					var $hidden2 = $("<input type='hidden' class='bestBkCode'>").attr('value', data[1].bkCode);
 					var $hidden3 = $("<input type='hidden' class='bestBkCode'>").attr('value', data[2].bkCode);
 					
-					$td0.append($num1);
-					$td1.append($img0);
+					$td0.append($img0);
+					$td1.append($img3);
 					$td1.append($hidden1);
-					$td2.append($num2);
-					$td3.append($img1);
+					$td2.append($img1);
+					$td3.append($img4);
 					$td3.append($hidden2);
-					$td4.append($num3);
-					$td5.append($img2);
+					$td4.append($img2);
+					$td5.append($img5);
 					$td5.append($hidden3);
 					
 					for(var i=0; i<7; i++){

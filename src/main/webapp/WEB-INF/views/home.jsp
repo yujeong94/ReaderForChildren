@@ -173,8 +173,34 @@ a:hover { text-decoration: none; cursor : pointer;}
 }
 
 </style>
+<script>
+	function showPopup() {
+<%
+		boolean check = false;
+		Cookie ck[] = request.getCookies();
+		if(ck != null){
+			for(int i=0; i<ck.length; i++){
+				String name = ck[i].getName();
+				String value = ck[i].getValue();
+				if(name.equals("pop") && value.equals("no")){
+					check = true;
+					break;
+				}
+			}
+		}
+		if(!check){
+%>
+			var popLeft = Math.ceil(( window.screen.width - 30 )/2);
+			var popTop = Math.ceil(( window.screen.height - 500 )/2);
+			
+			window.open("popup.ab", "", "width=525, height=380, "+ ", left=" + popLeft + ", top="+ popTop);
+<%		
+		}
+%>
+	}
+</script>
 </head>
-<body>
+<body onload="showPopup()">
 <div class="outer">
 	<jsp:include page="common/menubar.jsp"/>
 	<div class="home_contents">

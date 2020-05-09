@@ -30,6 +30,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>audioBookDetail</title>
 <style type="text/css">
+	.listIconArea{height: 50px;}
+	#listIcon{float: right;} #listIcon:hover{cursor: pointer;}
 	.cTitle{color: grey; font-size: 18px; font-weight: bold; margin-left: 60px; float: left; margin-top: 7px;}
 	.title{display: inline-block; color: black; font-size: 25px; font-weight: bold; padding-left: 20px; margin-bottom: 50px;}
 	.tb{margin: 0 auto; font-size: 16px;}
@@ -75,7 +77,10 @@
 	
 		<div class="contents">
 			<form name="frm" method="post" onsubmit="return check();">
-			<div style="height: 50px;"></div>
+			<div class="listIconArea">
+				<img src="${ contextPath }/resources/images/listIcon.png" width="30" height="30" id="listIcon" onclick="location.href='ablist.ab'">
+			</div>
+			
 			<div class="cTitle">오디오북 > </div>
 			<div class="title">${ b.bkName }</div>
 			

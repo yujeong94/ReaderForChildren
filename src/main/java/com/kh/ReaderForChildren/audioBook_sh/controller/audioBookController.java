@@ -745,4 +745,11 @@ public class audioBookController {
 		
 	}
 	
+	
+	// 광고 팝업창
+	@RequestMapping("popup.ab")
+	public String showPopUp() {
+		return "AdPopUp";
+	}
+	
 }
