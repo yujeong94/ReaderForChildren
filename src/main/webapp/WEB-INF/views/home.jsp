@@ -160,8 +160,10 @@ a:hover { text-decoration: none; cursor : pointer;}
 }
 
 .passDiv {
-	/* background: #89d0be;  */
 	background: #E0F8EC;
+	/* background: url(/ReaderForChildren/resources/images/audition.jpg); */
+	/* background-size: contain; */
+	/* background: white; */
 	text-align: center;
 	font-size: 1.8rem;
 	font-weight: bold;
@@ -245,6 +247,18 @@ a:hover { text-decoration: none; cursor : pointer;}
 	  <!-- <div class="numbertext">2 / 3</div> -->
 	  <img src="${ contextPath }/resources/uploadFiles/20200421223319.png" onclick="location.href='eventList.ev'" class="sImg">
 
+	</div>
+	
+	<div class="mySlides fade">
+	  <!-- <div class="numbertext">1 / 3</div> -->
+	  <img src="${ contextPath }/resources/images/love.JPG" class="sImg" style="opacity: 0.8;">
+	  <!-- <div class="text">Caption Text</div> -->
+	</div>
+	
+	<div class="mySlides fade">
+	  <!-- <div class="numbertext">1 / 3</div> -->
+	  <img src="${ contextPath }/resources/images/vol.png" class="sImg" style="opacity: 0.9;">
+	  <!-- <div class="text">Caption Text</div> -->
 	</div>
 	
 	<div class="mySlides fade">
