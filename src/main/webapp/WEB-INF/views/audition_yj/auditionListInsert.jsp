@@ -12,7 +12,7 @@
 	h1 {
 		margin-bottom: 10px;
 	}
-	h2 { 
+	#newh2 { 
 		font-size: 1.5rem;
 		font-weight: 500;
 		text-align: center;
@@ -82,9 +82,10 @@
 <div class="outer">
 	<c:import url="../common/menubar.jsp"/>
 	<c:import url="auMenubar.jsp"/>
+	
 	<div class="contents clear-fix">
 		<h1>Reader 오디션 </h1>
-		<h2>- 오디오북 리스트 등록 -</h2>
+		<h2 id="newh2">- 오디오북 리스트 등록 -</h2>
 		<form id="auListInsertForm" action="auListInsert.au" method="post" enctype="Multipart/form-data">
 			<div id="imgDiv">
 				<img id="bookImg" width="160px" height="200px">

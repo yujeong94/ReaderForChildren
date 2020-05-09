@@ -76,8 +76,9 @@
 			</div>
 			
 			<h2 style="margin-left: 10px; margin-top: 100px;">Career</h2>
-			
+			<span id="cSpan"> ※모든 값을 채워주세요. 모든 값이 채워져야 등록됩니다.</span>
 			<div id="careerArea">
+				
 				<table id="careerCon">
 					<tr>
 						<th width=180px class="careerBorder">기간</th>

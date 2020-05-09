@@ -33,7 +33,6 @@
 		margin-bottom: 30px;
 		width: 500px;
 		heigth: 20px;
-		background: green;
 	}
 	#searchBtn {
 		vertical-align: middle;

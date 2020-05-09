@@ -150,3 +150,9 @@ th {
 	margin-right: 5px;
 	height: 10px;
 }
+
+#cSpan {
+	color: gray;
+	font-size: 11pt;
+	margin-left: 30px;
+}

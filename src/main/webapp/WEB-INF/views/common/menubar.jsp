@@ -133,7 +133,7 @@
 
       <div id="menuShow">
 			<!-- <a href="#" class="closeBtn" onclick="closeMenu();">X</a> -->
-			<a href="${ ablist }">오디오북 shop</a>
+			<a href="${ ablist }" style="margin-top: 50px;">오디오북 shop</a>
 			<a href="${ splist }">아동 후원</a>
 			<a href="${ contextPath }/volView.vo">봉사 일정</a>
 			<a href="${ aulist }">Reader 오디션 지원</a>
@@ -176,25 +176,29 @@
 		  	var userId = "${ loginUser.userId }";
 			var admin = "${ adminUser.userId }";
 			
-			
-			$.ajax({
-				url: "divisionFind.re",
-				type: "post",
-				data: {userId:userId},
-				success: function(data){
-					console.log(data);
-					if(data == "1") {
-						swal("리더회원만 예약할 수 있습니다.");
-					} else {
-						location.href="recordView.re";
-					}
-				}
-			});
 			if(userId == "" && admin == "") {
 				swal("로그인 후 이용해주세요.");
-			} /* else {
+			} else if(userId != "") {
+				
+				$.ajax({
+					url: "divisionFind.re",
+					type: "post",
+					data: {userId:userId},
+					success: function(data){
+						console.log(data);
+						if(data == "1") {
+							swal("리더회원만 예약할 수 있습니다.");
+						} else {
+							location.href="recordView.re";
+						}
+					}
+				});
+				
+			} else {
 				location.href="recordView.re";
-			} */
+			}
+			
+
 	   });
    </script>
    
