@@ -98,7 +98,6 @@
 		#gomain{width: 125px;height: 40px; background-color: rgb(236, 158, 149); color: white; font-weight: bold; cursor:pointer;
 		margin-left:480px;   margin-top:15px;  font-size: 18px; text-align: center; border: 0; border-radius: 5px;}
 		#buttonTab{margin-left:480px; margin-top:25px;}
-		
 </style>
 
 </head>
@@ -111,7 +110,7 @@
   <div id="title"><h1>주문 내역</h1></div>
   
   
-	<table style="margin-left: 150px;">
+	<table style="margin-left: 90px;">
 		<tr>
 			<td class = "content_title" id = "title3" onclick="location.href = 'shlist.li'" > 배송지 관리</td>
 		</tr>
@@ -257,17 +256,13 @@
 		</script>
    			
         
-      <button type="button" id = "gomain" class="defaultBtn">뒤로가기</button>
+      <button type="button" id = "gomain" class="defaultBtn" onclick="location.href = 'index.jsp'">메인으로</button>
     
    </div>
  
    	
    	
-   	<script>
-   		$('.defaultBtn').click(function(){
-   			window.history.back();
-   		});
-   </script>
+   
    </div>
    </div>
    <c:import url="../common/footer.jsp"/> 

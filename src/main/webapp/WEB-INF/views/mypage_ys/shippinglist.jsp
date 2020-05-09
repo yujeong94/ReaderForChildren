@@ -47,8 +47,8 @@
 			display : inline-table;
 		
 		}
-		#th1{ width:60px;  height:50px; border-radius : 10px 0px 0px 10px;}
-		#th2{ width:60px;  }
+		#th1{ width:120px;  height:50px; border-radius : 10px 0px 0px 10px;}
+		/* #th2{ width:60px;  } */
 		#th3{ width:190px; }
 		#th4{ width:140px;}
 		#th5{ width:210px; }
@@ -100,8 +100,7 @@
    	<div id="listarea">
 		    <table id="sponserlist">
 		    	<tr>
-		    		<th class="list_title" id="th1">기본 <br>배송지 </th>
-		    		<th class="list_title" id="th2">번호</th>
+		    		<th class="list_title" id="th1">기본 배송지 </th>
 		    		<th class="list_title" id="th3">배송지 명</th>
 		    		<th class="list_title" id="th4">수령인</th>
 		    		<th class="list_title" id="th5">주소</th>

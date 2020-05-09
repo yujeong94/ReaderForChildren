@@ -198,10 +198,6 @@
 						</td>
 					</tr>
 					<tr class="boardTr">
-						<td class="td" onclick="location.href = '../basket/basketlist.jsp'" id="infoTd">장바구니 조회
-						</td>
-					</tr>
-					<tr class="boardTr">
 						<td class="td" onclick="location.href = 'booklist.jsp'" id="infoTd">예약부스 내역 조회
 						</td>
 					</tr>
