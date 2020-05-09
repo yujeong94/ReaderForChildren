@@ -82,7 +82,7 @@
 				data: {userId:userId},
 				success: function(data) {
 					if(data == 'no'){
-						alert("지원한 지원서가 없습니다!");
+						swal("지원한 지원서가 없습니다!");
 						/* $("#no2_1").css("background","none"); */
 					} else {
 						location.href="apDetail.au";
@@ -90,9 +90,11 @@
 					}
 				},
 				error: function(data) {
-					alert("열람할 수 없습니다!");
+					swal("열람할 수 없습니다!");
 				}
 			});
+		} else {
+			swal("지원서 조회를 할 수 없습니다.");
 		} 
 	});
 
