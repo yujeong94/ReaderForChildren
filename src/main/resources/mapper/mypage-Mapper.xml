@@ -173,7 +173,7 @@
 	</resultMap> 
 	
 	<update id="deleteBuy" parameterType="_int">
-		update order_list
+		update order_detail
 		set or_status='N'
 		where or_no=#{orNo}
 	</update>
