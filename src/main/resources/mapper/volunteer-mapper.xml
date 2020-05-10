@@ -47,7 +47,7 @@
 		select USER_ID, VL_STATUS, VOL_START, VOL_END, VOL_STATUS, VOL_CONTENT, VL_NUM2
 		from myvol_list
 		where vl_status ='Y' and user_id = #{userId}
-		order by vol_start
+		order by vol_start desc
 	</select>
 	
 	<resultMap type="MyVolunteerActivity" id="myVolResultSet">

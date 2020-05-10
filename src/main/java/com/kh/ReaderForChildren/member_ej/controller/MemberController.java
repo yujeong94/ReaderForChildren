@@ -273,7 +273,7 @@ public class MemberController {
 				String host = "smtp.naver.com";
 				int port = 465;
 			    final String admin = "togethertour_team@naver.com";
-			    final String password = "totopass0101!";
+			    final String password = "flejflej!";
 			    
 			    String receiver = m.getEmail();
 				String title = "[ReaderForChildren 임시비밀번호]";

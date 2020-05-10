@@ -230,6 +230,7 @@ label{
 					success : function(data){
 						if(data == "true"){
 							alert("날짜를 확인해주세요");
+							location.reload();
 						}else{
 							$.ajax({
 								type : "POST",
@@ -238,6 +239,7 @@ label{
 								success : function(data){
 									if(data == "true"){
 										alert("이미 신청하신 봉사활동입니다.");
+										location.reload();
 									}else{
 										$('#submitInform').submit();
 									}
@@ -253,9 +255,6 @@ label{
 		}
 	});
 </script>
-
-
-
 
 <script>
 	
@@ -297,17 +296,6 @@ label{
 			   
 			   $("#schedule2").text($('#schedule').val());
 			   $('#tr2').removeAttr('style');	
-			   
-			   /* var vlNum2 = $('#eventNum').val();
-			   $.ajax({
-				   type : "POST",
-				   url : 'selectMax.vo',
-				   data : {vlNum2 : vlNum2},
-				   success : function(data){
-					   data = JSON.parse(data);
-					   console.log(data.max);
-				   }
-			   }) */
 			   
 		   },
 		   
@@ -355,6 +343,8 @@ label{
 			$(this).css("border-color","black");
 		});
 	})
+	
+	
 </script>
 
 </html>
