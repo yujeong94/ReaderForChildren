@@ -245,9 +245,6 @@
 					var $td5 = $("<td>");
 					var $td6 = $("<td>");
 					
-					/* var $num1 = $td0.text('1');
-					var $num2 = $td2.text('2');
-					var $num3 = $td4.text('3'); */
 					var $img0 = $("<img class='medal'>").attr('src',"${ contextPath }/resources/images/gold.png");
 					var $img1 = $("<img class='medal'>").attr('src',"${ contextPath }/resources/images/silver.png");
 					var $img2 = $("<img class='medal'>").attr('src',"${ contextPath }/resources/images/bronze.png");
@@ -283,7 +280,9 @@
 		$(function(){
 			bestList();
 			
-			setInterval(function(){bestList();}, 100000);
+			setInterval(function(){
+				bestList();
+			}, 10000);
 		});
 		
 		
