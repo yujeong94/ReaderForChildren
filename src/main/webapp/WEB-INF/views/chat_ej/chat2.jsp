@@ -115,7 +115,6 @@
 			<div id = "inputMessage_form2">
 				<div id = "userDiv">
 						<input id="user" type="hidden" value="${ loginUser.userName }" readonly/>
-						<%-- <input id="realuser" type="hidden" value="${ loginUser.userId }" readonly/> --%>
 				</div>
 				<input type="text" class="form-control" id = "message" placeholder = "Enter..." onkeydown="return enter()">
 				<input onclick="sendMessage()" value="전송" type="button" id ="sendBtnForm">
@@ -156,11 +155,8 @@
 	function sendMessage() {
 		var user = document.getElementById("user");
 		var message = document.getElementById("message");
-		/* var realuser = document.getElementById("realuser"); */
 		
-		console.log(user);
-		
-			messageTextArea.value += "[" +  user.value + "]" + " : " + message.value + "\n";
+		messageTextArea.value += "[" +  user.value + "]" + " : " + message.value + "\n";
 
 
 		// WebSocket 서버에 메시지를 송신한다.
@@ -174,9 +170,6 @@
 	
 <script type="text/javascript">
 
-	
-	
-	
 	function enter() {
 		if(event.keyCode === 13) {
 			sendMessage();
