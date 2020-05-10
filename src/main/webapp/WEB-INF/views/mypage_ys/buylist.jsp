@@ -154,8 +154,8 @@
 							
 							<td rowspan="2" class="list_line2" id="td3">${o.orDate }</td>
 							<td rowspan="2" class="list_line2" id="td4" >  ${ o.delStatus }
-								<c:if test="${ o.delStatus == '배송준비중' }">
-									<button id="button" type="button" onclick="deleteBuy()">주문취소</button>
+								<c:if test="${ o.delStatus == '결제완료' }">
+									<button id="button" type="button" class="btn" onclick="deleteBuy()">주문취소</button>
 								</c:if>
 							<%-- <c:if test="">
 								
@@ -245,7 +245,7 @@
 		</tr>
 		</table>
 					
-		 <script>
+		<script>
 		function deleteBuy(){
 			var bool = confirm("삭제하시겠습니까?");
 			
@@ -254,7 +254,7 @@
 			}
 		}
 		</script>
-   			
+   		
         
       <button type="button" id = "gomain" class="defaultBtn" onclick="location.href = 'index.jsp'">메인으로</button>
     
