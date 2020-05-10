@@ -42,12 +42,6 @@ public class VolunteerController {
 	public String addVolSchedule(@ModelAttribute VolunteerSchedule vs, Model model) {
 
 		int result = vService.addVolSchedule(vs);
-
-		/* ArrayList<VolunteerSchedule> vsS = vService.getSchedule(); */
-
-//		model.addAttribute("content", vs.getVolContent());
-//		model.addAttribute("start", vs.getVolStart());
-//		model.addAttribute("end", vs.getVolEnd());
 		
 		model.addAttribute("result", result);
 
