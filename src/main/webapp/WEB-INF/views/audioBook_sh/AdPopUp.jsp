@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="content">
-		<img src="${ contextPath }/resources/images/popupImg.png" width="650" height="450">
+		<img src="${ contextPath }/resources/images/popupImg.png" width="680" height="450">
 		<form method="post" action="popup.ab" name="frm">
 			<div class="ment">
 				<input type="checkbox" name="chk" id="chk" value="no" onclick="document.frm.submit()">

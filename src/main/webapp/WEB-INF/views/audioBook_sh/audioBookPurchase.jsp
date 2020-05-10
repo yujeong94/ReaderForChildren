@@ -187,18 +187,18 @@
 	
 	function changeShipAdd(){
 		var popLeft = Math.ceil(( window.screen.width - 650 )/2);
-		var popTop = Math.ceil(( window.screen.height - 430 )/2);
+		var popTop = Math.ceil(( window.screen.height - 650 )/2);
 		
-		window.open("shipAddList.ab", "shippingAddressList", "width=650, height=430, "+ ", left=" + popLeft + ", top="+ popTop);
+		window.open("shipAddList.ab", "shippingAddressList", "width=750, height=580, "+ ", left=" + popLeft + ", top="+ popTop);
 	}
 	
 	
 	$(function(){
 		$('.agreeMent').click(function(){
 			var popLeft = Math.ceil(( window.screen.width - 400 )/2);
-			var popTop = Math.ceil(( window.screen.height - 530 )/2);
+			var popTop = Math.ceil(( window.screen.height - 700 )/2);
 			
-			window.open("agreeInform.ab", "agreeForInformProvision", "width=400, height=530, "+ ", left=" + popLeft + ", top="+ popTop);
+			window.open("agreeInform.ab", "agreeForInformProvision", "width=500, height=600, "+ ", left=" + popLeft + ", top="+ popTop);
 		});
 	});
 	

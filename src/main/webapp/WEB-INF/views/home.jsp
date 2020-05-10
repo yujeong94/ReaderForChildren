@@ -192,10 +192,10 @@ a:hover { text-decoration: none; cursor : pointer;}
 		}
 		if(!check){
 %>
-			var popLeft = Math.ceil(( window.screen.width - 30 )/2);
-			var popTop = Math.ceil(( window.screen.height - 500 )/2);
+			var popLeft = Math.ceil(( window.screen.width - 400 )/2);
+			var popTop = Math.ceil(( window.screen.height - 700 )/2);
 			
-			window.open("popup.ab", "", "width=525, height=380, "+ ", left=" + popLeft + ", top="+ popTop);
+			window.open("popup.ab", "", "width=690, height=480, "+ ", left=" + popLeft + ", top="+ popTop);
 <%		
 		}
 %>
