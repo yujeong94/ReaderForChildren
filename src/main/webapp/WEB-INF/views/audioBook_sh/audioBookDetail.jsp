@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	BookImage i = (BookImage)request.getAttribute("i");
@@ -58,12 +59,12 @@
 	.simpleInfo span{color: grey; margin-right: 7px;} .simpleInfo b{font-weight: bold; margin-right: 20px;}
 	.simpleInfo{font-size: 16px; margin-bottom: 30px;}
 	.intro span{font-size: 16px; font-weight: bold;}
-	.intro2{margin: 8px 0 100px 0; height: 30px; font-size: 14px;}
+	.intro2{margin: 8px 0 200px 0; height: 30px; font-size: 14px;}
 	.IT2{display: inline-block;}
 	.tab{display: inline-block; padding: 28px 0 0 564px;}
 	.Ftab{height: 30px; border: none; background: rgb(243, 156, 18); color: white; font-weight: bold; outline: none;} .Ftab:hover {cursor: pointer;}
 	.Mtab{height: 30px; border: none; background: darkgrey; color: white; font-weight: bold; outline: none;} .Mtab:hover {cursor: pointer;}
-	.intro3{margin: 8px 0 70px 0; height: 30px; font-size: 14px;}
+	.intro3{margin: 8px 0 150px 0; height: 30px; font-size: 14px;}
 	.record{height: 100px; margin-top: 20px;}
 	.updateBtn{background: rgb(231, 76, 60); color: white; border: none; width: 130px; height: 50px; border-radius: 5px;
 				font-weight: bold; font-size: 20px; text-align: center; margin-top: 20px; margin-right: 8px;} .updateBtn:hover {cursor: pointer;}
@@ -156,7 +157,8 @@
 					<div class="intro">
 						<span>책 소개</span>
 						<div class="intro2">
-						${ b.bkIntro }
+						<% pageContext.setAttribute("newLineChar", "\r\n"); %>
+						${ fn:replace(b.bkIntro, newLineChar, "<br>") }
 						</div>
 					</div>
 					
@@ -178,7 +180,8 @@
 						<div class="intro">
 							<span>리더 소개</span>
 							<div class="intro3">
-							${ abF.rdIntro }
+							<% pageContext.setAttribute("newLineChar", "\r\n"); %>
+							${ fn:replace(abF.rdIntro, newLineChar, "<br>") }
 							</div>
 							<span>미리듣기</span>
 							<div class="record">
@@ -195,7 +198,8 @@
 						<div class="intro">
 							<span>리더 소개</span>
 							<div class="intro3">
-							${ abM.rdIntro }
+							<% pageContext.setAttribute("newLineChar", "\r\n"); %>
+							${ fn:replace(abM.rdIntro, newLineChar, "<br>") }
 							</div>
 							<span>미리듣기</span>
 							<div class="record">
