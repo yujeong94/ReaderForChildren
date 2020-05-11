@@ -351,8 +351,31 @@
 			var loginAdmin = "${adminUser.userId}";
 			
 			if(loginId == userId || loginAdmin == 'admin' ){
-				var deleteCheck = confirm("정말로 삭제하시겠습니까?");
-				if(deleteCheck){
+				/* var deleteCheck = confirm("정말로 삭제하시겠습니까?"); */
+				swal({
+					  title: "정말 삭제하시겠습니까?",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					  if (willDelete) {
+						  $.ajax({
+								url: "deleteReply.ev",
+								data: {userId:userId, eNum:eNum},
+								type: "post",
+								success: function(data){
+									if(data != null){
+										getReplyList();
+										swal('댓글이 삭제되었습니다.');
+									}
+								}
+							});
+					  } else {
+					    swal("삭제가 취소되었습니다.");
+					  }
+					});
+				/* if(deleteCheck){
 					$.ajax({
 						url: "deleteReply.ev",
 						data: {userId:userId, eNum:eNum},
@@ -364,7 +387,7 @@
 							}
 						}
 					});
-				}
+				} */
 			} else {
 				swal('회원의 댓글이 아닙니다.');
 			}
