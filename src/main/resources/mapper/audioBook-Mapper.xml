@@ -252,6 +252,7 @@
 			from(select *
     			from book_image
         			join bestview using(bk_code)
+                where bi_status='Y'    
     			order by sales desc)
 			where rownum < 4
 		]]>	
