@@ -265,13 +265,13 @@ a:hover { text-decoration: none; cursor : pointer;}
 
 	<div class="mySlides fade">
 	  <!-- <div class="numbertext">1 / 3</div> -->
-	  <img src="${ contextPath }/resources/images/slide1.jpg" class="sImg">
+	  <img src="${ contextPath }/resources/images/main.png" class="sImg">
 	  <!-- <div class="text">Caption Text</div> -->
 	</div>
 	
 	<div class="mySlides fade">
 	  <!-- <div class="numbertext">2 / 3</div> -->
-	  <img src="${ contextPath }/resources/uploadFiles/20200421223319.png" onclick="location.href='eventList.ev'" class="sImg">
+	  <img src="${ contextPath }/resources/uploadFiles/이벤트4.png" onclick="location.href='eventList.ev'" class="sImg">
 
 	</div>
 	
