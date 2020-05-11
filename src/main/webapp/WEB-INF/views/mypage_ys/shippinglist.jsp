@@ -195,7 +195,7 @@
 			});
 		
 		</script>
-		<table id="buttonTab">
+		<%-- <table id="buttonTab">
 						<tr align="center" height="20" id="buttonTab">
 			<td colspan="6">
 			
@@ -237,7 +237,7 @@
 			</td>
 		</tr>
 		</table>
-		
+		 --%>
 		
 	</div>
    
