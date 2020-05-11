@@ -100,7 +100,7 @@
 			
 			<div id="recordArea">
 				<span id="recordSpan"> 녹음 파일 </span><input type="hidden" accept="audio/*">
-				<a href="${ contextPath }/resources/uploadFiles/${ r.recName }">${ r.recName }</a>
+				<a href="${ contextPath }/resources/uploadFiles/${ r.recName }">${ oldRec }</a>
 			</div>
 			
 			 

@@ -304,7 +304,6 @@
 		}); 
 		
 		$(function(){
-			
 			// 댓글 등록
 			$('#rSubmit').on('click', function(){
 				var replyCheck = 0;
@@ -341,14 +340,10 @@
 				} else {
 					swal('댓글을 작성해주세요.');
 				}
-				
-				
 			});
-			
 		});
 		
 		// 댓글 삭세
-		// replyCheck = false로 바꿔야함!
 		function deleteReplyImg(obj){
 			var userId = $(obj).parent().parent().children('.replyName').text();
 			var eNum = ${ event.eNum }
@@ -357,7 +352,6 @@
 			
 			if(loginId == userId || loginAdmin == 'admin' ){
 				var deleteCheck = confirm("정말로 삭제하시겠습니까?");
-				/* swal("정말로 삭제하시겠습니까?", {buttons: [true, false],}) */
 				if(deleteCheck){
 					$.ajax({
 						url: "deleteReply.ev",
@@ -374,7 +368,6 @@
 			} else {
 				swal('회원의 댓글이 아닙니다.');
 			}
-			
 		}
 		
 		

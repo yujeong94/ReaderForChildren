@@ -241,8 +241,12 @@ public class AdminPageController {
 		ArrayList<Career> c = aService.selectCareer(userId);
 		Audition a = aService.selectAudition(r.getaNum());
 		
+		String[] recArr = r.getRecName().split("/");
+		String oldRec = recArr[0];
+		r.setRecName(recArr[1]);
+		
 		if(r != null && c != null) {
-			mv.addObject("r", r).addObject("c", c).addObject("a", a).addObject("m", m).setViewName("auditionForm");
+			mv.addObject("r", r).addObject("c", c).addObject("a", a).addObject("m", m).addObject("oldRec", oldRec).setViewName("auditionForm");
 		} else {
 			throw new AdminPageException("지원서 상세페이지 실패");
 		}
