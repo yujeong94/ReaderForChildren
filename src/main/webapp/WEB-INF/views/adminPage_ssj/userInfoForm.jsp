@@ -217,7 +217,12 @@ table > tbody > tr > td {
 							<c:forEach var="s" items="${ support }" varStatus="c">
 								<tr>
 									<td class="NOtd">${ c.count }</td>
-									<td class="IDtd">${ s.spName }</td>
+									<td class="IDtd">
+										<c:choose>
+											<c:when test="${ s.spCode == 41 }">하트 재단</c:when>
+											<c:otherwise>사랑의 달팽이</c:otherwise>
+										</c:choose>
+									</td>
 									<td class="DATEtd">${ s.supdate }</td>
 									<td class="STATUStd stuTd"><fmt:formatNumber value="${ s.donation }" type="number"/></td>
 								</tr>
@@ -248,7 +253,12 @@ table > tbody > tr > td {
 							<c:forEach var="s" items="${ support }" varStatus="c">
 								<tr>
 									<td class="NOtd">${ c.count }</td>
-									<td class="IDtd">${ s.spName }</td>
+									<td class="IDtd">
+										<c:choose>
+											<c:when test="${ s.spCode == 41 }">하트 재단</c:when>
+											<c:otherwise>사랑의 달팽이</c:otherwise>
+										</c:choose>
+									</td>
 									<td class="DATEtd">${ s.supdate }</td>
 									<td class="STATUStd stuTd"><fmt:formatNumber value="${ s.donation }" type="number"/></td>
 								</tr>
