@@ -195,7 +195,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 			var popLeft = Math.ceil(( window.screen.width - 400 )/2);
 			var popTop = Math.ceil(( window.screen.height - 700 )/2);
 			
-			window.open("popup.ab", "", "width=690, height=480, "+ ", left=" + popLeft + ", top="+ popTop);
+			window.open("popup.ab", "", "width=690, height=490, "+ ", left=" + popLeft + ", top="+ popTop);
 <%		
 		}
 %>
