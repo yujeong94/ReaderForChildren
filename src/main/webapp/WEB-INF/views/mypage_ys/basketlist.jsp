@@ -155,7 +155,7 @@
 							<input type="hidden" id="hidden1" name="price" value="${ ca.cPrice }">
 							<input type="hidden" class="contain" name="containBk" value="${ ca.containBk }">
 							</td>
-							<td  class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" id="delete" class="upBtn" onclick="deletecart()">삭제</button>
+							<td  class="list_line2" id="td5" ><%-- ${ca.status } --%><button type="button" id="delete" class="defaultBtn delBtn" onclick="deletecart()">삭제</button>
 						     <input type = "hidden" class = "input_info" name="userId" value="${loginUser.userId }">
 						     </td>
 						<!-- <td>
@@ -218,7 +218,7 @@
   		<tr>
   			
 			<td>
-				<input type="button" class="payBtn upBtn" id="pay" value="주문하기" >
+				<input type="button" class="payBtn defaultBtn upBtn" id="pay" value="주문" >
 			</td>
 			
 		</tr>  
@@ -255,7 +255,7 @@
 		</script>
 		
 		<script>
-		 $('.upBtn').click(function(){
+		 $('.delBtn').click(function(){
         if(confirm("삭제하시겠습니까?")){
             $("input[class='chBox']:checked").each(function(){
                 var tr_value =$(this).val();
