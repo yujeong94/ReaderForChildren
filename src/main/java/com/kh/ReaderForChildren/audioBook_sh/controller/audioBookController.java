@@ -3,6 +3,7 @@ package com.kh.ReaderForChildren.audioBook_sh.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +37,6 @@ import com.kh.ReaderForChildren.audioBook_sh.model.vo.PageInfo;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Pagination;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.SearchCondition;
 import com.kh.ReaderForChildren.audioBook_sh.model.vo.Shipping;
-import com.kh.ReaderForChildren.audioBook_sh.model.vo.cartList;
 import com.kh.ReaderForChildren.member_ej.model.vo.Member;
 
 @Controller
@@ -723,6 +723,12 @@ public class audioBookController {
 	@RequestMapping("bestList.ab")
 	public void bestList(HttpServletResponse response) throws JsonIOException, IOException {
 		ArrayList<BookImage> biList = abService.selectBestList();
+		
+		// 한글 인코딩
+		for(BookImage bi : biList) {
+			bi.setOriginName(URLEncoder.encode(bi.getOriginName(), "UTF-8"));
+	    	bi.setChangeName(URLEncoder.encode(bi.getChangeName(), "UTF-8"));
+		}
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(biList, response.getWriter());
