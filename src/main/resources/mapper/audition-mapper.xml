@@ -39,7 +39,7 @@
 	<update id="updateAudition" parameterType="Audition">
 		update audition 
 		<set>
-			bk_name=#{bkName}, q_gender=#{qGender}, q_age=#{qAge}, q_career=#{qCareer}, request=#{request}, end_date=#{endDate}
+			bk_name=#{bkName}, q_gender=#{qGender}, q_age=#{qAge}, q_career=#{qCareer}, request=#{request}, end_date=#{endDate},
 			<if test="tePath != null">
 				te_name=#{teName}, te_path=#{tePath},
 			</if>
