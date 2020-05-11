@@ -136,21 +136,21 @@
 	<select id="eventWinnerList" resultMap="eventResultSet">
 		select *
 		from event
-		order by e_num desc
+		order by e_start desc
 	</select>
 	
 	<select id="eventIngList" resultMap="eventResultSet">
 		select *
 		from event
 		where e_division = 1
-		order by e_num desc
+		order by e_start desc
 	</select>
 	
 	<select id="eventEndList" resultMap="eventResultSet">
 		select *
 		from event
 		where e_division = 2
-		order by e_num desc
+		order by e_start desc
 	</select>
 	
 	<select id="selectSponsorList" resultMap="supportResultSet">
@@ -250,7 +250,7 @@
 	<select id="buyerListView" resultType="AdminOrderList">
 		select *
 		from admin_orderlist
-		order by or_no desc
+		order by or_date desc
 	</select>
 	
 	<update id="orderReceipt">
@@ -267,8 +267,8 @@
 		</where>
 		order by
 		<choose>
-			<when test="selectbox == '오래된'">or_no asc</when>
-			<otherwise>or_no desc</otherwise>
+			<when test="selectbox == '오래된'">or_date asc</when>
+			<otherwise>or_date desc</otherwise>
 		</choose>
 	</select>
 	
