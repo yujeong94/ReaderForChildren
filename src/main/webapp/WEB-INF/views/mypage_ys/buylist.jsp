@@ -155,7 +155,7 @@
 							<td rowspan="2" class="list_line2" id="td3">${o.orDate }</td>
 							<td rowspan="2" class="list_line2" id="td4" >  ${ o.delStatus }
 								<c:if test="${ o.delStatus == '결제완료' }">
-									<button id="button" type="button" class="btn" onclick="deleteBuy()">주문취소</button>
+									
 								</c:if>
 							<%-- <c:if test="">
 								

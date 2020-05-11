@@ -218,7 +218,7 @@
   		<tr>
   			
 			<td>
-				<input type="button" class="payBtn" id="pay" value="주문하기" >
+				<input type="button" class="payBtn upBtn" id="pay" value="주문하기" >
 			</td>
 			
 		</tr>  
