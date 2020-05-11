@@ -256,9 +256,38 @@ button{
 			var selectbox = $('#category').val();
 			var thisbtn = $(this);
 			
-			var check = confirm("접수하시겠습니까?");
+			/* var check = confirm("접수하시겠습니까?"); */
 			
-			if(check){
+			swal({
+				  title: "배송접수를 하시겠습니까?",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  $.ajax({
+							url: "orderReceipt.ad",
+							data: {userId:userId, orNum:orNum},
+							success: function(data){
+								console.log("data : " + data);
+								if(data == "success"){
+									thisbtn.removeClass("statusBtn").removeClass("blinking").removeClass("readyBtn").addClass("successBtn");
+									thisbtn.text("접수완료").css({'background':'#707171', 'color':'white'});
+									thisbtn.parent().children(".statusBtn").removeClass('blinking');
+									
+									if(selectbox == "배송준비"){
+										window.location.reload();
+									}
+								}
+							}
+						});
+				  } else {
+				    swal("배송 접수가 실패되었습니다.");
+				  }
+				});
+			
+			/* if(check){
 				$.ajax({
 					url: "orderReceipt.ad",
 					data: {userId:userId, orNum:orNum},
@@ -277,7 +306,7 @@ button{
 						}
 					}
 				});
-			}
+			} */
 			
 		});
 		
