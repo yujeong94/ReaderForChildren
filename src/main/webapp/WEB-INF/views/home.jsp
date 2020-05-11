@@ -271,7 +271,7 @@ a:hover { text-decoration: none; cursor : pointer;}
 	
 	<div class="mySlides fade">
 	  <!-- <div class="numbertext">2 / 3</div> -->
-	  <img src="${ contextPath }/resources/uploadFiles/이벤트4.png" onclick="location.href='eventList.ev'" class="sImg">
+	  <img src="${ contextPath }/resources/uploadFiles/이벤트6.png" onclick="location.href='eventList.ev'" class="sImg">
 
 	</div>
 	
